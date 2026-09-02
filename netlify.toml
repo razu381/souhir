@@ -1,0 +1,31 @@
+# Static prototype: no build step. The repo root is the web root — the src/
+# pages resolve ../dist and ../assets against it.
+[build]
+  publish = "."
+
+# "/" has no root index.html by design; the directions index lives at /src/.
+[[redirects]]
+  from = "/"
+  to = "/src/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/src"
+  to = "/src/index.html"
+  status = 200
+
+# Extensionless deep links, matching the local preview URLs.
+[[redirects]]
+  from = "/src/hero-threshold"
+  to = "/src/hero-threshold.html"
+  status = 200
+
+[[redirects]]
+  from = "/src/hero-exhibition"
+  to = "/src/hero-exhibition.html"
+  status = 200
+
+[[redirects]]
+  from = "/src/hero-overture"
+  to = "/src/hero-overture.html"
+  status = 200

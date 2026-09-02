@@ -43,3 +43,11 @@ Any static file server rooted at the project, e.g.:
 ```sh
 npx serve .           # then open /src/index.html
 ```
+
+## Deploy (Netlify)
+
+No build step — the repo root is the publish directory (`netlify.toml` pins it).
+`/` rewrites to the directions index; the hero pages are also reachable
+extensionless (`/src/hero-exhibition`). For drag-drop deploys, drop the repo
+root — `_redirects` sits there for exactly that case.
+
