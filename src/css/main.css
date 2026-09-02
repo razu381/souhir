@@ -7,7 +7,11 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 
 @import "./tokens.css";
-@import "./base.css";
+/* base MUST sit in the declared base layer: unlayered, its element defaults
+   (a { color: inherit } above all) would outrank EVERYTHING in the components
+   layer at any specificity — component colour declarations were silently
+   losing to inheritance (button hover text was unreadable). */
+@import "./base.css" layer(base);
 @import "./components.css";
 
 /* Breakpoints pinned to Elementor's devices so the conversion is 1:1 rather

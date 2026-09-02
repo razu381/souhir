@@ -1050,8 +1050,9 @@
 /* ===========================================================================
    SHARED — outline button (§06): pill, hairline, tracked caps, ↗.
    The one sanctioned rounded form in the system (component spec overrides the
-   general sharp-corner rule). Champagne appears only in the hover fill — on
-   noir, as the fill itself, where it belongs.
+   general sharp-corner rule). On light grounds the hover fill is noir and the
+   label flips to paper white — champagne proved too quiet to read at label
+   size. On noir grounds the fill inverts to champagne with noir type.
    ======================================================================== */
 .sf-btn {
   display: inline-flex;
@@ -1076,7 +1077,7 @@
 .sf-btn:focus-visible {
   background: var(--noir);
   border-color: var(--noir);
-  color: var(--champagne);
+  color: var(--paper);
   outline: none;
 }
 
@@ -1155,6 +1156,9 @@
   max-width: 26rem;
   margin-block-start: clamp(1.75rem, 4.5vh, 3rem);
 }
+
+/* The felt line hands off to the button — 20px of air, per spec. */
+.sf-explore .sf-btn { margin-block-start: 1.25rem; }
 
 .sf-explore__figure {
   margin: 0;
