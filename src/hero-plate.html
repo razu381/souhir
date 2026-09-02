@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison SF — Beyond Visibility. Into Memory.</title>
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../dist/fonts/bodoni-moda-normal-latin.woff2">
+<link rel="preload" as="image" media="(min-width: 1025px)"
+      imagesrcset="../assets/hero/blue-shirt-900.webp 900w,
+                   ../assets/hero/blue-shirt-1400.webp 1400w,
+                   ../assets/hero/blue-shirt-2000.webp 2000w"
+      imagesizes="40vw">
+<link rel="stylesheet" href="../dist/sf.css">
+</head>
+<body style="background:var(--umber)">
+
+<a class="sf-skip" href="#explore">Skip to content</a>
+
+<header class="sf-header sf-header--plate" data-sf-header>
+  <a class="sf-header__brand" href="/" aria-label="Maison SF — home">Maison <em>SF</em></a>
+  <button class="sf-header__menu" type="button" aria-expanded="false" aria-controls="sf-nav" data-sf-menu-toggle>
+    Menu <span class="sf-header__menu-rule" aria-hidden="true"></span>
+  </button>
+</header>
+
+<main>
+
+<!-- =====================================================================
+     SECTION 01 — HERO, variant B "The Plate"
+     ================================================================== -->
+<section class="sf-section sf-plate" id="hero" data-sf-hero>
+
+  <div class="sf-plate__body">
+    <div class="sf-plate__rule">
+      <span>(Maison SF)</span>
+      <span class="sf-plate__note">Luxury Visual Presence</span>
+    </div>
+
+    <h1 class="sf-plate__title"><span class="sf-plate__line sf-plate__line--a"><span class="sf-plate__line-in">Beyond</span></span><span class="sf-plate__line sf-plate__line--b"><span class="sf-plate__line-in">Visibility.</span></span><span class="sf-plate__line sf-plate__line--c"><span class="sf-plate__line-in">Into Memory.</span></span></h1>
+
+    <div class="sf-plate__rule">
+      <span class="sf-plate__mark">Est. MMXXVI</span>
+      <span class="sf-plate__note">Hospitality &middot; Wellness &middot; Beauty &middot; Editorial</span>
+    </div>
+
+    <div class="sf-plate__foot">
+      <span class="sf-plate__note">Crafting experiences designed to be remembered</span>
+      <a class="sf-plate__cue" href="#explore">Scroll <span class="sf-plate__cue-arrow" aria-hidden="true">&darr;</span></a>
+    </div>
+  </div>
+
+  <figure class="sf-plate__media">
+    <picture>
+      <source type="image/webp"
+              srcset="../assets/hero/blue-shirt-600.webp 600w,
+                      ../assets/hero/blue-shirt-900.webp 900w,
+                      ../assets/hero/blue-shirt-1400.webp 1400w,
+                      ../assets/hero/blue-shirt-2000.webp 2000w"
+              sizes="(min-width: 1025px) 40vw, 100vw">
+      <img src="../assets/hero/blue-shirt-900.jpg"
+           srcset="../assets/hero/blue-shirt-600.jpg 600w,
+                   ../assets/hero/blue-shirt-900.jpg 900w,
+                   ../assets/hero/blue-shirt-1400.jpg 1400w"
+           sizes="(min-width: 1025px) 40vw, 100vw"
+           alt="A woman in a blue shirt, black tailored jacket and leather skirt walking across a rain-wet Parisian square under a storm sky."
+           width="7067" height="10533"
+           fetchpriority="high" decoding="async">
+    </picture>
+    <figcaption class="sf-plate__caption">(Fig. 01) &mdash; Editorial</figcaption>
+  </figure>
+
+</section>
+
+<span data-sf-header-sentinel aria-hidden="true"></span>
+
+<section class="sf-section" id="explore" style="min-height:60vh;padding-block:var(--rhythm);background:var(--paper)">
+  <div class="sf-container">
+    <p style="font-size:var(--t-label);letter-spacing:var(--track-label);text-transform:uppercase;color:var(--graphite)">
+      (Explore Dar SF) &mdash; 01
+    </p>
+  </div>
+</section>
+
+</main>
+<script src="../dist/sf.js" defer></script>
+</body>
+</html>

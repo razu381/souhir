@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison SF — Beyond Visibility. Into Memory.</title>
+<meta name="description" content="Maison SF is a luxury creative studio shaping perception through storytelling, design and experience.">
+
+<!-- Progressive enhancement: hidden initial states are gated on .sf-js, so the
+     hero renders complete with JavaScript disabled. -->
+<script>document.documentElement.classList.add('sf-js')</script>
+
+<link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../dist/fonts/bodoni-moda-normal-latin.woff2">
+<link rel="preload" as="image"
+      imagesrcset="../assets/hero/staircase-800.webp 800w,
+                   ../assets/hero/staircase-1200.webp 1200w,
+                   ../assets/hero/staircase-1800.webp 1800w"
+      imagesizes="(min-width: 1025px) 32vw, 88vw">
+
+<link rel="stylesheet" href="../dist/sf.css">
+</head>
+<body>
+
+<a class="sf-skip" href="#explore">Skip to content</a>
+
+<header class="sf-header" data-sf-header>
+  <a class="sf-header__brand" href="/" aria-label="Maison SF — home">Maison <em>SF</em></a>
+  <button class="sf-header__menu" type="button"
+          aria-expanded="false" aria-controls="sf-nav" data-sf-menu-toggle>
+    Menu <span class="sf-header__menu-rule" aria-hidden="true"></span>
+  </button>
+</header>
+
+<main>
+
+<!-- =====================================================================
+     HERO, variant D — "THE EXHIBITION"
+     A noir gallery wall. The B&W grand-staircase photograph hangs as a
+     framed print from a full-width gallery rail; the promise is typeset the
+     way a museum would — the exhibition title at giant scale, the second
+     half of the sentence demoted to the artwork's label, in champagne.
+     ================================================================== -->
+<section class="sf-section sf-exhibition" id="hero" data-sf-hero>
+
+  <div class="sf-container sf-exhibition__inner">
+    <div class="sf-exhibition__rule">
+      <span>(Maison SF)</span>
+      <span class="sf-exhibition__note">Luxury Visual Presence</span>
+    </div>
+
+    <div class="sf-exhibition__grid">
+
+      <h1 class="sf-exhibition__title"><span class="sf-exhibition__line sf-exhibition__line--a"><span class="sf-exhibition__line-in">Beyond</span></span><span class="sf-exhibition__line sf-exhibition__line--b"><span class="sf-exhibition__line-in">Visibility.</span></span></h1>
+
+      <figure class="sf-exhibition__plate">
+        <picture>
+          <source type="image/webp"
+                  srcset="../assets/hero/staircase-800.webp 800w,
+                          ../assets/hero/staircase-1200.webp 1200w,
+                          ../assets/hero/staircase-1800.webp 1800w"
+                  sizes="(min-width: 1025px) 32vw, 88vw">
+          <img src="../assets/hero/staircase-1200.jpg"
+               srcset="../assets/hero/staircase-800.jpg 800w,
+                       ../assets/hero/staircase-1200.jpg 1200w,
+                       ../assets/hero/staircase-1800.jpg 1800w"
+               sizes="(min-width: 1025px) 32vw, 88vw"
+               alt="A woman in a tweed suit seated on the grand staircase of a Parisian hôtel particulier, in black and white."
+               width="1200" height="1800"
+               fetchpriority="high" decoding="async">
+        </picture>
+      </figure>
+
+      <div class="sf-exhibition__label">
+        <p class="sf-exhibition__label-title">— Into Memory.</p>
+        <p class="sf-exhibition__label-meta">Fig. 01 &mdash; Grand Staircase, Paris</p>
+      </div>
+
+    </div>
+
+    <div class="sf-exhibition__meta">
+      <span class="sf-exhibition__mark">Est. MMXXVI</span>
+      <span class="sf-exhibition__sub">Crafting experiences designed to be remembered</span>
+      <a class="sf-exhibition__cue" href="#explore">Scroll <span aria-hidden="true">&darr;</span></a>
+    </div>
+  </div>
+
+</section>
+
+<span data-sf-header-sentinel aria-hidden="true"></span>
+
+<!-- =====================================================================
+     SECTION 02 — EXPLORE DAR SF (The Exhibition's voice: the gallery's
+     second room — a bone salon wall after the noir entry. The catalogue
+     continues: Fig. 02.)
+     ================================================================== -->
+<section class="sf-section sf-explore sf-explore--bone" id="explore">
+  <div class="sf-container">
+
+    <div class="sf-chapter">
+      <span class="sf-chapter__label">(Explore Dar SF)</span>
+      <span class="sf-chapter__num">02</span>
+    </div>
+
+    <div class="sf-explore__grid">
+      <div class="sf-explore__body">
+        <p class="sf-explore__statement" data-sf-reveal="words">Dar SF is a creative studio dedicated to shaping perception through storytelling, design, and experience. Working at the intersection of luxury, culture, and innovation, we create visual worlds that inspire emotion, elevate presence, and leave a lasting impression. Because the most memorable brands are not built through visibility alone.</p>
+
+        <p class="sf-explore__felt" data-sf-reveal="fade-up">They are remembered through feeling.</p>
+
+        <a class="sf-btn" href="#services" data-sf-reveal="fade-up" data-sf-delay="120">Explore Dar SF <span aria-hidden="true">&#8599;</span></a>
+      </div>
+
+      <figure class="sf-explore__figure" data-sf-reveal="fade-up" data-sf-delay="200">
+        <picture>
+          <source type="image/webp"
+                  srcset="../assets/explore/sports-800.webp 800w,
+                          ../assets/explore/sports-1200.webp 1200w,
+                          ../assets/explore/sports-1800.webp 1800w"
+                  sizes="(min-width: 1025px) 40vw, 100vw">
+          <img src="../assets/explore/sports-1200.jpg"
+               srcset="../assets/explore/sports-800.jpg 800w,
+                       ../assets/explore/sports-1200.jpg 1200w,
+                       ../assets/explore/sports-1800.jpg 1800w"
+               sizes="(min-width: 1025px) 40vw, 100vw"
+               alt="A woman beside a vintage sports car on a Parisian street at night, in black and white."
+               width="1200" height="1800"
+               loading="lazy" decoding="async">
+        </picture>
+        <figcaption class="sf-explore__caption">Fig. 02 &mdash; Velocity Noir, Paris</figcaption>
+      </figure>
+    </div>
+
+  </div>
+</section>
+
+<!-- =====================================================================
+     SECTION 03 — THE ART OF BRAND PRESENCE (The Exhibition's voice: the
+     bone salon continues; the catalogue's warm-silver plates preview in
+     the quiet column)
+     ================================================================== -->
+<section class="sf-section sf-services sf-services--bone" id="services">
+  <div class="sf-container">
+
+    <div class="sf-chapter">
+      <span class="sf-chapter__label">(Services)</span>
+      <span class="sf-chapter__num">03</span>
+    </div>
+
+    <div class="sf-services__list">
+      <a class="sf-service-row" href="#services">
+        <span class="sf-service-row__num">01</span>
+        <span class="sf-service-row__tile" aria-hidden="true"><img src="../assets/services/tile-moodboard-mono-480.webp" alt="" loading="lazy" decoding="async"></span>
+        <span class="sf-service-row__label">The Art of Brand Presence</span>
+        <span class="sf-service-row__desc">Cinematic narratives crafted to shape perception, evoke emotion, and transform brands into experiences worth remembering.</span>
+      </a>
+      <a class="sf-service-row" href="#services">
+        <span class="sf-service-row__num">02</span>
+        <span class="sf-service-row__tile" aria-hidden="true"><img src="../assets/services/tile-flatlay-mono-480.webp" alt="" loading="lazy" decoding="async"></span>
+        <span class="sf-service-row__label">Creative Direction &amp; Identity</span>
+        <span class="sf-service-row__desc">Defining the visual and emotional language of brands through thoughtful strategy, refined aesthetics, and creative vision.</span>
+      </a>
+      <a class="sf-service-row" href="#services">
+        <span class="sf-service-row__num">03</span>
+        <span class="sf-service-row__tile" aria-hidden="true"><img src="../assets/services/tile-workspace-mono-480.webp" alt="" loading="lazy" decoding="async"></span>
+        <span class="sf-service-row__label">Digital Experiences</span>
+        <span class="sf-service-row__desc">Designing immersive digital environments that combine elegance, functionality, and meaningful user engagement.</span>
+      </a>
+      <a class="sf-service-row" href="#services">
+        <span class="sf-service-row__num">04</span>
+        <span class="sf-service-row__tile" aria-hidden="true"><img src="../assets/services/tile-notebook-mono-480.webp" alt="" loading="lazy" decoding="async"></span>
+        <span class="sf-service-row__label">Intelligent Brand Growth</span>
+        <span class="sf-service-row__desc">Combining creativity, data, and intelligent systems to help brands strengthen visibility, build influence, and grow with purpose.</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- =====================================================================
+     SECTION 04 — WHO WE WORK WITH (The Exhibition's voice: the loop back
+     to the noir entry hall — the collection register, champagne numerals
+     on black, the statement holding while the rows travel)
+     ================================================================== -->
+<section class="sf-section sf-clientele sf-clientele--noir" id="clientele">
+  <div class="sf-container">
+
+    <div class="sf-chapter">
+      <span class="sf-chapter__label">(Who We Work With)</span>
+      <span class="sf-chapter__num">04</span>
+    </div>
+
+    <div class="sf-clientele__grid">
+      <div class="sf-clientele__aside">
+        <h2 class="sf-clientele__head" data-sf-reveal="fade-up">Created For Those Building <em>More Than Brands.</em></h2>
+        <p class="sf-clientele__statement" data-sf-reveal="words">We collaborate with brands, founders, and destinations who understand that luxury is not created through appearance alone. It is shaped through atmosphere, meaning, and the experiences people carry with them long after the moment has passed.</p>
+      </div>
+
+      <ul class="sf-clientele__register">
+        <li class="sf-clientele__row" data-sf-reveal="fade-up">
+          <span class="sf-clientele__num">01</span>
+          <span class="sf-clientele__label">Boutique Hotels</span>
+          <span class="sf-clientele__desc">Luxury hotels, boutique properties, retreats, and destination experiences designed to create memorable guest journeys.</span>
+        </li>
+        <li class="sf-clientele__row" data-sf-reveal="fade-up">
+          <span class="sf-clientele__num">02</span>
+          <span class="sf-clientele__label">Luxury Hospitality Concepts</span>
+          <span class="sf-clientele__desc">Restaurants, private clubs, hospitality groups, and experience-led venues shaping modern luxury culture.</span>
+        </li>
+        <li class="sf-clientele__row" data-sf-reveal="fade-up">
+          <span class="sf-clientele__num">03</span>
+          <span class="sf-clientele__label">Wellness &amp; Spa Brands</span>
+          <span class="sf-clientele__desc">Wellness destinations, spas, retreats, and wellbeing concepts focused on transformation, balance, and elevated experiences.</span>
+        </li>
+        <li class="sf-clientele__row" data-sf-reveal="fade-up">
+          <span class="sf-clientele__num">04</span>
+          <span class="sf-clientele__label">Beauty &amp; Aesthetic Clinics</span>
+          <span class="sf-clientele__desc">Aesthetic clinics, cosmetic practitioners, skincare brands, and beauty businesses seeking premium positioning.</span>
+        </li>
+        <li class="sf-clientele__row" data-sf-reveal="fade-up">
+          <span class="sf-clientele__num">05</span>
+          <span class="sf-clientele__label">Luxury Lifestyle Brands</span>
+          <span class="sf-clientele__desc">Fashion, jewellery, interiors, luxury products, and lifestyle brands built around aspiration, craftsmanship, and identity.</span>
+        </li>
+        <li class="sf-clientele__row" data-sf-reveal="fade-up">
+          <span class="sf-clientele__num">06</span>
+          <span class="sf-clientele__label">Editorial &amp; Fashion Campaigns</span>
+          <span class="sf-clientele__desc">Editorial productions, fashion brands, creative collaborations, and campaigns where storytelling and visual impact matter.</span>
+        </li>
+        <li class="sf-clientele__row" data-sf-reveal="fade-up">
+          <span class="sf-clientele__num">07</span>
+          <span class="sf-clientele__label">Elevated Travel Experiences</span>
+          <span class="sf-clientele__desc">Luxury travel concepts, curated journeys, private experiences, and destination-led brands.</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- =====================================================================
+     SECTION 05 — ABOUT DAR SF (The Exhibition's voice: back to the bone
+     salon wall — Fig. 03 in warm-silver mono, the refrain returned in
+     champagne italic, the colophon under a dark hairline)
+     ================================================================== -->
+<section class="sf-section sf-founder sf-founder--bone" id="founder">
+  <div class="sf-container">
+
+    <div class="sf-chapter">
+      <span class="sf-chapter__label">(About Dar SF)</span>
+      <span class="sf-chapter__num">05</span>
+    </div>
+
+    <div class="sf-founder__grid">
+
+      <figure class="sf-founder__figure" data-sf-reveal="fade-up" data-sf-delay="200">
+        <picture>
+          <source type="image/webp"
+                  srcset="../assets/explore/founder-blue-mono-800.webp 800w,
+                          ../assets/explore/founder-blue-mono-1200.webp 1200w,
+                          ../assets/explore/founder-blue-mono-1800.webp 1800w"
+                  sizes="(min-width: 1025px) 40vw, 100vw">
+          <img src="../assets/explore/founder-blue-mono-1200.webp"
+               srcset="../assets/explore/founder-blue-mono-800.webp 800w,
+                       ../assets/explore/founder-blue-mono-1200.webp 1200w,
+                       ../assets/explore/founder-blue-mono-1800.webp 1800w"
+               sizes="(min-width: 1025px) 40vw, 100vw"
+               alt="A woman in a blue shirt, black tailored jacket and leather skirt walking across a rain-wet Parisian square under a storm sky, in warm-silver black and white."
+               width="1200" height="1800"
+               loading="lazy" decoding="async">
+        </picture>
+        <figcaption class="sf-founder__caption">Fig. 03 &mdash; The Founder, Paris</figcaption>
+      </figure>
+
+      <div class="sf-founder__body">
+        <h2 class="sf-founder__refrain" data-sf-reveal="fade-up">Beyond Visibility. <em>Into Memory.</em></h2>
+
+        <p class="sf-founder__text" data-sf-reveal="fade-up">They exist in atmosphere, emotion, perception, and the experiences people carry with them long after the moment has passed.</p>
+
+        <p class="sf-founder__text" data-sf-reveal="fade-up">Dar SF brings together creative intelligence, visual storytelling, and strategic thinking to craft brands and experiences designed to inspire, connect, and endure.</p>
+
+        <p class="sf-founder__felt" data-sf-reveal="fade-up">The most powerful expressions of luxury are often invisible.</p>
+
+        <!-- V1 — THE SIGNATURE: the brief's own [Your Signature], ink-tinted
+             for the bone salon wall. The sign-off rule spans the column; the
+             name at the left hand, the founder's hand at the right. -->
+        <div class="sf-founder__foot" data-sf-reveal="fade-up">
+          <div class="sf-founder__credit">
+            <span class="sf-founder__name">Souhir Fhima</span>
+            <span class="sf-founder__role">Founder &amp; Creative Director</span>
+          </div>
+          <img class="sf-founder__signature" src="../assets/explore/signature-ink-600.webp" alt="" width="600" height="205" loading="lazy" decoding="async">
+        </div>
+
+        <a class="sf-btn" href="#founder" data-sf-reveal="fade-up" data-sf-delay="120">Explore Our Philosophy <span aria-hidden="true">&#8599;</span></a>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<script src="../dist/sf.js" defer></script>
+</body>
+</html>

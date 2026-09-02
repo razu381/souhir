@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Build output is committed on purpose: dist/ is self-contained (sf.css + sf.js
+# + fonts) so a fresh clone previews immediately. Do not add more here without
+# updating AGENT.md.
+
+# Heavy source material — the pipeline (scripts/build-images.sh) bakes these
+# into assets/; the originals stay local. ~460MB of licensed stock photography
+# and docx-derived originals do not belong in the repo.
+images/
+sorted/
+docs/
+parisian-woman-blue-shirt-leather-skirt-street.jpg
+
+# Local OS / editor noise
+.DS_Store
+Thumbs.db
+*.log

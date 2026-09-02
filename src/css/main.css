@@ -1,0 +1,20 @@
+/* Entry point. Tailwind v4, CSS-first config.
+   Preflight is deliberately NOT imported — Elementor supplies its own reset
+   and the two conflict (AGENT.md §3). */
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css"     layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@import "./tokens.css";
+@import "./base.css";
+@import "./components.css";
+
+/* Breakpoints pinned to Elementor's devices so the conversion is 1:1 rather
+   than a re-tuning exercise. Elementor is max-width based; these are its
+   maxima +1. Do NOT use Tailwind's stock 640 / 1280 / 1536. */
+@theme {
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1025px;
+  --breakpoint-xl: 1367px;
+}

@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison SF — Beyond Visibility. Into Memory.</title>
+<meta name="description" content="Maison SF is a luxury creative studio shaping perception through storytelling, design and experience.">
+
+<!-- Progressive enhancement: hidden initial states are gated on .sf-js, so the
+     hero renders complete with JavaScript disabled. -->
+<script>document.documentElement.classList.add('sf-js')</script>
+
+<link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../dist/fonts/bodoni-moda-normal-latin.woff2">
+<link rel="preload" as="image" media="(min-width: 1025px)"
+      imagesrcset="../assets/hero/wet-street-1400.webp 1400w,
+                   ../assets/hero/wet-street-2000.webp 2000w,
+                   ../assets/hero/wet-street-2800.webp 2800w"
+      imagesizes="50vw">
+<link rel="preload" as="image" media="(max-width: 1024px)"
+      imagesrcset="../assets/hero/wet-street-1400.webp 1400w"
+      imagesizes="100vw">
+
+<link rel="stylesheet" href="../dist/sf.css">
+</head>
+<body>
+
+<a class="sf-skip" href="#explore">Skip to content</a>
+
+<header class="sf-header sf-header--split" data-sf-header>
+  <a class="sf-header__brand" href="/" aria-label="Maison SF — home">Maison <em>SF</em></a>
+  <button class="sf-header__menu" type="button"
+          aria-expanded="false" aria-controls="sf-nav" data-sf-menu-toggle>
+    Menu <span class="sf-header__menu-rule" aria-hidden="true"></span>
+  </button>
+</header>
+
+<main>
+
+<!-- =====================================================================
+     HERO, variant C — "THE SPREAD"
+     A double-page magazine spread: the wet-street photograph owns the right
+     half of the viewport full-bleed; the left half is the type page, with
+     the promise in ink roman and bronze italic; a 1px champagne seam rules
+     the gutter and draws itself in on load.
+     ================================================================== -->
+<section class="sf-section sf-spread" id="hero" data-sf-hero>
+
+  <div class="sf-container sf-spread__head">
+    <div class="sf-spread__rule">
+      <span>(Maison SF)</span>
+      <span class="sf-spread__note">Luxury Visual Presence</span>
+    </div>
+  </div>
+
+  <figure class="sf-spread__media" data-sf-parallax>
+    <picture>
+      <source type="image/webp"
+              srcset="../assets/hero/wet-street-1400.webp 1400w,
+                      ../assets/hero/wet-street-2000.webp 2000w,
+                      ../assets/hero/wet-street-2800.webp 2800w"
+              sizes="(min-width: 1025px) 50vw, 100vw">
+      <img src="../assets/hero/wet-street-2000.jpg"
+           srcset="../assets/hero/wet-street-1400.jpg 1400w,
+                   ../assets/hero/wet-street-2000.jpg 2000w,
+                   ../assets/hero/wet-street-2800.jpg 2800w"
+           sizes="(min-width: 1025px) 50vw, 100vw"
+           alt="A woman in a black tailored suit on a rain-wet Parisian street at dusk, lamplight reflected on the cobblestones."
+           width="2800" height="1540"
+           fetchpriority="high" decoding="async">
+    </picture>
+  </figure>
+
+  <div class="sf-container sf-spread__foot">
+    <h1 class="sf-spread__title"><span class="sf-spread__line sf-spread__line--a"><span class="sf-spread__line-in">Beyond</span></span><span class="sf-spread__line sf-spread__line--b"><span class="sf-spread__line-in">Visibility.</span></span><span class="sf-spread__line sf-spread__line--c"><span class="sf-spread__line-in">Into Memory.</span></span></h1>
+
+    <div class="sf-spread__meta">
+      <span class="sf-spread__sub">Crafting experiences designed to be remembered</span>
+      <a class="sf-spread__cue" href="#explore">Scroll <span aria-hidden="true">&darr;</span></a>
+    </div>
+  </div>
+
+</section>
+
+<span data-sf-header-sentinel aria-hidden="true"></span>
+
+<!-- =====================================================================
+     SECTION 02 — EXPLORE DAR SF (The Threshold's voice: paper, the same
+     shoot as the horizon band — one grade, the sentence finished below it)
+     ================================================================== -->
+<section class="sf-section sf-explore" id="explore">
+  <div class="sf-container">
+
+    <div class="sf-chapter">
+      <span class="sf-chapter__label">(Explore Dar SF)</span>
+      <span class="sf-chapter__num">02</span>
+    </div>
+
+    <div class="sf-explore__grid">
+      <div class="sf-explore__body">
+        <p class="sf-explore__statement" data-sf-reveal="words">Dar SF is a creative studio dedicated to shaping perception through storytelling, design, and experience. Working at the intersection of luxury, culture, and innovation, we create visual worlds that inspire emotion, elevate presence, and leave a lasting impression. Because the most memorable brands are not built through visibility alone.</p>
+
+        <p class="sf-explore__felt" data-sf-reveal="fade-up">They are remembered through feeling.</p>
+
+        <a class="sf-btn" href="#services" data-sf-reveal="fade-up" data-sf-delay="120">Explore Dar SF <span aria-hidden="true">&#8599;</span></a>
+      </div>
+
+      <figure class="sf-explore__figure" data-sf-reveal="fade-up" data-sf-delay="200">
+        <picture>
+          <source type="image/webp"
+                  srcset="../assets/hero/hands-pockets-480.webp 480w,
+                          ../assets/hero/hands-pockets-800.webp 800w,
+                          ../assets/hero/hands-pockets-1200.webp 1200w,
+                          ../assets/explore/hands-pockets-1800.webp 1800w"
+                  sizes="(min-width: 1025px) 40vw, 100vw">
+          <img src="../assets/hero/hands-pockets-800.jpg"
+               srcset="../assets/hero/hands-pockets-480.jpg 480w,
+                       ../assets/hero/hands-pockets-800.jpg 800w,
+                       ../assets/hero/hands-pockets-1200.jpg 1200w,
+                       ../assets/explore/hands-pockets-1800.jpg 1800w"
+               sizes="(min-width: 1025px) 40vw, 100vw"
+               alt="A woman in a black tailored suit, hands in pockets, standing in a Parisian street at dusk."
+               width="1200" height="1800"
+               loading="lazy" decoding="async">
+        </picture>
+      </figure>
+    </div>
+
+  </div>
+</section>
+
+<!-- =====================================================================
+     SECTION 03 — THE ART OF BRAND PRESENCE (The Threshold's voice: paper,
+     bronze numerals, color tiles — the quiet column holds the previews)
+     ================================================================== -->
+<section class="sf-section sf-services" id="services">
+  <div class="sf-container">
+
+    <div class="sf-chapter">
+      <span class="sf-chapter__label">(Services)</span>
+      <span class="sf-chapter__num">03</span>
+    </div>
+
+    <div class="sf-services__list">
+      <a class="sf-service-row" href="#services">
+        <span class="sf-service-row__num">01</span>
+        <span class="sf-service-row__tile" aria-hidden="true"><img src="../assets/services/tile-moodboard-480.webp" alt="" loading="lazy" decoding="async"></span>
+        <span class="sf-service-row__label">The Art of Brand Presence</span>
+        <span class="sf-service-row__desc">Cinematic narratives crafted to shape perception, evoke emotion, and transform brands into experiences worth remembering.</span>
+      </a>
+      <a class="sf-service-row" href="#services">
+        <span class="sf-service-row__num">02</span>
+        <span class="sf-service-row__tile" aria-hidden="true"><img src="../assets/services/tile-flatlay-480.webp" alt="" loading="lazy" decoding="async"></span>
+        <span class="sf-service-row__label">Creative Direction &amp; Identity</span>
+        <span class="sf-service-row__desc">Defining the visual and emotional language of brands through thoughtful strategy, refined aesthetics, and creative vision.</span>
+      </a>
+      <a class="sf-service-row" href="#services">
+        <span class="sf-service-row__num">03</span>
+        <span class="sf-service-row__tile" aria-hidden="true"><img src="../assets/services/tile-workspace-480.webp" alt="" loading="lazy" decoding="async"></span>
+        <span class="sf-service-row__label">Digital Experiences</span>
+        <span class="sf-service-row__desc">Designing immersive digital environments that combine elegance, functionality, and meaningful user engagement.</span>
+      </a>
+      <a class="sf-service-row" href="#services">
+        <span class="sf-service-row__num">04</span>
+        <span class="sf-service-row__tile" aria-hidden="true"><img src="../assets/services/tile-notebook-480.webp" alt="" loading="lazy" decoding="async"></span>
+        <span class="sf-service-row__label">Intelligent Brand Growth</span>
+        <span class="sf-service-row__desc">Combining creativity, data, and intelligent systems to help brands strengthen visibility, build influence, and grow with purpose.</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- =====================================================================
+     SECTION 04 — WHO WE WORK WITH (The Spread's voice: the classified page
+     of the issue — statement left, the register right, one paper stock
+     held throughout)
+     ================================================================== -->
+<section class="sf-section sf-clientele" id="clientele">
+  <div class="sf-container">
+
+    <div class="sf-chapter">
+      <span class="sf-chapter__label">(Who We Work With)</span>
+      <span class="sf-chapter__num">04</span>
+    </div>
+
+    <div class="sf-clientele__grid">
+      <div class="sf-clientele__aside">
+        <h2 class="sf-clientele__head" data-sf-reveal="fade-up">Created For Those Building <em>More Than Brands.</em></h2>
+        <p class="sf-clientele__statement" data-sf-reveal="words">We collaborate with brands, founders, and destinations who understand that luxury is not created through appearance alone. It is shaped through atmosphere, meaning, and the experiences people carry with them long after the moment has passed.</p>
+      </div>
+
+      <ul class="sf-clientele__register">
+        <li class="sf-clientele__row" data-sf-reveal="fade-up">
+          <span class="sf-clientele__num">01</span>
+          <span class="sf-clientele__label">Boutique Hotels</span>
+          <span class="sf-clientele__desc">Luxury hotels, boutique properties, retreats, and destination experiences designed to create memorable guest journeys.</span>
+        </li>
+        <li class="sf-clientele__row" data-sf-reveal="fade-up">
+          <span class="sf-clientele__num">02</span>
+          <span class="sf-clientele__label">Luxury Hospitality Concepts</span>
+          <span class="sf-clientele__desc">Restaurants, private clubs, hospitality groups, and experience-led venues shaping modern luxury culture.</span>
+        </li>
+        <li class="sf-clientele__row" data-sf-reveal="fade-up">
+          <span class="sf-clientele__num">03</span>
+          <span class="sf-clientele__label">Wellness &amp; Spa Brands</span>
+          <span class="sf-clientele__desc">Wellness destinations, spas, retreats, and wellbeing concepts focused on transformation, balance, and elevated experiences.</span>
+        </li>
+        <li class="sf-clientele__row" data-sf-reveal="fade-up">
+          <span class="sf-clientele__num">04</span>
+          <span class="sf-clientele__label">Beauty &amp; Aesthetic Clinics</span>
+          <span class="sf-clientele__desc">Aesthetic clinics, cosmetic practitioners, skincare brands, and beauty businesses seeking premium positioning.</span>
+        </li>
+        <li class="sf-clientele__row" data-sf-reveal="fade-up">
+          <span class="sf-clientele__num">05</span>
+          <span class="sf-clientele__label">Luxury Lifestyle Brands</span>
+          <span class="sf-clientele__desc">Fashion, jewellery, interiors, luxury products, and lifestyle brands built around aspiration, craftsmanship, and identity.</span>
+        </li>
+        <li class="sf-clientele__row" data-sf-reveal="fade-up">
+          <span class="sf-clientele__num">06</span>
+          <span class="sf-clientele__label">Editorial &amp; Fashion Campaigns</span>
+          <span class="sf-clientele__desc">Editorial productions, fashion brands, creative collaborations, and campaigns where storytelling and visual impact matter.</span>
+        </li>
+        <li class="sf-clientele__row" data-sf-reveal="fade-up">
+          <span class="sf-clientele__num">07</span>
+          <span class="sf-clientele__label">Elevated Travel Experiences</span>
+          <span class="sf-clientele__desc">Luxury travel concepts, curated journeys, private experiences, and destination-led brands.</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- =====================================================================
+     SECTION 05 — ABOUT DAR SF (The Spread's voice: the founder's page —
+     the plate swings to the left leaf, the refrain returns in bronze
+     italic, the credit set as a colophon)
+     ================================================================== -->
+<section class="sf-section sf-founder" id="founder">
+  <div class="sf-container">
+
+    <div class="sf-chapter">
+      <span class="sf-chapter__label">(About Dar SF)</span>
+      <span class="sf-chapter__num">05</span>
+    </div>
+
+    <div class="sf-founder__grid">
+
+      <figure class="sf-founder__figure" data-sf-reveal="fade-up" data-sf-delay="200">
+        <picture>
+          <source type="image/webp"
+                  srcset="../assets/explore/founder-blue-800.webp 800w,
+                          ../assets/explore/founder-blue-1200.webp 1200w,
+                          ../assets/explore/founder-blue-1800.webp 1800w"
+                  sizes="(min-width: 1025px) 40vw, 100vw">
+          <img src="../assets/explore/founder-blue-1200.jpg"
+               srcset="../assets/explore/founder-blue-800.jpg 800w,
+                       ../assets/explore/founder-blue-1200.jpg 1200w,
+                       ../assets/explore/founder-blue-1800.jpg 1800w"
+               sizes="(min-width: 1025px) 40vw, 100vw"
+               alt="A woman in a blue shirt, black tailored jacket and leather skirt walking across a rain-wet Parisian square under a storm sky."
+               width="1200" height="1800"
+               loading="lazy" decoding="async">
+        </picture>
+      </figure>
+
+      <div class="sf-founder__body">
+        <h2 class="sf-founder__refrain" data-sf-reveal="fade-up">Beyond Visibility. <em>Into Memory.</em></h2>
+
+        <p class="sf-founder__text" data-sf-reveal="fade-up">They exist in atmosphere, emotion, perception, and the experiences people carry with them long after the moment has passed.</p>
+
+        <p class="sf-founder__text" data-sf-reveal="fade-up">Dar SF brings together creative intelligence, visual storytelling, and strategic thinking to craft brands and experiences designed to inspire, connect, and endure.</p>
+
+        <p class="sf-founder__felt" data-sf-reveal="fade-up">The most powerful expressions of luxury are often invisible.</p>
+
+        <div class="sf-founder__credit" data-sf-reveal="fade-up">
+          <span class="sf-founder__name">Souhir Fhima</span>
+          <span class="sf-founder__role">Founder &amp; Creative Director</span>
+        </div>
+
+        <a class="sf-btn" href="#founder" data-sf-reveal="fade-up" data-sf-delay="120">Explore Our Philosophy <span aria-hidden="true">&#8599;</span></a>
+      </div>
+
+      <!-- V2 — THE RAIL: rotated caps reading bottom-up along the right edge,
+           the classified page's own margin device. Pure type, no asset. -->
+      <div class="sf-founder__rail" aria-hidden="true"><span>Est. MMXXVI &mdash; Paris</span></div>
+
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<script src="../dist/sf.js" defer></script>
+</body>
+</html>
