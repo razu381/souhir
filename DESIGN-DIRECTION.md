@@ -1,4 +1,4 @@
-# Maison SF / Dar SF — Design Direction
+# Dar SF — Design Direction
 
 **Luxury Visual Presence**
 Final direction · 2026-08-29 · build specification
@@ -15,7 +15,7 @@ The two reference designs in `inspirations/` are structurally excellent and tona
 
 We keep every structural decision and change seven finish decisions. **No layout changes are required.**
 
-| | Reference | Maison SF |
+| | Reference | Dar SF |
 |---|---|---|
 | 1 | Grotesk caps display | **Didone serif, mixed case** |
 | 2 | ~300 ms springy easing | **~1100 ms long-tail, no overshoot** |
@@ -149,7 +149,7 @@ The references animate fast and springy. Halving the speed and removing the over
 | **Stat tile** | Full-bleed image, giant Didone numeral burned into the bottom-left |
 | **Marquee label** | Tracked caps drifting on the ground — no black pill |
 | **Status line** | `CURRENTLY ACCEPTING PROJECTS — 2026`, tracked caps, no dot |
-| **Outro wordmark** | `MAISON SF` in Didone at extreme scale, bleeding off the footer's bottom edge |
+| **Outro wordmark** | `DAR SF` in Didone at extreme scale, bleeding off the footer's bottom edge |
 | **Navigation** | Logotype + hamburger on home; full tracked-caps nav on interior pages. **Sans, not serif** — nav is structural |
 
 **Cut from the references:** diagonal ticker ribbons, rounded corners, GRID/LIST toggle *(reinstate only if the portfolio exceeds ~12 items)*.
@@ -162,7 +162,7 @@ The references animate fast and springy. Halving the speed and removing the over
 
 | # | Section | Direction |
 |---|---|---|
-| 01 | **Hero** | Full-bleed `hero-parisian-woman-black-suit-hands-pockets-street.jpg`, slow scale-out on load. `MAISON SF` in Didone over the image. **Beyond Visibility. Into Memory.** Meta rail: `(EST. 2026)` left · sub-headline centre · `SCROLL ↓` right |
+| 01 | **Hero** | Full-bleed `hero-parisian-woman-black-suit-hands-pockets-street.jpg`, slow scale-out on load. `DAR SF` in Didone over the image. **Beyond Visibility. Into Memory.** Meta rail: `(EST. 2026)` left · sub-headline centre · `SCROLL ↓` right |
 | 02 | **Explore Dar SF** | Scroll-reveal statement paragraph, grey → ink, word by word. 2:3 portrait right |
 | 03 | **The Art of Brand Presence** | `(SERVICES) —— 01`. Four numbered Didone rows, hairline dividers, margin preview tiles |
 | 04 | **Who We Work With** | `(CLIENTS) —— 02`. Seven verticals on 4:5 category tiles — hospitality, wellness, beauty, lifestyle, travel, editorial, hotels |
@@ -172,7 +172,7 @@ The references animate fast and springy. Halving the speed and removing the over
 | 08 | **Editorial Recognition** | Press marks, greyscale at 40%, champagne on hover |
 | 09 | **The Journal** | `(JOURNAL) —— 05`. 3-up grid, 3:2 crops, Didone titles, tracked-caps dates |
 | 10 | **CTA** | *Let's Create Something Worth Remembering* on noir, outline pill, rotating champagne badge |
-| 11 | **Footer** | Noir. Link columns, `Back to top`, giant `MAISON SF` outro wordmark |
+| 11 | **Footer** | Noir. Link columns, `Back to top`, giant `DAR SF` outro wordmark |
 
 ### About — *The Language of Presence*
 Founder story · The Philosophy · The Dar SF Way (numbered `01–06` principles, same row system as Services) · Vision · Values · Closing CTA. Ground alternates `--bone`.

@@ -29,3 +29,8 @@
   from = "/src/hero-overture"
   to = "/src/hero-overture.html"
   status = 200
+
+[[redirects]]
+  from = "/src/hero-nocturne"
+  to = "/src/hero-nocturne.html"
+  status = 200

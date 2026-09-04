@@ -1,8 +1,8 @@
 {
-  "name": "maison-sf",
+  "name": "dar-sf",
   "private": true,
   "version": "0.1.0",
-  "description": "Maison SF / Dar SF — static build. Rebuilt in Elementor later; see AGENT.md.",
+  "description": "Dar SF — static build. Rebuilt in Elementor later; see AGENT.md.",
   "scripts": {
     "build:css": "tailwindcss -i src/css/main.css -o dist/sf.css --minify",
     "watch:css": "tailwindcss -i src/css/main.css -o dist/sf.css --watch",

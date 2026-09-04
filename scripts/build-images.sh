@@ -75,6 +75,17 @@ for w in 800 1200 1800; do
          -map_metadata -1 -q:v 5 "$OUT/staircase-${w}.jpg"
 done
 
+# --- Hero variant F, "The Nocturne" -------------------------------------------
+# The same grand-staircase print re-toned WARM SILVER (the services MONO grade,
+# rm/bm matched) — the Exhibition's plate re-hung for the umber night wall.
+# Same source, same 2:3, same widths; only the toning differs.
+for w in 800 1200 1800; do
+  ffmpeg -loglevel error -y -i "$SRC_X" -vf "colorbalance=rm=0.020:bm=-0.030,scale=${w}:-1:flags=lanczos" \
+         -map_metadata -1 -c:v libwebp -quality 82 -compression_level 6 "$OUT/staircase-warm-${w}.webp"
+  ffmpeg -loglevel error -y -i "$SRC_X" -vf "colorbalance=rm=0.020:bm=-0.030,scale=${w}:-1:flags=lanczos" \
+         -map_metadata -1 -q:v 5 "$OUT/staircase-warm-${w}.jpg"
+done
+
 # --- Hero variant E, "The Overture" -----------------------------------------
 # Hotel-corridor silhouette letterboxed to 2.55:1 for the cinemascope band. The
 # window light and the figure both sit inside the vertical centre band, so a
@@ -123,7 +134,7 @@ for w in 800 1200 1800; do
 done
 
 # --- Section 03 — service rows: 4:5 hover preview tiles -----------------------
-# The brief's own pairings (Maison-SF.mapped.md image map): moodboard → Brand
+# The brief's own pairings (Dar-SF.mapped.md image map): moodboard → Brand
 # Presence, flatlay → Creative Direction, workspace → Digital Experiences,
 # notebook → Intelligent Brand Growth. Exhibition takes desaturated, slightly
 # warm-silver variants — its world is black-and-white.
@@ -142,7 +153,7 @@ tile () {  # src filter basename
 }
 
 tile "images/creative-moodboard-studio-inspiration-wall.jpg" "crop=ih*0.8:ih"  tile-moodboard
-tile "images/luxury-lifestyle-flatlay-ysl-chanel.jpg"         "null"           tile-flatlay
+tile "images/luxury-lifestyle-flatlay-ysl-chanel.jpg"         "crop=ih*4/3:ih:(iw-ih*4/3)*0.55:0"           tile-flatlay
 tile "images/digital-experiences-workspace-laptop-camera.jpg" "crop=ih*0.8:ih"  tile-workspace
 tile "images/dar-brand-growth-notebook-charts.jpg"            "crop=iw:ih*0.838:0:ih*0.081" tile-notebook
 
@@ -176,6 +187,84 @@ for w in 600 900; do
          -map_metadata -1 -c:v libwebp -quality 80 -compression_level 6 "$OUT2/signature-ink-${w}.webp"
 done
 
-ls -lh "$OUT" | awk 'NR>1{printf "  %-28s %s\n", $9, $5}'
+# --- Nocturne sections 06 → footer ----------------------------------------------
+# The night page's remaining rooms. One grade per section: the B&W editorial
+# sources take the warm-silver MONO so the collection hangs coherently beside
+# the amber interiors; colour sources pass untouched.
+
+# Selected Works — six 4:3 LANDSCAPE plates (client-led: shorter than the
+# 4:5 portraits, gentler than 3:2 — compositions keep their subjects). The
+# y-biases are art-directed per source; reverie is natively 3:2 and crops by
+# width only; velocity keeps the warm-silver MONO for the one-grade hang.
+OUT4="assets/work"; mkdir -p "$OUT4"
+work43 () {  # src filter name widths...
+  local src="$1" filt="$2" base="$3"; shift 3
+  for w in "$@"; do
+    ffmpeg -loglevel error -y -i "$src" -vf "$filt,scale=${w}:-1:flags=lanczos" \
+           -map_metadata -1 -c:v libwebp -quality 80 -compression_level 6 "$OUT4/${base}-${w}.webp"
+    ffmpeg -loglevel error -y -i "$src" -vf "$filt,scale=${w}:-1:flags=lanczos" \
+           -map_metadata -1 -q:v 5 "$OUT4/${base}-${w}.jpg"
+  done
+}
+work43 images/luxury-hotel-suite-sunset-ocean-view.jpg       "crop=iw:iw*3/4:0:(ih-iw*3/4)*0.38"        suite     800 1200
+work43 images/wellness-spa-massage-candlelit-treatment.jpg   "crop=iw:iw*3/4:0:(ih-iw*3/4)*0.40"        ritual    800 1200
+work43 images/caudalie-beauty-products-marble-display.jpg    "crop=iw:iw*3/4:0:(ih-iw*3/4)*0.28"        marble    800 1200
+work43 images/editorial-fashion-woman-sports-car-bw.jpg      "crop=iw:iw*3/4:0:(ih-iw*3/4)*0.36,$MONO"  velocity  800 1200
+work43 images/parisian-woman-black-suit-wet-street.jpg       "crop=ih*4/3:ih:(iw-ih*4/3)*0.55:0"                                      reverie   800 1200
+work43 images/private-jet-sunset-champagne-luxury-travel.jpg "crop=iw:iw*3/4:0:(ih-iw*3/4)*0.38"        altitude  800 1200
+
+# Editorial Recognition — the three magazine covers, native ratio.
+OUT5="assets/press"; mkdir -p "$OUT5"
+for pair in "artego-magazine-cover-portrait-december-1170 cover-artego-dec" \
+            "artego-magazine-cover-beach-chair-february-1249 cover-artego-feb" \
+            "quadro-magazine-cover-portrait-december-1395 cover-quadro-dec"; do
+  set -- $pair
+  for w in 600 900; do
+    ffmpeg -loglevel error -y -i "images/$1.jpg" -vf "scale=${w}:-1:flags=lanczos" \
+           -map_metadata -1 -c:v libwebp -quality 82 -compression_level 6 "$OUT5/$2-${w}.webp"
+    ffmpeg -loglevel error -y -i "images/$1.jpg" -vf "scale=${w}:-1:flags=lanczos" \
+           -map_metadata -1 -q:v 5 "$OUT5/$2-${w}.jpg"
+  done
+done
+
+# The Journal — the desk banner is an 8:1 sliver (a masthead, not a plate), so
+# it exports at its native ratio; the three article tiles lock to 3:2. The
+# small 1080px veil source is not upscaled — 720w is its honest ceiling.
+OUT6="assets/journal"; mkdir -p "$OUT6"
+J32="crop=iw:iw*2/3:0:(ih-iw*2/3)/2"
+for w in 1600 2400; do
+  ffmpeg -loglevel error -y -i images/journal-banner-editorial-desk-city-view.jpg -vf "scale=${w}:-1:flags=lanczos" \
+         -map_metadata -1 -c:v libwebp -quality 80 -compression_level 6 "$OUT6/featured-${w}.webp"
+  ffmpeg -loglevel error -y -i images/journal-banner-editorial-desk-city-view.jpg -vf "scale=${w}:-1:flags=lanczos" \
+         -map_metadata -1 -q:v 5 "$OUT6/featured-${w}.jpg"
+done
+ffmpeg -loglevel error -y -i images/luxury-lifestyle-flatlay-ysl-chanel.jpg -vf "$J32,scale=800:-1:flags=lanczos" \
+       -map_metadata -1 -c:v libwebp -quality 80 -compression_level 6 "$OUT6/price-800.webp"
+ffmpeg -loglevel error -y -i images/luxury-lifestyle-flatlay-ysl-chanel.jpg -vf "$J32,scale=800:-1:flags=lanczos" \
+       -map_metadata -1 -q:v 5 "$OUT6/price-800.jpg"
+ffmpeg -loglevel error -y -i images/editorial-woman-veil-hat-earrings-bw.jpg -vf "crop=iw:iw*2/3:0:(ih-iw*2/3)*0.42,$MONO,scale=720:-1:flags=lanczos" \
+       -map_metadata -1 -c:v libwebp -quality 80 -compression_level 6 "$OUT6/desire-720.webp"
+ffmpeg -loglevel error -y -i images/editorial-woman-veil-hat-earrings-bw.jpg -vf "crop=iw:iw*2/3:0:(ih-iw*2/3)*0.42,$MONO,scale=720:-1:flags=lanczos" \
+       -map_metadata -1 -q:v 5 "$OUT6/desire-720.jpg"
+ffmpeg -loglevel error -y -i images/creative-workspace-ai-image-editing-desk.jpg -vf "scale=800:-1:flags=lanczos" \
+       -map_metadata -1 -c:v libwebp -quality 80 -compression_level 6 "$OUT6/ai-800.webp"
+ffmpeg -loglevel error -y -i images/creative-workspace-ai-image-editing-desk.jpg -vf "scale=800:-1:flags=lanczos" \
+       -map_metadata -1 -q:v 5 "$OUT6/ai-800.jpg"
+
+# Interlude + CTA — both sources are native ≈6.4:1 letterbox slivers; the
+# direction's dark-interlude contract, delivered by the assets themselves.
+OUT7="assets/banners"; mkdir -p "$OUT7"
+for pair in "quote-banner-hotel-corridor-silhouette quote" \
+            "cta-banner-luxury-lounge-night-view cta"; do
+  set -- $pair
+  for w in 1600 2400; do
+    ffmpeg -loglevel error -y -i "images/$1.jpg" -vf "scale=${w}:-1:flags=lanczos" \
+           -map_metadata -1 -c:v libwebp -quality 80 -compression_level 6 "$OUT7/$2-${w}.webp"
+    ffmpeg -loglevel error -y -i "images/$1.jpg" -vf "scale=${w}:-1:flags=lanczos" \
+           -map_metadata -1 -q:v 5 "$OUT7/$2-${w}.jpg"
+  done
+done
+
+ls -lh "$OUT"  | awk 'NR>1{printf "  %-28s %s\n", $9, $5}'
 ls -lh "$OUT2" | awk 'NR>1{printf "  %-28s %s\n", $9, $5}'
 ls -lh "$OUT3" | awk 'NR>1{printf "  %-28s %s\n", $9, $5}'

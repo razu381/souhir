@@ -3,10 +3,10 @@
 ## Project Context
 
 ### Source Requirements
-The descriptions and recommended image usage in this document are based on the project requirements contained in `Maison SF.docx` (`Maison SF.docx:45842607 bytes`). All usage suggestions distinguish **Explicit** (directly supported by docx text/structure), **Strong recommendation** (clearly fits requirements/brand direction), and **Possible** (plausible but uncertain). No requirements are invented beyond the docx and visual evidence.
+The descriptions and recommended image usage in this document are based on the project requirements contained in `Dar SF.docx` (`Dar SF.docx:45842607 bytes`). All usage suggestions distinguish **Explicit** (directly supported by docx text/structure), **Strong recommendation** (clearly fits requirements/brand direction), and **Possible** (plausible but uncertain). No requirements are invented beyond the docx and visual evidence.
 
 ### Project Summary
-**Maison SF / Dar SF** is a luxury creative studio founded by **Souhir Fhima (Founder & Creative Director)**, dedicated to shaping perception through storytelling, design, and experience at the intersection of **luxury, culture, and innovation**. The brand promise is **'Beyond Visibility. Into Memory.'** — crafting experiences designed to be remembered, not just seen. Core belief: *'The most memorable brands are not built through visibility alone. They are remembered through feeling.'*
+**Dar SF** is a luxury creative studio founded by **Souhir Fhima (Founder & Creative Director)**, dedicated to shaping perception through storytelling, design, and experience at the intersection of **luxury, culture, and innovation**. The brand promise is **'Beyond Visibility. Into Memory.'** — crafting experiences designed to be remembered, not just seen. Core belief: *'The most memorable brands are not built through visibility alone. They are remembered through feeling.'*
 
 - **Target Industries (Who We Work With):** Boutique Hotels, Luxury Hospitality Concepts (restaurants/private clubs), Wellness & Spa Brands, Beauty & Aesthetic Clinics, Luxury Lifestyle Brands (fashion, jewellery, interiors), Editorial & Fashion Campaigns, Elevated Travel Experiences. The site targets founders, boutique hoteliers, wellness/ beauty entrepreneurs, and luxury lifestyle brands seeking premium positioning.
 - **Website Menu:** Home, About, Services, Portfolio, Journal, Editorial, Contact.
@@ -115,11 +115,11 @@ Logo mark—use as site header logo, footer, favicon, or loading screen. Preserv
 
 ### Recommended Project Usage
 
-Site-wide header navigation logo (Explicit: 'Logo: MAISON SF' in docx but this DAR mark is the visual identity), Footer brand mark, Contact page brand presence, Favicon, Newsletter header, About hero small logo.
+Site-wide header navigation logo (Explicit: 'Logo: DAR SF' in docx but this DAR mark is the visual identity), Footer brand mark, Contact page brand presence, Favicon, Newsletter header, About hero small logo.
 
 ### Why It Fits
 
-Docx repeatedly references 'Logo: MAISON SF' and 'SF DAR LUXURY VISUAL PRESENCE'—this is the brand mark that embodies that. Essential for brand presence across all pages.
+Docx repeatedly references 'Logo: DAR SF' and 'SF DAR LUXURY VISUAL PRESENCE'—this is the brand mark that embodies that. Essential for brand presence across all pages.
 
 ### Possible Alternatives
 
@@ -439,7 +439,7 @@ Who We Work With 'Beauty & Aesthetic Clinics' card, Services Beauty product show
 
 ### Why It Fits
 
-Directly represents one of Maison SF's 7 client verticals (Beauty & Aesthetic Clinics) mentioned repeatedly in docx. The Caudalie luxury skincare positions exactly the premium beauty brands Dar SF serves. The marble + warm light aesthetic matches minimal luxury direction.
+Directly represents one of Dar SF's 7 client verticals (Beauty & Aesthetic Clinics) mentioned repeatedly in docx. The Caudalie luxury skincare positions exactly the premium beauty brands Dar SF serves. The marble + warm light aesthetic matches minimal luxury direction.
 
 ### Possible Alternatives
 
@@ -951,7 +951,7 @@ About page Founder Story (Souhir Fhima), Editorial & Fashion Campaigns section, 
 
 ### Why It Fits
 
-Represents the founder/creative director archetype central to Maison SF—editorial, fashion-forward, luxury lifestyle. BW editorial treatment matches 'cinematic, editorial, minimal' direction. The heritage staircase connects to luxury hospitality/culture.
+Represents the founder/creative director archetype central to Dar SF—editorial, fashion-forward, luxury lifestyle. BW editorial treatment matches 'cinematic, editorial, minimal' direction. The heritage staircase connects to luxury hospitality/culture.
 
 ### Possible Alternatives
 
@@ -1079,7 +1079,7 @@ Who We Work With 'Luxury Lifestyle Brands' (perfume/jewellery), Services product
 
 ### Why It Fits
 
-Represents luxury product craftsmanship and aspiration—central to Maison SF's lifestyle/fashion/jewellery vertical. The high-end perfume aligns with 'luxury lifestyle brands built around craftsmanship and identity' from docx.
+Represents luxury product craftsmanship and aspiration—central to Dar SF's lifestyle/fashion/jewellery vertical. The high-end perfume aligns with 'luxury lifestyle brands built around craftsmanship and identity' from docx.
 
 ### Possible Alternatives
 
@@ -1971,11 +1971,11 @@ Useful negative space is limited: sky is dark with clouds (could overlay light t
 
 ### Recommended Project Usage
 
-Homepage hero ('Beyond Visibility. Into Memory.' section), Featured Work Hospitality splash, Wellness & SPA or Boutique Hotels portfolio header, or Final CTA large cinematic image. Recommended Usage: Large full-screen vertical hero or portfolio showcase because its twilight hospitality atmosphere directly embodies the 'cinematic hospitality' direction in Maison SF.docx.
+Homepage hero ('Beyond Visibility. Into Memory.' section), Featured Work Hospitality splash, Wellness & SPA or Boutique Hotels portfolio header, or Final CTA large cinematic image. Recommended Usage: Large full-screen vertical hero or portfolio showcase because its twilight hospitality atmosphere directly embodies the 'cinematic hospitality' direction in Dar SF.docx.
 
 ### Why It Fits
 
-Embodies every keyword in Maison SF.docx: cinematic storytelling, refined aesthetics, emotional connection, hospitality atmosphere, modern luxury, immersive, minimal. The transient twilight, candles, and still water evoke 'the most memorable brands are remembered through feeling'—exactly the emotional memory the brand sells. Fits Hospitality, Wellness, Luxury Lifestyle contexts.
+Embodies every keyword in Dar SF.docx: cinematic storytelling, refined aesthetics, emotional connection, hospitality atmosphere, modern luxury, immersive, minimal. The transient twilight, candles, and still water evoke 'the most memorable brands are remembered through feeling'—exactly the emotional memory the brand sells. Fits Hospitality, Wellness, Luxury Lifestyle contexts.
 
 ### Possible Alternatives
 
@@ -2085,7 +2085,7 @@ Text includes 'HORIZON STUDIO', 'NATURE INSPIRED BY ART', 'EVOLUTION THROUGH DES
 
 ### AI-Relevant Characteristics
 
-Inspiration reference only—not for production use as Maison SF asset. Shows desired homepage structure inspiration but branding/colors not Maison SF (too colorful). Use for developer reference to understand layout ambition (full-screen imagery, editorial transitions) but do not publish as Maison SF image. Very tall—needs scrolling or cropping for presentation.
+Inspiration reference only—not for production use as Dar SF asset. Shows desired homepage structure inspiration but branding/colors not Dar SF (too colorful). Use for developer reference to understand layout ambition (full-screen imagery, editorial transitions) but do not publish as Dar SF image. Very tall—needs scrolling or cropping for presentation.
 
 **Structured AI Hints (machine-readable):**
 - **Tags:** `inspiration, horizon-studio, reference, website, screenshot`

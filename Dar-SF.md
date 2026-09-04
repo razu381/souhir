@@ -1,19 +1,18 @@
-# Maison SF — Dar SF Creative Studio
+# Dar SF — Dar SF Creative Studio
 
-> *Mapped Markdown — `Maison SF.docx` converted 1:1 with 61 placeholders remapped to optimized `images/` assets where a strong curated match exists (52 mapped, 9 kept as `docs/assets/maison-sf/` screenshots/diagrams). See [Image Mapping](#image-mapping) below. Original faithful version: `Maison-SF.md`.*
+> *Faithful Markdown conversion of `Dar SF.docx` (44 MB, 61 embedded images). Text, headings, formatting, lists, and structure preserved 1:1. Images are referenced as placeholders — see [Image Handling](#image-handling) below.*
 
 ---
 
 <div align="center">
 
-**Maison SF**
+**Dar SF**
 
 </div>
 
-![twilight-luxury-resort-pool-candles.jpg](images/twilight-luxury-resort-pool-candles.jpg)
-<!-- original 01: ![image1.png](docs/assets/maison-sf/image1.png) -->
+![image1.png](docs/assets/dar-sf/image1.png)
 
-The Maison SF experience is rooted in:
+The Dar SF experience is rooted in:
 
 * cinematic storytelling
 * refined aesthetics
@@ -32,8 +31,7 @@ The website should feel:
 * emotionally engaging
 * luxury hospitality inspired
 
-![image2.png](docs/assets/maison-sf/image2.png)
-<!-- kept 02: ![image2.png](docs/assets/maison-sf/image2.png) → doc asset (no curated equivalent) -->
+![image2.png](docs/assets/dar-sf/image2.png)
 
 ---
 
@@ -59,7 +57,7 @@ The website should feel:
 
 **HERO SECTION**
 
-Logo: MAISON SF
+Logo: DAR SF
 
 **Headline:**
 
@@ -90,8 +88,7 @@ From cinematic imagery and editorial narratives to digital experiences and intel
 
 Because true luxury extends beyond appearance. It lives in atmosphere, emotion, memory, and the experiences that remain long after the moment has passed.
 
-![creative-director-writing-desk-lamp-studio.jpg](images/creative-director-writing-desk-lamp-studio.jpg)
-<!-- original 03: ![image3.png](docs/assets/maison-sf/image3.png) -->
+![image3.png](docs/assets/dar-sf/image3.png)
 
 ---
 
@@ -105,8 +102,7 @@ What we create:
 
 Dar SF creates luxury brand experiences through the convergence of storytelling, strategy, design, and intelligent innovation. From visual narratives and creative direction to digital experiences and brand growth, every service is designed to elevate perception, create emotional connection, and leave a lasting impression
 
-![creative-moodboard-studio-inspiration-wall.jpg](images/creative-moodboard-studio-inspiration-wall.jpg)
-<!-- original 04: ![image4.jpeg](docs/assets/maison-sf/image4.jpeg) -->
+![image4.jpeg](docs/assets/dar-sf/image4.jpeg)
 
 1.The Art of Brand Presence
 
@@ -114,8 +110,7 @@ Cinematic narratives crafted to shape perception, evoke emotion, and transform b
 
 Learn More → Services / luxury Visual-Storytelling
 
-![luxury-lifestyle-flatlay-ysl-chanel.jpg](images/luxury-lifestyle-flatlay-ysl-chanel.jpg)
-<!-- original 05: ![image5.jpeg](docs/assets/maison-sf/image5.jpeg) -->
+![image5.jpeg](docs/assets/dar-sf/image5.jpeg)
 
 - Creative Direction & Identity
 
@@ -123,8 +118,7 @@ Defining the visual and emotional language of brands through thoughtful strategy
 
 Learn More → services/creative direction
 
-![digital-experiences-workspace-laptop-camera.jpg](images/digital-experiences-workspace-laptop-camera.jpg)
-<!-- original 06: ![image6.jpeg](docs/assets/maison-sf/image6.jpeg) -->
+![image6.jpeg](docs/assets/dar-sf/image6.jpeg)
 
 - Digital Experiences
 
@@ -132,8 +126,7 @@ Designing immersive digital environments that combine elegance, functionality, a
 
 Learn More → services/digital experiences
 
-![dar-brand-growth-notebook-charts.jpg](images/dar-brand-growth-notebook-charts.jpg)
-<!-- original 07: ![image7.jpeg](docs/assets/maison-sf/image7.jpeg) -->
+![image7.jpeg](docs/assets/dar-sf/image7.jpeg)
 
 4. Intelligent Brand Growth
 
@@ -141,8 +134,7 @@ Combining creativity, data, and intelligent systems to help brands strengthen vi
 
 Learn More → Services/Intelligent-brand-growth
 
-![luxury-hotel-corridor-silhouette-window-light.jpg](images/luxury-hotel-corridor-silhouette-window-light.jpg)
-<!-- original 08: ![image8.png](docs/assets/maison-sf/image8.png) -->
+![image8.png](docs/assets/dar-sf/image8.png)
 
 ---
 
@@ -182,15 +174,13 @@ Editorial productions, fashion brands, creative collaborations, and campaigns wh
 
 Luxury travel concepts, curated journeys, private experiences, and destination-led brands.
 
-![private-jet-sunset-champagne-luxury-travel.jpg](images/private-jet-sunset-champagne-luxury-travel.jpg)
-<!-- original 09: ![image9.png](docs/assets/maison-sf/image9.png) -->
+![image9.png](docs/assets/dar-sf/image9.png)
 
 ---
 
 **About SF DAR**
 
-![parisian-woman-black-suit-hands-pockets-street.jpg](images/parisian-woman-black-suit-hands-pockets-street.jpg)
-<!-- original 10: ![image10.jpeg](docs/assets/maison-sf/image10.jpeg) -->
+![image10.jpeg](docs/assets/dar-sf/image10.jpeg)
 
 ### Beyond Visibility. Into Memory.
 
@@ -206,8 +196,7 @@ Founder & Creative Director
 
 [Your Signature]
 
-![souhir-fhima-neon-signature.png](images/souhir-fhima-neon-signature.png)
-<!-- original 11: ![image11.png](docs/assets/maison-sf/image11.png) -->
+![image11.png](docs/assets/dar-sf/image11.png)
 
 Button: Explore Our Philosophy
 
@@ -219,8 +208,7 @@ All | Hospitality | Beauty | Wellness | Editorial | Lifestyle
 
 A curated collection of visual stories and brand experiences shaped through atmosphere, perception, and creative intelligence.
 
-![luxury-hotel-suite-sunset-ocean-view.jpg](images/luxury-hotel-suite-sunset-ocean-view.jpg)
-<!-- original 12: ![image12.jpeg](docs/assets/maison-sf/image12.jpeg) -->
+![image12.jpeg](docs/assets/dar-sf/image12.jpeg)
 
 ---
 
@@ -314,8 +302,7 @@ Button: Explore The Journal
 
 ---
 
-![quote-banner-hotel-corridor-silhouette.jpg](images/quote-banner-hotel-corridor-silhouette.jpg)
-<!-- original 13: ![image13.jpeg](docs/assets/maison-sf/image13.jpeg) -->
+![image13.jpeg](docs/assets/dar-sf/image13.jpeg)
 
 [ SIGNATURE QUOTE BANNER]
 
@@ -329,8 +316,7 @@ Founder, Dar SF
 
 ---
 
-![newsletter-banner-luxury-library-lounge.jpg](images/newsletter-banner-luxury-library-lounge.jpg)
-<!-- original 14: ![image14.jpeg](docs/assets/maison-sf/image14.jpeg) -->
+![image14.jpeg](docs/assets/dar-sf/image14.jpeg)
 
 [ NEWSLETTER]
 
@@ -349,8 +335,7 @@ Subscribe Button
 
 ---
 
-![cta-banner-luxury-lounge-night-view.jpg](images/cta-banner-luxury-lounge-night-view.jpg)
-<!-- original 15: ![image15.jpeg](docs/assets/maison-sf/image15.jpeg) -->
+![image15.jpeg](docs/assets/dar-sf/image15.jpeg)
 
 **CTA SECTION**
 
@@ -367,8 +352,7 @@ Start a Project
 
 ---
 
-![image16.jpeg](docs/assets/maison-sf/image16.jpeg)
-<!-- kept 16: ![image16.jpeg](docs/assets/maison-sf/image16.jpeg) → doc asset (no curated equivalent) -->
+![image16.jpeg](docs/assets/dar-sf/image16.jpeg)
 
 [ FOOTER ]
 
@@ -383,8 +367,7 @@ Email
 
 # Hero Section
 
-![editorial-woman-tweed-suit-grand-staircase-bw.jpg](images/editorial-woman-tweed-suit-grand-staircase-bw.jpg)
-<!-- original 17: ![image17.jpeg](docs/assets/maison-sf/image17.jpeg) -->
+![image17.jpeg](docs/assets/dar-sf/image17.jpeg)
 
 ### More Than A Studio. A Philosophy Of Experience.
 
@@ -400,8 +383,7 @@ Where strategy becomes desire
 
 **The Language of Presence**
 
-![luxury-hotel-lobby-golden-hour-silhouette.jpg](images/luxury-hotel-lobby-golden-hour-silhouette.jpg)
-<!-- original 18: ![image18.jpeg](docs/assets/maison-sf/image18.jpeg) -->
+![image18.jpeg](docs/assets/dar-sf/image18.jpeg)
 
 Founded by creative director Souhir Fhima, Dar SF exists at the intersection of storytelling, luxury, hospitality, beauty, wellness, and contemporary culture.
 
@@ -427,23 +409,21 @@ And it remains long after the moment has passed.
 
 **The Philosophy**
 
-![candlelit-luxury-bedroom-retreat.jpg](images/candlelit-luxury-bedroom-retreat.jpg)
-<!-- original 19: ![image19.jpeg](docs/assets/maison-sf/image19.jpeg) -->
+![image19.jpeg](docs/assets/dar-sf/image19.jpeg)
 
 **Or use**
 
-![wellness-spa-massage-candlelit-treatment.jpg](images/wellness-spa-massage-candlelit-treatment.jpg)
-<!-- original 20: ![image20.jpeg](docs/assets/maison-sf/image20.jpeg) -->
+![image20.jpeg](docs/assets/dar-sf/image20.jpeg)
 
 Luxury is more than appearance.
 
 It is atmosphere, emotion, and experience.
 
-Maison SF was created from the belief that modern luxury brands should feel immersive, timeless, and emotionally engaging across every visual and digital touchpoint.
+Dar SF was created from the belief that modern luxury brands should feel immersive, timeless, and emotionally engaging across every visual and digital touchpoint.
 
 We believe in creating stories that move beyond content — blending cinematic visuals, refined branding, intelligent marketing, and elevated digital experiences to shape how people feel, connect, and remember a brand.
 
-Inspired by editorial aesthetics, boutique hospitality, wellness culture, beauty rituals, and modern luxury living, Maison SF approaches every collaboration with intention, elegance, and emotional depth.
+Inspired by editorial aesthetics, boutique hospitality, wellness culture, beauty rituals, and modern luxury living, Dar SF approaches every collaboration with intention, elegance, and emotional depth.
 
 Because true luxury is never only seen.
 
@@ -547,7 +527,7 @@ Dar SF is envisioned as a modern creative Studio where storytelling, hospitality
 
 Our vision is to shape immersive experiences that connect emotion, aesthetics, and modern luxury — from boutique hospitality and beauty brands to curated travel experiences, editorial campaigns, and future lifestyle concepts.
 
-Maison SF exists to create experiences that are not only seen, but deeply felt.
+Dar SF exists to create experiences that are not only seen, but deeply felt.
 
 ---
 
@@ -567,7 +547,7 @@ We create experiences that inspire feeling, connection, and desire.
 
 ### Timeless Aesthetics
 
-Maison SF values elegance that transcends trends — refined, immersive, and enduring.
+Dar SF values elegance that transcends trends — refined, immersive, and enduring.
 
 ### Elevated Experiences
 
@@ -596,15 +576,13 @@ Dar SF transforms ideas into experiences designed to inspire emotion, shape perc
 
 **Note : Could you please try to use the same icons for values section**
 
-![image21.png](docs/assets/maison-sf/image21.png)
-<!-- kept 21: ![image21.png](docs/assets/maison-sf/image21.png) → doc asset (no curated equivalent) -->
+![image21.png](docs/assets/dar-sf/image21.png)
 
 ---
 
 - **SERVICES PAGE**
 
-![luxury-hotel-corridor-silhouette-window-light.jpg](images/luxury-hotel-corridor-silhouette-window-light.jpg)
-<!-- original 22: ![image22.jpeg](docs/assets/maison-sf/image22.jpeg) -->
+![image22.jpeg](docs/assets/dar-sf/image22.jpeg)
 <!-- image22.jpeg : A person standing in front of a window looking out at a city
 
 AI-generated conte -->
@@ -700,8 +678,7 @@ Includes:
 * Smart customer engagement
 * AI sales funnels
 
-![image23.png](docs/assets/maison-sf/image23.png)
-<!-- kept 23: ![image23.png](docs/assets/maison-sf/image23.png) → doc asset (no curated equivalent) -->
+![image23.png](docs/assets/dar-sf/image23.png)
 
 ---
 
@@ -741,17 +718,15 @@ Providing refined visual assets and elevated digital experiences designed to str
 
 **6.** **E****levate:**
 
-Maison SF continues to evolve and elevate your brand through ongoing creative direction, strategic refinement, innovation, and immersive luxury experiences designed to deepen connection and lasting brand presence.
+Dar SF continues to evolve and elevate your brand through ongoing creative direction, strategic refinement, innovation, and immersive luxury experiences designed to deepen connection and lasting brand presence.
 
-![image24.png](docs/assets/maison-sf/image24.png)
-<!-- kept 24: ![image24.png](docs/assets/maison-sf/image24.png) → doc asset (no curated equivalent) -->
+![image24.png](docs/assets/dar-sf/image24.png)
 
 ---
 
 4. PORTFOLIO PAGE
 
-![luxury-hotel-suite-sunset-ocean-view.jpg](images/luxury-hotel-suite-sunset-ocean-view.jpg)
-<!-- original 25: ![image25.png](docs/assets/maison-sf/image25.png) -->
+![image25.png](docs/assets/dar-sf/image25.png)
 <!-- image25.png : A room with a black marble floor and a black floor with a black marble floor and -->
 
 Crafted For Brands that desire Distinction
@@ -760,13 +735,11 @@ A curated selection of work exploring the intersection of luxury, culture, story
 
 ---
 
-![image26.png](docs/assets/maison-sf/image26.png)
-<!-- kept 26: ![image26.png](docs/assets/maison-sf/image26.png) → doc asset (no curated equivalent) -->
+![image26.png](docs/assets/dar-sf/image26.png)
 
 <u>**AI & Innovation**</u>
 
-![image27.png](docs/assets/maison-sf/image27.png)
-<!-- kept 27: ![image27.png](docs/assets/maison-sf/image27.png) → doc asset (no curated equivalent) -->
+![image27.png](docs/assets/dar-sf/image27.png)
 
 **AI & Innovation**
 
@@ -896,8 +869,7 @@ Reeva™ demonstrates how artificial intelligence can move beyond automation and
 
 <u>**Editorial Luxury**</u>
 
-![parisian-woman-black-suit-wet-street.jpg](images/parisian-woman-black-suit-wet-street.jpg)
-<!-- original 28: ![image28.png](docs/assets/maison-sf/image28.png) -->
+![image28.png](docs/assets/dar-sf/image28.png)
 
 ### Editorial Luxury
 
@@ -976,8 +948,7 @@ The collaboration produced a collection of premium editorial images that success
 Location: Paris, France  
 Role: Fashion Model & Creative Collaborator
 
-![parisian-woman-blue-shirt-leather-skirt-street.jpg](images/parisian-woman-blue-shirt-leather-skirt-street.jpg)
-<!-- original 29: ![image29.png](docs/assets/maison-sf/image29.png) -->
+![image29.png](docs/assets/dar-sf/image29.png)
 
 **Brand Identity**
 
@@ -1109,8 +1080,7 @@ London
 
 <u>**Digital experience:**</u>
 
-![image30.jpeg](docs/assets/maison-sf/image30.jpeg)
-<!-- kept 30: ![image30.jpeg](docs/assets/maison-sf/image30.jpeg) → doc asset (no curated equivalent) -->
+![image30.jpeg](docs/assets/dar-sf/image30.jpeg)
 <!-- image30.jpeg : A computer and tablet with a website on it
 
 AI-generated content may be incorrec -->
@@ -1197,8 +1167,7 @@ Responsive Website Design
 
 <u>**Luxury Visual Storytelling**</u>
 
-![editorial-fashion-woman-sports-car-bw.jpg](images/editorial-fashion-woman-sports-car-bw.jpg)
-<!-- original 31: ![image31.jpeg](docs/assets/maison-sf/image31.jpeg) -->
+![image31.jpeg](docs/assets/dar-sf/image31.jpeg)
 <!-- image31.jpeg : A person sitting in a car with the door open
 
 AI-generated content may be incorr -->
@@ -1281,8 +1250,7 @@ The campaign demonstrated how strategic visual storytelling can transform a prod
 
 The resulting imagery elevated brand perception while creating versatile content assets capable of supporting marketing, editorial, and digital communication objectives.
 
-![editorial-woman-veil-hat-earrings-bw.jpg](images/editorial-woman-veil-hat-earrings-bw.jpg)
-<!-- original 32: ![image32.jpeg](docs/assets/maison-sf/image32.jpeg) -->
+![image32.jpeg](docs/assets/dar-sf/image32.jpeg)
 <!-- image32.jpeg : A person in sunglasses sitting in a convertible car
 
 AI-generated content may be -->
@@ -1391,8 +1359,7 @@ A curated presence across editorials, fashion stories, portraits, and creative c
 
 Each publication reflects a shared language of elegance, atmosphere, and refined storytelling.
 
-![artego-magazine-cover-portrait-december-1170.jpg](images/artego-magazine-cover-portrait-december-1170.jpg)
-<!-- original 33: ![image33.jpeg](docs/assets/maison-sf/image33.jpeg) -->
+![image33.jpeg](docs/assets/dar-sf/image33.jpeg)
 <!-- image33.jpeg : A person holding a person in front of a tower
 
 AI-generated content may be incor -->
@@ -1405,8 +1372,7 @@ It is recognition of creative direction, visual storytelling, and the ability to
 
 Over the years, selected editorials and collaborations have been featured across international publications, celebrating contemporary fashion, beauty, movement, and luxury culture.
 
-![artego-magazine-cover-beach-chair-february-1249.jpg](images/artego-magazine-cover-beach-chair-february-1249.jpg)
-<!-- original 34: ![image34.jpeg](docs/assets/maison-sf/image34.jpeg) -->
+![image34.jpeg](docs/assets/dar-sf/image34.jpeg)
 
 ## Statistics
 
@@ -1428,8 +1394,7 @@ ORIGINAL CREATIVE COLLABORATIONS
 
 **Feature Publications**
 
-![quadro-magazine-cover-portrait-december-1395.jpg](images/quadro-magazine-cover-portrait-december-1395.jpg)
-<!-- original 35: ![image35.jpeg](docs/assets/maison-sf/image35.jpeg) -->
+![image35.jpeg](docs/assets/dar-sf/image35.jpeg)
 
 **Cover Feature | Artego Magazine**
 
@@ -1443,8 +1408,7 @@ A study in simplicity, confidence, and visual storytelling. Published as a cover
 
 The imagery captures a sense of freedom and individuality, demonstrating how powerful storytelling can emerge from the balance of fashion, environment, and human expression.
 
-![artego-magazine-cover-beach-chair-february-1249.jpg](images/artego-magazine-cover-beach-chair-february-1249.jpg)
-<!-- original 36: ![image36.jpeg](docs/assets/maison-sf/image36.jpeg) -->
+![image36.jpeg](docs/assets/dar-sf/image36.jpeg)
 <!-- image36.jpeg : A person wearing sunglasses and a black dress
 
 AI-generated content may be incor -->
@@ -1461,8 +1425,7 @@ Selected as a cover feature for Artego Magazine, this editorial reflects a visi
 
 A celebration of contemporary femininity, the publication stands as a testament to creative excellence and timeless editorial aesthetics.
 
-![artego-magazine-cover-portrait-december-1170.jpg](images/artego-magazine-cover-portrait-december-1170.jpg)
-<!-- original 37: ![image37.jpeg](docs/assets/maison-sf/image37.jpeg) -->
+![image37.jpeg](docs/assets/dar-sf/image37.jpeg)
 
 Cover Feature | Quadro Magazine
 
@@ -1476,8 +1439,7 @@ Published as a cover feature in Quadro Magazine, this editorial captures a quie
 
 The result is a visual narrative that feels both intimate and impactful—where fashion, emotion, and storytelling converge.
 
-![quadro-magazine-cover-portrait-december-1395.jpg](images/quadro-magazine-cover-portrait-december-1395.jpg)
-<!-- original 38: ![image38.jpeg](docs/assets/maison-sf/image38.jpeg) -->
+![image38.jpeg](docs/assets/dar-sf/image38.jpeg)
 
 MOEVIR Magazine  
 Glamour and Sport  
@@ -1491,19 +1453,16 @@ Featured in *Moevir Magazine*, this editorial celebrates the harmony between po
 
 **Publication Gallery**
 
-![creative-moodboard-studio-inspiration-wall.jpg](images/creative-moodboard-studio-inspiration-wall.jpg)
-<!-- original 39: ![image39.jpeg](docs/assets/maison-sf/image39.jpeg) -->
+![image39.jpeg](docs/assets/dar-sf/image39.jpeg)
 
 **Editorial** **Highlights**
 
-![luxury-hotel-corridor-silhouette-window-light.jpg](images/luxury-hotel-corridor-silhouette-window-light.jpg)
-<!-- original 40: ![image40.jpeg](docs/assets/maison-sf/image40.jpeg) -->
+![image40.jpeg](docs/assets/dar-sf/image40.jpeg)
 <!-- image40.jpeg : A magazine cover with a collage of women in different poses
 
 AI-generated conten -->
 
-![candlelit-luxury-bedroom-retreat.jpg](images/candlelit-luxury-bedroom-retreat.jpg)
-<!-- original 41: ![image41.jpeg](docs/assets/maison-sf/image41.jpeg) -->
+![image41.jpeg](docs/assets/dar-sf/image41.jpeg)
 <!-- image41.jpeg : A magazine cover with a collage of women in different poses
 
 AI-generated conten -->
@@ -1514,8 +1473,7 @@ Every Published editorial featured here represents a journey of collaboration be
 
 From luxury fashion editorials in Paris to contemporary portrait features and international magazine covers, these experiences continue to influence the philosophy behind Dar SF — where storytelling, aesthetics, and strategy come together to create memorable brand experiences.
 
-![luxury-hotel-lobby-golden-hour-silhouette.jpg](images/luxury-hotel-lobby-golden-hour-silhouette.jpg)
-<!-- original 42: ![image42.jpeg](docs/assets/maison-sf/image42.jpeg) -->
+![image42.jpeg](docs/assets/dar-sf/image42.jpeg)
 
 # Where Vision Becomes Presence
 
@@ -1525,8 +1483,7 @@ At Dar SF, we collaborate with visionary brands to craft immersive visual experi
 
 START A PROJECT
 
-![quote-banner-hotel-corridor-silhouette.jpg](images/quote-banner-hotel-corridor-silhouette.jpg)
-<!-- original 43: ![image43.png](docs/assets/maison-sf/image43.png) -->
+![image43.png](docs/assets/dar-sf/image43.png)
 
 ---
 
@@ -1540,13 +1497,11 @@ Through observation, research, and creative reflection, the Dar SF Journal exami
 
 Button: Explore Articles
 
-![journal-banner-editorial-desk-city-view.jpg](images/journal-banner-editorial-desk-city-view.jpg)
-<!-- original 44: ![image44.png](docs/assets/maison-sf/image44.png) -->
+![image44.png](docs/assets/dar-sf/image44.png)
 
 # Featured Editorial
 
-![luxury-hotel-corridor-silhouette-window-light.jpg](images/luxury-hotel-corridor-silhouette-window-light.jpg)
-<!-- original 45: ![image45.jpeg](docs/assets/maison-sf/image45.jpeg) -->
+![image45.jpeg](docs/assets/dar-sf/image45.jpeg)
 
 ### The Invisible Luxury
 
@@ -1678,8 +1633,7 @@ Exploring how technology and creative intelligence are influencing the future of
 
 <u>**Editorial Articles**</u>
 
-![image46.png](docs/assets/maison-sf/image46.png)
-<!-- kept 46: ![image46.png](docs/assets/maison-sf/image46.png) → doc asset (no curated equivalent) -->
+![image46.png](docs/assets/dar-sf/image46.png)
 <!-- image46.png : A person standing in a room with a window
 
 AI-generated content may be incorrect -->
@@ -1854,8 +1808,7 @@ It has simply found a new language.
 
 A language spoken through experience, emotion, and meaning.
 
-![luxury-hotel-lobby-golden-hour-silhouette.jpg](images/luxury-hotel-lobby-golden-hour-silhouette.jpg)
-<!-- original 47: ![image47.jpeg](docs/assets/maison-sf/image47.jpeg) -->
+![image47.jpeg](docs/assets/dar-sf/image47.jpeg)
 
 **Visual Storytelling**
 
@@ -2073,8 +2026,7 @@ They are drawn to them because of what they imagine, what they remember, and mos
 
 And that feeling is often where desire begins.
 
-![creative-moodboard-studio-inspiration-wall.jpg](images/creative-moodboard-studio-inspiration-wall.jpg)
-<!-- original 48: ![image48.jpeg](docs/assets/maison-sf/image48.jpeg) -->
+![image48.jpeg](docs/assets/dar-sf/image48.jpeg)
 
 **Creative Intelligence**
 
@@ -2290,8 +2242,7 @@ Because when intelligent technology meets human imagination, the question is no 
 
 The question becomes what we can create together.
 
-![creative-workspace-ai-image-editing-desk.jpg](images/creative-workspace-ai-image-editing-desk.jpg)
-<!-- original 49: ![image49.PNG](docs/assets/maison-sf/image49.PNG) -->
+![image49.PNG](docs/assets/dar-sf/image49.PNG)
 <!-- image49.PNG : A room with a pond and a table and chairs
 
 AI-generated content may be incorrect -->
@@ -2507,27 +2458,23 @@ And it may be one of the most powerful forms of design we possess.
 Souhir Fhima  
 Founder, Dar SF
 
-![luxury-hotel-lobby-golden-hour-silhouette.jpg](images/luxury-hotel-lobby-golden-hour-silhouette.jpg)
-<!-- original 50: ![image50.png](docs/assets/maison-sf/image50.png) -->
+![image50.png](docs/assets/dar-sf/image50.png)
 
 # Curated Visual Stories
 
-![candlelit-luxury-bedroom-retreat.jpg](images/candlelit-luxury-bedroom-retreat.jpg)
-<!-- original 51: ![image51.png](docs/assets/maison-sf/image51.png) -->
+![image51.png](docs/assets/dar-sf/image51.png)
 
 ### The Architecture of Elegance
 
 How thoughtful design transforms spaces into experiences.
 
-![luxury-hotel-restaurant-candlelit-dining.jpg](images/luxury-hotel-restaurant-candlelit-dining.jpg)
-<!-- original 52: ![image52.jpeg](docs/assets/maison-sf/image52.jpeg) -->
+![image52.jpeg](docs/assets/dar-sf/image52.jpeg)
 
 ### The Language of Wellness
 
 Exploring the visual and emotional elements behind modern wellness brands.
 
-![wellness-spa-massage-candlelit-treatment.jpg](images/wellness-spa-massage-candlelit-treatment.jpg)
-<!-- original 53: ![image53.jpeg](docs/assets/maison-sf/image53.jpeg) -->
+![image53.jpeg](docs/assets/dar-sf/image53.jpeg)
 <!-- image53.jpeg : A person standing in front of a window looking out to a city
 
 AI-generated conte -->
@@ -2536,8 +2483,7 @@ AI-generated conte -->
 
 Why successful beauty brands sell transformation rather than products.
 
-![caudalie-beauty-products-marble-display.jpg](images/caudalie-beauty-products-marble-display.jpg)
-<!-- original 54: ![image54.png](docs/assets/maison-sf/image54.png) -->
+![image54.png](docs/assets/dar-sf/image54.png)
 
 ### Designing Desire
 
@@ -2580,8 +2526,7 @@ Occasional reflections on luxury, creativity, hospitality, culture, and the futu
 
 No noise. Only ideas worth considering.
 
-![journal-banner-editorial-desk-city-view.jpg](images/journal-banner-editorial-desk-city-view.jpg)
-<!-- original 55: ![image55.png](docs/assets/maison-sf/image55.png) -->
+![image55.png](docs/assets/dar-sf/image55.png)
 <!-- image55.png : A dark room with a light shining through the doorway
 
 AI-generated content may b -->
@@ -2600,15 +2545,13 @@ It is remembered.
 
 Button: Start Your Project
 
-![cta-banner-luxury-lounge-night-view.jpg](images/cta-banner-luxury-lounge-night-view.jpg)
-<!-- original 56: ![image56.PNG](docs/assets/maison-sf/image56.PNG) -->
+![image56.PNG](docs/assets/dar-sf/image56.PNG)
 
 ---
 
 - **CONTACT PAGE**
 
-![twilight-luxury-resort-pool-candles.jpg](images/twilight-luxury-resort-pool-candles.jpg)
-<!-- original 57: ![image57.png](docs/assets/maison-sf/image57.png) -->
+![image57.png](docs/assets/dar-sf/image57.png)
 
 **Let's Create Something Worth Remembering**
 
@@ -2628,8 +2571,7 @@ Dar SF partners with brands, founders, and creative leaders seeking to create ex
 
 Every project begins by understanding not only what a brand offers, but how it wishes to be remembered.
 
-![parisian-woman-blue-shirt-leather-skirt-street.jpg](images/parisian-woman-blue-shirt-leather-skirt-street.jpg)
-<!-- original 58: ![image58.jpeg](docs/assets/maison-sf/image58.jpeg) -->
+![image58.jpeg](docs/assets/dar-sf/image58.jpeg)
 
 ## PROJECT ENQUIRY
 
@@ -2676,8 +2618,7 @@ Founder & Creative Director
 
 Use my signature
 
-![quote-banner-hotel-corridor-silhouette.jpg](images/quote-banner-hotel-corridor-silhouette.jpg)
-<!-- original 59: ![image59.png](docs/assets/maison-sf/image59.png) -->
+![image59.png](docs/assets/dar-sf/image59.png)
 
 **Display:**
 
@@ -2699,17 +2640,15 @@ Whether you're creating a hospitality destination, wellness concept, editorial c
 
 Button: Start a Project →
 
-![cta-banner-luxury-lounge-night-view.jpg](images/cta-banner-luxury-lounge-night-view.jpg)
-<!-- original 60: ![image60.jpeg](docs/assets/maison-sf/image60.jpeg) -->
+![image60.jpeg](docs/assets/dar-sf/image60.jpeg)
 
-![cta-banner-luxury-lounge-night-view.jpg](images/cta-banner-luxury-lounge-night-view.jpg)
-<!-- original 61: ![image61.PNG](docs/assets/maison-sf/image61.PNG) -->
+![image61.PNG](docs/assets/dar-sf/image61.PNG)
 
 ---
 
 # FOOTER
 
-MAISON SF
+DAR SF
 
 Luxury Visual Storytelling & Brand Experiences
 
@@ -2761,102 +2700,16 @@ Instagram | Email | LinkedIn
 
 ---
 
-## Image Mapping (Option 3 — Optimized `images/`)
+## Image Handling
 
-This file is **Option 3** from `Maison-SF.md` Image Handling: DOCX placeholders remapped to the 30 curated optimized assets in `images/` (see `images_description.md`) where semantics and aspect ratio align. **9 placeholders kept** as `docs/assets/maison-sf/` because they are tall UI screenshots (864×1821), dashboards, or diagrams with no photographic equivalent.
-
-### Mapping summary (52 mapped / 9 kept)
-
-| # | DOCX placeholder | → Curated / Kept | Reason |
-|---|-----------------|-----------------|--------|
-| 01 | `image1.png` (Maison SF header) | → `twilight-luxury-resort-pool-candles.jpg` | Homepage hero — twilight pool is primary hero (images_description.md #30) |
-| 02 | `image2.png` (tall homepage screenshot 864×1821) | kept `docs/assets` | Screenshot mockup, no curated tall screenshot |
-| 03 | `image3.png` (Explore Dar SF intro) | → `creative-director-writing-desk-lamp-studio.jpg` | Founder studio human connection |
-| 04 | `image4.jpeg` (The Art of Brand Presence) | → `creative-moodboard-studio-inspiration-wall.jpg` | Moodboard storytelling |
-| 05 | `image5.jpeg` (Creative Direction) | → `luxury-lifestyle-flatlay-ysl-chanel.jpg` | Lifestyle identity flatlay |
-| 06 | `image6.jpeg` (Digital Experiences) | → `digital-experiences-workspace-laptop-camera.jpg` | Exact digital workspace match |
-| 07 | `image7.jpeg` (Intelligent Brand Growth) | → `dar-brand-growth-notebook-charts.jpg` | Growth charts notebook |
-| 08 | `image8.png` (transition to Who We Work With) | → `luxury-hotel-corridor-silhouette-window-light.jpg` | Corridor atmosphere |
-| 09 | `image9.png` (Who We Work With) | → `private-jet-sunset-champagne-luxury-travel.jpg` | Elevated travel tile |
-| 10 | `image10.jpeg` (About SF DAR) | → `parisian-woman-black-suit-hands-pockets-street.jpg` | Founder portrait |
-| 11 | `image11.png` (signature) | → `souhir-fhima-neon-signature.png` | Neon signature asset |
-| 12 | `image12.jpeg` (Featured Work) | → `luxury-hotel-suite-sunset-ocean-view.jpg` | Hospitality portfolio |
-| 13 | `image13.jpeg` (Signature Quote Banner) | → `quote-banner-hotel-corridor-silhouette.jpg` | Quote banner panoramic |
-| 14 | `image14.jpeg` (Newsletter) | → `newsletter-banner-luxury-library-lounge.jpg` | Newsletter banner |
-| 15 | `image15.jpeg` (CTA) | → `cta-banner-luxury-lounge-night-view.jpg` | CTA lounge night |
-| 16 | `image16.jpeg` (Footer) | kept | Footer visual, no curated |
-| 17 | `image17.jpeg` (About Hero) | → `editorial-woman-tweed-suit-grand-staircase-bw.jpg` | Paris editorial About hero |
-| 18 | `image18.jpeg` (Language of Presence) | → `luxury-hotel-lobby-golden-hour-silhouette.jpg` | Lobby atmosphere |
-| 19 | `image19.jpeg` (Philosophy) | → `candlelit-luxury-bedroom-retreat.jpg` | Luxury retreat warmth |
-| 20 | `image20.jpeg` (Philosophy alt) | → `wellness-spa-massage-candlelit-treatment.jpg` | Wellness calm |
-| 21 | `image21.png` (Values icons) | kept | Icons diagram |
-| 22 | `image22.jpeg` (Services hero) | → `luxury-hotel-corridor-silhouette-window-light.jpg` | Services hero corridor |
-| 23 | `image23.png` (AI funnels) | kept | Diagram/funnels |
-| 24 | `image24.png` (Dar SF Method) | kept | Method diagram |
-| 25 | `image25.png` (Portfolio hero) | → `luxury-hotel-suite-sunset-ocean-view.jpg` | Portfolio hospitality |
-| 26 | `image26.png` (portfolio grid) | kept | Grid screenshot |
-| 27 | `image27.png` (AI dashboard) | kept | Dashboard screenshot |
-| 28 | `image28.png` (Editorial Luxury) | → `parisian-woman-black-suit-wet-street.jpg` | Paris street editorial |
-| 29 | `image29.png` (Paris Couture) | → `parisian-woman-blue-shirt-leather-skirt-street.jpg` | Paris couture alt |
-| 30 | `image30.jpeg` (Lumiere Shopify) | kept | E-commerce screenshot |
-| 31 | `image31.jpeg` (Velocity Noir) | → `editorial-fashion-woman-sports-car-bw.jpg` | Sports car editorial |
-| 32 | `image32.jpeg` (Art of Vision) | → `editorial-woman-veil-hat-earrings-bw.jpg` | Eyewear portrait veil |
-| 33 | `image33.jpeg` (Where Vision Earns) | → `artego-magazine-cover-portrait-december-1170.jpg` | Magazine cover |
-| 34 | `image34.jpeg` (Over years) | → `artego-magazine-cover-beach-chair-february-1249.jpg` | Artego beach |
-| 35 | `image35.jpeg` (Feature Publications) | → `quadro-magazine-cover-portrait-december-1395.jpg` | Quadro |
-| 36 | `image36.jpeg` (Portrait February) | → `artego-magazine-cover-beach-chair-february-1249.jpg` | Artego Feb |
-| 37 | `image37.jpeg` (Artego Dec) | → `artego-magazine-cover-portrait-december-1170.jpg` | Artego Dec |
-| 38 | `image38.jpeg` (Quadro) | → `quadro-magazine-cover-portrait-december-1395.jpg` | Quadro Dec |
-| 39 | `image39.jpeg` (Publication Gallery) | → `creative-moodboard-studio-inspiration-wall.jpg` | Gallery moodboard |
-| 40 | `image40.jpeg` (Editorial Highlights) | → `luxury-hotel-corridor-silhouette-window-light.jpg` | Highlights corridor |
-| 41 | `image41.jpeg` (Beyond Publication 1) | → `candlelit-luxury-bedroom-retreat.jpg` | Bedroom retreat |
-| 42 | `image42.jpeg` (Beyond Publication 2) | → `luxury-hotel-lobby-golden-hour-silhouette.jpg` | Lobby golden |
-| 43 | `image43.png` (Where Vision Becomes Presence) | → `quote-banner-hotel-corridor-silhouette.jpg` | Quote banner |
-| 44 | `image44.png` (Journal Ideas) | → `journal-banner-editorial-desk-city-view.jpg` | Journal banner |
-| 45 | `image45.jpeg` (Featured Editorial Invisible Luxury) | → `luxury-hotel-corridor-silhouette-window-light.jpg` | Invisible luxury corridor |
-| 46 | `image46.png` (Editorial Articles grid) | kept | Articles grid screenshot |
-| 47 | `image47.jpeg` (Future of Luxury) | → `luxury-hotel-lobby-golden-hour-silhouette.jpg` | Future luxury lobby |
-| 48 | `image48.jpeg` (Language of Feeling) | → `creative-moodboard-studio-inspiration-wall.jpg` | Psychology moodboard |
-| 49 | `image49.PNG` (Human Advantage) | → `creative-workspace-ai-image-editing-desk.jpg` | AI workspace |
-| 50 | `image50.png` (Architecture of Atmosphere Quote) | → `luxury-hotel-lobby-golden-hour-silhouette.jpg` | Atmosphere lobby |
-| 51 | `image51.png` (Curated Visual Stories) | → `candlelit-luxury-bedroom-retreat.jpg` | Visual stories bedroom |
-| 52 | `image52.jpeg` (Architecture of Elegance) | → `luxury-hotel-restaurant-candlelit-dining.jpg` | Restaurant elegance |
-| 53 | `image53.jpeg` (Language of Wellness) | → `wellness-spa-massage-candlelit-treatment.jpg` | Wellness spa |
-| 54 | `image54.png` (Beauty Beyond Products) | → `caudalie-beauty-products-marble-display.jpg` | Caudalie beauty |
-| 55 | `image55.png` (Journal No noise) | → `journal-banner-editorial-desk-city-view.jpg` | Journal banner alt |
-| 56 | `image56.PNG` (Final CTA tall screenshot) | → `cta-banner-luxury-lounge-night-view.jpg` | CTA (replaces tall screenshot) |
-| 57 | `image57.png` (CONTACT PAGE header) | → `twilight-luxury-resort-pool-candles.jpg` | Contact hero twilight |
-| 58 | `image58.jpeg` (A Personal Invitation) | → `parisian-woman-blue-shirt-leather-skirt-street.jpg` | Personal founder |
-| 59 | `image59.png` (Signature Quote) | → `quote-banner-hotel-corridor-silhouette.jpg` | Signature quote |
-| 60 | `image60.jpeg` (Let's Begin) | → `cta-banner-luxury-lounge-night-view.jpg` | Final CTA |
-| 61 | `image61.PNG` (Let's Begin second) | → `cta-banner-luxury-lounge-night-view.jpg` | Final CTA duplicate |
-
-**Aspect handling:** Banners (6–8:1) → `cta/journal/quote/newsletter` banners; portrait service cards (0.67–0.80) → 5000×6248 tiles; square magazine covers (0.77) → Artego/Quadro 1836×2376; tall screenshots kept as `docs/assets` to avoid stretching curated photos.
-
-### Paths
-
-- Mapped: `images/<curated>.jpg` (relative to project root, optimized masters 1–13 MB, WebP variants in `sorted/` when needed via responsive `srcset`).
-- Kept: `docs/assets/maison-sf/imageN.*` (44 MB total, original screenshots/diagrams, not for production — replace with code or optimized exports if building).
-
-Original faithful file preserved at `Maison-SF.md` for reference.
-
----
-
-## Original Image Handling (for reference)
-
-The following is the original Image Handling appendix from `Maison-SF.md` — kept for completeness.
-
-
-### Original Image Handling (from Maison-SF.md)
-
-This Markdown is a **1:1 faithful conversion** — all text, headings (`#`–`####`), bold/italic/underline, bullets (`*`), numbered lists (`1.`), dividers (`---`), and centered blocks (`<div align="center">`) are preserved exactly as in `Maison SF.docx`. **Only images are handled specially**, because embedding 61 binary 44 MB assets directly in Markdown is impractical for version control.
+This Markdown is a **1:1 faithful conversion** — all text, headings (`#`–`####`), bold/italic/underline, bullets (`*`), numbered lists (`1.`), dividers (`---`), and centered blocks (`<div align="center">`) are preserved exactly as in `Dar SF.docx`. **Only images are handled specially**, because embedding 61 binary 44 MB assets directly in Markdown is impractical for version control.
 
 ### Current placeholder strategy (default)
 
 - Every image in the DOCX appears as a block at its **original position**:
 
   ```markdown
-  ![image1.png](docs/assets/maison-sf/image1.png)
+  ![image1.png](docs/assets/dar-sf/image1.png)
   ```
 
 - 61 files referenced: `image1.png` → `image61.PNG` (see `word/media/` inside the DOCX).
@@ -2864,7 +2717,7 @@ This Markdown is a **1:1 faithful conversion** — all text, headings (`#`–`##
 
 ### Option 1 — Keep placeholders (lightweight, recommended for Git)
 
-Leave the `![...](docs/assets/maison-sf/...)` lines as-is. The Markdown remains **fully readable without the image files** — viewers see the filename/position. Commit only the `.md` (93 KB) and ignore `docs/assets/`.
+Leave the `![...](docs/assets/dar-sf/...)` lines as-is. The Markdown remains **fully readable without the image files** — viewers see the filename/position. Commit only the `.md` (93 KB) and ignore `docs/assets/`.
 
 > To hide placeholders, comment them: `<!-- ![image1.png](...) -->`
 
@@ -2873,12 +2726,12 @@ Leave the `![...](docs/assets/maison-sf/...)` lines as-is. The Markdown remains 
 Extract the 61 images once:
 
 ```bash
-mkdir -p docs/assets/maison-sf
-unzip -j "Maison SF.docx" "word/media/*" -d docs/assets/maison-sf
-# or: unzip -o "Maison SF.docx" -d /tmp/maison && cp /tmp/maison/word/media/* docs/assets/maison-sf/
+mkdir -p docs/assets/dar-sf
+unzip -j "Dar SF.docx" "word/media/*" -d docs/assets/dar-sf
+# or: unzip -o "Dar SF.docx" -d /tmp/dar-sf && cp /tmp/dar-sf/word/media/* docs/assets/dar-sf/
 ```
 
-Paths in this Markdown already point to `docs/assets/maison-sf/` relative to the project root (`Maison-SF.md` location). After extraction:
+Paths in this Markdown already point to `docs/assets/dar-sf/` relative to the project root (`Dar-SF.md` location). After extraction:
 
 - **VS Code / GitHub / Typora** will render images inline.
 - **Static site generators** (Next.js, Hugo, Docusaurus) will copy `docs/assets/` as static assets.
@@ -2891,7 +2744,7 @@ If you prefer to reuse the already-optimized studio images (`/images`, `/sorted`
 
 ```markdown
 # before
-![image8.png](docs/assets/maison-sf/image8.png)
+![image8.png](docs/assets/dar-sf/image8.png)
 # after — map DOCX image to your curated asset
 ![twilight-luxury-resort-pool-candles.jpg](../../images/twilight-luxury-resort-pool-candles.jpg)
 ```
@@ -2901,9 +2754,9 @@ See `images_description.md` for the 35 curated assets with AI-friendly tags, foc
 ### Option 4 — Remove images entirely
 
 ```bash
-grep -v "docs/assets/maison-sf" Maison-SF.md > Maison-SF.no-images.md
+grep -v "docs/assets/dar-sf" Dar-SF.md > Dar-SF.no-images.md
 ```
 
 ---
 
-*Generated from `Maison SF.docx` on 2026-08-29 — 1684 paragraphs, 61 images, 47 dividers, ~2830 lines. For any image, the original position is preserved by its `![filename](path)` placeholder.*
+*Generated from `Dar SF.docx` on 2026-08-29 — 1684 paragraphs, 61 images, 47 dividers, ~2830 lines. For any image, the original position is preserved by its `![filename](path)` placeholder.*

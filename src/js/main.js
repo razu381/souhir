@@ -1,5 +1,5 @@
 /**
- * Maison SF — entry point.
+ * Dar SF — entry point.
  *
  * Every init takes a root and refuses to double-bind (AGENT.md §1 Rule 3),
  * because Elementor's editor destroys and rebuilds DOM nodes live. In
@@ -14,12 +14,14 @@ import { initHero }   from './modules/hero.js';
 import { initHeader } from './modules/header.js';
 import { initReveal } from './modules/reveal.js';
 import { initWords }  from './modules/words.js';
+import { initWork }   from './modules/work.js';
 
 export function initAll(root = document) {
   initHero(root);
   initHeader(root);
   initReveal(root);
   initWords(root);
+  initWork(root);
 }
 
 if (document.readyState === 'loading') {

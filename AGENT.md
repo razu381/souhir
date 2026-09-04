@@ -1,4 +1,4 @@
-# AGENT.md — Maison SF / Dar SF
+# AGENT.md — Dar SF
 
 Build instructions for any agent or developer working in this repo.
 Read alongside [`DESIGN-DIRECTION.md`](./DESIGN-DIRECTION.md), which is the visual authority. This file is the **technical** authority. Where they appear to conflict, the design doc wins on *what it looks like*, this file wins on *how it is built*.
