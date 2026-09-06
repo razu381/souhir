@@ -8,10 +8,12 @@ tsconfig.tsbuildinfo
 .netlify/
 
 # Heavy source material — originals stay local; the baked, in-use copies
-# live in public/assets.
+# live in public/assets. docs/plans + docs/assets stay local; docs/site
+# (the project documentation) is tracked.
 images/
 sorted/
-docs/
+docs/*
+!docs/site/
 parisian-woman-blue-shirt-leather-skirt-street.jpg
 
 # Local OS / editor noise

@@ -3,6 +3,10 @@
 Luxury creative studio — "cinematic, editorial, noir." The client-editable site:
 **Next.js 16 (App Router) + Sanity v6 + Tailwind v4**, deployed on Netlify.
 
+**Documentation: [`docs/site/README.md`](docs/site/README.md)** — project
+overview, design system, content model, studio guide, and one page doc per
+route.
+
 ## Quickstart
 
 ```bash
