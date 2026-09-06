@@ -1,7 +1,0 @@
-# Drag-drop deploy equivalent of netlify.toml — must sit in the publish root.
-/                    /src/index.html            200
-/src                 /src/index.html            200
-/src/hero-threshold  /src/hero-threshold.html   200
-/src/hero-exhibition /src/hero-exhibition.html  200
-/src/hero-overture   /src/hero-overture.html    200
-/src/hero-nocturne   /src/hero-nocturne.html    200

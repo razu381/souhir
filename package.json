@@ -1,18 +1,27 @@
 {
-  "name": "dar-sf",
+  "name": "dar-sf-web",
   "private": true,
   "version": "0.1.0",
-  "description": "Dar SF — static build. Rebuilt in Elementor later; see AGENT.md.",
   "scripts": {
-    "build:css": "tailwindcss -i src/css/main.css -o dist/sf.css --minify",
-    "watch:css": "tailwindcss -i src/css/main.css -o dist/sf.css --watch",
-    "build:js": "node scripts/bundle.mjs",
-    "build:img": "./scripts/build-images.sh",
-    "build": "npm run build:css && npm run build:js",
-    "serve": "npx --yes serve -l 4173 ."
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@sanity/image-url": "^2.1.1",
+    "@sanity/vision": "^6.12.0",
+    "next": "^16.3.4",
+    "next-sanity": "^13.3.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "sanity": "^6.12.0",
+    "styled-components": "^6.5.3"
   },
   "devDependencies": {
-    "@tailwindcss/cli": "^4.0.0",
-    "esbuild": "^0.25.0"
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.4.1",
+    "@types/react": "^19.2.18",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2"
   }
 }

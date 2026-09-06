@@ -1,36 +1,16 @@
-# Static prototype: no build step. The repo root is the web root — the src/
-# pages resolve ../dist and ../assets against it.
+# Dar SF — Next.js 16 + Sanity v6. The repo root IS the app.
+#
+# Netlify (Site configuration):
+#   • Base directory: (none) — the app lives at the repo root. If the site was
+#     previously configured with base directory `web`, clear that setting.
+#   • Environment variables required:
+#       NEXT_PUBLIC_SANITY_PROJECT_ID / NEXT_PUBLIC_SANITY_DATASET  (public)
+#       SANITY_REVALIDATE_SECRET   — shared with the GROQ publish webhook
+#       SANITY_API_WRITE_TOKEN     — create-messages-only role, for the forms
+#       NEXT_PUBLIC_SITE_URL       — the final domain, for metadata/sitemap
+#   • Sanity GROQ webhook → POST /api/revalidate with the header
+#     `x-sanity-webhook-secret: <the same secret>`.
+
 [build]
-  publish = "."
-
-# "/" has no root index.html by design; the directions index lives at /src/.
-[[redirects]]
-  from = "/"
-  to = "/src/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/src"
-  to = "/src/index.html"
-  status = 200
-
-# Extensionless deep links, matching the local preview URLs.
-[[redirects]]
-  from = "/src/hero-threshold"
-  to = "/src/hero-threshold.html"
-  status = 200
-
-[[redirects]]
-  from = "/src/hero-exhibition"
-  to = "/src/hero-exhibition.html"
-  status = 200
-
-[[redirects]]
-  from = "/src/hero-overture"
-  to = "/src/hero-overture.html"
-  status = 200
-
-[[redirects]]
-  from = "/src/hero-nocturne"
-  to = "/src/hero-nocturne.html"
-  status = 200
+  command = "npm run build"
+  publish = ".next"

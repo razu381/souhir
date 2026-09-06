@@ -1,58 +1,31 @@
-# souhir
+# Dar SF
 
-Dar SF — a luxury creative studio prototype: cinematic, editorial, noir.
-Static HTML + Tailwind v4 (CSS-first, no preflight) + vanilla JS, architected for a
-1:1 WordPress + Elementor rebuild (class-only selectors, custom-property-driven JS,
-progressive enhancement via `.sf-js`).
+Luxury creative studio — "cinematic, editorial, noir." The client-editable site:
+**Next.js 16 (App Router) + Sanity v6 + Tailwind v4**, deployed on Netlify.
 
-## Design directions
+## Quickstart
 
-Four complete hero directions, each carrying the same five sections in its own voice:
-
-| Direction | Page | Section 05 treatment |
-| --- | --- | --- |
-| The Spread — paper, the double-page print | `src/hero-threshold.html` | the rail |
-| The Exhibition — noir gallery, Fig. plates | `src/hero-exhibition.html` | the signature |
-| The Overture — the night film, champagne | `src/hero-overture.html` | the wide plate |
-| The Nocturne — umber gallery, lamplight, warm colour | `src/hero-nocturne.html` | the signature |
-
-The Nocturne is the client-led fusion: the Exhibition's editorial structure
-(catalogue, hung print, museum label) on the Overture's warm night (umber
-grounds, the corridor still in cinemascope, champagne picture light).
-
-A comparison index lives at `src/index.html`.
-
-## Structure
-
-- `src/` — pages, CSS (`tokens` / `base` / `components`), JS modules
-- `assets/` — optimized webp/jpg plates (built by `scripts/build-images.sh` from
-  `images/` + `sorted/`, which are **not** in the repo)
-- `dist/` — build output (`sf.css`, `sf.js`, fonts); self-contained so a clone
-  previews immediately
-- `scripts/` — image pipeline + bundler
-- `AGENT.md`, `DESIGN-DIRECTION.md` — system rules and art direction
-- `Dar-SF.mapped.md` — the client brief, mapped
-
-## Commands
-
-```sh
-npm run build:css     # Tailwind v4 → dist/sf.css
-npm run build:js      # esbuild bundle → dist/sf.js
-bash scripts/build-images.sh   # ffmpeg pipeline → assets/ (requires images/ + sorted/)
+```bash
+npm install
+npm run dev        # http://localhost:3000  ·  Studio at /studio
 ```
 
-## Preview
+`.env.local` (see `netlify.toml` for the production equivalents):
 
-Any static file server rooted at the project, e.g.:
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` / `NEXT_PUBLIC_SANITY_DATASET` | public read access |
+| `SANITY_API_WRITE_TOKEN` | create-only token — the contact/newsletter forms write `message` documents; never expose client-side |
+| `SANITY_REVALIDATE_SECRET` | shared secret for the Sanity → `/api/revalidate` webhook |
+| `NEXT_PUBLIC_SITE_URL` | canonical origin for metadata/sitemap |
 
-```sh
-npx serve .           # then open /src/index.html
-```
+## How it works
 
-## Deploy (Netlify)
+- **Seed fallback.** `src/content/seed.ts` carries the full Nocturne home page verbatim. Every section renders Sanity content when its documents exist and the seed when they don't — a fresh clone with zero documents still renders the complete site. The client's first publish takes over, section by section.
+- **Embedded studio.** `/studio` (Sanity desk; schemas in `src/sanity/schemas.ts`). Content model: `home`, `siteSettings`, `service`, `workItem`, `caseStudy`, `journalArticle`, `pressFeature`, `message`.
+- **Tag-based revalidation.** Fetches are tagged (`home`, `work`, `journal`, …); publishing fires a GROQ webhook → `POST /api/revalidate` → `revalidateTag`.
+- **Design system.** The prototype's CSS lives on verbatim in `src/app/sf/` (`tokens` / `base` / `components`, ported at prototype freeze `7a7bced`) plus `site.css` for menu, inner pages, long-form and forms. React components carry only class names and the custom-property contract (`is-ready`, `is-revealed`, `--sf-delay`, `--sf-p`, …) — the stylesheet owns every visual outcome. `DESIGN-DIRECTION.md` is the system spec; the retired static prototype remains viewable in git history (see commits ≤ `7a7bced`).
 
-No build step — the repo root is the publish directory (`netlify.toml` pins it).
-`/` rewrites to the directions index; the hero pages are also reachable
-extensionless (`/src/hero-exhibition`). For drag-drop deploys, drop the repo
-root — `_redirects` sits there for exactly that case.
+## Deploy
 
+Netlify reads `netlify.toml` at the repo root (base directory: none). Set the environment variables above in the Netlify UI, configure the Sanity GROQ webhook (`x-sanity-webhook-secret` header → `/api/revalidate`), and allow the production domain in the dataset's CORS settings.

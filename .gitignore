@@ -1,13 +1,14 @@
 # Dependencies
 node_modules/
 
-# Build output is committed on purpose: dist/ is self-contained (sf.css + sf.js
-# + fonts) so a fresh clone previews immediately. Do not add more here without
-# updating AGENT.md.
+# Next.js
+.next/
+.env.local
+tsconfig.tsbuildinfo
+.netlify/
 
-# Heavy source material — the pipeline (scripts/build-images.sh) bakes these
-# into assets/; the originals stay local. ~460MB of licensed stock photography
-# and docx-derived originals do not belong in the repo.
+# Heavy source material — originals stay local; the baked, in-use copies
+# live in public/assets.
 images/
 sorted/
 docs/
