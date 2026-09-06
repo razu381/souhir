@@ -1,5 +1,16 @@
 # AGENT.md — Dar SF
 
+> **Superseded in part (Sep 2026):** the production site is now the Next.js +
+> Sanity app in [`web/`](./web) — see `docs/plans/10-nextjs-sanity-migration.md`
+> and its §16. The Elementor rebuild path below is **retired**: React components
+> own their DOM, so Rules 1–3 were written for a constraint that no longer
+> exists. Two things survive deliberately: the **class-only CSS discipline**
+> (kept as good practice — `web/src/app/sf/` is this prototype's
+> `tokens/base/components` ported verbatim at commit `7a7bced`), and the
+> **custom-property contract** (JS writes properties, CSS owns motion — the
+> React components in `web/src/components/sf/` honor it unchanged). This root
+> prototype remains the visual fidelity reference.
+
 Build instructions for any agent or developer working in this repo.
 Read alongside [`DESIGN-DIRECTION.md`](./DESIGN-DIRECTION.md), which is the visual authority. This file is the **technical** authority. Where they appear to conflict, the design doc wins on *what it looks like*, this file wins on *how it is built*.
 

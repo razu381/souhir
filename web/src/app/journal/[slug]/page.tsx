@@ -1,52 +1,60 @@
-import { PortableText, type PortableTextComponents } from 'next-sanity';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import type { Metadata } from 'next';
+import { PortableText, type PortableTextComponents } from 'next-sanity';
+import PageTitle, { HeaderSentinel } from '@/components/sf/PageTitle';
+import Reveal from '@/components/sf/Reveal';
 import { client, urlFor } from '@/sanity/client';
 import { ARTICLE, ARTICLE_SLUGS } from '@/sanity/queries';
-import { Nav, Foot } from '../../nav';
 
-export const revalidate = 60;
+export const revalidate = 600;
+
+type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
   const rows = await client
     .withConfig({ useCdn: false })
-    .fetch<{ slug: string }[]>(ARTICLE_SLUGS);
+    .fetch<{ slug: string }[]>(ARTICLE_SLUGS)
+    .catch(() => []);
   return rows.map((r) => ({ slug: r.slug }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const article = await client
+    .fetch<{ title: string; excerpt?: string } | null>(ARTICLE, { slug })
+    .catch(() => null);
+  if (!article) return {};
+  return { title: article.title, description: article.excerpt };
 }
 
 /** Images and pull quotes she inserts mid-article render as their own blocks. */
 const components: PortableTextComponents = {
   types: {
     image: ({ value }) => (
-      <figure>
+      <figure className="sf-plate">
         <img
-          src={urlFor(value).width(1400).auto('format').url()}
+          src={urlFor(value).width(1400).height(933).fit('crop').auto('format').url()}
           alt={value.alt ?? ''}
           width={1400}
           height={933}
           loading="lazy"
         />
-        {value.caption && <figcaption>{value.caption}</figcaption>}
+        {value.caption && <figcaption className="sf-plate__caption">{value.caption}</figcaption>}
       </figure>
     ),
     closingQuote: ({ value }) => (
-      <aside className="sfd-pull">
-        <p className="sfd-pull__text">“{value.quote}”</p>
-        {value.attribution && (
-          <span className="sfd-pull__by sfd-label">{value.attribution}</span>
-        )}
+      <aside className="sf-pull">
+        <p className="sf-pull__text">&ldquo;{value.quote}&rdquo;</p>
+        {value.attribution && <span className="sf-pull__by">{value.attribution}</span>}
       </aside>
     ),
   },
 };
 
-export default async function ArticlePage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function ArticlePage({ params }: Props) {
   const { slug } = await params;
   const article = await client.fetch<Record<string, any> | null>(ARTICLE, { slug });
-
   if (!article) notFound();
 
   const date = article.publishedAt
@@ -57,45 +65,49 @@ export default async function ArticlePage({
       })
     : null;
 
-  return (
-    <>
-      <div className="sf-container">
-        <Nav back={{ href: '/', label: 'The Journal' }} />
-      </div>
+  const title = article.title as string;
+  const split: [string, string] = title.startsWith('The ')
+    ? ['The ', title.slice(4)]
+    : title.includes(' ')
+      ? [`${title.split(' ')[0]} `, title.split(' ').slice(1).join(' ')]
+      : [title, ''];
 
-      {article.heroImage && (
-        <div className="sfd-hero">
-          <figure className="sfd-hero__media">
-            <img
-              src={urlFor(article.heroImage).width(2000).auto('format').url()}
-              alt={article.heroImage.alt ?? ''}
-              width={2000}
-              height={900}
-            />
-          </figure>
-        </div>
+  return (
+    <main id="main">
+      <PageTitle
+        label={`(The Journal — ${article.category ?? 'Essay'})`}
+        title={split}
+        intro={article.excerpt}
+        num={date ?? undefined}
+      />
+      <HeaderSentinel />
+
+      {article.heroImage?.asset && (
+        <figure className="sf-plate">
+          <img
+            src={urlFor(article.heroImage).width(2000).height(1125).fit('crop').auto('format').url()}
+            alt={article.heroImage.alt ?? ''}
+            width={2000}
+            height={1125}
+            fetchPriority="high"
+            decoding="async"
+          />
+        </figure>
       )}
 
       <div className="sf-container">
-        <header className="sfd-titles">
-          <span className="sfd-titles__eyebrow sfd-label">{article.category}</span>
-          <h1 className="sfd-titles__title">{article.title}</h1>
-          {article.excerpt && (
-            <p className="sfd-titles__tagline">{article.excerpt}</p>
-          )}
-          {date && (
-            <div className="sfd-titles__meta sfd-label">
-              <span>{date}</span>
-            </div>
-          )}
-        </header>
+        <div className="sf-sections">
+          <article className="sf-prose sf-prose--article">
+            <PortableText value={article.body ?? []} components={components} />
+          </article>
 
-        <article className="sfd-article sfd-measure">
-          <PortableText value={article.body ?? []} components={components} />
-        </article>
-
-        <Foot />
+          <Reveal>
+            <Link className="sf-btn" href="/journal">
+              The Journal <span aria-hidden="true">&#8599;</span>
+            </Link>
+          </Reveal>
+        </div>
       </div>
-    </>
+    </main>
   );
 }

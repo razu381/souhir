@@ -1,85 +1,63 @@
-import Link from 'next/link';
-import { client, urlFor } from '@/sanity/client';
-import { INDEX } from '@/sanity/queries';
-import { Nav, Foot } from './nav';
+import HeroNocturne from '@/components/sf/HeroNocturne';
+import WorkGrid from '@/components/sf/WorkGrid';
+import {
+  Explore,
+  ServicesList,
+  Clientele,
+  Founder,
+  PressSalon,
+  JournalIndex,
+  Interlude,
+  NewsletterSection,
+  ClosingCard,
+} from '@/components/sf/HomeSections';
+import { getHomeData } from '@/sanity/fetch';
 
-export const revalidate = 60;
+export const revalidate = 600;
 
-type Row = Record<string, any>;
-
+/** The Nocturne (src/hero-nocturne.html @ 7a7bced), fed from the studio. */
 export default async function Home() {
-  const { projects, articles } = await client.fetch<{
-    projects: Row[];
-    articles: Row[];
-  }>(INDEX);
+  const data = await getHomeData();
 
   return (
-    <div className="sf-container">
-      <Nav />
+    <main id="main">
+      <HeroNocturne {...data.hero} />
 
-      <header className="sfd-titles">
-        <span className="sfd-titles__eyebrow sfd-label">Content demonstration</span>
-        <h1 className="sfd-titles__title">
-          Everything below was <em>typed into the editor.</em>
-        </h1>
-        <p className="sfd-titles__tagline">
-          No page was coded for these entries. Each one was written in Dar SF&rsquo;s
-          content editor and published — the design applies itself.
-        </p>
-      </header>
+      <span data-sf-header-sentinel aria-hidden="true" />
 
-      <h2 className="sfd-heading">
-        Selected <em>Work</em>
-      </h2>
-      <div className="sfd-index">
-        {projects.map((p) => {
-          const img = p.thumbnail ?? p.heroImage;
-          return (
-            <Link key={p.slug} href={`/portfolio/${p.slug}`} className="sfd-card">
-              {img && (
-                <div className="sfd-card__media">
-                  <img
-                    src={urlFor(img).width(800).height(600).fit('crop').auto('format').url()}
-                    alt={img.alt ?? ''}
-                    width={800}
-                    height={600}
-                  />
-                </div>
-              )}
-              <span className="sfd-card__eyebrow sfd-label">{p.category}</span>
-              <h3 className="sfd-card__title">{p.title}</h3>
-              <p className="sfd-card__text">{p.tagline}</p>
-            </Link>
-          );
-        })}
-      </div>
+      <Explore data={data.explore} />
+      <ServicesList data={data.services} />
+      <Clientele data={data.clientele} />
+      <Founder data={data.founder} />
 
-      <h2 className="sfd-heading">
-        The <em>Journal</em>
-      </h2>
-      <div className="sfd-index">
-        {articles.map((a) => (
-          <Link key={a.slug} href={`/journal/${a.slug}`} className="sfd-card">
-            {a.heroImage && (
-              <div className="sfd-card__media">
-                <img
-                  src={urlFor(a.heroImage).width(800).height(600).fit('crop').auto('format').url()}
-                  alt={a.heroImage.alt ?? ''}
-                  width={800}
-                  height={600}
-                />
-              </div>
-            )}
-            <span className="sfd-card__eyebrow sfd-label">
-              {a.featured ? 'Featured editorial' : a.category}
-            </span>
-            <h3 className="sfd-card__title">{a.title}</h3>
-            <p className="sfd-card__text">{a.excerpt}</p>
-          </Link>
-        ))}
-      </div>
+      <section className="sf-section sf-work sf-work--nocturne" id="work">
+        <div className="sf-container">
+          <div className="sf-chapter">
+            <span className="sf-chapter__label">(Selected Works)</span>
+            <span className="sf-chapter__num">06</span>
+          </div>
+          <WorkGrid
+            statement={data.work.statement}
+            filters={data.work.filters}
+            items={data.work.items}
+          />
+        </div>
+      </section>
 
-      <Foot />
-    </div>
+      <PressSalon data={data.press} />
+      <JournalIndex data={data.journal} />
+      <Interlude
+        image={data.interlude.image}
+        quote={data.interlude.quote}
+        cite={data.interlude.cite}
+      />
+      <NewsletterSection head={data.news.head} text={data.news.text} />
+      <ClosingCard
+        image={data.cta.image}
+        head={data.cta.head}
+        text={data.cta.text}
+        cta={data.cta.cta}
+      />
+    </main>
   );
 }

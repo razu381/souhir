@@ -1,0 +1,13 @@
+# The Next.js site. In Netlify, create the site with:
+#   Base directory: web        (this file is then read from here)
+#   Build command / publish come from this config via the Next.js runtime.
+#
+# Env vars required (Site configuration → Environment):
+#   NEXT_PUBLIC_SANITY_PROJECT_ID / NEXT_PUBLIC_SANITY_DATASET  (public)
+#   SANITY_REVALIDATE_SECRET   — shared with the GROQ webhook
+#   SANITY_API_WRITE_TOKEN     — create-messages-only role, for the forms
+#   NEXT_PUBLIC_SITE_URL       — the final domain, for metadata/sitemap
+
+[build]
+  command = "npm run build"
+  publish = ".next"

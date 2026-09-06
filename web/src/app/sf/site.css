@@ -1,0 +1,403 @@
+/* ---------------------------------------------------------------------------
+   site.css — NEW styles for the Next.js site only.
+
+   Everything the prototype's components.css already covers lives there,
+   ported verbatim (commit 7a7bced). This file carries only what a
+   multi-page site needs and the prototype never built:
+
+   1. the menu overlay        (the prototype's menu button had no panel)
+   2. the inner-page title card (each page must open on a dark band so the
+      paper-on-transparent header stays legible — same contract as the hero)
+   3. long-form styles        (case studies / journal bodies — the prototype
+      only ever teased these, never rendered one)
+   4. glue                    (skip-link target offset, section rhythm on
+      inner pages)
+
+   Tokens come from sf/tokens.css. Same rules as the system: sharp corners,
+   hairlines, no depth, champagne only on dark, bronze on light.
+--------------------------------------------------------------------------- */
+
+/* --- 1. The menu overlay ---------------------------------------------------
+   Opens under the fixed header (z-40 < header z-50), umber ground to match
+   the Nocturne entry hall. Links are mixed-case Didone — never all-caps
+   serif — with tracked-caps numerals, the chapter device inverted. */
+.sf-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  overflow-y: auto;
+  background: var(--umber);
+  color: var(--paper);
+  animation: sf-menu-in var(--dur-base) var(--ease);
+}
+@keyframes sf-menu-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sf-menu { animation: none; }
+}
+
+.sf-menu__list {
+  padding-block-start: clamp(1rem, 4vh, 2.5rem);
+}
+.sf-menu__item {
+  display: block;
+  border-top: 1px solid var(--hairline-d);
+}
+.sf-menu__item:last-child { border-block-end: 1px solid var(--hairline-d); }
+
+.sf-menu__link {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  padding-block: clamp(1rem, 2.5vh, 1.75rem);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.75rem, 4.5vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  color: var(--bone);
+  transition: color var(--dur-micro) var(--ease), transform var(--dur-micro) var(--ease);
+}
+.sf-menu__link:hover,
+.sf-menu__link:focus-visible { color: var(--champagne); transform: translateX(.375rem); }
+
+.sf-menu__num {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--champagne);
+  min-width: 2.25rem;
+}
+.sf-menu__foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-block-start: clamp(2.5rem, 6vh, 4rem);
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: rgb(255 255 255 / .55);
+}
+.sf-menu__foot a:hover { color: var(--champagne); }
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-menu__link { transition: none; transform: none !important; }
+}
+
+/* --- 2. The inner-page title card ------------------------------------------
+   A short umber band: chapter rule, tracked-caps label, Didone title, and an
+   optional intro in the nocturne's soft white. It holds the header's ground
+   and gives every inner page the same "opens in the dark" entrance. */
+.sf-pagetitle {
+  background: var(--umber);
+  color: var(--paper);
+  padding-block: clamp(8rem, 18vh, 12rem) clamp(3rem, 7vh, 5rem);
+}
+.sf-pagetitle__rule {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  border-top: 1px solid rgb(205 177 144 / .45);
+  padding-block-start: .875rem;
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+.sf-pagetitle__num { color: var(--champagne); }
+.sf-pagetitle__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.75rem, 6.5vw, 6rem);
+  line-height: .98;
+  letter-spacing: -.03em;
+  margin-block-start: clamp(1.25rem, 3vh, 2rem);
+  color: var(--bone);
+}
+.sf-pagetitle__title em { font-style: italic; }
+.sf-pagetitle__intro {
+  max-width: 34rem;
+  margin-block-start: clamp(1.25rem, 3vh, 2rem);
+  color: rgb(255 255 255 / .72);
+}
+
+/* --- 3. Long form (case studies, journal bodies) ---------------------------- */
+.sf-prose {
+  max-width: 42rem;
+  font-size: var(--t-body);
+}
+.sf-prose > :where(* + *) { margin-block-start: 1.4em; }
+.sf-prose h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--t-h2);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  margin-block-start: 2em;
+}
+.sf-prose h3 {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--bronze);
+  margin-block-start: 2em;
+}
+.sf-prose strong { font-weight: 500; }
+.sf-prose a {
+  text-decoration: underline;
+  text-decoration-color: var(--hairline);
+  text-underline-offset: .25em;
+  transition: text-decoration-color var(--dur-micro) var(--ease);
+}
+.sf-prose a:hover { text-decoration-color: var(--bronze); }
+.sf-prose ul { list-style: none; padding: 0; }
+.sf-prose li { padding-inline-start: 1.5rem; position: relative; }
+.sf-prose li + li { margin-block-start: .5em; }
+.sf-prose li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--bronze);
+}
+.sf-prose blockquote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--t-h3);
+  line-height: 1.3;
+  color: var(--ink);
+  border-inline-start: 1px solid var(--hairline);
+  padding-inline-start: 1.5rem;
+}
+
+/* The article header block: category eyebrow, Didone title, soft tagline. */
+.sf-article-head__eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+.sf-article-head__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--t-h1);
+  line-height: 1.02;
+  letter-spacing: -.025em;
+  color: var(--ink);
+  max-width: 18em;
+  margin-block-start: 1rem;
+}
+.sf-article-head__title em { font-style: italic; }
+.sf-article-head__tagline {
+  max-width: 34rem;
+  margin-block-start: 1.25rem;
+  color: var(--graphite);
+}
+.sf-article-head__meta {
+  margin-block-start: 1.25rem;
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+/* A hung plate with a museum-label caption — the system's figure. */
+.sf-plate { margin: 0; }
+.sf-plate img { width: 100%; height: auto; }
+.sf-plate__caption {
+  display: block;
+  margin-block-start: .875rem;
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+/* Key/value plaque — case-study project details. */
+.sf-plaque { border-top: 1px solid var(--hairline); }
+.sf-plaque__item {
+  display: grid;
+  grid-template-columns: minmax(7rem, 10rem) minmax(0, 1fr);
+  gap: 1.25rem;
+  padding-block: .875rem;
+  border-block-end: 1px solid var(--hairline);
+}
+.sf-plaque__key {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--graphite);
+  padding-block-start: .25em;
+}
+.sf-plaque__val { color: var(--ink); }
+
+/* Pillars — the numbered principles. */
+.sf-pillars {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(2rem, 4vw, 3rem);
+}
+@media (min-width: 768px) { .sf-pillars { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.sf-pillar { border-top: 1px solid var(--hairline); padding-block-start: 1rem; }
+.sf-pillar__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--t-h3);
+  line-height: 1.15;
+  letter-spacing: -.015em;
+  color: var(--ink);
+}
+.sf-pillar__text { margin-block-start: .625rem; color: var(--graphite); }
+
+/* Stats — the press register's numerals, ground-agnostic. */
+.sf-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  margin-block-start: clamp(2rem, 5vh, 3rem);
+}
+.sf-stat__num {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.25rem, 3.5vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -.02em;
+  color: var(--ink);
+}
+.sf-stat__num em { font-style: normal; color: var(--bronze); }
+.sf-stat__label {
+  display: block;
+  margin-block-start: .625rem;
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--graphite);
+  max-width: 12rem;
+}
+
+/* Gallery — 2-up / 3-up editorial pairs. */
+.sf-gallery {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+@media (min-width: 768px) { .sf-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.sf-gallery--three { }
+@media (min-width: 1025px) { .sf-gallery--three { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Pull quote — the felt line between chapters. */
+.sf-pull {
+  border-top: 1px solid var(--hairline);
+  border-block-end: 1px solid var(--hairline);
+  padding-block: clamp(2rem, 5vh, 3rem);
+  max-width: 42rem;
+}
+.sf-pull__text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--t-h2);
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  color: var(--ink);
+}
+.sf-pull__by {
+  display: block;
+  margin-block-start: 1.25rem;
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+
+/* --- 4. Glue ---------------------------------------------------------------- */
+/* Anchored sections must clear the fixed header. */
+[id] { scroll-margin-block-start: 5.5rem; }
+
+/* Section rhythm on inner pages between title card and footer bands.
+   (The home page's rhythm lives in the ported components.css per section.) */
+.sf-flow > :where(.sf-section + .sf-section) {
+  padding-block-start: var(--rhythm);
+}
+
+/* Form states (correspondence). The form's own styling lives in the ported
+   components.css (.sf-news__*); these are the states the prototype never
+   needed because it had no backend. */
+.sf-news__confirm {
+  margin-block-start: clamp(1.5rem, 4vh, 2.5rem);
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--champagne);
+}
+.sf-news__error {
+  margin-block-start: 1rem;
+  font-size: var(--t-label);
+  letter-spacing: .08em;
+  color: rgb(255 255 255 / .72);
+}
+.sf-news__hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.sf-news__input--area {
+  min-height: 7rem;
+  resize: vertical;
+}
+.sf-btn[disabled] {
+  opacity: .55;
+  cursor: default;
+}
+
+/* Stacked argument sections (service + case-study bodies). */
+.sf-sections > :where(section + section) {
+  margin-block-start: var(--rhythm);
+}
+.sf-sections > :where(figure) {
+  margin-block: var(--rhythm);
+}
+
+/* The contact page's form — the newsletter's treatment, stacked wider. */
+.sf-news__form--wide {
+  flex-direction: column;
+  align-items: stretch;
+  max-width: 34rem;
+}
+.sf-news__form--wide .sf-news__field {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+/* The article body sits in a narrow measure, centred — the essay's own room. */
+.sf-prose--article {
+  margin-inline: auto;
+}

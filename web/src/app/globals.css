@@ -1,0 +1,28 @@
+/* Entry point — ported verbatim from the prototype's src/css/main.css
+   (commit 7a7bced). See docs/plans/10-nextjs-sanity-migration.md §6.
+
+   Tailwind v4, CSS-first config. Preflight is deliberately NOT imported —
+   the system supplies its own scoped reset (sf/base.css); the prototype's
+   reason was the Elementor reset, but the scoped reset is also simply the
+   design's contract, so it stays.
+
+   Layers: base MUST sit in the declared base layer — unlayered, its element
+   defaults (a { color: inherit } above all) would outrank EVERYTHING in the
+   components layer at any specificity. */
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css"     layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@import "./sf/tokens.css";
+@import "./sf/base.css" layer(base);
+@import "./sf/components.css";
+
+/* Breakpoints carried over from the prototype (originally pinned to
+   Elementor's devices; kept identical so the port is 1:1 rather than a
+   re-tuning exercise). Do NOT use Tailwind's stock 640 / 1280 / 1536. */
+@theme {
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1025px;
+  --breakpoint-xl: 1367px;
+}
