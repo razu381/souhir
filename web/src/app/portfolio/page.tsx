@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     'A curated collection of visual stories and brand experiences shaped through atmosphere, perception, and creative intelligence.',
 };
 
-type Project = { title: string; category?: string; tagline?: string; slug: string; thumbnail?: unknown; heroImage?: unknown };
+type Project = { title: string; category?: string; tagline?: string; slug: string };
 
 async function getProjects(): Promise<Project[]> {
   try {

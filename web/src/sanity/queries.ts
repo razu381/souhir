@@ -30,12 +30,10 @@ export const ARTICLE = defineQuery(`
   }
 `);
 
+/** The portfolio register — everything the case-study rows render. */
 export const INDEX = defineQuery(`{
   "projects": *[_type == "caseStudy"] | order(publishedAt desc){
-    title, category, tagline, "slug": slug.current, heroImage, thumbnail
-  },
-  "articles": *[_type == "journalArticle"] | order(publishedAt desc){
-    title, excerpt, category, featured, publishedAt, "slug": slug.current, heroImage
+    title, category, tagline, "slug": slug.current
   }
 }`);
 
@@ -78,10 +76,6 @@ export const SERVICES = defineQuery(
       image, caption, width
     }
   }`
-);
-
-export const SERVICE_SLUGS = defineQuery(
-  `*[_type == "service" && defined(slug.current)]{"slug": slug.current}`
 );
 
 export const SERVICE = defineQuery(`

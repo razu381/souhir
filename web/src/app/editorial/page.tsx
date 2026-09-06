@@ -4,9 +4,8 @@ import { PressSalon } from '@/components/sf/HomeSections';
 import ClosingCard from '@/components/sf/ClosingCard';
 import Reveal from '@/components/sf/Reveal';
 import { getHomeData } from '@/sanity/fetch';
-import { client } from '@/sanity/client';
+import { client, urlFor } from '@/sanity/client';
 import { PRESS_FEATURES } from '@/sanity/queries';
-import { urlFor } from '@/sanity/client';
 import * as seed from '@/content/seed';
 
 export const revalidate = 600;
