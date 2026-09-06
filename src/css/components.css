@@ -2233,11 +2233,14 @@
 
 
 /* ===========================================================================
-   SECTION 08 — "THE DAR SF JOURNAL" (the reading room)
-   Bone ground. The desk banner is an 8:1 sliver — a masthead, not a plate —
-   so the featured editorial runs as a newspaper lead: full-width band, the
-   feature set beneath it, then three entries in the three-up register with
-   3:2 tiles. Copy verbatim from the brief, including the article one-liners.
+   SECTION 08 — "THE DAR SF JOURNAL" (the contents page)
+   Redesigned as the magazine's own opening spread: a masthead (head left,
+   the two paragraphs beside it), the featured editorial as a real hung
+   4:5 plate carrying the catalogue caption 08.1, and the remaining essays
+   as numbered hairline rows in a contents register — numerals, portrait
+   thumbs, one line each — closed by a right-aligned caps link anchored on
+   the register's last rule. Copy verbatim from the brief; article images
+   are the ones destined for the future journal pages, per the brief.
    ======================================================================== */
 .sf-journal {
   padding-block: calc(var(--rhythm) / 2);
@@ -2245,6 +2248,21 @@
   color: var(--ink);
 }
 
+/* --- The masthead -----------------------------------------------------------
+   Head and statements side by side: the brief's two paragraphs set in a
+   narrower measure beside the title, halving the text wall. */
+.sf-journal__masthead {
+  margin-block-start: clamp(2rem, 5vh, 3rem);
+}
+@media (min-width: 1025px) {
+  .sf-journal__masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: clamp(3rem, 6vw, 6rem);
+    align-items: end;
+  }
+  .sf-journal__intro { margin-block-start: 0; }
+}
 .sf-journal__head {
   font-family: var(--font-display);
   font-weight: 400;
@@ -2252,8 +2270,8 @@
   line-height: 1.1;
   letter-spacing: -.015em;
   max-width: 30rem;
-  margin-block-start: clamp(2rem, 5vh, 3rem);
 }
+.sf-journal__intro { margin-block-start: clamp(1.5rem, 3.5vh, 2.25rem); }
 .sf-journal__statement {
   font-family: var(--font-sans);
   font-weight: 400;
@@ -2261,7 +2279,6 @@
   line-height: 1.65;
   letter-spacing: -.002em;
   max-width: 34rem;
-  margin-block-start: clamp(1.5rem, 3.5vh, 2.25rem);
 }
 .sf-journal__sub {
   font-family: var(--font-sans);
@@ -2272,30 +2289,59 @@
   margin-block-start: 1rem;
 }
 
-/* --- The masthead band ------------------------------------------------------ */
-.sf-journal__band {
-  margin: clamp(2.5rem, 6vh, 4.5rem) 0 0;
-  overflow: hidden;
-}
-.sf-journal__band img {
-  display: block;
-  width: 100%;
-  height: auto;   /* native 8:1 sliver — the ratio IS the crop */
-}
-
-/* --- The featured editorial -------------------------------------------------- */
-.sf-journal__feature {
+/* --- The lead spread ---------------------------------------------------------
+   The featured editorial gets what the 8:1 band could never give it: a real
+   photograph. The plate hangs at 4:5 under the hairline frame; its catalogue
+   caption borrows the works hang's caption grammar. Copy column beside. */
+.sf-journal__lead {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  row-gap: 1rem;
-  margin-block-start: clamp(2rem, 5vh, 3.25rem);
+  row-gap: clamp(1.75rem, 4vh, 2.5rem);
+  margin-block-start: clamp(2.5rem, 6vh, 4.5rem);
 }
 @media (min-width: 1025px) {
-  .sf-journal__feature {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 3fr);
+  .sf-journal__lead {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     column-gap: clamp(3rem, 6vw, 6rem);
-    align-items: end;
+    align-items: center;
   }
+}
+.sf-journal__lead-plate { margin: 0; }
+.sf-journal__lead-plate img {
+  display: block;
+  width: 100%;
+  height: auto;   /* attrs carry the 4:5; CSS never pins the height */
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: 1px solid var(--hairline);
+}
+.sf-journal__lead-cap {
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: 1.25rem;
+  margin-block-start: .875rem;
+}
+.sf-journal__lead-num {
+  font-family: var(--font-sans);
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  color: var(--graphite);
+}
+.sf-journal__lead-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.125rem, 1.4vw, 1.5rem);
+  line-height: 1.15;
+  letter-spacing: -.015em;
+}
+.sf-journal__lead-meta {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--graphite);
 }
 .sf-journal__feature-label {
   font-family: var(--font-sans);
@@ -2308,9 +2354,10 @@
 .sf-journal__feature-title {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(1.875rem, 2.9vw, 3rem);
-  line-height: 1.1;
-  letter-spacing: -.015em;
+  font-size: clamp(2.5rem, 3.6vw, 3.75rem);   /* the lead of the section */
+  line-height: 1.08;
+  letter-spacing: -.018em;
+  margin-block-start: 1.25rem;
 }
 .sf-journal__feature-title em { font-style: italic; color: var(--bronze); }
 .sf-journal__feature-desc {
@@ -2318,9 +2365,12 @@
   font-size: clamp(1rem, 1.2vw, 1.125rem);
   line-height: 1.65;
   color: var(--graphite);
-  max-width: 34rem;
+  max-width: 30rem;
+  margin-block-start: 1.25rem;
 }
 .sf-journal__feature-link {
+  display: inline-block;
+  margin-block-start: clamp(1.5rem, 4vh, 2.25rem);
   font-family: var(--font-sans);
   font-size: var(--t-label);
   font-weight: 500;
@@ -2333,31 +2383,47 @@
 .sf-journal__feature-link:hover,
 .sf-journal__feature-link:focus-visible { color: var(--bronze); }
 
-/* --- The three-up register --------------------------------------------------- */
-.sf-journal__list {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  row-gap: clamp(2.75rem, 7vh, 4.5rem);
+/* --- The contents register ---------------------------------------------------
+   The three remaining essays as a table of contents: numeral, small portrait
+   thumb, category + Didone title + one line, and the read link at the right —
+   hairline rows, not cards. The catalogue numbering continues from 08.1. */
+.sf-journal__index {
   margin-block-start: clamp(3rem, 8vh, 5rem);
-  padding-block-start: clamp(2.5rem, 6vh, 4rem);
+}
+.sf-journal__row {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 220px) minmax(0, 1fr) auto;
+  column-gap: clamp(1.5rem, 3vw, 3rem);
+  align-items: center;
+  padding-block: clamp(1.75rem, 4vh, 2.75rem);
   border-top: 1px solid var(--hairline);
+  text-decoration: none;
+  color: inherit;
 }
-@media (min-width: 1025px) {
-  .sf-journal__list {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    column-gap: clamp(2.5rem, 5vw, 5rem);
-  }
+.sf-journal__row--last { border-block-end: 1px solid var(--hairline); }
+.sf-journal__row-num {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.2vw, 2.25rem);
+  letter-spacing: -.01em;
+  color: var(--graphite);
+  transition: color var(--dur-micro) var(--ease);
 }
-.sf-journal__entry { text-decoration: none; color: inherit; }
-.sf-journal__entry img {
+.sf-journal__row:hover .sf-journal__row-num,
+.sf-journal__row:focus-visible .sf-journal__row-num { color: var(--bronze); }
+.sf-journal__row-thumb { margin: 0; overflow: hidden; }
+.sf-journal__row-thumb img {
+  display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
+  transition: transform var(--dur-base) var(--ease);
 }
+.sf-journal__row:hover .sf-journal__row-thumb img,
+.sf-journal__row:focus-visible .sf-journal__row-thumb img { transform: scale(1.03); }
 .sf-journal__cat {
   display: block;
-  margin-block-start: .875rem;
   font-family: var(--font-sans);
   font-size: var(--t-label);
   font-weight: 500;
@@ -2365,37 +2431,78 @@
   text-transform: uppercase;
   color: var(--bronze);
 }
-.sf-journal__entry-title {
+.sf-journal__row-title {
+  display: block;
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(1.25rem, 1.8vw, 1.625rem);
-  line-height: 1.15;
+  font-size: clamp(1.5rem, 2.2vw, 2.125rem);
+  line-height: 1.12;
   letter-spacing: -.015em;
   margin-block-start: .5rem;
 }
-.sf-journal__entry-desc {
+.sf-journal__row-desc {
+  display: block;
   font-family: var(--font-sans);
-  font-size: clamp(.875rem, 1vw, .9375rem);
+  font-size: clamp(.9375rem, 1.05vw, 1.0625rem);
   line-height: 1.6;
   color: var(--graphite);
   margin-block-start: .5rem;
 }
-.sf-journal__entry-read {
+.sf-journal__row-read {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--bronze);
+  white-space: nowrap;
+}
+.sf-journal__row-read span {
   display: inline-block;
-  margin-block-start: .75rem;
+  transition: transform var(--dur-micro) var(--ease);
+}
+.sf-journal__row:hover .sf-journal__row-read span,
+.sf-journal__row:focus-visible .sf-journal__row-read span { transform: translateX(.25em); }
+
+/* The closer — right-aligned caps link, sitting on the register's last rule. */
+.sf-journal__more {
+  display: block;
+  text-align: right;
+  padding-block: clamp(1.5rem, 3vh, 2rem);
   font-family: var(--font-sans);
   font-size: var(--t-label);
   font-weight: 500;
   letter-spacing: var(--track-label);
   text-transform: uppercase;
   color: var(--ink);
+  text-decoration: none;
   transition: color var(--dur-micro) var(--ease);
 }
-.sf-journal__entry:hover .sf-journal__entry-read,
-.sf-journal__entry:focus-visible .sf-journal__entry-read { color: var(--bronze); }
+.sf-journal__more:hover,
+.sf-journal__more:focus-visible { color: var(--bronze); }
 
-.sf-journal .sf-btn { margin-block-start: clamp(2.5rem, 6vh, 4rem); }
+/* Mobile: each row folds — numeral on top, thumb beside the text, read under. */
+@media (max-width: 767px) {
+  .sf-journal__row {
+    grid-template-columns: minmax(0, 110px) minmax(0, 1fr);
+    grid-template-areas:
+      "num   num"
+      "thumb text"
+      "thumb read";
+    align-items: start;
+    row-gap: .75rem;
+  }
+  .sf-journal__row-num   { grid-area: num; }
+  .sf-journal__row-thumb { grid-area: thumb; }
+  .sf-journal__row-text  { grid-area: text; }
+  .sf-journal__row-read  { grid-area: read; align-self: end; }
+}
 
+@media (prefers-reduced-motion: reduce) {
+  .sf-journal__row-thumb img,
+  .sf-journal__row-read span { transform: none !important; transition: none !important; }
+  .sf-journal__row-num { transition: none !important; }
+}
 
 /* ===========================================================================
    INTERLUDE — the signature quote banner

@@ -18,7 +18,7 @@
                    ../assets/hero/staircase-warm-1800.webp 1800w"
       imagesizes="(min-width: 1025px) 32vw, 88vw">
 
-<link rel="stylesheet" href="../dist/sf.css?v=6">
+<link rel="stylesheet" href="../dist/sf.css?v=7">
 </head>
 <body>
 
@@ -492,10 +492,12 @@
 </section>
 
 <!-- =====================================================================
-     SECTION 08 — THE DAR SF JOURNAL (The Nocturne's voice: the reading
-     room on bone — the desk banner as an 8:1 masthead, the feature as a
-     newspaper lead, three entries in the three-up register. Article images
-     are the ones destined for the future journal pages, per the brief.)
+     SECTION 08 — THE DAR SF JOURNAL (The Nocturne's voice: the contents
+     page — the masthead sets the paragraphs beside the head, the featured
+     editorial hangs as a real 4:5 plate carrying catalogue no. 08.1, the
+     remaining essays sit in a numbered hairline register, and the closer
+     right-aligns on the register's last rule. Article images are the ones
+     destined for the future journal pages, per the brief.)
      ================================================================== -->
 <section class="sf-section sf-journal" id="journal">
   <div class="sf-container">
@@ -505,64 +507,88 @@
       <span class="sf-chapter__num">08</span>
     </div>
 
-    <h2 class="sf-journal__head" data-sf-reveal="fade-up">The Dar SF Journal</h2>
-    <p class="sf-journal__statement" data-sf-reveal="fade-up">Perspectives on luxury, creativity, hospitality, branding, and the evolving relationship between culture, technology, and human experience.</p>
-    <p class="sf-journal__sub" data-sf-reveal="fade-up">A curated collection of essays, observations, and creative reflections exploring the invisible elements that shape perception, emotion, and lasting brand value.</p>
-
-    <figure class="sf-journal__band" data-sf-reveal="fade-up">
-      <picture>
-        <source type="image/webp" srcset="../assets/journal/featured-1600.webp 1600w, ../assets/journal/featured-2400.webp 2400w" sizes="100vw">
-        <img src="../assets/journal/featured-1600.jpg" srcset="../assets/journal/featured-1600.jpg 1600w, ../assets/journal/featured-2400.jpg 2400w" sizes="100vw"
-             alt="An editorial desk with a city view at dusk, warm lamplight." width="2400" height="295" loading="lazy" decoding="async">
-      </picture>
-    </figure>
-
-    <div class="sf-journal__feature">
-      <div>
-        <span class="sf-journal__feature-label" data-sf-reveal="fade-up">(Featured Editorial)</span>
-        <h3 class="sf-journal__feature-title" data-sf-reveal="fade-up">The <em>Invisible Luxury</em></h3>
-        <p class="sf-journal__feature-desc" data-sf-reveal="fade-up">What truly makes an experience unforgettable? Exploring the intangible elements that transform products, spaces, and brands into lasting memories.</p>
+    <div class="sf-journal__masthead">
+      <h2 class="sf-journal__head" data-sf-reveal="fade-up">The Dar SF Journal</h2>
+      <div class="sf-journal__intro" data-sf-reveal="fade-up" data-sf-delay="90">
+        <p class="sf-journal__statement">Perspectives on luxury, creativity, hospitality, branding, and the evolving relationship between culture, technology, and human experience.</p>
+        <p class="sf-journal__sub">A curated collection of essays, observations, and creative reflections exploring the invisible elements that shape perception, emotion, and lasting brand value.</p>
       </div>
-      <a class="sf-journal__feature-link" href="#journal" data-sf-reveal="fade-up">Read Article <span aria-hidden="true">&#8599;</span></a>
     </div>
 
-    <div class="sf-journal__list">
-      <a class="sf-journal__entry" href="#journal" data-sf-reveal="fade-up">
+    <div class="sf-journal__lead">
+      <figure class="sf-journal__lead-plate" data-sf-reveal="fade-up">
         <picture>
-          <source type="image/webp" srcset="../assets/journal/price-800.webp" sizes="(min-width: 1025px) 28vw, 100vw">
-          <img src="../assets/journal/price-800.jpg" sizes="(min-width: 1025px) 28vw, 100vw"
-               alt="A luxury lifestyle flatlay of fashion and beauty objects." width="800" height="533" loading="lazy" decoding="async">
+          <source type="image/webp" srcset="../assets/journal/desk-800.webp 800w, ../assets/journal/desk-1200.webp 1200w" sizes="(min-width: 1025px) 58vw, 100vw">
+          <img src="../assets/journal/desk-800.jpg" srcset="../assets/journal/desk-800.jpg 800w, ../assets/journal/desk-1200.jpg 1200w" sizes="(min-width: 1025px) 58vw, 100vw"
+               alt="A creative director writing in a notebook at a lamplit desk, warm amber light against deep shadow." width="800" height="1000" loading="lazy" decoding="async">
         </picture>
-        <span class="sf-journal__cat">Luxury &amp; Culture</span>
-        <span class="sf-journal__entry-title">Why Luxury Is No Longer About Price</span>
-        <span class="sf-journal__entry-desc">Experience. Emotion. Meaning. The new language of luxury.</span>
-        <span class="sf-journal__entry-read">Read <span aria-hidden="true">&#8594;</span></span>
+        <figcaption class="sf-journal__lead-cap">
+          <span class="sf-journal__lead-num">08.1</span>
+          <span class="sf-journal__lead-title">The Invisible Luxury</span>
+          <span class="sf-journal__lead-meta">Featured Editorial</span>
+        </figcaption>
+      </figure>
+
+      <div class="sf-journal__lead-copy">
+        <span class="sf-journal__feature-label" data-sf-reveal="fade-up" data-sf-delay="120">(Featured Editorial)</span>
+        <h3 class="sf-journal__feature-title" data-sf-reveal="fade-up" data-sf-delay="120">The <em>Invisible Luxury</em></h3>
+        <p class="sf-journal__feature-desc" data-sf-reveal="fade-up" data-sf-delay="120">What truly makes an experience unforgettable? Exploring the intangible elements that transform products, spaces, and brands into lasting memories.</p>
+        <a class="sf-journal__feature-link" href="#journal" data-sf-reveal="fade-up" data-sf-delay="200">Read Article <span aria-hidden="true">&#8599;</span></a>
+      </div>
+    </div>
+
+    <div class="sf-journal__index">
+      <a class="sf-journal__row" href="#journal" data-sf-reveal="fade-up">
+        <span class="sf-journal__row-num">08.2</span>
+        <figure class="sf-journal__row-thumb">
+          <picture>
+            <source type="image/webp" srcset="../assets/journal/price-600.webp" sizes="(min-width: 1025px) 220px, 34vw">
+            <img src="../assets/journal/price-600.jpg" sizes="(min-width: 1025px) 220px, 34vw"
+                 alt="A luxury lifestyle flatlay of fashion and beauty objects." width="600" height="800" loading="lazy" decoding="async">
+          </picture>
+        </figure>
+        <div class="sf-journal__row-text">
+          <span class="sf-journal__cat">Luxury &amp; Culture</span>
+          <span class="sf-journal__row-title">Why Luxury Is No Longer About Price</span>
+          <span class="sf-journal__row-desc">Experience. Emotion. Meaning. The new language of luxury.</span>
+        </div>
+        <span class="sf-journal__row-read">Read <span aria-hidden="true">&#8594;</span></span>
       </a>
-      <a class="sf-journal__entry" href="#journal" data-sf-reveal="fade-up" data-sf-delay="90">
-        <picture>
-          <source type="image/webp" srcset="../assets/journal/desire-720.webp" sizes="(min-width: 1025px) 28vw, 100vw">
-          <img src="../assets/journal/desire-720.jpg" sizes="(min-width: 1025px) 28vw, 100vw"
-               alt="A woman in a veil and hat with earrings, in warm-toned black and white." width="720" height="480" loading="lazy" decoding="async">
-        </picture>
-        <span class="sf-journal__cat">Visual Storytelling</span>
-        <span class="sf-journal__entry-title">The Psychology of Visual Desire</span>
-        <span class="sf-journal__entry-desc">How imagery shapes perception, influences behaviour, and creates emotional resonance.</span>
-        <span class="sf-journal__entry-read">Read <span aria-hidden="true">&#8594;</span></span>
+      <a class="sf-journal__row" href="#journal" data-sf-reveal="fade-up" data-sf-delay="90">
+        <span class="sf-journal__row-num">08.3</span>
+        <figure class="sf-journal__row-thumb">
+          <picture>
+            <source type="image/webp" srcset="../assets/journal/desire-600.webp" sizes="(min-width: 1025px) 220px, 34vw">
+            <img src="../assets/journal/desire-600.jpg" sizes="(min-width: 1025px) 220px, 34vw"
+                 alt="A woman in a veil and hat with earrings, in warm-toned black and white." width="600" height="800" loading="lazy" decoding="async">
+          </picture>
+        </figure>
+        <div class="sf-journal__row-text">
+          <span class="sf-journal__cat">Visual Storytelling</span>
+          <span class="sf-journal__row-title">The Psychology of Visual Desire</span>
+          <span class="sf-journal__row-desc">How imagery shapes perception, influences behaviour, and creates emotional resonance.</span>
+        </div>
+        <span class="sf-journal__row-read">Read <span aria-hidden="true">&#8594;</span></span>
       </a>
-      <a class="sf-journal__entry" href="#journal" data-sf-reveal="fade-up" data-sf-delay="180">
-        <picture>
-          <source type="image/webp" srcset="../assets/journal/ai-800.webp" sizes="(min-width: 1025px) 28vw, 100vw">
-          <img src="../assets/journal/ai-800.jpg" sizes="(min-width: 1025px) 28vw, 100vw"
-               alt="A creative workspace with a laptop and camera, evening light." width="800" height="533" loading="lazy" decoding="async">
-        </picture>
-        <span class="sf-journal__cat">Creative Intelligence</span>
-        <span class="sf-journal__entry-title">When AI Meets Creativity</span>
-        <span class="sf-journal__entry-desc">Exploring the intersection of human imagination and intelligent technology.</span>
-        <span class="sf-journal__entry-read">Read <span aria-hidden="true">&#8594;</span></span>
+      <a class="sf-journal__row sf-journal__row--last" href="#journal" data-sf-reveal="fade-up" data-sf-delay="180">
+        <span class="sf-journal__row-num">08.4</span>
+        <figure class="sf-journal__row-thumb">
+          <picture>
+            <source type="image/webp" srcset="../assets/journal/ai-600.webp" sizes="(min-width: 1025px) 220px, 34vw">
+            <img src="../assets/journal/ai-600.jpg" sizes="(min-width: 1025px) 220px, 34vw"
+                 alt="A creative workspace with a laptop and camera, evening light." width="600" height="800" loading="lazy" decoding="async">
+          </picture>
+        </figure>
+        <div class="sf-journal__row-text">
+          <span class="sf-journal__cat">Creative Intelligence</span>
+          <span class="sf-journal__row-title">When AI Meets Creativity</span>
+          <span class="sf-journal__row-desc">Exploring the intersection of human imagination and intelligent technology.</span>
+        </div>
+        <span class="sf-journal__row-read">Read <span aria-hidden="true">&#8594;</span></span>
       </a>
     </div>
 
-    <a class="sf-btn" href="#journal" data-sf-reveal="fade-up">Explore The Journal <span aria-hidden="true">&#8599;</span></a>
+    <a class="sf-journal__more" href="#journal" data-sf-reveal="fade-up">Explore The Journal <span aria-hidden="true">&#8599;</span></a>
 
   </div>
 </section>

@@ -227,10 +227,33 @@ for pair in "artego-magazine-cover-portrait-december-1170 cover-artego-dec" \
   done
 done
 
-# The Journal — the desk banner is an 8:1 sliver (a masthead, not a plate), so
-# it exports at its native ratio; the three article tiles lock to 3:2. The
-# small 1080px veil source is not upscaled — 720w is its honest ceiling.
+# The Journal (redesign: "the contents page", docs/plans/08-journal-redesign.md)
+# The lead is a real hung plate — the writing desk by lamplight, cropped 4:5
+# (height-bound: the 2:3 source is taller than 4:5, y-bias toward the lamp/desk).
+# The three article thumbs are true 3:4 portrait crops at 600w (displayed
+# ≤220px); the veil source is natively 3:4 — no crop, only its warm-silver
+# toning. The old 8:1 desk banner (featured-*) and 3:2 tiles (price-800,
+# desire-720, ai-800) are superseded but stay on disk.
 OUT6="assets/journal"; mkdir -p "$OUT6"
+for w in 800 1200; do
+  ffmpeg -loglevel error -y -i images/creative-director-writing-desk-lamp-studio.jpg -vf "crop=5000:6250:0:(ih-6250)*0.32,scale=${w}:-1:flags=lanczos" \
+         -map_metadata -1 -c:v libwebp -quality 80 -compression_level 6 "$OUT6/desk-${w}.webp"
+  ffmpeg -loglevel error -y -i images/creative-director-writing-desk-lamp-studio.jpg -vf "crop=5000:6250:0:(ih-6250)*0.32,scale=${w}:-1:flags=lanczos" \
+         -map_metadata -1 -q:v 5 "$OUT6/desk-${w}.jpg"
+done
+ffmpeg -loglevel error -y -i images/luxury-lifestyle-flatlay-ysl-chanel.jpg -vf "crop=ih*3/4:ih:(iw-ih*3/4)/2:0,scale=600:-1:flags=lanczos" \
+       -map_metadata -1 -c:v libwebp -quality 80 -compression_level 6 "$OUT6/price-600.webp"
+ffmpeg -loglevel error -y -i images/luxury-lifestyle-flatlay-ysl-chanel.jpg -vf "crop=ih*3/4:ih:(iw-ih*3/4)/2:0,scale=600:-1:flags=lanczos" \
+       -map_metadata -1 -q:v 5 "$OUT6/price-600.jpg"
+ffmpeg -loglevel error -y -i images/editorial-woman-veil-hat-earrings-bw.jpg -vf "$MONO,scale=600:-1:flags=lanczos" \
+       -map_metadata -1 -c:v libwebp -quality 80 -compression_level 6 "$OUT6/desire-600.webp"
+ffmpeg -loglevel error -y -i images/editorial-woman-veil-hat-earrings-bw.jpg -vf "$MONO,scale=600:-1:flags=lanczos" \
+       -map_metadata -1 -q:v 5 "$OUT6/desire-600.jpg"
+ffmpeg -loglevel error -y -i images/creative-workspace-ai-image-editing-desk.jpg -vf "crop=ih*3/4:ih:(iw-ih*3/4)*0.5:0,scale=600:-1:flags=lanczos" \
+       -map_metadata -1 -c:v libwebp -quality 80 -compression_level 6 "$OUT6/ai-600.webp"
+ffmpeg -loglevel error -y -i images/creative-workspace-ai-image-editing-desk.jpg -vf "crop=ih*3/4:ih:(iw-ih*3/4)*0.5:0,scale=600:-1:flags=lanczos" \
+       -map_metadata -1 -q:v 5 "$OUT6/ai-600.jpg"
+# Superseded exports — kept on disk, recipes retained for reference:
 J32="crop=iw:iw*2/3:0:(ih-iw*2/3)/2"
 for w in 1600 2400; do
   ffmpeg -loglevel error -y -i images/journal-banner-editorial-desk-city-view.jpg -vf "scale=${w}:-1:flags=lanczos" \
@@ -238,18 +261,6 @@ for w in 1600 2400; do
   ffmpeg -loglevel error -y -i images/journal-banner-editorial-desk-city-view.jpg -vf "scale=${w}:-1:flags=lanczos" \
          -map_metadata -1 -q:v 5 "$OUT6/featured-${w}.jpg"
 done
-ffmpeg -loglevel error -y -i images/luxury-lifestyle-flatlay-ysl-chanel.jpg -vf "$J32,scale=800:-1:flags=lanczos" \
-       -map_metadata -1 -c:v libwebp -quality 80 -compression_level 6 "$OUT6/price-800.webp"
-ffmpeg -loglevel error -y -i images/luxury-lifestyle-flatlay-ysl-chanel.jpg -vf "$J32,scale=800:-1:flags=lanczos" \
-       -map_metadata -1 -q:v 5 "$OUT6/price-800.jpg"
-ffmpeg -loglevel error -y -i images/editorial-woman-veil-hat-earrings-bw.jpg -vf "crop=iw:iw*2/3:0:(ih-iw*2/3)*0.42,$MONO,scale=720:-1:flags=lanczos" \
-       -map_metadata -1 -c:v libwebp -quality 80 -compression_level 6 "$OUT6/desire-720.webp"
-ffmpeg -loglevel error -y -i images/editorial-woman-veil-hat-earrings-bw.jpg -vf "crop=iw:iw*2/3:0:(ih-iw*2/3)*0.42,$MONO,scale=720:-1:flags=lanczos" \
-       -map_metadata -1 -q:v 5 "$OUT6/desire-720.jpg"
-ffmpeg -loglevel error -y -i images/creative-workspace-ai-image-editing-desk.jpg -vf "scale=800:-1:flags=lanczos" \
-       -map_metadata -1 -c:v libwebp -quality 80 -compression_level 6 "$OUT6/ai-800.webp"
-ffmpeg -loglevel error -y -i images/creative-workspace-ai-image-editing-desk.jpg -vf "scale=800:-1:flags=lanczos" \
-       -map_metadata -1 -q:v 5 "$OUT6/ai-800.jpg"
 
 # Interlude + CTA — both sources are native ≈6.4:1 letterbox slivers; the
 # direction's dark-interlude contract, delivered by the assets themselves.
