@@ -282,44 +282,17 @@ export function JournalIndex({ data }: { data: HomeContent['journal'] }) {
           </Reveal>
         </div>
 
-        <div className="sf-journal__lead">
-          <Reveal as="figure" className="sf-journal__lead-plate">
-            <img
-              src={data.lead.image.src}
-              srcSet={data.lead.image.srcSet}
-              sizes={data.lead.image.sizes}
-              alt={data.lead.image.alt}
-              width={data.lead.image.width}
-              height={data.lead.image.height}
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption className="sf-journal__lead-cap">
-              <span className="sf-journal__lead-num">{data.lead.num}</span>
-              <span className="sf-journal__lead-title">{data.lead.title.join('')}</span>
-              <span className="sf-journal__lead-meta">{data.lead.meta}</span>
-            </figcaption>
-          </Reveal>
-
-          <div className="sf-journal__lead-copy">
-            <Reveal as="span" className="sf-journal__feature-label" delay={120}>
-              (Featured Editorial)
-            </Reveal>
-            <Reveal as="h3" className="sf-journal__feature-title" delay={120}>
-              <Headed head={data.lead.title} />
-            </Reveal>
-            <Reveal as="p" className="sf-journal__feature-desc" delay={120}>
-              {data.lead.desc}
-            </Reveal>
-            {data.lead.href && (
-              <Reveal delay={200}>
-                <Link className="sf-journal__feature-link" href={data.lead.href}>
-                  Read Article <span aria-hidden="true">&#8599;</span>
-                </Link>
-              </Reveal>
-            )}
-          </div>
-        </div>
+        <Reveal>
+          {data.lead.href ? (
+            <Link className="sf-feature" href={data.lead.href}>
+              <FeatureInner lead={data.lead} withLink />
+            </Link>
+          ) : (
+            <div className="sf-feature">
+              <FeatureInner lead={data.lead} />
+            </div>
+          )}
+        </Reveal>
 
         <div className="sf-journal__index">
           {data.rows.map((row, i) => (
@@ -334,6 +307,52 @@ export function JournalIndex({ data }: { data: HomeContent['journal'] }) {
         </Reveal>
       </div>
     </section>
+  );
+}
+
+/* The screening room: the featured editorial as a cinemascope still hung in
+ * an umber panel — the hero's frame, grade and crossing title at journal
+ * scale. The whole panel is the link; the title is said once. */
+function FeatureInner({
+  lead,
+  withLink = false,
+}: {
+  lead: HomeContent['journal']['lead'];
+  withLink?: boolean;
+}) {
+  return (
+    <>
+      <div className="sf-feature__rule">
+        <span className="sf-feature__label">(Featured Editorial)</span>
+        <span className="sf-feature__num">{lead.num}</span>
+      </div>
+
+      <figure className="sf-feature__plate">
+        <img
+          src={lead.image.src}
+          srcSet={lead.image.srcSet}
+          sizes={lead.image.sizes}
+          alt={lead.image.alt}
+          width={lead.image.width}
+          height={lead.image.height}
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <h3 className="sf-feature__title">
+        <Headed head={lead.title} />
+      </h3>
+
+      <div className="sf-feature__foot">
+        <p className="sf-feature__desc">{lead.desc}</p>
+        {withLink && (
+          <span className="sf-feature__more">
+            Read Article <span aria-hidden="true">&#8599;</span>
+          </span>
+        )}
+      </div>
+    </>
   );
 }
 

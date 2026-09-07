@@ -14,7 +14,7 @@ The contents page and the essays.
 | # | Section | Component | Content source |
 | --- | --- | --- | --- |
 | 01 | **Title band** | `PageTitle` | "(The Journal)" · "Ideas, Atmosphere & *Creative Intelligence.*" · intro = journal statement |
-| 08 | The Journal | `JournalIndex` | masthead → 4:5 **lead** (newest article, links through) → register rows (next 3) → *Explore The Journal* (self-link) |
+| 08 | The Journal | `JournalIndex` | masthead → **the screening room** (cinemascope feature: umber panel, champagne frame, title crossing onto the still; newest article — the whole panel links through) → register rows (next 3) → *Explore The Journal* (self-link) |
 | — | Closing card | `ClosingCard` | seed CTA |
 
 With no articles, the seed's four essay entries render (lead unlinked). The

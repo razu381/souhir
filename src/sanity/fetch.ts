@@ -118,7 +118,7 @@ export type HomeContent = {
     head: string;
     statement: string;
     sub: string;
-    lead: { num: string; title: seed.Head; meta: string; desc: string; href: string | null; image: Plate };
+    lead: { num: string; title: seed.Head; desc: string; href: string | null; image: Plate };
     rows: JournalRow[];
   };
   interlude: { image: Plate; quote: seed.Head; cite: string };
@@ -199,10 +199,10 @@ export async function getHomeData(): Promise<HomeContent> {
       lead: {
         num: '08.1',
         title: leadTitle,
-        meta: 'Featured Editorial',
         desc: featured.excerpt ?? '',
         href: featured.slug ? `/journal/${featured.slug}` : null,
-        image: sanityPlate(featured.heroImage, [800, 1200], [4, 5], '(min-width: 1025px) 58vw, 100vw') ?? seed.journal.lead.image,
+        /* The screening room plate — a cinemascope still (site.css). */
+        image: sanityPlate(featured.heroImage, [1200, 2000], [2.39, 1], '(min-width: 1025px) 1160px, calc(100vw - 4rem)') ?? seed.journal.lead.image,
       },
       rows: rest.slice(0, 3).map((a, i) => ({
         num: `08.${i + 2}`,

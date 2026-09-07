@@ -15,7 +15,10 @@ port 1:1 with the prototype.
 
 **Rule: don't edit `tokens/base/components` casually** — they are the audited
 port; the diff against `7a7bced` is the fidelity proof. New styles go in
-`site.css`.
+`site.css`. (One deliberate divergence: the journal §08 lead spread was
+redesigned post-port as *the screening room* — its old `sf-journal__lead*`
+styles were removed from `components.css` and the replacement `sf-feature*`
+block lives in `site.css`.)
 
 ## Layers and breakpoints
 
@@ -79,7 +82,8 @@ it matters, `loading="lazy"` below the fold, `fetchPriority="high"` on heroes.
 | 2:3 | hero print, explore plate, founder plate (Sanity-cropped to these) |
 | 4:3 / 4:5 / 1:1 | work hang (std / tall / square) |
 | 3:4 | press covers, journal register thumbs |
-| 4:5 | journal lead plate, service tiles |
+| 4:5 | service tiles |
+| 2.39:1 | journal feature still (the screening room; CDN-cropped, CSS re-crops on mobile) |
 | 3:2 | article inline images |
 | 6.4:1 | interlude + CTA letterbox bands |
 

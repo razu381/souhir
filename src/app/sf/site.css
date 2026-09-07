@@ -401,3 +401,141 @@
 .sf-prose--article {
   margin-inline: auto;
 }
+
+/* ===========================================================================
+   THE JOURNAL — the screening room (the featured editorial, redesigned)
+   The section's one piece of night. The featured essay hangs as a
+   cinemascope still inside an umber panel — the hero's champagne frame, its
+   film grade (vignette, bottom scrim, grain), and its signature move: the
+   title crossing onto the still. One rule row replaces the old caption bar
+   + copy-label pair — the title is said once, the whole panel is the link.
+   Supersedes the ported .sf-journal__lead spread (components.css §08).
+   ======================================================================== */
+.sf-feature {
+  display: block;
+  margin-block-start: clamp(2.5rem, 6vh, 4.5rem);
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  background: var(--umber);
+  color: var(--paper);
+  border: 1px solid rgb(205 177 144 / .38);   /* the hero's frame — champagne as a jewel */
+  text-decoration: none;
+}
+.sf-feature:focus-visible {
+  outline: none;
+  border-color: var(--champagne);
+}
+
+/* The rule row — the chapter device, section-local. */
+.sf-feature__rule {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  border-block-end: 1px solid rgb(205 177 144 / .25);
+  padding-block-end: .875rem;
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+.sf-feature__label { color: rgb(255 255 255 / .72); }
+.sf-feature__num   { color: var(--champagne); }
+
+/* The still — cinemascope, the nocturne plate's grammar (grade over the
+   photograph, never under it). */
+.sf-feature__plate {
+  position: relative;
+  overflow: hidden;
+  margin: clamp(1.5rem, 3vh, 2.25rem) 0 0;
+}
+.sf-feature__plate img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2.39 / 1;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform var(--dur-base) var(--ease);
+}
+.sf-feature__plate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 50% 42%,
+      rgb(10 8 6 / 0) 52%,
+      rgb(10 8 6 / .38) 100%),
+    linear-gradient(to top,
+      rgb(10 8 6 / .82) 0%,
+      rgb(10 8 6 / 0) 55%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
+}
+.sf-feature:hover .sf-feature__plate img,
+.sf-feature:focus-visible .sf-feature__plate img { transform: scale(1.02); }
+
+/* The title — crosses onto the still, the hero's move. The scrim holds it. */
+.sf-feature__title {
+  position: relative;
+  z-index: 2;   /* above the grade */
+  margin-block-start: calc(-1 * clamp(1.75rem, 3.5vw, 3.25rem));
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.25rem, 3.4vw, 3.5rem);
+  line-height: 1.04;
+  letter-spacing: -.02em;
+  color: var(--bone);
+}
+.sf-feature__title em { font-style: italic; color: var(--champagne); }
+
+/* The foot — statement left, the read cue right. */
+.sf-feature__foot {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: clamp(1.5rem, 4vw, 4rem);
+  margin-block-start: clamp(1.25rem, 3vh, 2rem);
+}
+.sf-feature__desc {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
+  line-height: 1.65;
+  color: rgb(255 255 255 / .72);
+  max-width: 34rem;
+}
+.sf-feature__more {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--paper);
+  white-space: nowrap;
+  transition: color var(--dur-micro) var(--ease);
+}
+.sf-feature__more span {
+  display: inline-block;
+  transition: transform var(--dur-micro) var(--ease);
+}
+.sf-feature:hover .sf-feature__more,
+.sf-feature:focus-visible .sf-feature__more { color: var(--champagne); }
+.sf-feature:hover .sf-feature__more span,
+.sf-feature:focus-visible .sf-feature__more span { transform: translate(.2em, -.2em); }
+
+/* Below the desktop breakpoint the still is a strip — the title steps
+   below it instead of crossing, and the foot stacks. */
+@media (max-width: 767px) {
+  .sf-feature__title { margin-block-start: 1.25rem; }
+  .sf-feature__foot {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-feature__plate img,
+  .sf-feature__more span { transform: none !important; transition: none !important; }
+  .sf-feature__more { transition: none !important; }
+}
+
