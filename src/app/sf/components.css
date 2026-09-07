@@ -2494,7 +2494,9 @@
    The brief's "different visual concept": no banner photograph — the flat
    umber wall, its pool of lamplight, and the form drawn as the direction's
    contact grammar specifies: tracked-caps label over a hairline underline,
-   never a boxed field. Static prototype — the form carries no backend yet.
+   never a boxed field. NOTE: the HOME page now uses the guest-register
+   card instead (site.css, sf-register); these sf-news styles remain the
+   shared field grammar for /contact.
    ======================================================================== */
 .sf-news {
   padding-block: calc(var(--rhythm) / 2);

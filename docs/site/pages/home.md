@@ -23,7 +23,7 @@ The full Nocturne one-pager, section by section, now studio-fed.
 | 07 | Editorial Recognition | `PressSalon` | stats (15+/100+/8+) + 3 covers + shared caption |
 | 08 | The Journal | `JournalIndex` | masthead, 4 register rows — the newest essays, hairline rows → `/journal/[slug]` |
 | — | Interlude | `Interlude` | 6.4:1 corridor band + founder quote |
-| 09 | Correspondence | `NewsletterSection` | heading, text, **newsletter form** |
+| 09 | Correspondence | `NewsletterSection` | **the guest register** — one bone correspondence card centred on the umber night (wordmark · property line · heading · pitch · ruled entry line · pill · fine print), lamplight pooling from above; **newsletter form** |
 | — | Closing card | `ClosingCard` | 6.4:1 lounge band, closing line, → `/contact` |
 
 Chapter numerals `02…09` are the system's spine — the components carry them.

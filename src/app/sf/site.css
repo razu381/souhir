@@ -401,3 +401,169 @@
 .sf-prose--article {
   margin-inline: auto;
 }
+
+/* ===========================================================================
+   SECTION 09 — THE GUEST REGISTER (the correspondence card, redesigned)
+   Between the interlude and the closing film, the flat newsletter band was
+   the page's one template moment — big heading, paragraph, input, button.
+   The redesign gives the section its artifact: one bone registration card
+   on the umber night, the lamplight pooling onto it from above (the
+   nocturne's picture light, finding a writing desk in the last room).
+   The card carries the letterpress lockup of hotel stationery — wordmark,
+   short rule, property line, the pitch, one ruled entry line, the pill,
+   the fine print — because the studio's clientele is hotels, and their
+   luxury signal is the stationery itself. Supersedes sf-news on the home
+   page; /contact keeps the shared sf-news field grammar untouched.
+   ======================================================================== */
+.sf-register {
+  padding-block: calc(var(--rhythm) / 2);
+  isolation: isolate;
+  background: var(--umber);
+  color: var(--paper);
+}
+.sf-register::before {   /* the lamplight — a wider pool, centred on the desk */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(64% 52% at 50% 0%,
+    rgb(205 177 144 / .12),
+    rgb(205 177 144 / 0) 72%);
+}
+.sf-register .sf-chapter { border-top-color: rgb(205 177 144 / .25); }
+.sf-register .sf-chapter__num { color: var(--champagne); }
+
+/* The hold — the card sits alone, centred, the section's one object. */
+.sf-register__hold {
+  display: flex;
+  justify-content: center;
+  margin-block-start: clamp(2.5rem, 6vh, 4rem);
+}
+
+/* The card — stationery, not UI: sharp corners, a printed ink hairline,
+   the light falling on it from above and the sheet's weight beneath. */
+.sf-register__card {
+  width: min(100%, 34rem);
+  padding: clamp(2rem, 5vw, 3.25rem) clamp(1.5rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2rem);
+  background: var(--bone);
+  color: var(--ink);
+  border: 1px solid rgb(31 26 23 / .35);
+  box-shadow:
+    0 -1rem 3rem -.5rem rgb(205 177 144 / .22),   /* the picture light */
+    0 1.5rem 3rem -1rem rgb(10 8 6 / .55);        /* the sheet's weight */
+  text-align: center;
+}
+
+/* The letterpress lockup. */
+.sf-register__brand {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+.sf-register__rule {
+  display: block;
+  width: 3rem;
+  height: 1px;
+  margin: .875rem auto;
+  background: rgb(31 26 23 / .4);
+}
+.sf-register__sub {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+.sf-register__head {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.75rem, 2.6vw, 2.5rem);
+  line-height: 1.12;
+  letter-spacing: -.015em;
+  margin-block-start: clamp(1.75rem, 4vh, 2.5rem);
+}
+.sf-register__head em { font-style: italic; color: var(--bronze); }
+.sf-register__text {
+  font-family: var(--font-sans);
+  font-size: clamp(.9375rem, 1.1vw, 1.0625rem);
+  line-height: 1.65;
+  color: var(--graphite);
+  max-width: 26rem;
+  margin-inline: auto;
+  margin-block-start: 1rem;
+}
+
+/* The entry line — the card's one ruled field, writing on the sheet. */
+.sf-register__form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: min(100%, 22rem);
+  margin-block-start: clamp(2rem, 5vh, 3rem);
+  text-align: left;
+}
+.sf-register__field { margin-block-end: 1.5rem; }
+.sf-register__label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: rgb(31 26 23 / .55);
+}
+.sf-register__input {
+  display: block;
+  width: 100%;
+  margin-block-start: .375rem;
+  padding: .75rem 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  border-block-end: 1px solid rgb(31 26 23 / .35);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--ink);
+  transition: border-color var(--dur-micro) var(--ease);
+}
+.sf-register__input::placeholder { color: rgb(31 26 23 / .32); }
+.sf-register__input:focus { outline: none; border-block-end-color: var(--ink); }
+.sf-register .sf-btn { justify-content: center; }
+
+/* The states — filed, or refused — set on the card in its own voice. */
+.sf-register__confirm {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.375rem;
+  margin-block-start: clamp(2rem, 5vh, 3rem);
+}
+.sf-register__error {
+  margin-block-start: 1rem;
+  font-size: var(--t-label);
+  letter-spacing: .08em;
+  color: var(--bronze);
+}
+.sf-register__hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* The fine print — where a printed card carries its imprint. */
+.sf-register__fine {
+  font-family: var(--font-sans);
+  font-size: .6875rem;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgb(31 26 23 / .45);
+  margin-block-start: clamp(2rem, 4vh, 2.75rem);
+}
+
