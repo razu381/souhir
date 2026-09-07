@@ -300,22 +300,21 @@ export const journal = {
   statement:
     'Perspectives on luxury, creativity, hospitality, branding, and the evolving relationship between culture, technology, and human experience.',
   sub: 'A curated collection of essays, observations, and creative reflections exploring the invisible elements that shape perception, emotion, and lasting brand value.',
-  lead: {
-    num: '08.1',
-    title: ['The ', 'Invisible Luxury'] as Head,
-    desc: 'What truly makes an experience unforgettable? Exploring the intangible elements that transform products, spaces, and brands into lasting memories.',
-    href: null,
-    /* The screening room plate — cinemascope; CSS crops the 4:5 sources. */
-    image: {
-      src: '/assets/journal/desk-800.webp',
-      srcSet: '/assets/journal/desk-800.webp 800w, /assets/journal/desk-1200.webp 1200w',
-      sizes: '(min-width: 1025px) 1160px, calc(100vw - 4rem)',
-      width: 1200,
-      height: 502,
-      alt: 'A creative director writing in a notebook at a lamplit desk, warm amber light against deep shadow.',
-    } as Plate,
-  },
   rows: [
+    {
+      num: '08.1',
+      category: 'Luxury & Culture',
+      title: 'The Invisible Luxury',
+      desc: 'What truly makes an experience unforgettable? Exploring the intangible elements that transform products, spaces, and brands into lasting memories.',
+      href: null,
+      image: {
+        src: '/assets/journal/desk-800.webp',
+        sizes: '(min-width: 1025px) 220px, 34vw',
+        width: 600,
+        height: 800,
+        alt: 'A creative director writing in a notebook at a lamplit desk, warm amber light against deep shadow.',
+      } as Plate,
+    },
     {
       num: '08.2',
       category: 'Luxury & Culture',

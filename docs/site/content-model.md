@@ -53,8 +53,8 @@ pre-existing documents **field-for-field — never rename**.
 ### `journalArticle`
 `title`, `slug`, `category`, `excerpt`, `publishedAt`, `heroImage` (16:9),
 `body` (portable text; may embed `image` blocks with captions and a
-`closingQuote`). Ordering is `publishedAt desc`: the newest article becomes the
-home lead, the next three fill the register.
+`closingQuote`). Ordering is `publishedAt desc`: the four newest articles
+fill the register rows (no featured slot).
 
 ### `service`
 `num` (01–04), `title`, `slug`, `summary`, `tile` (4:5), `chapters[]` (the

@@ -76,8 +76,8 @@ plaque; the closing quote renders as the final pull. Numbering is automatic.
 
 Write articles as usual: title, slug, category, excerpt, publish date, hero
 image, body. You can drop **images with captions** and a **closing quote**
-into the body anywhere. The **newest article by publish date becomes the
-home-page lead** automatically; the next three appear in registers everywhere.
+into the body anywhere. The **four newest articles by publish date** fill
+the journal register rows everywhere (no featured slot).
 Titles starting with "The " keep "The" upright and italicise the rest, per the
 house style.
 

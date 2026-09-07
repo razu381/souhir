@@ -14,10 +14,10 @@ The contents page and the essays.
 | # | Section | Component | Content source |
 | --- | --- | --- | --- |
 | 01 | **Title band** | `PageTitle` | "(The Journal)" · "Ideas, Atmosphere & *Creative Intelligence.*" · intro = journal statement |
-| 08 | The Journal | `JournalIndex` | masthead → **the screening room** (cinemascope feature: umber panel, champagne frame, title crossing onto the still; newest article — the whole panel links through) → register rows (next 3) → *Explore The Journal* (self-link) |
+| 08 | The Journal | `JournalIndex` | masthead → register rows (the four newest essays, hairline rows with thumbs) → *Explore The Journal* (self-link). No featured slot — the newest article is the first row. |
 | — | Closing card | `ClosingCard` | seed CTA |
 
-With no articles, the seed's four essay entries render (lead unlinked). The
+With no articles, the seed's four essay rows render (unlinked). The
 numeral `08` is the home page's chapter number travelling with the component —
 see overview.md → Known quirks.
 
@@ -46,5 +46,5 @@ Inside the body, two embedded block types render as their own devices:
 ## Editing
 
 Write in **Journal** (studio-guide → *Journal*). Order is `publishedAt desc`:
-to feature an older essay as the lead, back-date the newer one or unpublish it.
+to promote an essay to the top row, back-date it or unpublish the newer ones.
 The home page's journal statement/sub come from the `home` document.

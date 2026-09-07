@@ -282,18 +282,6 @@ export function JournalIndex({ data }: { data: HomeContent['journal'] }) {
           </Reveal>
         </div>
 
-        <Reveal>
-          {data.lead.href ? (
-            <Link className="sf-feature" href={data.lead.href}>
-              <FeatureInner lead={data.lead} withLink />
-            </Link>
-          ) : (
-            <div className="sf-feature">
-              <FeatureInner lead={data.lead} />
-            </div>
-          )}
-        </Reveal>
-
         <div className="sf-journal__index">
           {data.rows.map((row, i) => (
             <Row key={row.num} row={row} last={i === data.rows.length - 1} delay={i * 90} />
@@ -307,52 +295,6 @@ export function JournalIndex({ data }: { data: HomeContent['journal'] }) {
         </Reveal>
       </div>
     </section>
-  );
-}
-
-/* The screening room: the featured editorial as a cinemascope still hung in
- * an umber panel — the hero's frame, grade and crossing title at journal
- * scale. The whole panel is the link; the title is said once. */
-function FeatureInner({
-  lead,
-  withLink = false,
-}: {
-  lead: HomeContent['journal']['lead'];
-  withLink?: boolean;
-}) {
-  return (
-    <>
-      <div className="sf-feature__rule">
-        <span className="sf-feature__label">(Featured Editorial)</span>
-        <span className="sf-feature__num">{lead.num}</span>
-      </div>
-
-      <figure className="sf-feature__plate">
-        <img
-          src={lead.image.src}
-          srcSet={lead.image.srcSet}
-          sizes={lead.image.sizes}
-          alt={lead.image.alt}
-          width={lead.image.width}
-          height={lead.image.height}
-          loading="lazy"
-          decoding="async"
-        />
-      </figure>
-
-      <h3 className="sf-feature__title">
-        <Headed head={lead.title} />
-      </h3>
-
-      <div className="sf-feature__foot">
-        <p className="sf-feature__desc">{lead.desc}</p>
-        {withLink && (
-          <span className="sf-feature__more">
-            Read Article <span aria-hidden="true">&#8599;</span>
-          </span>
-        )}
-      </div>
-    </>
   );
 }
 

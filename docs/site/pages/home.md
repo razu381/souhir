@@ -21,7 +21,7 @@ The full Nocturne one-pager, section by section, now studio-fed.
 | 05 | About Dar SF (bone) | `Founder` | hands-pockets plate, refrain, 2 texts, felt line, signature, name/role, → `/about` |
 | 06 | Selected Works (noir) | inline chapter + `WorkGrid` | statement + 6 plates from `workItem` docs; filter rail |
 | 07 | Editorial Recognition | `PressSalon` | stats (15+/100+/8+) + 3 covers + shared caption |
-| 08 | The Journal | `JournalIndex` | masthead, **the screening room** — cinemascope feature still in an umber panel, title crossing onto it (newest article), 3 register rows → `/journal/[slug]` |
+| 08 | The Journal | `JournalIndex` | masthead, 4 register rows — the newest essays, hairline rows → `/journal/[slug]` |
 | — | Interlude | `Interlude` | 6.4:1 corridor band + founder quote |
 | 09 | Correspondence | `NewsletterSection` | heading, text, **newsletter form** |
 | — | Closing card | `ClosingCard` | 6.4:1 lounge band, closing line, → `/contact` |
@@ -47,8 +47,9 @@ section.
 
 ## Notes
 
-- The journal lead links to `/journal/[slug]` only when the newest article has
-  a slug; seed rows are intentionally unlinked.
+- Journal rows link to `/journal/[slug]` only when the article has a slug;
+  seed rows are intentionally unlinked. (No featured slot — the newest
+  article is simply the first row; see d3202ba→next for the removed lead.)
 - Seed work item `06.2` links to `/portfolio/velocity-noir`, which 404s until
   that case study exists (only visible while seed plates render — see
   overview.md → Known quirks).

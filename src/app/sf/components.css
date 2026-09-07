@@ -2290,11 +2290,12 @@
 }
 
 /* --- The lead spread ---------------------------------------------------------
-   REDESIGNED post-port as THE SCREENING ROOM (site.css): the featured
-   editorial now hangs as a cinemascope still in an umber panel, title
-   crossing onto it. The original 4:5 plate + caption bar + copy-column
-   styles were removed when the redesign landed; the register below is
-   untouched. (The one deliberate divergence from the frozen port.) */
+   REMOVED post-port: the featured-lead block was dropped — §08 runs
+   masthead → register only, the four newest essays as rows (see
+   HomeSections.tsx / fetch.ts). The original 4:5 plate + caption bar +
+   copy-column styles lived here; an interim cinemascope redesign (d3202ba)
+   came and went before the removal. (The one deliberate divergence from
+   the frozen port.) */
 /* --- The contents register ---------------------------------------------------
    The three remaining essays as a table of contents: numeral, small portrait
    thumb, category + Didone title + one line, and the read link at the right —

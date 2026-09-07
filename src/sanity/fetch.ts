@@ -118,7 +118,6 @@ export type HomeContent = {
     head: string;
     statement: string;
     sub: string;
-    lead: { num: string; title: seed.Head; desc: string; href: string | null; image: Plate };
     rows: JournalRow[];
   };
   interlude: { image: Plate; quote: seed.Head; cite: string };
@@ -177,35 +176,22 @@ export async function getHomeData(): Promise<HomeContent> {
 
   /* Journal rows — real articles when they exist, seed rows when they don't */
   const articles = await safeFetch<
-    { title: string; excerpt?: string; category?: string; featured?: boolean; slug?: string; heroImage?: SanityImage }[]
+    { title: string; excerpt?: string; category?: string; slug?: string; heroImage?: SanityImage }[]
   >(
-    `*[_type == "journalArticle"] | order(publishedAt desc){ title, excerpt, category, featured, "slug": slug.current, heroImage{asset, alt, hotspot} }`,
+    `*[_type == "journalArticle"] | order(publishedAt desc){ title, excerpt, category, "slug": slug.current, heroImage{asset, alt, hotspot} }`,
     undefined,
     ['journal', 'home']
   );
 
   let journal: HomeContent['journal'];
   if (articles?.length) {
-    const [featured, ...rest] = articles;
-    // "The Invisible Luxury" → ["The ", "Invisible Luxury"] — the system's
-    // italic-as-work-title move; titles without the article render all-italic.
-    const leadTitle: seed.Head = featured.title.startsWith('The ')
-      ? ['The ', featured.title.slice(4)]
-      : ['', featured.title];
+    /* The four newest essays fill the register (no featured slot). */
     journal = {
       head: seed.journal.head,
       statement: home?.journalStatement ?? seed.journal.statement,
       sub: home?.journalSub ?? seed.journal.sub,
-      lead: {
-        num: '08.1',
-        title: leadTitle,
-        desc: featured.excerpt ?? '',
-        href: featured.slug ? `/journal/${featured.slug}` : null,
-        /* The screening room plate — a cinemascope still (site.css). */
-        image: sanityPlate(featured.heroImage, [1200, 2000], [2.39, 1], '(min-width: 1025px) 1160px, calc(100vw - 4rem)') ?? seed.journal.lead.image,
-      },
-      rows: rest.slice(0, 3).map((a, i) => ({
-        num: `08.${i + 2}`,
+      rows: articles.slice(0, 4).map((a, i) => ({
+        num: `08.${i + 1}`,
         category: a.category ?? '',
         title: a.title,
         desc: a.excerpt ?? '',
