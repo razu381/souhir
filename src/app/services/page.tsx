@@ -66,7 +66,6 @@ export default async function ServicesPage() {
       </section>
 
       <ClosingCard
-        image={seed.cta.image}
         head={seed.cta.head}
         text={seed.cta.text}
         cta={seed.cta.cta}

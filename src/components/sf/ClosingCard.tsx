@@ -1,23 +1,20 @@
 import Link from 'next/link';
 import Reveal from './Reveal';
 import { Headed } from './HomeSections';
-import type { Head, Plate } from '@/content/seed';
+import type { Head } from '@/content/seed';
 
 /**
- * ClosingCard — the last room. The closing invitation returns to the
- * opening's grammar: the lounge photograph hangs as a framed panorama on
- * a drawn rail under the picture light, and the closing line crosses onto
- * the print from below — the hero's move, said once more at the exit.
- * A champagne hairline at the section's end seams the colophon away.
- * (Supersedes the ported sf-cta band; see site.css.)
+ * ClosingCard — the house lights. After nine sections of photographs the
+ * closer is the bare wall: the closing line set monumental and centred
+ * between two champagne hairlines, the pitch, the pill. No image — the
+ * restraint is the statement (the lounge letterbox, tried as both band
+ * and hung print, could never give the moment enough room).
  */
 export default function ClosingCard({
-  image,
   head,
   text,
   cta,
 }: {
-  image: Plate;
   head: Head;
   text: string;
   cta: { label: string; href: string };
@@ -25,34 +22,17 @@ export default function ClosingCard({
   return (
     <section className="sf-section sf-close" aria-label="Start a project">
       <div className="sf-container">
-        <Reveal className="sf-close__hang">
-          <figure className="sf-close__plate">
-            <img
-              src={image.src}
-              srcSet={image.srcSet}
-              sizes={image.sizes}
-              alt={image.alt}
-              width={image.width}
-              height={image.height}
-              loading="lazy"
-              decoding="async"
-            />
-          </figure>
-          <h2 className="sf-close__title">
-            <Headed head={head} />
-          </h2>
+        <Reveal as="h2" className="sf-close__title">
+          <Headed head={head} />
         </Reveal>
-
-        <div className="sf-close__foot">
-          <Reveal as="p" className="sf-close__text">
-            {text}
-          </Reveal>
-          <Reveal delay={120}>
-            <Link className="sf-btn" href={cta.href}>
-              {cta.label} <span aria-hidden="true">&#8599;</span>
-            </Link>
-          </Reveal>
-        </div>
+        <Reveal as="p" className="sf-close__text" delay={100}>
+          {text}
+        </Reveal>
+        <Reveal delay={200}>
+          <Link className="sf-btn" href={cta.href}>
+            {cta.label} <span aria-hidden="true">&#8599;</span>
+          </Link>
+        </Reveal>
       </div>
     </section>
   );

@@ -51,7 +51,7 @@ export const HOME = defineQuery(`*[_type == "home" && !(_id in path("drafts.**")
   journalStatement, journalSub,
   interludeImage{asset, alt, hotspot}, interludeQuote, interludeAttribution,
   newsHeading, newsText,
-  ctaImage{asset, alt, hotspot}, ctaHeading, ctaText
+  ctaHeading, ctaText
 }`);
 
 export const WORK_ITEMS = defineQuery(

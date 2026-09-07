@@ -72,7 +72,6 @@ export default async function EditorialPage() {
       )}
 
       <ClosingCard
-        image={seed.cta.image}
         head={seed.cta.head}
         text={seed.cta.text}
         cta={seed.cta.cta}

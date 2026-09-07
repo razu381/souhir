@@ -81,7 +81,6 @@ export default async function ServicePage({ params }: Props) {
       </section>
 
       <ClosingCard
-        image={seed.cta.image}
         head={seed.cta.head}
         text={seed.cta.text}
         cta={seed.cta.cta}

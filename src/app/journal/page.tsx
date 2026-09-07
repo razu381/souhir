@@ -29,7 +29,6 @@ export default async function JournalPage() {
       <JournalIndex data={data.journal} />
 
       <ClosingCard
-        image={seed.cta.image}
         head={seed.cta.head}
         text={seed.cta.text}
         cta={seed.cta.cta}

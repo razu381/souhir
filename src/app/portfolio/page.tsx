@@ -99,7 +99,6 @@ export default async function PortfolioPage() {
       )}
 
       <ClosingCard
-        image={seed.cta.image}
         head={seed.cta.head}
         text={seed.cta.text}
         cta={seed.cta.cta}

@@ -36,8 +36,9 @@ Each field group maps to one home section — the studio labels say which:
 - **Interlude** — the full-bleed photograph, the quote (last sentence italic),
   attribution.
 - **Newsletter** — heading and text.
-- **Closing card** — the letterbox photograph, closing headline, text. The
-  button label/target are fixed ("Start a Project" → /contact).
+- **Closing card** — the closing headline and text only; the closer is
+  typographic (no photograph). The button label/target are fixed
+  ("Start a Project" → /contact).
 
 ## Work items
 

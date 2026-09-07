@@ -24,7 +24,7 @@ The full Nocturne one-pager, section by section, now studio-fed.
 | 08 | The Journal | `JournalIndex` | masthead, 4 register rows — the newest essays, hairline rows → `/journal/[slug]` |
 | — | Interlude | `Interlude` | 6.4:1 corridor band + founder quote |
 | 09 | Correspondence | `NewsletterSection` | **the guest register** — one bone correspondence card centred on the umber night (wordmark · property line · heading · pitch · ruled entry line · pill · fine print), lamplight pooling from above; **newsletter form** |
-| — | **The last room** | `ClosingCard` | the lounge as a framed panorama on a drawn rail under the picture light; the closing line *crosses onto the print* (the hero's move, at the exit); pitch + pill on one line; a champagne hairline seams the colophon away → `/contact` |
+| — | **The house lights** | `ClosingCard` | the bare wall: closing line monumental and centred between two champagne hairlines (no image), pitch + pill beneath; a hairline seams the colophon away → `/contact` |
 
 Chapter numerals `02…09` are the system's spine — the components carry them.
 

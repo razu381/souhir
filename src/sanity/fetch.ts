@@ -122,7 +122,7 @@ export type HomeContent = {
   };
   interlude: { image: Plate; quote: seed.Head; cite: string };
   news: { head: seed.Head; text: string };
-  cta: { image: Plate; head: seed.Head; text: string; cta: { label: string; href: string } };
+  cta: { head: seed.Head; text: string; cta: { label: string; href: string } };
 };
 
 const categoryToken = (c?: string) => (c ?? '').toLowerCase().replace(/\s*&\s*/, '-').replace(/\s+/g, '-') || 'editorial';
@@ -213,7 +213,6 @@ export async function getHomeData(): Promise<HomeContent> {
   const explorePlate = sanityPlate(h.exploreImage, [800, 1200, 1800], [2, 3], '(min-width: 1025px) 40vw, 100vw');
   const founderPlate = sanityPlate(h.founderImage, [480, 800, 1200, 1800], [2, 3], '(min-width: 1025px) 40vw, 100vw');
   const interludePlate = sanityPlate(h.interludeImage, [1600, 2400], [6.4, 1], '100vw');
-  const ctaPlate = sanityPlate(h.ctaImage, [1600, 2400], [6.4, 1], '100vw');
 
   return {
     hero: {
@@ -269,7 +268,6 @@ export async function getHomeData(): Promise<HomeContent> {
       text: h.newsText ?? seed.news.text,
     },
     cta: {
-      image: ctaPlate ?? seed.cta.image,
       head: h.ctaHeading ? splitHead(h.ctaHeading) : seed.cta.head,
       text: h.ctaText ?? seed.cta.text,
       cta: seed.cta.cta,

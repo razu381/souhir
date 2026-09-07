@@ -84,7 +84,7 @@ it matters, `loading="lazy"` below the fold, `fetchPriority="high"` on heroes.
 | 3:4 | press covers, journal register thumbs |
 | 4:5 | service tiles |
 | 3:2 | article inline images |
-| 6.4:1 | interlude + CTA letterbox bands |
+| 6.4:1 | the interlude band |
 
 Sanity images are cropped at the CDN: `urlFor(img).width(w).height(h)
 .fit('crop').auto('format').quality(80)` (`sanityPlate()` in `fetch.ts`).

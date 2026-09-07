@@ -29,8 +29,8 @@ Clientele: `clientele[]` (`label`, `description`). Founder: `founderImage`,
 `founderRole`. Work: `workStatement`. Press: `press { heading, statement,
 stats[]{figure, label} }`. Journal: `journalStatement`, `journalSub`.
 Interlude: `interludeImage`, `interludeQuote`, `interludeAttribution`.
-Newsletter: `newsHeading`, `newsText`. CTA: `ctaImage`, `ctaHeading`,
-`ctaText`.
+Newsletter: `newsHeading`, `newsText`. CTA: `ctaHeading`, `ctaText` (no
+image — the closer is typographic).
 Everything is optional — any omitted field keeps its seed value.
 
 ### `siteSettings` — one document, id `siteSettings`

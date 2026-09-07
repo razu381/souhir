@@ -53,7 +53,6 @@ export default async function Home() {
       />
       <NewsletterSection head={data.news.head} text={data.news.text} />
       <ClosingCard
-        image={data.cta.image}
         head={data.cta.head}
         text={data.cta.text}
         cta={data.cta.cta}

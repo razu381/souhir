@@ -379,14 +379,6 @@ export const news = {
 };
 
 export const cta = {
-  image: {
-    src: '/assets/banners/cta-1600.webp',
-    srcSet: '/assets/banners/cta-1600.webp 1600w, /assets/banners/cta-2400.webp 2400w',
-    sizes: '100vw',
-    width: 2400,
-    height: 375,
-    alt: 'A luxury lounge at night with a city view, warm low light.',
-  } as Plate,
   head: ['Let’s Create Something ', 'Worth Remembering.'] as Head,
   text: 'Whether developing a hospitality destination, a wellness concept, an editorial campaign, or a refined digital experience, every memorable story begins with a clear vision.',
   cta: { label: 'Start a Project', href: '/contact' },

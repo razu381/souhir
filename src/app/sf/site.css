@@ -567,112 +567,53 @@
   margin-block-start: clamp(2rem, 4vh, 2.75rem);
 }
 
-
 /* ===========================================================================
-   THE LAST ROOM (the closing invitation, redesigned)
-   The old closer was the interlude's move again — a full-bleed letterbox
-   band, then big type and a button flowing straight into the footer on the
-   same unbroken umber wall. The redesign returns to the opening's grammar
-   and closes the circle: the lounge photograph hangs as a FRAMED PANORAMA —
-   champagne hairline frame, drawn rail running the full wall, the picture
-   light pooling above (the hero's plate grammar, re-hung) — and the closing
-   line CROSSES ONTO THE PRINT from below, the hero's signature move said
-   once more at the exit. The pitch and the pill share one line beneath, and
-   a champagne hairline seams the section away from the colophon.
-   Supersedes the ported .sf-cta band (components.css). Chapterless, as
-   ever: the page opens on a card and closes on a wall.
+   THE HOUSE LIGHTS (the closing invitation, redesigned again)
+   The closer tried two photographs — the full-bleed letterbox band (the
+   interlude's move, its text flowing into the footer) and the hung
+   panorama (a sliver: the lounge asset is natively 6.4:1, so a framed
+   print stood shorter than its own title). The third design drops the
+   photograph entirely: after nine sections of pictures, the last wall is
+   bare and the closing line carries it alone — monumental, centred
+   between two champagne hairlines, the pitch and the pill beneath. The
+   lights come up; that is the statement.
    ======================================================================== */
 .sf-close {
   padding-block: calc(var(--rhythm) / 2);
   background: var(--umber);
   color: var(--paper);
-  overflow: hidden;   /* the rail bleeds ±100vw past the plate */
+  text-align: center;
   border-block-end: 1px solid rgb(205 177 144 / .25);   /* the seam before the colophon */
 }
 
-/* The hung panorama — the hero's plate grammar, re-hung. */
-.sf-close__plate {
-  position: relative;
-  margin: 0;
-}
-.sf-close__plate::before {   /* the rail — drawn in when the hang reveals */
-  content: "";
-  position: absolute;
-  left: -100vw;
-  right: -100vw;
-  top: 22%;
-  height: 1px;
-  background: rgb(205 177 144 / .25);
-}
-.sf-js .sf-close__hang[data-sf-reveal] .sf-close__plate::before {
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform var(--dur-slow) var(--ease);
-  transition-delay: 260ms;
-}
-.sf-close__hang.is-revealed .sf-close__plate::before { transform: scaleX(1); }
-
-.sf-close__plate img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 6.4 / 1;
-  object-fit: cover;
-  object-position: center;
-  border: 1px solid rgb(205 177 144 / .38);   /* the frame — champagne as a jewel */
-  box-shadow:
-    0 -1rem 3.75rem -.5rem rgb(205 177 144 / .20),   /* the picture light */
-    0 0 1.25rem rgb(205 177 144 / .08);
+/* The title card — hairlines above and below bracket the statement. */
+.sf-close .sf-container {
+  border-block: 1px solid rgb(205 177 144 / .25);
+  padding-block: clamp(3rem, 8vh, 5.5rem);
 }
 
-/* The film grade — vignette, a scrim to hold the crossing line, one sheet
-   of grain. Glass over the print, never a replacement. */
-.sf-close__plate::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(120% 90% at 50% 42%,
-      rgb(10 8 6 / 0) 52%,
-      rgb(10 8 6 / .38) 100%),
-    linear-gradient(to top,
-      rgb(10 8 6 / .72) 0%,
-      rgb(10 8 6 / 0) 60%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
-}
-
-/* The closing line — crosses onto the print, the hero's move. */
 .sf-close__title {
-  position: relative;
-  z-index: 2;   /* above the grade */
-  margin-block-start: calc(-1 * clamp(2rem, 5.5vw, 4.5rem));
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(2.75rem, 5.5vw, 6.5rem);
-  line-height: .98;
+  font-size: clamp(2.5rem, 6.5vw, 7rem);   /* two clean lines at every width */
+  line-height: 1.02;
   letter-spacing: -.025em;
-  max-width: 46rem;
   color: var(--bone);
 }
 .sf-close__title em { font-style: italic; color: var(--champagne); }
 
-/* The foot — the pitch and the pill, one line. */
-.sf-close__foot {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  column-gap: clamp(1.5rem, 4vw, 4rem);
-  margin-block-start: clamp(1.75rem, 4vh, 2.75rem);
-}
 .sf-close__text {
   font-family: var(--font-sans);
   font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
   line-height: 1.65;
   color: rgb(255 255 255 / .68);
-  max-width: 34rem;
+  max-width: 38rem;
+  margin-inline: auto;
+  margin-block-start: clamp(1.75rem, 4vh, 2.5rem);
 }
+
 .sf-close .sf-btn {
+  margin-block-start: clamp(2.25rem, 5vh, 3.25rem);
   color: var(--paper);
   border-color: rgb(205 177 144 / .45);
 }
@@ -681,22 +622,4 @@
   background: var(--champagne);
   border-color: var(--champagne);
   color: var(--noir);
-}
-
-/* On the phone the panorama relaxes to 3:1 (the source is wide enough to
-   give) and the crossing draws less far. */
-@media (max-width: 767px) {
-  .sf-close__plate img { aspect-ratio: 3 / 1; }
-  .sf-close__title {
-    margin-block-start: -1.75rem;
-    font-size: clamp(2.25rem, 9vw, 3rem);
-  }
-  .sf-close__foot {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: 1.5rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .sf-close__plate::before { transform: none !important; transition: none !important; }
 }

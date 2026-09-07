@@ -398,7 +398,6 @@ export const home = defineType({
     defineField({ name: 'newsHeading', type: 'string' }),
     defineField({ name: 'newsText', type: 'text', rows: 2 }),
     // CTA
-    image('ctaImage', 'Closing banner (6.4:1)'),
     defineField({ name: 'ctaHeading', type: 'string' }),
     defineField({ name: 'ctaText', type: 'text', rows: 3 }),
   ],
