@@ -2587,67 +2587,13 @@
 
 
 /* ===========================================================================
-   CTA — the closing title card
-   The film's last frame: a native 6.4:1 letterbox band of the lounge at
-   night — the direction's interlude contract — with the closing line set
-   beneath it on umber, giant Didone, the felt half in champagne italic.
-   Chapterless like the interlude: the page opens on a card and closes on one.
+   THE CLOSING INVITATION — REDESIGNED post-port as THE LAST ROOM (site.css):
+   the lounge photograph now hangs as a framed panorama on a drawn rail under
+   the picture light, the closing line crossing onto it, a champagne hairline
+   seaming the colophon away. The original full-bleed band + left-column
+   styles were removed when the redesign landed. (Deliberate divergence from
+   the frozen port, as with §08.)
    ======================================================================== */
-.sf-cta {
-  padding-block: calc(var(--rhythm) / 2);
-  background: var(--umber);
-  color: var(--paper);
-}
-.sf-cta__band {
-  position: relative;
-  overflow: hidden;
-}
-.sf-cta__band img {
-  display: block;
-  width: 100%;
-  min-height: clamp(6rem, 12vw, 14rem);   /* mobile guard — a letterbox, not a sliver */
-  height: auto;
-  object-fit: cover;
-  object-position: center;
-}
-/* umber feathers at both seams, so the band dissolves into its wall. */
-.sf-cta__band::before,
-.sf-cta__band::after {
-  content: "";
-  position: absolute;
-  inset-inline: 0;
-  height: 28%;
-  pointer-events: none;
-}
-.sf-cta__band::before { top: 0;    background: linear-gradient(to bottom, rgb(var(--umber-rgb) / .55), rgb(var(--umber-rgb) / 0)); }
-.sf-cta__band::after  { bottom: 0; background: linear-gradient(to top,    rgb(var(--umber-rgb) / .55), rgb(var(--umber-rgb) / 0)); }
-
-.sf-cta__title {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(2.5rem, 6vw, 7rem);
-  line-height: 1.02;
-  letter-spacing: -.02em;
-  max-width: 46rem;
-  margin-block-start: clamp(2.5rem, 7vh, 4.5rem);
-}
-.sf-cta__title em { font-style: italic; color: var(--champagne); }
-.sf-cta__text {
-  font-family: var(--font-sans);
-  font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
-  line-height: 1.65;
-  color: rgb(255 255 255 / .68);
-  max-width: 34rem;
-  margin-block-start: clamp(1.5rem, 3.5vh, 2.25rem);
-}
-.sf-cta .sf-btn { margin-block-start: clamp(2rem, 5vh, 3rem); }
-.sf-cta .sf-btn { color: var(--paper); border-color: rgb(205 177 144 / .45); }
-.sf-cta .sf-btn:hover,
-.sf-cta .sf-btn:focus-visible {
-  background: var(--champagne);
-  border-color: var(--champagne);
-  color: var(--noir);
-}
 
 
 /* ===========================================================================
