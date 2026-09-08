@@ -22,3 +22,18 @@
 
 [build]
   command = "npm run build"
+
+# The adapter, declared explicitly because automatic detection is not firing on
+# this site. Evidence: with `publish = ".next"` the deploy served
+# /BUILD_ID and /routes-manifest.json with 200 and `/` with 404 — the raw build
+# artefact was going out as a plain static folder, which only happens when no
+# adapter has claimed the build. Removing the publish override alone left
+# nothing published at all.
+#
+# The trade-off is that declaring it here opts the site out of Netlify's
+# automatic adapter upgrades. To opt back in once the site's framework
+# detection is fixed in the Netlify UI, delete this block AND remove
+# @netlify/plugin-nextjs from package.json — the package's presence is what
+# pins it.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
