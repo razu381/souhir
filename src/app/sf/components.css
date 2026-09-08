@@ -1168,27 +1168,26 @@
    preload space, and without an explicit CSS height those attributes act as
    presentational hints that pin the box tall and silently defeat the
    aspect-ratio (the bug that made every ratio look wrong). */
+/* The hang — multicol, not grid. Items flow down each column, so the gap
+   between stacked plates is the item's own margin and nothing else. A grid
+   shares row tracks: paired with drop margins it stretched every row to its
+   tallest column and left a plate-height of void under the short ones (the
+   first column read as a hole between 05.1 and 05.4). Column-first order:
+   05.1–05.2, 05.3–05.4, 05.5–05.6; filtering reflows as before. */
+.sf-work__grid { columns: 1; }
+@media (min-width: 768px)  { .sf-work__grid { columns: 2; } }
+@media (min-width: 1025px) { .sf-work__grid { columns: 3; } }
 .sf-work__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  align-items: start;
-  gap: clamp(2.25rem, 6vh, 4rem) clamp(2rem, 3vw, 3rem);
+  column-gap: clamp(2rem, 3vw, 3rem);
   margin-block-start: clamp(2.5rem, 6vh, 4.5rem);
-}
-@media (min-width: 768px)  { .sf-work__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 1025px) { .sf-work__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-
-/* The hang's step — column 2 drops, column 3 drops further. A descending
-   diagonal reads as a decision; the browser's height-balancing did not. */
-@media (min-width: 1025px) {
-  .sf-work__item:nth-child(3n + 2) { margin-block-start: clamp(2rem, 5vh, 3.5rem); }
-  .sf-work__item:nth-child(3n + 3) { margin-block-start: clamp(4rem, 10vh, 7rem); }
 }
 
 .sf-work__item {
   display: block;
   text-decoration: none;
   color: inherit;
+  break-inside: avoid;
+  margin-block-end: clamp(2.25rem, 6vh, 4rem);
 }
 .sf-work__item.is-filtered { display: none; }   /* the rail's whole effect, in one line */
 
