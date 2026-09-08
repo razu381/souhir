@@ -57,942 +57,19 @@
 .sf-header.is-scrolled { background: var(--noir); }
 
 /* ===========================================================================
-   HERO  —  section 01
+   HERO — the Nocturne is the shipped treatment; see SECTION 01 below.
+
+   Five earlier hero explorations (sf-hero, sf-plate, sf-spread, sf-exhibition,
+   sf-overture — ~250 selectors) were removed here. They were referenced by no
+   component, and .sf-plate had become actively harmful: the article and case
+   study pages use `<figure class="sf-plate">` for inline images, so every one
+   of them was inheriting the abandoned variant's `min-height:100svh`, umber
+   ground and `grid-template-columns: 1fr 40vw` — which is why journal and
+   portfolio figures rendered at 60% width inside a viewport-tall dark block.
+   The inline-figure rules those pages actually want live in site.css.
+
+   The explorations remain in git history at the prototype freeze (7a7bced).
    ======================================================================== */
-.sf-hero {
-  @apply relative flex items-end overflow-hidden;
-  min-height: 100vh;
-  min-height: 100svh;   /* D7 — svh is stable; dvh reflows and harms CLS */
-  background: var(--noir);
-  color: var(--paper);
-}
-
-.sf-hero__media { @apply absolute inset-0; }
-.sf-hero__media img {
-  @apply h-full w-full;
-  object-fit: cover;
-  object-position: center 42%;
-  transform: scale(1.06);
-  transition: transform var(--dur-hero) var(--ease);
-  /* D8 — transform ONLY. This is the LCP element; opacity or clip-path would
-     delay largest contentful paint by the full animation duration. */
-}
-.sf-hero.is-ready   .sf-hero__media img { transform: scale(1); }
-.sf-hero.is-instant .sf-hero__media img { transform: none; transition: none; }
-
-/* --- Scrim -----------------------------------------------------------------
-   DIRECTIONAL, not a full-frame wash. v1 laid a heavy bottom-up gradient over
-   the whole image and turned the wet street into grey mud — the drama of the
-   photograph is the product here, so the scrim now darkens only the left
-   column where the type lives and leaves the subject, the architecture and
-   the lamp reflections at full contrast. */
-.sf-hero__scrim {
-  @apply absolute inset-0;
-  pointer-events: none;
-  background: linear-gradient(to top, rgb(10 10 10 / .82) 0%, rgb(10 10 10 / 0) 52%);
-}
-
-.sf-hero__inner {
-  @apply relative z-10 w-full;
-  padding-block-end: clamp(2rem, 5vh, 4rem);
-  padding-block-start: 9rem;
-}
-
-/* --- The editorial block ---------------------------------------------------
-   Framed above and below by rules carrying tracked-caps labels — the chapter
-   header device from DESIGN-DIRECTION.md §06, which is the system's signature
-   and was missing entirely from v1. */
-.sf-hero__block { max-width: 46rem; }
-
-.sf-hero__rule {
-  @apply flex items-baseline justify-between;
-  gap: 1.5rem;
-  border-top: 1px solid rgb(205 177 144 / .55);   /* non-text, measures 6.2:1 */
-  padding-block-start: .875rem;
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-}
-.sf-hero__rule--foot { margin-block-start: clamp(1.75rem, 4vh, 2.75rem); }
-.sf-hero__mark { color: var(--champagne); }
-.sf-hero__note { color: rgb(255 255 255 / .72); }
-
-.sf-hero__title {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(2.75rem, 6.5vw, 9rem);
-  line-height: .96;
-  letter-spacing: -.03em;
-  margin-block-start: clamp(1.5rem, 4vh, 2.5rem);
-  /* No max-width — lines are hard-broken spans (D9), so a max-width can only
-     cause unwanted wrapping. Longest line is "Into Memory." at 6.09em. */
-}
-.sf-hero__line {
-  display: block;
-  overflow: hidden;
-  padding-block-end: .1em;
-  margin-block-end: -.1em;
-}
-.sf-hero__line-in {
-  display: block;
-  transform: translateY(105%);
-  transition: transform var(--dur-base) var(--ease);
-  transition-delay: var(--sf-delay, 0ms);
-}
-.sf-hero.is-ready   .sf-hero__line-in { transform: translateY(0); }
-.sf-hero.is-instant .sf-hero__line-in { transform: none; transition: none; }
-.sf-hero__line--a { --sf-delay: 340ms; }
-.sf-hero__line--b { --sf-delay: 430ms; }
-.sf-hero__line--c { --sf-delay: 520ms; }
-
-/* --- Vertical scroll rail — right edge, rotated ---------------------------- */
-.sf-hero__rail {
-  @apply absolute z-10 hidden items-center;
-  right: calc(var(--gutter) - .25rem);
-  bottom: clamp(2rem, 5vh, 4rem);
-  flex-direction: column;
-  gap: 1rem;
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: .28em;
-  text-transform: uppercase;
-  color: var(--paper);
-}
-.sf-hero__rail-text { writing-mode: vertical-rl; }
-.sf-hero__rail-line {
-  display: block; width: 1px; height: 4.5rem;
-  background: linear-gradient(to bottom, var(--champagne), rgb(205 177 144 / 0));
-  transform-origin: top;
-}
-.sf-hero.is-ready .sf-hero__rail-line { animation: sf-rail 2.8s var(--ease) 1500ms infinite; }
-@keyframes sf-rail {
-  0%, 100% { transform: scaleY(.35); opacity: .5; }
-  45%      { transform: scaleY(1);   opacity: 1;  }
-}
-
-/* --- Entrance for the framing elements ------------------------------------ */
-.sf-hero__rule, .sf-hero__rail {
-  opacity: 0;
-  transform: translateY(1rem);
-  transition: opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
-  transition-delay: var(--sf-delay, 0ms);
-}
-.sf-hero__rail { transform: translateY(0); }
-.sf-hero__rule--head { --sf-delay: 220ms; }
-.sf-hero__rule--foot { --sf-delay: 780ms; }
-.sf-hero__rail       { --sf-delay: 980ms; }
-.sf-hero.is-ready .sf-hero__rule,
-.sf-hero.is-ready .sf-hero__rail { opacity: 1; transform: none; }
-.sf-hero.is-instant .sf-hero__rule,
-.sf-hero.is-instant .sf-hero__rail { opacity: 1; transform: none; transition: none; }
-
-/* ===========================================================================
-   BREAKPOINTS — pinned to Elementor's devices (AGENT.md §3)
-   ======================================================================== */
-@media (min-width: 1025px) {
-  /* Desktop takes the art-directed landscape crop, where the subject sits at
-     45-75%. The type column occupies the clean left half and never crosses
-     her — v1's headline ran straight across her face. */
-  .sf-hero__inner {
-    max-width: none;
-    padding-inline: var(--gutter);
-  }
-  .sf-hero__block { max-width: min(52rem, 44vw); }
-
-  /* Left-weighted gradient: protects the type column, leaves the subject and
-     the lamp reflections untouched. */
-  .sf-hero__scrim {
-    background:
-      linear-gradient(to right,
-        rgb(10 10 10 / .90)  0%,
-        rgb(10 10 10 / .78) 34%,
-        rgb(10 10 10 / .14) 56%,
-        rgb(10 10 10 / 0)   70%),
-      linear-gradient(to top, rgb(10 10 10 / .55) 0%, rgb(10 10 10 / 0) 55%);
-  }
-  .sf-hero__rail { @apply flex; }
-}
-
-/* ===========================================================================
-   REDUCED MOTION — final state, immediately, everywhere.
-   Handled once here rather than per module (01-hero.md §7).
-   ======================================================================== */
-@media (prefers-reduced-motion: reduce) {
-  .sf-hero__media img,
-  .sf-hero__line-in,
-  .sf-hero__rule,
-  .sf-hero__rail {
-    transform: none !important;
-    opacity: 1 !important;
-    transition: none !important;
-  }
-  .sf-hero__rail-line { animation: none !important; }
-}
-
-
-/* ===========================================================================
-   HERO — VARIANT B, "The Plate"
-   A different treatment entirely: where the primary hero lays type over a
-   full-bleed photograph, this one sets them side by side. The photograph
-   becomes a full-height plate bleeding off the right edge with a hard left
-   boundary; the type sits on a bone ground beside it.
-   Consequences worth naming: contrast stops being a photographic problem
-   (type on a solid ground, 16.6:1) and the image keeps 100% of its light —
-   no scrim at all. The blue shirt is then the only saturation on the screen.
-   ======================================================================== */
-.sf-plate {
-  @apply relative grid;
-  min-height: 100vh;
-  min-height: 100svh;
-  background: var(--umber);
-  color: var(--paper);
-  grid-template-rows: 52svh 1fr;
-}
-
-.sf-plate__body {
-  @apply flex flex-col justify-center;
-  padding: clamp(2rem, 5vh, 3.5rem) var(--gutter) clamp(2rem, 5vh, 3.5rem);
-}
-
-.sf-plate__media { @apply relative overflow-hidden; margin: 0; }
-
-/* The blend lives in the ASSET, not here — see scripts/build-images.sh.
-   A CSS gradient over this image left visible ghost architecture: the frame's
-   upper-left is intrinsically bright (storm sky, lit stone), so a partial
-   overlay hazed it instead of crushing it, and a rectangular haze reads as a
-   mistake rather than as atmosphere. The baked 2D falloff is anchored on the
-   figure and reaches the ground colour at every edge, so there is no boundary
-   left to hide. What remains here is a short safety feather for the seam and
-   the mobile bottom edge, where the plate meets the type. */
-.sf-plate__media::after {
-  content: "";
-  @apply absolute inset-0;
-  pointer-events: none;
-  background: linear-gradient(to bottom,
-    rgb(var(--umber-rgb) / 0)   62%,
-    rgb(var(--umber-rgb) / .5)  86%,
-    rgb(var(--umber-rgb) / 1)  100%);
-}
-.sf-plate__media img {
-  @apply h-full w-full;
-  object-fit: cover;
-  object-position: center 48%;
-  transform: scale(1.05);
-  transition: transform var(--dur-hero) var(--ease);
-}
-.sf-plate.is-ready   .sf-plate__media img { transform: scale(1); }
-.sf-plate.is-instant .sf-plate__media img { transform: none; transition: none; }
-
-/* Figure numbering — a print device, and true: this is the first figure. */
-.sf-plate__caption {
-  @apply absolute z-10 hidden;
-  left: 1.25rem; bottom: clamp(2rem, 5vh, 3.5rem);
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: .28em;
-  text-transform: uppercase;
-  color: var(--champagne);
-}
-
-.sf-plate__rule {
-  @apply flex items-baseline justify-between;
-  gap: 1.5rem;
-  border-top: 1px solid rgb(205 177 144 / .48);
-  padding-block-start: .875rem;
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-}
-.sf-plate__mark { color: var(--champagne); }
-.sf-plate__note { color: rgb(255 255 255 / .68); }
-
-.sf-plate__title {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(2.75rem, 6.4vw, 9rem);
-  line-height: .95;
-  letter-spacing: -.03em;
-  margin-block: clamp(1.5rem, 4vh, 2.75rem);
-}
-.sf-plate__line { display: block; overflow: hidden; padding-block-end: .1em; margin-block-end: -.1em; }
-.sf-plate__line-in {
-  display: block;
-  transform: translateY(105%);
-  transition: transform var(--dur-base) var(--ease);
-  transition-delay: var(--sf-delay, 0ms);
-}
-/* The italic is the risk this treatment takes. On the dark cinematic hero it
-   would read as a conventional luxury trope; on a light editorial ground it is
-   where a Didone actually belongs. */
-.sf-plate__line--c .sf-plate__line-in { font-style: italic; letter-spacing: -.015em; }
-.sf-plate.is-ready   .sf-plate__line-in { transform: translateY(0); }
-.sf-plate.is-instant .sf-plate__line-in { transform: none; transition: none; }
-.sf-plate__line--a { --sf-delay: 340ms; }
-.sf-plate__line--b { --sf-delay: 430ms; }
-.sf-plate__line--c { --sf-delay: 520ms; }
-
-.sf-plate__foot {
-  @apply flex flex-wrap items-baseline justify-between;
-  gap: .75rem 1.5rem;
-  margin-block-start: clamp(1.25rem, 3vh, 2rem);
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-}
-.sf-plate__cue { @apply inline-flex items-center; gap: .5rem; color: var(--champagne); }
-.sf-plate__cue-arrow { display: inline-block; }
-.sf-plate.is-ready .sf-plate__cue-arrow { animation: sf-drift 3s var(--ease) 1500ms infinite; }
-@keyframes sf-drift {
-  0%, 70%, 100% { transform: translateY(0); opacity: 1; }
-  35%           { transform: translateY(.3rem); opacity: .5; }
-}
-
-.sf-plate__rule, .sf-plate__foot, .sf-plate__caption {
-  opacity: 0; transform: translateY(1rem);
-  transition: opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
-  transition-delay: var(--sf-delay, 0ms);
-}
-.sf-plate__rule    { --sf-delay: 220ms; }
-.sf-plate__foot    { --sf-delay: 780ms; }
-.sf-plate__caption { --sf-delay: 980ms; transform: rotate(180deg) translateY(1rem); }
-.sf-plate.is-ready .sf-plate__rule,
-.sf-plate.is-ready .sf-plate__foot { opacity: 1; transform: none; }
-.sf-plate.is-ready .sf-plate__caption { opacity: 1; transform: rotate(180deg); }
-.sf-plate.is-instant .sf-plate__rule,
-.sf-plate.is-instant .sf-plate__foot { opacity: 1; transform: none; transition: none; }
-.sf-plate.is-instant .sf-plate__caption { opacity: 1; transform: rotate(180deg); transition: none; }
-
-/* Header sits on the umber ground, so it needs no backdrop of any kind. */
-.sf-header--plate { color: var(--paper); }
-
-@media (min-width: 1025px) {
-  .sf-plate {
-    grid-template-rows: none;
-    grid-template-columns: 1fr 40vw;
-  }
-  .sf-plate__body { padding-inline: var(--gutter) clamp(3rem, 5vw, 5rem); }
-  .sf-plate__caption { @apply block; }
-
-  /* Desktop: the baked falloff does the work. This is only a narrow guard at
-     the exact seam, covering JPEG/WebP edge artefacts. */
-  .sf-plate__media::after {
-    background: linear-gradient(to right,
-      rgb(var(--umber-rgb) / 1)   0%,
-      rgb(var(--umber-rgb) / .5)  4%,
-      rgb(var(--umber-rgb) / 0)  10%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .sf-plate__media img, .sf-plate__line-in, .sf-plate__rule, .sf-plate__foot {
-    transform: none !important; opacity: 1 !important; transition: none !important;
-  }
-  .sf-plate__caption { opacity: 1 !important; transform: rotate(180deg) !important; transition: none !important; }
-  .sf-plate__cue-arrow { animation: none !important; }
-}
-
-
-/* ===========================================================================
-   HERO VARIANT C — "THE SPREAD"
-   A double-page magazine spread. The photograph owns the entire right half of
-   the viewport, full-bleed top to bottom — daylight presence, not a strip —
-   and the left half is the type page. Two decisions carry it:
-   1. The SEAM — a 1px champagne rule at the gutter between paper and
-      photograph, drawn in on load. The print-spread boundary made visible,
-      and the brand colour allowed on the light ground as a hairline, where
-      it is decorative and legitimate.
-   2. "Into Memory." in BRONZE ITALIC at display scale. Bronze measures
-      4.81:1 on bone / 5.33:1 on paper — comfortably past the 3:1 large-text
-      bar — so the daylight hero gets its champagne moment as type, not just
-      as a rule. Ink roman above, bronze italic below: visibility and memory
-      in two colours of the same voice.
-   ======================================================================== */
-
-.sf-spread {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  min-height: 100svh;
-  background: var(--paper);
-  color: var(--ink);
-  overflow: hidden;
-}
-
-/* Header variant for a light ground — the default header is paper-on-noir. */
-.sf-header--light { color: var(--ink); }
-.sf-header--light.is-scrolled { background: var(--noir); color: var(--paper); }
-
-/* Split header for The Spread: the brand sits over paper, but the menu
-   (right-aligned) sits over the photograph's bright sky at desktop — so it
-   inverts to paper there. Measured, not guessed: ink on that sky ≈ 2:1. */
-.sf-header--split { color: var(--ink); }
-.sf-header--split.is-scrolled { background: var(--noir); color: var(--paper); }
-@media (min-width: 1025px) {
-  .sf-header--split .sf-header__menu { color: var(--paper); }
-}
-
-.sf-spread__head {
-  display: flex;
-  flex-direction: column;
-  padding-block-start: clamp(7rem, 15vh, 11rem);
-}
-
-.sf-spread__rule {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1.5rem;
-  border-top: 1px solid var(--hairline);
-  padding-block-start: .875rem;
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-}
-.sf-spread__note { color: var(--graphite); }
-
-/* --- The photograph ----------------------------------------------------------
-   Mobile: a full-bleed band between the rule and the promise. Desktop: the
-   right half, full height. Transform-only settle — it is the LCP element and
-   must not delay paint (D8). The window is biased right of centre onto the
-   subject, who stands at 45–75% of the source width. */
-.sf-spread__media {
-  position: relative;
-  height: clamp(17rem, 46svh, 28rem);
-  margin-block: clamp(2rem, 5vh, 3.5rem);
-  overflow: hidden;
-  background: var(--noir);
-}
-.sf-spread__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 62% center;
-  transform: scale(1.075);
-  transition: transform var(--dur-hero) var(--ease);
-}
-/* The <picture> wrapper has an indefinite height, so the img's height:100%
-   silently resolved to auto and the photograph stopped short of the figure's
-   bottom — half a column of paper. Give the wrapper the figure's full box. */
-.sf-spread__media picture {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-.sf-spread.is-ready   .sf-spread__media img { transform: scale(1); }
-.sf-spread.is-instant .sf-spread__media img { transform: none; transition: none; }
-
-/* --- The promise --------------------------------------------------------------
-   Set large and CENTRED in its page — the dead zone between rule and meta
-   was the composition's flaw. At desktop the column runs flush to the seam
-   (padding-inline-end 0), so the type's grid line IS the photograph's edge. */
-.sf-spread__foot {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  padding-block-end: clamp(1.75rem, 4.5vh, 3rem);
-}
-.sf-spread__title {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(2.75rem, 8.4vw, 8.25rem);
-  line-height: .95;
-  letter-spacing: -.035em;
-  margin-block: auto;   /* centred between the chapter rule and the meta rail */
-  padding-block: clamp(1.5rem, 4vh, 3rem) clamp(.75rem, 2vh, 1.5rem);
-}
-.sf-spread__line { display: block; overflow: hidden; padding-block-end: .1em; margin-block-end: -.1em; }
-.sf-spread__line-in {
-  display: block;
-  transition: transform var(--dur-base) var(--ease);
-  transition-delay: var(--sf-delay, 0ms);
-}
-/* Hidden initial states gated on .sf-js — complete render without JavaScript. */
-.sf-js .sf-spread__line-in { transform: translateY(105%); }
-.sf-spread.is-ready   .sf-spread__line-in { transform: translateY(0); }
-.sf-spread.is-instant .sf-spread__line-in { transform: none; transition: none; }
-.sf-spread__line--a { --sf-delay: 420ms; }
-.sf-spread__line--b { --sf-delay: 520ms; }
-.sf-spread__line--c { --sf-delay: 620ms; }
-.sf-spread__line--c .sf-spread__line-in {
-  font-style: italic;
-  letter-spacing: -.015em;
-  color: var(--bronze);   /* the daylight champagne — 5.33:1 on paper, large text ✓ */
-}
-
-/* --- Meta rail ------------------------------------------------------------------ */
-.sf-spread__meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: .75rem 1.5rem;
-  margin-block-start: auto;
-  padding-block: clamp(1.5rem, 4vh, 2.5rem) 0;
-  border-top: 1px solid var(--hairline);
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-}
-.sf-spread__mark { color: var(--bronze); }
-.sf-spread__sub  { color: var(--graphite); }
-.sf-spread__cue  { color: var(--ink); white-space: nowrap; }
-
-.sf-spread__rule,
-.sf-spread__meta {
-  opacity: 1;
-  transition: opacity var(--dur-base) var(--ease);
-}
-.sf-js .sf-spread__rule,
-.sf-js .sf-spread__meta { opacity: 0; }
-.sf-spread.is-ready   .sf-spread__rule,
-.sf-spread.is-ready   .sf-spread__meta { opacity: 1; }
-.sf-spread.is-instant .sf-spread__rule,
-.sf-spread.is-instant .sf-spread__meta { opacity: 1; transition: none; }
-.sf-spread__rule { transition-delay: 200ms; }
-.sf-spread__meta { transition-delay: 1080ms; }
-
-/* --- Desktop: the spread --------------------------------------------------------- */
-@media (min-width: 1025px) {
-  .sf-spread {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-rows: auto minmax(0, 1fr);
-  }
-  .sf-spread__head  { grid-column: 1; grid-row: 1; }
-  .sf-spread__media {
-    grid-column: 2;
-    grid-row: 1 / span 2;   /* the photograph runs the full height of the spread */
-    height: auto;
-    margin: 0;
-  }
-  .sf-spread__foot { grid-column: 1; grid-row: 2; }
-
-  /* The type page keeps a small right inset at the seam — the meta rail and
-     the chapter rule must not ride the photograph (they did, at ~20px,
-     which read as broken padding). The title keeps its long-line freedom. */
-  .sf-spread__head,
-  .sf-spread__foot { padding-inline-end: clamp(1.25rem, 2.5vw, 2.5rem); }
-
-  /* Parallax bleed: the picture is 9% taller than its frame on both ends;
-     the scroll drift below travels 6.9% of the picture (≈8% of the frame) —
-     one percent of safety at each edge, so subpixel rounding can never
-     expose the noir backing as a sliver. --sf-px comes from hero.js (§5). */
-  .sf-spread__media picture {
-    position: absolute;
-    inset: -9% 0;
-    transform: translateY(calc(var(--sf-px, 0) * 6.9%));
-    will-change: transform;
-  }
-}
-
-/* The seam — a 1px champagne rule at the gutter, drawn in on load. */
-.sf-spread__media::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: var(--champagne);
-  z-index: 1;
-}
-@media (max-width: 1024px) {
-  .sf-spread__media::before { display: none; }   /* no gutter on mobile — no seam */
-}
-.sf-js .sf-spread__media::before {
-  transform: scaleY(0);
-  transform-origin: top center;
-  transition: transform var(--dur-slow) var(--ease);
-  transition-delay: 320ms;
-}
-.sf-spread.is-ready   .sf-spread__media::before { transform: scaleY(1); }
-.sf-spread.is-instant .sf-spread__media::before { transform: scaleY(1); transition: none; }
-
-/* Paper grain — one sheet of stock. A barely-there fractal noise over BOTH
-   halves: the photograph stops being a neighbor of the type page and becomes
-   the other half of the same printed sheet. 4.5% opacity, no blend games. */
-.sf-spread::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  opacity: .045;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* Cue micro-interaction — the arrow drifts down under the cursor, at
-   system tempo. The last 2% of polish. */
-.sf-spread__cue { transition: letter-spacing var(--dur-micro) var(--ease); }
-.sf-spread__cue:hover,
-.sf-spread__cue:focus-visible { letter-spacing: .22em; }
-.sf-spread__cue span { display: inline-block; transition: transform var(--dur-micro) var(--ease); }
-.sf-spread__cue:hover span,
-.sf-spread__cue:focus-visible span { transform: translateY(.1875rem); }
-
-@media (prefers-reduced-motion: reduce) {
-  .sf-spread__media img,
-  .sf-spread__line-in { transform: none !important; transition: none !important; }
-  .sf-spread__media::before { transform: scaleY(1) !important; transition: none !important; }
-  .sf-spread__rule,
-  .sf-spread__meta { opacity: 1 !important; transition: none !important; }
-}
-
-
-/* ===========================================================================
-   HERO VARIANT D — "THE EXHIBITION"
-   A noir gallery wall. The photograph is a hung print — hairline champagne
-   frame, air above and below, a full-width gallery rail passing behind it —
-   and the promise is typeset the way a museum would: "Beyond Visibility." at
-   giant scale as the exhibition title, "Into Memory." as the artwork's label,
-   in italic champagne, with the plate details beneath it in tracked caps.
-   Consequences worth naming: the B&W plate's left half is near-black, so the
-   title's long line can cross the seam with no scrim; champagne gets a noir
-   ground, where it belongs; and the strongest assets in the library — the
-   black-and-white editorial frames — open the site where the brand most
-   needs to feel authored.
-   ======================================================================== */
-
-.sf-exhibition {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  min-height: 100svh;
-  background: var(--noir);
-  color: var(--paper);
-  overflow: hidden;   /* the title bleeds past its column; the wall contains it */
-}
-
-/* The gallery rail — the one horizontal anchor of the composition. It is
-   anchored to the PLATE itself (a pseudo-element extending past both sides)
-   rather than positioned independently, so it always passes behind the print
-   at the same relative height at every breakpoint, and the print reads as
-   hung rather than pasted. The section's overflow clips the excess. */
-.sf-exhibition__plate { position: relative; }
-.sf-exhibition__plate::before {
-  content: "";
-  position: absolute;
-  left: -100vw;
-  right: -100vw;
-  top: 12%;
-  height: 1px;
-  background: var(--hairline-d);
-  z-index: -1;
-}
-.sf-js .sf-exhibition__plate::before {
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform var(--dur-slow) var(--ease);
-  transition-delay: 260ms;
-}
-.sf-exhibition.is-ready   .sf-exhibition__plate::before { transform: scaleX(1); }
-.sf-exhibition.is-instant .sf-exhibition__plate::before { transform: scaleX(1); transition: none; }
-
-.sf-exhibition__inner {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  padding-block-start: clamp(7rem, 14vh, 10rem);
-}
-
-.sf-exhibition__rule {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1.5rem;
-  border-top: 1px solid rgb(205 177 144 / .45);   /* non-text, ~5:1 on noir */
-  padding-block-start: .875rem;
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-}
-.sf-exhibition__note { color: rgb(255 255 255 / .72); }
-
-/* --- The exhibition title -----------------------------------------------------
-   Two short words, so the scale goes further than any other variant — this is
-   the reference sites' 229px energy, spent on the promise instead of the
-   name. z-2 above the plate: "Visibility." crosses onto the print's dark left
-   half, an overlap with no scrim, no shadow, no gradient. */
-.sf-exhibition__title {
-  position: relative;
-  z-index: 2;
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(3.5rem, 12vw, 13.5rem);
-  line-height: .94;
-  letter-spacing: -.035em;
-  margin-block-start: clamp(1rem, 3vh, 2.25rem);
-}
-.sf-exhibition__line { display: block; overflow: hidden; padding-block-end: .1em; margin-block-end: -.1em; }
-.sf-exhibition__line-in {
-  display: block;
-  transition: transform var(--dur-base) var(--ease);
-  transition-delay: var(--sf-delay, 0ms);
-}
-.sf-js .sf-exhibition__line-in { transform: translateY(105%); }
-.sf-exhibition.is-ready   .sf-exhibition__line-in { transform: translateY(0); }
-.sf-exhibition.is-instant .sf-exhibition__line-in { transform: none; transition: none; }
-.sf-exhibition__line--a { --sf-delay: 380ms; }
-.sf-exhibition__line--b { --sf-delay: 480ms; }
-
-/* --- The hung print -----------------------------------------------------------
-   Sized by height with the width DERIVED from it explicitly. aspect-ratio
-   alone lets the grid's auto column measure the img's intrinsic width and
-   balloon the track — a 1200px source must never size the wall. */
-.sf-exhibition__plate {
-  --plate-h: clamp(300px, 58svh, 660px);
-  width: calc(var(--plate-h) * .6667);
-  height: var(--plate-h);
-  margin: clamp(1.75rem, 7svh, 4.5rem) 0 0;
-  border: 1px solid rgb(205 177 144 / .38);   /* the frame — champagne as a jewel */
-  justify-self: start;
-}
-.sf-exhibition__plate img {
-  position: absolute;   /* no intrinsic contribution to the grid track */
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  transform: scale(1.05);
-  transition: transform var(--dur-hero) var(--ease);
-  /* Transform only — this plate is the LCP element and must not delay paint (D8). */
-}
-.sf-exhibition.is-ready   .sf-exhibition__plate img { transform: scale(1); }
-.sf-exhibition.is-instant .sf-exhibition__plate img { transform: none; transition: none; }
-
-/* --- The museum label -----------------------------------------------------------
-   The promise's second half, demoted to an artwork label — the italic is
-   earned here rather than decorative: it is how titles of works are set. */
-.sf-exhibition__label { margin-block-start: clamp(1.75rem, 5.5vh, 3.75rem); }
-.sf-exhibition__label-title {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(1.625rem, 3.2vw, 3rem);
-  line-height: 1.1;
-  letter-spacing: -.01em;
-  color: var(--champagne);   /* ~9:1 on noir — safe at any size */
-}
-.sf-exhibition__label-meta {
-  margin-block-start: .875rem;
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-  color: rgb(255 255 255 / .60);
-}
-
-.sf-exhibition__label,
-.sf-exhibition__rule,
-.sf-exhibition__meta {
-  opacity: 1;
-  transition: opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
-}
-.sf-js .sf-exhibition__label { transform: translateY(1rem); }
-.sf-js .sf-exhibition__label,
-.sf-js .sf-exhibition__rule,
-.sf-js .sf-exhibition__meta { opacity: 0; }
-.sf-exhibition.is-ready   .sf-exhibition__label,
-.sf-exhibition.is-ready   .sf-exhibition__rule,
-.sf-exhibition.is-ready   .sf-exhibition__meta { opacity: 1; transform: none; }
-.sf-exhibition.is-instant .sf-exhibition__label,
-.sf-exhibition.is-instant .sf-exhibition__rule,
-.sf-exhibition.is-instant .sf-exhibition__meta { opacity: 1; transform: none; transition: none; }
-.sf-exhibition__rule  { transition-delay: 220ms; }
-.sf-exhibition__label { transition-delay: 920ms; }
-.sf-exhibition__meta  { transition-delay: 1150ms; }
-
-.sf-exhibition__meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: .75rem 1.5rem;
-  margin-block-start: auto;
-  padding-block: clamp(1.5rem, 4vh, 2.5rem) clamp(1.75rem, 4.5vh, 3rem);
-  border-top: 1px solid var(--hairline-d);
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-}
-.sf-exhibition__mark { color: var(--champagne); }
-.sf-exhibition__sub  { color: rgb(255 255 255 / .72); }
-
-/* Desktop: the wall. Title and label in the left column; the print hangs in
-   the right, top-aligned near the rail. The title may cross the seam. */
-.sf-exhibition__grid { display: grid; grid-template-columns: minmax(0, 1fr); }
-
-@media (min-width: 1025px) {
-  .sf-exhibition__grid {
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: start;
-    column-gap: clamp(2.5rem, 5vw, 6rem);
-  }
-  .sf-exhibition__plate { grid-column: 2; }
-  .sf-exhibition__label { max-width: 34rem; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .sf-exhibition__line-in,
-  .sf-exhibition__plate img { transform: none !important; transition: none !important; }
-  .sf-exhibition__plate::before { transform: scaleX(1) !important; transition: none !important; }
-  .sf-exhibition__label,
-  .sf-exhibition__rule,
-  .sf-exhibition__meta { opacity: 1 !important; transform: none !important; transition: none !important; }
-}
-
-
-/* ===========================================================================
-   HERO VARIANT E — "THE OVERTURE"
-   A cinema title card. One cinemascope band across the full width — the
-   corridor photograph, a figure walking toward window light, letterboxed by
-   noir above and below — and beneath it the promise as a two-tone title:
-   "Beyond Visibility." in paper, "Into Memory." in champagne. The image and
-   the sentence rhyme: she is literally walking beyond visibility, into
-   memory. Consequences worth naming: no type ever touches the photograph, so
-   the frame keeps its full dynamic range with no scrim; and the two-tone
-   headline gives champagne its largest legitimate moment — still under 2%
-   coverage, on the noir ground where it belongs.
-   ======================================================================== */
-
-.sf-overture {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  min-height: 100svh;
-  background: var(--noir);
-  color: var(--paper);
-}
-
-.sf-overture__head { padding-block-start: clamp(6.5rem, 13vh, 9.5rem); }
-.sf-overture__foot {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  padding-block-end: clamp(1.75rem, 4.5vh, 3rem);
-}
-
-.sf-overture__rule {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1.5rem;
-  border-top: 1px solid rgb(205 177 144 / .45);
-  padding-block-start: .875rem;
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-}
-.sf-overture__note { color: rgb(255 255 255 / .72); }
-
-/* --- The screen ----------------------------------------------------------------
-   Full-bleed width; the height clamp keeps the letterbox proportions against
-   the headline below at every viewport. Transform-only settle — this band is
-   the LCP element (D8). */
-.sf-overture__band {
-  position: relative;
-  height: clamp(15.5rem, 42svh, 31rem);
-  margin-block: clamp(2rem, 5vh, 3.5rem) 0;
-  overflow: hidden;
-  background: var(--noir);
-}
-.sf-overture__band img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 44%;
-  transform: scale(1.06);
-  transition: transform var(--dur-hero) var(--ease);
-}
-.sf-overture.is-ready   .sf-overture__band img { transform: scale(1); }
-.sf-overture.is-instant .sf-overture__band img { transform: none; transition: none; }
-
-/* --- The title card -------------------------------------------------------------- */
-.sf-overture__title {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(2.875rem, 7vw, 9.5rem);
-  line-height: .97;
-  letter-spacing: -.03em;
-  margin-block-start: clamp(2rem, 5vh, 3.25rem);
-}
-.sf-overture__line { display: block; overflow: hidden; padding-block-end: .1em; margin-block-end: -.1em; }
-.sf-overture__line-in {
-  display: block;
-  transition: transform var(--dur-base) var(--ease);
-  transition-delay: var(--sf-delay, 0ms);
-}
-.sf-js .sf-overture__line-in { transform: translateY(105%); }
-.sf-overture.is-ready   .sf-overture__line-in { transform: translateY(0); }
-.sf-overture.is-instant .sf-overture__line-in { transform: none; transition: none; }
-.sf-overture__line--a { --sf-delay: 420ms; }
-.sf-overture__line--b { --sf-delay: 520ms; color: var(--champagne); }   /* the two-tone card */
-
-.sf-overture__rule,
-.sf-overture__meta {
-  opacity: 1;
-  transition: opacity var(--dur-base) var(--ease);
-}
-.sf-js .sf-overture__rule,
-.sf-js .sf-overture__meta { opacity: 0; }
-.sf-overture.is-ready   .sf-overture__rule,
-.sf-overture.is-ready   .sf-overture__meta { opacity: 1; }
-.sf-overture.is-instant .sf-overture__rule,
-.sf-overture.is-instant .sf-overture__meta { opacity: 1; transition: none; }
-.sf-overture__rule { transition-delay: 220ms; }
-.sf-overture__meta { transition-delay: 1100ms; }
-
-.sf-overture__meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: .75rem 1.5rem;
-  margin-block-start: auto;
-  padding-block: clamp(1.5rem, 4vh, 2.5rem) clamp(1.75rem, 4.5vh, 3rem);
-  border-top: 1px solid var(--hairline-d);
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-}
-.sf-overture__mark { color: var(--champagne); }
-.sf-overture__sub  { color: rgb(255 255 255 / .72); }
-
-@media (prefers-reduced-motion: reduce) {
-  .sf-overture__band img,
-  .sf-overture__line-in { transform: none !important; transition: none !important; }
-  .sf-overture__rule,
-  .sf-overture__meta { opacity: 1 !important; transition: none !important; }
-}
-
-
 /* ===========================================================================
    SHARED — generic scroll reveal (below the fold)
    The hero variants run their own decode-gated sequences; this is for
@@ -1044,6 +121,16 @@
   font-weight: 500;
   letter-spacing: var(--track-label);
   text-transform: uppercase;
+}
+/* The label may be a <span> or the section's <h2> (see Chapter in
+   HomeSections.tsx). Neutralise the UA heading defaults so the two render
+   identically — the chapter rule is typographically the same object either way. */
+.sf-chapter__label {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
 }
 .sf-chapter__num { color: var(--bronze); }   /* champagne-deep measured failing — bronze is the light-ground numeral */
 
@@ -1169,6 +256,11 @@
 }
 .sf-explore__figure img {
   width: 100%;
+  height: auto;             /* LOAD-BEARING: the <img height> attribute is a presentational
+                               hint, and aspect-ratio only computes a side when the other is
+                               auto. Without this the box is pinned to the intrinsic 1800px
+                               and max-height below becomes the real ratio driver — the plate
+                               then re-proportions with the window. Same fix as .sf-work__plate. */
   aspect-ratio: 2 / 3;      /* ratio box reserves the space — CLS-safe, padding-hack-free */
   max-height: 70vh;         /* short-viewport guard — crops rather than dominating */
   object-fit: cover;
@@ -1281,6 +373,19 @@
   border-radius: 0;   /* sharp — §09 */
   transition: transform 140ms var(--ease);   /* fast exit, like the img below */
 }
+/* THE MOUNT. The tile column is reserved at all times so the print never
+   shifts the row. A hairline mount, in the same value as the row dividers,
+   frames the plate at rest — the print is always in it; the whole mount
+   tips together on hover. */
+.sf-service-row__tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;   /* the frame stays over the print, as a mount does */
+  pointer-events: none;
+  border: 1px solid var(--hairline);
+}
+.sf-services--noir .sf-service-row__tile::before { border-color: rgb(205 177 144 / .30); }
 /* The toss: on hover the print swings 25° — dropped on the catalogue table,
    not placed. It sweeps under the typography (text spans are z-2) and the
    hovered row lifts above its neighbours, so the tipped plate never fights
@@ -1293,25 +398,11 @@
   transform: rotate(-25deg);
   transition: transform var(--dur-base) var(--ease);
 }
+/* The print shows at rest — no clip, no entrance. It only needs to survive
+   the toss, hence the bleed. */
 .sf-service-row__tile img {
   position: absolute;
   inset: -6%;   /* rotation bleed — covers the tipped corners at any row */
-  clip-path: inset(0 0 100% 0);
-  transform: scale(1.06);
-  /* Asymmetric: a slow couture reveal (680ms in), a fast exit (140ms out) —
-     a symmetric out-transition left ghost tiles trailing when the cursor
-     crossed rows. */
-  transition:
-    clip-path 140ms var(--ease),
-    transform  140ms var(--ease);
-}
-.sf-service-row:hover .sf-service-row__tile img,
-.sf-service-row:focus-visible .sf-service-row__tile img {
-  clip-path: inset(0 0 0 0);
-  transform: scale(1);
-  transition:
-    clip-path var(--dur-base) var(--ease),
-    transform  var(--dur-base) var(--ease);
 }
 
 .sf-service-row:hover .sf-service-row__label,
@@ -1515,6 +606,7 @@
 }
 .sf-founder__figure img {
   width: 100%;
+  height: auto;             /* see .sf-explore__figure img — same presentational-hint trap */
   aspect-ratio: 2 / 3;
   max-height: 70vh;
   object-fit: cover;
@@ -1707,7 +799,11 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding-block-start: clamp(7rem, 14vh, 10rem);
+  /* The wall's top margin. Phones get the tighter end of the ramp: the hero is
+     a ONE-SCREEN composition (the meta rail is pushed to the floor by
+     margin-block-start:auto below), and on a 390x844 handset the old 7rem
+     floor alone spent an eighth of the viewport before the first rule. */
+  padding-block-start: clamp(4rem, 8svh, 10rem);
 }
 
 .sf-nocturne__rule {
@@ -1737,10 +833,10 @@
   z-index: 2;   /* above the plate — "Visibility." crosses the seam */
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(3.5rem, 12vw, 13.5rem);
+  font-size: clamp(3rem, 12vw, 13.5rem);
   line-height: .94;
   letter-spacing: -.035em;
-  margin-block-start: clamp(1rem, 3vh, 2.25rem);
+  margin-block-start: clamp(.75rem, 2.5vh, 2.25rem);
   color: var(--bone);
 }
 .sf-nocturne__line { display: block; overflow: hidden; padding-block-end: .1em; margin-block-end: -.1em; }
@@ -1765,10 +861,15 @@
    the frame — under the print's full dynamic range, never over it. */
 .sf-nocturne__plate {
   position: relative;
-  --plate-h: clamp(300px, 58svh, 660px);
+  /* Sized by HEIGHT, width derived — a 5000px source can never size the wall.
+     The handset ramp is its own value: the hero is one screen, and at 58svh
+     the print alone ate two thirds of a phone viewport, pushing the museum
+     label and the scroll cue below the fold. 40svh leaves the rule, the
+     title, the label and the meta rail all inside the first screen. */
+  --plate-h: clamp(220px, 40svh, 660px);
   width: calc(var(--plate-h) * .6667);
   height: var(--plate-h);
-  margin: clamp(1.75rem, 7svh, 4.5rem) 0 0;
+  margin: clamp(1rem, 3.5svh, 4.5rem) 0 0;
   border: 1px solid rgb(205 177 144 / .38);   /* the frame — champagne as a jewel */
   box-shadow:
     0 -1rem 3.75rem -.5rem rgb(205 177 144 / .20),   /* the picture light — */
@@ -1832,7 +933,7 @@
 /* --- The museum label --------------------------------------------------------
    The promise's second half, demoted to an artwork label — the Exhibition's
    own move, kept verbatim: the italic is how titles of works are set. */
-.sf-nocturne__label { margin-block-start: clamp(1.75rem, 5.5vh, 3.75rem); }
+.sf-nocturne__label { margin-block-start: clamp(1.25rem, 3.5svh, 3.75rem); }
 .sf-nocturne__label-title {
   font-family: var(--font-display);
   font-style: italic;
@@ -1877,9 +978,9 @@
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: .75rem 1.5rem;
-  margin-block-start: auto;
-  padding-block: clamp(1.5rem, 4vh, 2.5rem) clamp(1.75rem, 4.5vh, 3rem);
+  gap: .5rem 1.5rem;
+  margin-block-start: auto;   /* holds the rail on the viewport floor */
+  padding-block: clamp(1rem, 2.5svh, 2.5rem) clamp(1.25rem, 3svh, 3rem);
   border-top: 1px solid rgb(205 177 144 / .25);
   font-family: var(--font-sans);
   font-size: var(--t-label);
@@ -1890,16 +991,51 @@
 .sf-nocturne__mark { color: var(--champagne); }
 .sf-nocturne__sub  { color: rgb(255 255 255 / .72); }
 
+/* Handset: the sub-headline is too long to share the rail. Given its own line
+   ABOVE the rail's two anchors, the block settles at two lines instead of the
+   three that wrapping produced — and the mark and the scroll cue keep the
+   left/right anchoring the rail is for. */
+.sf-nocturne__sub { flex: 1 0 100%; order: -1; }
+
 /* Desktop: the wall. Title and label in the left column; the print hangs in
-   the right, top-aligned near the rail. The title may cross the seam. */
+   the right, top-aligned near the rail. The title may cross the seam.
+
+   The label is placed EXPLICITLY rather than auto-flowed. Auto-flow put it in
+   a second row beneath the print's row, so the wall's height was
+   `print + label` and the left column carried a ~440px hole between the title
+   and the label — the hero then needed ~1180px and lost its meta rail off the
+   bottom of every laptop. Spanning the print across both rows and pinning the
+   label to the end of row 2 anchors it on the print's foot, makes the wall
+   `max(title + label, print)`, and brings the whole composition back inside
+   one screen. */
 @media (min-width: 1025px) {
   .sf-nocturne__grid {
     grid-template-columns: minmax(0, 1fr) auto;
-    align-items: start;
+    grid-template-rows: auto minmax(0, 1fr);
     column-gap: clamp(2.5rem, 5vw, 6rem);
   }
-  .sf-nocturne__plate { grid-column: 2; }
-  .sf-nocturne__label { max-width: 34rem; }
+  .sf-nocturne__title { grid-column: 1; grid-row: 1; }
+  .sf-nocturne__plate { grid-column: 2; grid-row: 1 / span 2; align-self: start; }
+  .sf-nocturne__label {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: end;   /* the label sits on the print's baseline, not adrift */
+    max-width: 34rem;
+  }
+
+  .sf-nocturne__inner { padding-block-start: clamp(7rem, 13vh, 10rem); }
+  .sf-nocturne__plate { --plate-h: clamp(300px, 58svh, 660px); margin-block-start: clamp(1.75rem, 7svh, 4.5rem); }
+  .sf-nocturne__label { margin-block-start: clamp(1.75rem, 5.5vh, 3.75rem); }
+  .sf-nocturne__meta  { padding-block: clamp(1.5rem, 4vh, 2.5rem) clamp(1.75rem, 4.5vh, 3rem); }
+  .sf-nocturne__sub   { flex: 0 1 auto; order: 0; }
+}
+
+/* The short-handset guard. 360x640 is the last viewport where the one-screen
+   composition does not close on its own — the print and the title together run
+   ~27px past the fold. Both give a little rather than one giving a lot. */
+@media (max-width: 480px) and (max-height: 700px) {
+  .sf-nocturne__plate { --plate-h: clamp(180px, 34svh, 660px); }
+  .sf-nocturne__title { font-size: clamp(2.625rem, 11vw, 13.5rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2018,13 +1154,26 @@
 }
 
 /* --- The hang ---------------------------------------------------------------
-   A masonry salon hang: three balanced columns (CSS multicol — the browser
-   balances the heights, and display:none filtering simply reflows), plates
-   of MIXED ratios — wide, square, tall — with a couple dropped lower for
-   irregularity. height:auto is load-bearing here: the imgs carry width/height
-   attributes for preload space, and without an explicit CSS height those
-   attributes act as presentational hints that pin the box tall and silently
-   defeat the aspect-ratio (the bug that made every ratio look wrong). */
+   A salon hang in three columns, on GRID rather than multicol.
+
+   Multicol balanced the plates by height, which meant the catalogue ran DOWN
+   each column: the top row read 05.1 · 05.3 · 05.5 and the second 05.2 · 05.4 ·
+   05.6, so a reader scanning left to right watched the numbers skip. In a
+   section whose whole grammar is numbering, that read as a fault. Grid puts
+   source order back on the wall left-to-right, and the stagger below becomes a
+   COMPOSED offset instead of a balancing artefact — a regular descending step
+   across the three columns, which is what a salon hang actually looks like.
+
+   height:auto is load-bearing: the imgs carry width/height attributes for
+   preload space, and without an explicit CSS height those attributes act as
+   presentational hints that pin the box tall and silently defeat the
+   aspect-ratio (the bug that made every ratio look wrong). */
+/* The hang — multicol, not grid. Items flow down each column, so the gap
+   between stacked plates is the item's own margin and nothing else. A grid
+   shares row tracks: paired with drop margins it stretched every row to its
+   tallest column and left a plate-height of void under the short ones (the
+   first column read as a hole between 05.1 and 05.4). Column-first order:
+   05.1–05.2, 05.3–05.4, 05.5–05.6; filtering reflows as before. */
 .sf-work__grid { columns: 1; }
 @media (min-width: 768px)  { .sf-work__grid { columns: 2; } }
 @media (min-width: 1025px) { .sf-work__grid { columns: 3; } }
@@ -2041,11 +1190,38 @@
   margin-block-end: clamp(2.25rem, 6vh, 4rem);
 }
 .sf-work__item.is-filtered { display: none; }   /* the rail's whole effect, in one line */
-.sf-work__item--drop { margin-block-start: clamp(1.5rem, 4vh, 3rem); }   /* the stagger */
 
 .sf-work__plate {
+  position: relative;
   margin: 0;
   overflow: hidden;   /* the settle scales inside the frame, never past it */
+}
+
+/* --- The hang's grade ----------------------------------------------------------
+   §08's hard rule is one grade per viewport, and this is the section that broke
+   it worst: six plates, three grades — warm gold interiors beside a high-key
+   B&W frame beside a cool wet-street blue, all on screen at once.
+
+   The fix is the hero plate's own device, not a new one: the nocturne lays a
+   vignette, a champagne wash and a sheet of grain INSIDE the frame as glass
+   over the print, keeping the photograph's full dynamic range underneath. Worn
+   here at lower strength it pulls the cool frames toward the warm family and
+   gives all six a single film stock. It narrows the gap; it cannot close it —
+   a genuinely cool frame in a warm hang is still a curation call. */
+.sf-work__plate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 50% 45%,
+      rgb(10 8 6 / 0) 55%,
+      rgb(10 8 6 / .30) 100%),
+    linear-gradient(to bottom,
+      rgb(205 177 144 / .12) 0%,
+      rgb(205 177 144 / .05) 60%,
+      rgb(205 177 144 / .10) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
 }
 .sf-work__plate img {
   width: 100%;
@@ -2057,8 +1233,10 @@
 }
 .sf-work__item--tall   .sf-work__plate img { aspect-ratio: 4 / 5; }
 .sf-work__item--square .sf-work__plate img { aspect-ratio: 1 / 1; }
-.sf-work__item:hover .sf-work__plate img,
-.sf-work__item:focus-visible .sf-work__plate img { transform: scale(1.03); }
+/* Link affordances are gated on the item ACTUALLY being a link — a plate with
+   no case study behind it stays still (see --static below). */
+.sf-work__item:not(.sf-work__item--static):hover .sf-work__plate img,
+.sf-work__item:not(.sf-work__item--static):focus-visible .sf-work__plate img { transform: scale(1.03); }
 
 .sf-work__caption {
   display: grid;
@@ -2075,8 +1253,8 @@
   color: rgb(255 255 255 / .45);
   transition: color var(--dur-micro) var(--ease);
 }
-.sf-work__item:hover .sf-work__num,
-.sf-work__item:focus-visible .sf-work__num { color: var(--champagne); }
+.sf-work__item:not(.sf-work__item--static):hover .sf-work__num,
+.sf-work__item:not(.sf-work__item--static):focus-visible .sf-work__num { color: var(--champagne); }
 .sf-work__title {
   font-family: var(--font-display);
   font-weight: 400;
@@ -2085,8 +1263,14 @@
   letter-spacing: -.015em;
   transition: transform var(--dur-micro) var(--ease);
 }
-.sf-work__item:hover .sf-work__title,
-.sf-work__item:focus-visible .sf-work__title { transform: translateX(.375rem); }
+.sf-work__item:not(.sf-work__item--static):hover .sf-work__title,
+.sf-work__item:not(.sf-work__item--static):focus-visible .sf-work__title { transform: translateX(.375rem); }
+
+/* --- The hung print ------------------------------------------------------------
+   A plate whose case study is not published yet. It keeps the catalogue entry
+   and the category, drops the ↗ (in the markup) and every travel a link would
+   promise. The section stopped offering six navigations it could not honour. */
+.sf-work__item--static { cursor: default; }
 .sf-work__meta {
   font-family: var(--font-sans);
   font-size: var(--t-label);
@@ -2151,7 +1335,11 @@
   .sf-press__grid {
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     column-gap: clamp(3rem, 6vw, 6rem);
-    align-items: center;
+    /* START, not centre. Centring floated the covers in the middle of a column
+       the taller spine had already set the height of, so the hang sat adrift
+       with ~290px of dead ground beneath it. Both rooms now open on the same
+       line, which is what makes them read as one spread. */
+    align-items: start;
   }
 }
 
@@ -2163,16 +1351,20 @@
 .sf-press__covers {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: clamp(1.25rem, 2vw, 2rem);
+  column-gap: clamp(1rem, 1.6vw, 1.75rem);   /* tighter gutters, larger plates */
 }
 .sf-press__cover {
   margin: 0;
 }
 /* The stagger — a hung wall, not a flat row. Desktop only; the mobile press
-   strip keeps its shared baseline. */
+   strip keeps its shared baseline.
+
+   It used to run 0 / 56 / 28px: down, then back up. At that size a zigzag does
+   not read as rhythm, it reads as three plates someone failed to align. A
+   single descending step does read — the same decision the work hang makes. */
 @media (min-width: 1025px) {
-  .sf-press__cover--b { margin-block-start: 3.5rem; }
-  .sf-press__cover--c { margin-block-start: 1.75rem; }
+  .sf-press__cover--b { margin-block-start: 2.5rem; }
+  .sf-press__cover--c { margin-block-start: 5rem; }
 }
 .sf-press__cover img {
   width: 100%;
@@ -2259,7 +1451,12 @@
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     column-gap: clamp(3rem, 6vw, 6rem);
-    align-items: end;
+    /* START, not end. The intro column is two paragraphs tall and set the row
+       height; bottom-aligning then dropped the title to the foot of that row
+       with a column of empty ground above it, so the section's name read as
+       adrift rather than as a masthead. A masthead opens on the same line as
+       its standfirst — the air belongs UNDER the title, not over it. */
+    align-items: start;
   }
   .sf-journal__intro { margin-block-start: 0; }
 }
@@ -2428,7 +1625,7 @@
 .sf-interlude {
   position: relative;
   display: grid;
-  place-items: center;
+  align-items: center;
   min-height: clamp(22rem, 55svh, 34rem);
   background: var(--umber);
   color: var(--paper);
@@ -2451,41 +1648,77 @@
     rgb(10 8 6 / 0) 50%,
     rgb(10 8 6 / .45) 100%);
 }
+
+/* --- The scrim, re-aimed -------------------------------------------------------
+   It used to wash the ENTIRE band top-to-bottom at .42–.86, which cost the
+   photograph its whole dynamic range: the left two thirds went to grey mush
+   while the figure at the right stayed bright, so the frame read neither as a
+   photograph nor as a type panel. The type only ever needed cover where the
+   type actually is. Anchored left, clear by ~62%, the figure at the window
+   keeps her own half of the band at full range and the quote gets a ground
+   that is genuinely dark rather than uniformly hazy. */
 .sf-interlude__scrim {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(to top,
-    rgb(var(--umber-rgb) / .86) 0%,
-    rgb(var(--umber-rgb) / .60) 55%,
-    rgb(var(--umber-rgb) / .42) 100%);
+  background:
+    linear-gradient(to right,
+      rgb(var(--umber-rgb) / .92)  0%,
+      rgb(var(--umber-rgb) / .86) 30%,
+      rgb(var(--umber-rgb) / .30) 54%,
+      rgb(var(--umber-rgb) / 0)   72%),
+    linear-gradient(to top,
+      rgb(var(--umber-rgb) / .45) 0%,
+      rgb(var(--umber-rgb) / 0)  55%);
 }
+@media (max-width: 1024px) {
+  /* Stacked-narrow: the type has nowhere to go but over the frame, so the
+     wash comes back — bottom-weighted, which is where the type sits. */
+  .sf-interlude__scrim {
+    background: linear-gradient(to top,
+      rgb(var(--umber-rgb) / .90)  0%,
+      rgb(var(--umber-rgb) / .74) 52%,
+      rgb(var(--umber-rgb) / .52) 100%);
+  }
+}
+
+.sf-interlude__inner { position: relative; z-index: 1; }
+
+/* --- The quote ------------------------------------------------------------------
+   Set LEFT on the page's own gutter, not centred on the band. Centred, it
+   floated free of every rule on the page above it and broke badly — the italic
+   opened mid-line and the last line fell to two orphaned words. A real measure
+   (~26rem) breaks it where the sense breaks: the roman clause, then the italic
+   answer on its own line. */
 .sf-interlude__quote {
-  position: relative;
-  z-index: 1;
-  max-width: 52rem;
-  padding-inline: var(--gutter);
-  text-align: center;
+  max-width: 34rem;   /* 30rem orphaned "felt." onto a line of its own */
+  margin: 0;
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(1.75rem, 3.6vw, 3.25rem);
-  line-height: 1.18;
-  letter-spacing: -.01em;
+  font-size: clamp(1.625rem, 3vw, 2.75rem);
+  line-height: 1.14;
+  letter-spacing: -.012em;
   color: var(--paper);
 }
+.sf-interlude__line { display: block; }
 .sf-interlude__quote em {
+  display: block;
   font-style: italic;
   color: var(--champagne);
 }
 .sf-interlude__cite {
   display: block;
   margin-block-start: clamp(1.5rem, 4vh, 2.25rem);
+  padding-block-start: clamp(1rem, 2.5vh, 1.5rem);
+  border-block-start: 1px solid rgb(205 177 144 / .45);   /* the attribution rule */
+  max-width: 20rem;
   font-family: var(--font-sans);
   font-size: var(--t-label);
+  font-style: normal;
   font-weight: 500;
   letter-spacing: var(--track-label);
   text-transform: uppercase;
-  color: rgb(255 255 255 / .62);
+  color: rgb(255 255 255 / .68);
 }
 
 
@@ -2598,14 +1831,14 @@
 /* ===========================================================================
    FOOTER — the colophon
    The night's last wall: umber, champagne hairlines, the link register in
-   three quiet columns, and the direction's outro — "Dar SF" in Didone at
-   extreme scale, bleeding off the bottom edge the way the exhibition title
-   crossed its print. Mixed case: the system never sets a serif in all caps.
+   three quiet columns. The Nocturne carried a monumental "Dar SF" outro
+   bleeding off the floor; the brief's footer asks only for navigation and
+   socials, so the colophon ends at its bar.
    ======================================================================== */
 .sf-footer {
   position: relative;
   overflow: hidden;
-  padding-block-start: calc(var(--rhythm) / 2);
+  padding-block: calc(var(--rhythm) / 2) 1.5rem;
   background: var(--umber);
   color: var(--paper);
 }
@@ -2682,18 +1915,4 @@
 .sf-footer__top-link { color: rgb(255 255 255 / .68); white-space: nowrap; }
 .sf-footer__top-link:hover,
 .sf-footer__top-link:focus-visible { color: var(--champagne); }
-
-/* The outro wordmark — the page's last word, half-swallowed by the floor. */
-.sf-footer__outro {
-  display: block;
-  margin-block-end: -.34em;   /* the bleed — the floor takes its descender room */
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(6rem, 21vw, 22rem);
-  line-height: .82;
-  letter-spacing: -.025em;
-  white-space: nowrap;
-  color: var(--paper);
-  text-align: center;
-}
 }

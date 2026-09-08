@@ -11,6 +11,37 @@
 #   • Sanity GROQ webhook → POST /api/revalidate with the header
 #     `x-sanity-webhook-secret: <the same secret>`.
 
+#   • Publish directory: DO NOT SET ONE. Netlify detects Next.js and runs its
+#     OpenNext adapter, which provisions the serverless functions for SSR/ISR
+#     and route handlers and picks its own publish directory. `.next` is an
+#     intermediate build artefact with no index.html at its root, so naming it
+#     here overrode the adapter and published the artefact as a plain static
+#     folder — every route, including `/`, answered 404 while the build itself
+#     reported success. If the site's UI settings also name a publish
+#     directory, clear it: netlify.toml and the UI must both stay quiet.
+
 [build]
   command = "npm run build"
+  # `.next` belongs here ONLY because the adapter is declared manually below.
+  # The two paths differ and must not be mixed:
+  #   • auto-detected  — set no publish directory; Netlify chooses it.
+  #   • declared here  — publish `.next`; the plugin takes it as input, lifts
+  #     the static assets out and serves the rest from functions.
+  # The original config was neither: `.next` with no adapter, so the raw build
+  # artefact went out as a static folder and every route 404'd.
   publish = ".next"
+
+# The adapter, declared explicitly because automatic detection is not firing on
+# this site. Evidence: with `publish = ".next"` the deploy served
+# /BUILD_ID and /routes-manifest.json with 200 and `/` with 404 — the raw build
+# artefact was going out as a plain static folder, which only happens when no
+# adapter has claimed the build. Removing the publish override alone left
+# nothing published at all.
+#
+# The trade-off is that declaring it here opts the site out of Netlify's
+# automatic adapter upgrades. To opt back in once the site's framework
+# detection is fixed in the Netlify UI, delete this block AND remove
+# @netlify/plugin-nextjs from package.json — the package's presence is what
+# pins it.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

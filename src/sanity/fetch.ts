@@ -19,6 +19,7 @@ import {
 } from './queries';
 import * as seed from '@/content/seed';
 import type { Plate } from '@/content/seed';
+import { CHAPTER, plateNum } from '@/content/chapters';
 
 export type Settings = {
   tagline: string;
@@ -46,8 +47,42 @@ async function safeFetch<T>(
 
 type SanityImage = { asset?: unknown; alt?: string; hotspot?: unknown } | null | undefined;
 
+/** Sanity asset refs carry the source dimensions: `image-<sha>-1600x197-jpg`. */
+function sourceDims(img: SanityImage): [number, number] | null {
+  const ref = (img?.asset as { _ref?: string } | undefined)?._ref;
+  const m = ref?.match(/-(\d+)x(\d+)-[a-z]+$/i);
+  return m ? [Number(m[1]), Number(m[2])] : null;
+}
+
+/**
+ * Is this source honestly croppable to the ratio the layout asks for?
+ *
+ * The CDN will crop anything to anything, which is how the journal register
+ * ended up showing a 148x197 sliver taken out of a 1600x197 banner and blown
+ * up 4x to fill a 600x800 portrait thumb — visibly soft next to every other
+ * row. The layout ratios in §08 are a contract; a source that cannot meet it
+ * should fall through to the seed plate rather than be forced.
+ *
+ * `coverage` is the fraction of the source the crop can keep along its
+ * constrained axis. Two 3:2 landscapes cropped to 3:4 keep 50% — fine. A
+ * 6.4:1 banner cropped to 3:4 keeps 9% — not a crop, a sliver.
+ */
+function croppable(img: SanityImage, widths: number[], ratio: [number, number]): boolean {
+  const dims = sourceDims(img);
+  if (!dims) return true;   // unknown source — trust the CDN, as before
+  const [sw, sh] = dims;
+  const rs = sw / sh;
+  const rt = ratio[0] / ratio[1];
+  const coverage = Math.min(rs, rt) / Math.max(rs, rt);
+  if (coverage < 1 / 3) return false;
+  // …and the crop must not need upscaling past the largest width requested.
+  const cropWidth = rs > rt ? sh * rt : sw;
+  return cropWidth >= widths[widths.length - 1] * 0.6;
+}
+
 function sanityPlate(img: SanityImage, widths: number[], ratio: [number, number], sizes?: string): Plate | null {
   if (!img?.asset) return null;
+  if (!croppable(img, widths, ratio)) return null;   // → the caller's seed plate
   const h = (w: number) => Math.round((w * ratio[1]) / ratio[0]);
   const base = urlFor(img)
     .width(widths[widths.length - 1])
@@ -152,7 +187,7 @@ export async function getHomeData(): Promise<HomeContent> {
     const ratio = (w.ratio ?? 'std') as WorkItem['ratio'];
     const ratios: Record<string, [number, number]> = { std: [4, 3], tall: [4, 5], square: [1, 1] };
     return {
-      num: `06.${i + 1}`,
+      num: plateNum(CHAPTER.work, i),
       title: w.title,
       category: categoryToken(w.category),
       categoryLabel: w.category ?? '',
@@ -191,7 +226,7 @@ export async function getHomeData(): Promise<HomeContent> {
       statement: home?.journalStatement ?? seed.journal.statement,
       sub: home?.journalSub ?? seed.journal.sub,
       rows: articles.slice(0, 4).map((a, i) => ({
-        num: `08.${i + 1}`,
+        num: plateNum(CHAPTER.journal, i),
         category: a.category ?? '',
         title: a.title,
         desc: a.excerpt ?? '',

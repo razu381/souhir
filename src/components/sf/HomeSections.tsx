@@ -8,12 +8,31 @@ import Reveal from './Reveal';
 import WordReveal from './WordReveal';
 import type { Head, Plate } from '@/content/seed';
 import type { HomeContent, PressCover } from '@/sanity/fetch';
+import { CHAPTER } from '@/content/chapters';
 
-/** The system's signature device (§06): hairline, label left, numeral right. */
-export function Chapter({ label, num }: { label: string; num: number | string }) {
+/**
+ * The system's signature device (§06): hairline, label left, numeral right.
+ *
+ * `heading` promotes the label to the section's <h2>. Explore, Services and
+ * Selected Works carry no display headline — their chapter label IS the only
+ * name the section has — so without this they were absent from the document
+ * outline entirely, and a reader navigating by heading skipped straight past
+ * the service catalogue and the portfolio. The rendering is byte-identical;
+ * only the element changes.
+ */
+export function Chapter({
+  label,
+  num,
+  heading = false,
+}: {
+  label: string;
+  num: number | string;
+  heading?: boolean;
+}) {
+  const Label = heading ? 'h2' : 'span';
   return (
     <div className="sf-chapter">
-      <span className="sf-chapter__label">{label}</span>
+      <Label className="sf-chapter__label">{label}</Label>
       <span className="sf-chapter__num">
         {typeof num === 'number' ? String(num).padStart(2, '0') : num}
       </span>
@@ -37,7 +56,7 @@ export function Explore({ data }: { data: HomeContent['explore'] }) {
   return (
     <section className="sf-section sf-explore sf-explore--bone" id="explore">
       <div className="sf-container">
-        <Chapter label="(Explore Dar SF)" num={2} />
+        <Chapter label="(Explore Dar SF)" num={CHAPTER.explore} heading />
         <div className="sf-explore__grid">
           <div className="sf-explore__body">
             <WordReveal className="sf-explore__statement" text={data.statement} />
@@ -75,7 +94,7 @@ export function ServicesList({ data }: { data: HomeContent['services'] }) {
   return (
     <section className="sf-section sf-services sf-services--bone" id="services">
       <div className="sf-container">
-        <Chapter label="(Services)" num={3} />
+        <Chapter label="(Services)" num={CHAPTER.services} heading />
         <div className="sf-services__list">
           {data.map((s) => (
             <Link className="sf-service-row" href={`/services/${s.slug}`} key={s.slug}>
@@ -106,7 +125,7 @@ export function Clientele({ data }: { data: HomeContent['clientele'] }) {
   return (
     <section className="sf-section sf-clientele sf-clientele--nocturne" id="clientele">
       <div className="sf-container">
-        <Chapter label="(Who We Work With)" num={4} />
+        <Chapter label="(Who We Work With)" num={CHAPTER.clientele} />
         <div className="sf-clientele__grid">
           <div className="sf-clientele__aside">
             <Reveal as="h2" className="sf-clientele__head">
@@ -135,7 +154,7 @@ export function Founder({ data }: { data: HomeContent['founder'] }) {
   return (
     <section className="sf-section sf-founder sf-founder--bone" id="founder">
       <div className="sf-container">
-        <Chapter label="(About Dar SF)" num={5} />
+        <Chapter label="(About Dar SF)" num={CHAPTER.founder} />
         <div className="sf-founder__grid">
           <Reveal as="figure" className="sf-founder__figure" delay={200}>
             <img
@@ -198,7 +217,7 @@ export function Founder({ data }: { data: HomeContent['founder'] }) {
 
 export function PressSalon({
   data,
-  chapter = 7,
+  chapter = CHAPTER.press,
 }: {
   data: HomeContent['press'];
   chapter?: number | string;
@@ -270,7 +289,7 @@ export function JournalIndex({ data }: { data: HomeContent['journal'] }) {
   return (
     <section className="sf-section sf-journal" id="journal">
       <div className="sf-container">
-        <Chapter label="(The Journal)" num={8} />
+        <Chapter label="(The Journal)" num={CHAPTER.journal} />
 
         <div className="sf-journal__masthead">
           <Reveal as="h2" className="sf-journal__head">
@@ -372,10 +391,15 @@ export function Interlude({
         />
       </figure>
       <div className="sf-interlude__scrim" aria-hidden="true" />
-      <Reveal as="blockquote" className="sf-interlude__quote">
-        {quote[0]} <em>{quote[1]}</em>{' '}
-        <cite className="sf-interlude__cite">{cite}</cite>
-      </Reveal>
+      {/* The quote sits in the page's own left column rather than centred on
+          the band — see the note in components.css. */}
+      <div className="sf-container sf-interlude__inner">
+        <Reveal as="blockquote" className="sf-interlude__quote">
+          <span className="sf-interlude__line">{quote[0]}</span>
+          <em>{quote[1]}</em>
+          <cite className="sf-interlude__cite">{cite}</cite>
+        </Reveal>
+      </div>
     </section>
   );
 }

@@ -1,18 +1,22 @@
 'use client';
 
 /**
- * NewsletterSection — home §09 (Correspondence), redesigned as THE GUEST
- * REGISTER: between the interlude and closing films, the flat newsletter
- * band was the page's one template moment. The section now holds one bone
- * registration card on the umber night — the lamplight pooling on it, the
- * letterpress lockup of hotel stationery, the form as the card's single
- * ruled entry line. Same server action as the contact form (honeypot +
+ * NewsletterSection — home's Correspondence chapter, THE GUEST REGISTER:
+ * between the interlude and closing films, the flat newsletter band was the
+ * page's one template moment. The section holds one registration card — the
+ * letterpress lockup of hotel stationery, the form as the card's single ruled
+ * entry line. Same server action as the contact form (honeypot +
  * kind=newsletter); /contact keeps the shared sf-news field grammar.
+ *
+ * The grounds are inverted from the first build — an umber card on a bone
+ * sheet rather than a bone card on the umber night. That is a decision about
+ * the PAGE, not this section: see the note on .sf-register in site.css.
  */
 import { useActionState } from 'react';
 import { submitMessage, type FormState } from '@/app/actions';
 import Reveal from './Reveal';
 import { Chapter, Headed } from './HomeSections';
+import { CHAPTER } from '@/content/chapters';
 import type { Head } from '@/content/seed';
 
 const initial: FormState = { status: 'idle' };
@@ -23,19 +27,18 @@ export default function NewsletterSection({ head, text }: { head: Head; text: st
   return (
     <section className="sf-section sf-register" id="news">
       <div className="sf-container">
-        <Chapter label="(Correspondence)" num={9} />
+        <Chapter label="(Correspondence)" num={CHAPTER.correspondence} />
 
-        <Reveal className="sf-register__hold">
-          <div className="sf-register__card">
-            <p className="sf-register__brand">Dar SF</p>
-            <span className="sf-register__rule" aria-hidden="true" />
-            <p className="sf-register__sub">(Correspondence — Paris)</p>
-
+        <div className="sf-register__spread">
+          <Reveal className="sf-register__voice">
             <h2 className="sf-register__head">
               <Headed head={head} />
             </h2>
             <p className="sf-register__text">{text}</p>
+            <p className="sf-register__sub">(Correspondence — Paris)</p>
+          </Reveal>
 
+          <Reveal className="sf-register__entry" delay={120}>
             {state.status === 'sent' ? (
               <p className="sf-register__confirm" role="status">
                 Received. Thank you.
@@ -75,8 +78,8 @@ export default function NewsletterSection({ head, text }: { head: Head; text: st
             )}
 
             <p className="sf-register__fine">Est. MMXXVI — Paris</p>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
       </div>
     </section>
   );

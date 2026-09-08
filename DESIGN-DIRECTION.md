@@ -100,7 +100,22 @@ Sampled from `dar-logo-gold-black-brand-mark.png`.
 >
 > The practical consequence: **champagne belongs on black.** This is the structural reason the dark interlude sections exist — they are where the brand colour gets to live.
 
-**Grounds alternate.** `--paper` as default; `--bone` for About and Journal sections for a warmer print feel; `--noir` for interludes, CTA, and footer.
+**Grounds alternate.** `--bone` is the light ground in practice (`--paper` is
+reserved for type and small surfaces); `--umber` is the dark one — a warm
+near-black tuned to the hero photograph's own shadow, so the picture can
+dissolve into the ground rather than butt against it.
+
+**Alternation is a rule, not a preference.** No more than two light sections in
+a row, and never more than two dark. The home page once ran
+`D L L D L D L L D D D D` — eight sections alternating, then a four-deep
+blackout across interlude, correspondence, closer and footer. The interlude is
+specified below as the page's held breath, the still *between* rooms; with
+three more dark sections behind it, it contrasted with nothing. Correspondence
+carries the light that keeps the run honest:
+
+> `D · L L · D · L · D · L L · D · L · D D`
+> hero · explore services · clientele · founder · work · press journal ·
+> interlude · correspondence · closer footer
 
 **Dark mode:** build it. The palette is already monochrome, so the noir inverse is close to free and suits the brand. Tokens swap under `:root[data-theme="dark"]` and `@media (prefers-color-scheme: dark)`.
 
@@ -142,7 +157,7 @@ The references animate fast and springy. Halving the speed and removing the over
 | Component | Specification |
 |---|---|
 | **Outline button** | Pill, 1px `--hairline`, tracked sans caps 11px, `↗` glyph. Hover: fills `--noir`, text to `--champagne`, `--dur-micro` |
-| **Chapter header** | Full-width hairline, then `(SERVICES)` left · `01` right in `--champagne-deep`. Opens every section |
+| **Chapter header** | Full-width hairline, then `(SERVICES)` left · `01` right in `--bronze` (champagne-deep measured 2.77:1 and failed). Opens every section. **Numbering starts at 01 on the first chapter the reader actually sees** — the hero is the cover and carries a masthead rule, not a chapter header, so counting it as 01 shipped a page whose visible sequence began at 02. One source of truth: `src/content/chapters.ts`. Interludes and the closer stay unnumbered by design. Where a section has no display headline, the chapter label *is* its `<h2>` |
 | **Service row** | Numeral and label in Didone, description in `--graphite` sans right. Hairline dividers. 4:5 preview tile appears in the left margin on hover |
 | **Portfolio card** | **Sharp corners.** Title top-left in Didone, `↗` circle top-right, tag pills bottom-left |
 | **Dark interlude** | Full-bleed `--noir`, one Didone line in champagne, 6.4:1 banner behind at low luminance |
@@ -205,6 +220,12 @@ The `sorted/` folder is a layout contract. Lock these ratios into the theme's re
 
 **Grading.** The library is already coherent — warm golden-hour interiors, cool wet-street Parisian monochrome, candlelit ambers. **One grade per section; never a warm and a cool image in the same viewport.** The black-and-white editorial frames (`editorial-*-bw`) are the strongest assets in the set — use them where the brand needs to feel most authored.
 
+**Croppability is part of the contract.** The CDN will crop anything to
+anything, which is how a 1600×197 banner ended up as a 148×197 sliver blown up
+4× to fill a 600×800 journal thumb. A source that cannot honestly meet the
+ratio must fall through to the seed plate rather than be forced —
+`croppable()` in `src/sanity/fetch.ts` enforces it.
+
 **Delivery.** Sources are 5000–10500px wide; none can reach the browser unprocessed. `sorted-resized/` already demonstrates the correct pattern — `480 / 800 / 1200w` in `.webp` and `.jpg`. Extend it to every bucket and ship `<picture>` with webp first.
 
 ---
@@ -222,7 +243,21 @@ The `sorted/` folder is a layout contract. Lock these ratios into the theme's re
 
 **Never**
 
-- Rounded corners, drop shadows, gradients, glows — no depth effects of any kind
+- Rounded corners, drop shadows, gradients, glows — no depth effects of any kind,
+  **with three named exceptions, and no others:**
+  1. **The outline button is a pill** (`border-radius: 999px`). §06 specifies it;
+     this line used to forbid it, and the two contradicted each other. §06 wins:
+     the pill is the system's one curve.
+  2. **The picture light** — the champagne glow above a hung plate
+     (`.sf-nocturne__plate`, `.sf-register__card`). It is a light source in the
+     photograph's own world, not a UI shadow, and it is the nocturne's signature.
+  3. **The cinematic grade** — vignette, champagne wash and grain laid *inside*
+     a frame as glass over the print (`.sf-nocturne__plate::after`,
+     `.sf-work__plate::after`). The photograph keeps its full dynamic range
+     underneath; the grade never replaces it.
+
+  Anything else with depth is a bug. If a fourth exception is ever wanted, it
+  gets added here first.
 - Any accent colour other than champagne
 - All-caps serif, or serif in a button
 - Champagne body text on a light ground

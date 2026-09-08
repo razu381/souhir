@@ -43,6 +43,7 @@ export default function WordReveal({
       !('IntersectionObserver' in window) ||
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
     ) {
+      el.classList.add('is-revealed');
       el.style.setProperty('--sf-p', '1');
       return;
     }
@@ -64,11 +65,21 @@ export default function WordReveal({
       requestAnimationFrame(update);
     };
 
-    // Listen only while the paragraph is near the viewport.
+    // Listen only while the paragraph is near the viewport. The first pass
+    // also flips the generic reveal gate: `.sf-js [data-sf-reveal]` hides this
+    // paragraph like any other, and in the prototype reveal.js observed every
+    // data-sf-reveal (words included) to add .is-revealed. That duty travels
+    // with this component now — the fade-up lands while the words are still
+    // dim, then the ramp lights them as the reader scrolls.
+    let revealed = false;
     const io = new IntersectionObserver(
       (entries) => {
         const visible = entries.some((entry) => entry.isIntersecting);
         if (visible) {
+          if (!revealed) {
+            revealed = true;
+            el.classList.add('is-revealed');
+          }
           update();
           window.addEventListener('scroll', onScroll, { passive: true });
           window.addEventListener('resize', onScroll, { passive: true });

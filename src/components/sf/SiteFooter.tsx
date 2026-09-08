@@ -85,10 +85,6 @@ export default function SiteFooter({ settings }: { settings: Settings | null }) 
             Back to top <span aria-hidden="true">&uarr;</span>
           </a>
         </div>
-
-        <p className="sf-footer__outro" aria-hidden="true">
-          Dar SF
-        </p>
       </div>
     </footer>
   );

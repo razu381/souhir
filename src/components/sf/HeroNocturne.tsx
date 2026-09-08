@@ -86,6 +86,9 @@ export default function HeroNocturne({
         </div>
 
         <div className="sf-nocturne__grid">
+          {/* The lines are display:block, so the space between them is purely
+              for the accessible name: without it the h1's text content is the
+              single token "BeyondVisibility." */}
           <h1 className="sf-nocturne__title">
             {titleLines.map((line, i) => (
               <span
@@ -93,6 +96,7 @@ export default function HeroNocturne({
                 className={`sf-nocturne__line sf-nocturne__line--${i === 0 ? 'a' : 'b'}`}
               >
                 <span className="sf-nocturne__line-in">{line}</span>
+                {i < titleLines.length - 1 && ' '}
               </span>
             ))}
           </h1>

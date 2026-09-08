@@ -156,7 +156,7 @@ export const work = {
   ],
   items: [
     {
-      num: '06.1',
+      num: '05.1',
       title: 'The Ocean Suite',
       category: 'hospitality',
       ratio: 'std',
@@ -171,7 +171,7 @@ export const work = {
       } as Plate,
     },
     {
-      num: '06.2',
+      num: '05.2',
       title: 'Velocity Noir',
       category: 'editorial',
       ratio: 'tall',
@@ -186,7 +186,7 @@ export const work = {
       } as Plate,
     },
     {
-      num: '06.3',
+      num: '05.3',
       title: 'Candlelit Ritual',
       category: 'wellness',
       ratio: 'square',
@@ -201,7 +201,7 @@ export const work = {
       } as Plate,
     },
     {
-      num: '06.4',
+      num: '05.4',
       title: 'Marble & Rose',
       category: 'beauty',
       ratio: 'std',
@@ -216,7 +216,7 @@ export const work = {
       } as Plate,
     },
     {
-      num: '06.5',
+      num: '05.5',
       title: 'Parisian Reverie',
       category: 'editorial',
       ratio: 'tall',
@@ -231,7 +231,7 @@ export const work = {
       } as Plate,
     },
     {
-      num: '06.6',
+      num: '05.6',
       title: 'Champagne Altitude',
       category: 'lifestyle',
       ratio: 'square',
@@ -302,7 +302,7 @@ export const journal = {
   sub: 'A curated collection of essays, observations, and creative reflections exploring the invisible elements that shape perception, emotion, and lasting brand value.',
   rows: [
     {
-      num: '08.1',
+      num: '07.1',
       category: 'Luxury & Culture',
       title: 'The Invisible Luxury',
       desc: 'What truly makes an experience unforgettable? Exploring the intangible elements that transform products, spaces, and brands into lasting memories.',
@@ -316,7 +316,7 @@ export const journal = {
       } as Plate,
     },
     {
-      num: '08.2',
+      num: '07.2',
       category: 'Luxury & Culture',
       title: 'Why Luxury Is No Longer About Price',
       desc: 'Experience. Emotion. Meaning. The new language of luxury.',
@@ -330,7 +330,7 @@ export const journal = {
       } as Plate,
     },
     {
-      num: '08.3',
+      num: '07.3',
       category: 'Visual Storytelling',
       title: 'The Psychology of Visual Desire',
       desc: 'How imagery shapes perception, influences behaviour, and creates emotional resonance.',
@@ -344,7 +344,7 @@ export const journal = {
       } as Plate,
     },
     {
-      num: '08.4',
+      num: '07.4',
       category: 'Creative Intelligence',
       title: 'When AI Meets Creativity',
       desc: 'Exploring the intersection of human imagination and intelligent technology.',
