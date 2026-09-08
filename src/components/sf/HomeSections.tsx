@@ -391,10 +391,15 @@ export function Interlude({
         />
       </figure>
       <div className="sf-interlude__scrim" aria-hidden="true" />
-      <Reveal as="blockquote" className="sf-interlude__quote">
-        {quote[0]} <em>{quote[1]}</em>{' '}
-        <cite className="sf-interlude__cite">{cite}</cite>
-      </Reveal>
+      {/* The quote sits in the page's own left column rather than centred on
+          the band — see the note in components.css. */}
+      <div className="sf-container sf-interlude__inner">
+        <Reveal as="blockquote" className="sf-interlude__quote">
+          <span className="sf-interlude__line">{quote[0]}</span>
+          <em>{quote[1]}</em>
+          <cite className="sf-interlude__cite">{cite}</cite>
+        </Reveal>
+      </div>
     </section>
   );
 }

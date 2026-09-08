@@ -433,84 +433,78 @@
    (§03: champagne belongs on black — so the card is where the black went). */
 .sf-register {
   padding-block: calc(var(--rhythm) / 2);
-  isolation: isolate;
   background: var(--bone);
   color: var(--ink);
 }
 
-/* The hold — the card sits alone, centred, the section's one object. */
-.sf-register__hold {
-  display: flex;
-  justify-content: center;
+/* --- THE CARD IS GONE ----------------------------------------------------------
+   It was a bordered, drop-shadowed box floating in the middle of an otherwise
+   empty field — the one carded layout and one of only two shadows on the page,
+   both of which §09 forbids outright, and the section was ~90% empty ground
+   around it. It also carried three competing alignments: centred lockup,
+   centred prose, left-aligned form.
+
+   What replaces it is the grammar the rest of the page already runs on and
+   what §07 specifies for a form in this system — "tracked-caps labels with
+   hairline underline inputs. No boxed form fields." The section is now a
+   spread: the invitation in the left column, the entry line in the right,
+   both hung off the chapter rule above them. Stationery by structure rather
+   than by drawing a picture of a card. */
+.sf-register__spread {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: clamp(2.5rem, 6vh, 3.5rem);
   margin-block-start: clamp(2.5rem, 6vh, 4rem);
 }
-
-/* The card — stationery, not UI: sharp corners, a champagne hairline, and the
-   card's own weight resting on the bone sheet beneath it. Inverted from the
-   original lit-card-in-the-dark; see the section note above. */
-.sf-register__card {
-  width: min(100%, 34rem);
-  padding: clamp(2rem, 5vw, 3.25rem) clamp(1.5rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2rem);
-  background: var(--umber);
-  color: var(--paper);
-  border: 1px solid rgb(205 177 144 / .38);       /* the champagne frame, as the hero's plate */
-  box-shadow: 0 1.25rem 2.5rem -1rem rgb(31 26 23 / .28);   /* the card's weight on the sheet */
-  text-align: center;
-}
-
-/* The letterpress lockup. */
-.sf-register__brand {
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-}
-.sf-register__rule {
-  display: block;
-  width: 3rem;
-  height: 1px;
-  margin: .875rem auto;
-  background: rgb(205 177 144 / .55);
-}
-.sf-register__sub {
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-  color: rgb(255 255 255 / .62);
+@media (min-width: 1025px) {
+  .sf-register__spread {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    column-gap: clamp(3rem, 7vw, 7rem);
+    align-items: start;
+  }
 }
 
 .sf-register__head {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(1.75rem, 2.6vw, 2.5rem);
-  line-height: 1.12;
-  letter-spacing: -.015em;
-  margin-block-start: clamp(1.75rem, 4vh, 2.5rem);
+  font-size: clamp(2rem, 3.4vw, 3.25rem);
+  line-height: 1.1;
+  letter-spacing: -.018em;
+  max-width: 24ch;   /* 18ch split "Delivered Occasionally." mid-phrase */
 }
-.sf-register__head em { font-style: italic; color: var(--champagne); }   /* champagne on black — where it is legal */
+.sf-register__head em { font-style: italic; color: var(--bronze); }
 .sf-register__text {
   font-family: var(--font-sans);
-  font-size: clamp(.9375rem, 1.1vw, 1.0625rem);
+  font-size: clamp(1rem, 1.15vw, 1.125rem);
   line-height: 1.65;
-  color: rgb(255 255 255 / .72);
-  max-width: 26rem;
-  margin-inline: auto;
-  margin-block-start: 1rem;
+  color: var(--graphite);
+  max-width: 34rem;
+  margin-block-start: clamp(1.25rem, 3vh, 1.75rem);
+}
+.sf-register__sub {
+  margin-block-start: clamp(1.5rem, 3.5vh, 2.25rem);
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--bronze);
 }
 
-/* The entry line — the card's one ruled field, writing on the sheet. */
+/* The entry — one ruled line on the sheet, opened by a hairline of its own so
+   the right column has a top edge to hang from, exactly as the chapter rule
+   gives the section one. */
+.sf-register__entry {
+  border-block-start: 1px solid var(--hairline);
+  padding-block-start: clamp(1.5rem, 4vh, 2.25rem);
+}
 .sf-register__form {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  width: min(100%, 22rem);
-  margin-block-start: clamp(2rem, 5vh, 3rem);
-  text-align: left;
+  width: min(100%, 26rem);
 }
-.sf-register__field { margin-block-end: 1.5rem; }
+.sf-register__field { margin-block-end: clamp(1.75rem, 4vh, 2.25rem); }
 .sf-register__label {
   display: block;
   font-family: var(--font-sans);
@@ -518,66 +512,54 @@
   font-weight: 500;
   letter-spacing: var(--track-label);
   text-transform: uppercase;
-  color: rgb(255 255 255 / .62);
+  color: var(--bronze);
 }
 .sf-register__input {
   display: block;
   width: 100%;
-  margin-block-start: .375rem;
+  margin-block-start: .625rem;
   padding: .75rem 0;
   background: transparent;
   border: 0;
   border-radius: 0;
-  border-block-end: 1px solid rgb(205 177 144 / .40);
+  border-block-end: 1px solid rgb(31 26 23 / .32);
   font-family: var(--font-sans);
-  font-size: 1rem;
-  color: var(--paper);
+  font-size: 1.0625rem;
+  color: var(--ink);
   transition: border-color var(--dur-micro) var(--ease);
 }
-.sf-register__input::placeholder { color: rgb(255 255 255 / .48); }   /* 4.89:1 on umber */
-.sf-register__input:focus { outline: none; border-block-end-color: var(--champagne); }
-/* The card is a dark ground: the button takes the sanctioned dark-ground
-   treatment — champagne fill, umber type — not the light-ground noir fill. */
-.sf-register .sf-btn { justify-content: center; color: var(--paper); border-color: var(--hairline-d); }
-.sf-register .sf-btn:hover,
-.sf-register .sf-btn:focus-visible {
-  background: var(--champagne);
-  border-color: var(--champagne);
-  color: var(--umber);
-}
+.sf-register__input::placeholder { color: rgb(31 26 23 / .62); }   /* 4.68:1 on bone */
+.sf-register__input:focus { outline: none; border-block-end-color: var(--ink); }
+.sf-register .sf-btn { align-self: start; }
 
-/* The states — filed, or refused — set on the card in its own voice. */
+/* The states — filed, or refused — set in the entry column's own voice. */
 .sf-register__confirm {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.375rem;
-  margin-block-start: clamp(2rem, 5vh, 3rem);
+  font-size: 1.5rem;
 }
 .sf-register__error {
   margin-block-start: 1rem;
   font-size: var(--t-label);
   letter-spacing: .08em;
-  /* bronze is the LIGHT-ground accent and measures 3.23:1 here — under the bar
-     for the one line on the card a reader must not miss. Champagne is 8.44:1. */
-  color: var(--champagne);
+  color: var(--bronze);
 }
+.sf-register__fine {
+  margin-block-start: clamp(2rem, 5vh, 3rem);
+  font-family: var(--font-sans);
+  font-size: .6875rem;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
 .sf-register__hp {
   position: absolute;
   left: -9999px;
   width: 1px;
   height: 1px;
   overflow: hidden;
-}
-
-/* The fine print — where a printed card carries its imprint. */
-.sf-register__fine {
-  font-family: var(--font-sans);
-  font-size: .6875rem;
-  font-weight: 500;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgb(255 255 255 / .50);   /* 5.16:1 on umber — .45 measured 4.45 and missed AA */
-  margin-block-start: clamp(2rem, 4vh, 2.75rem);
 }
 
 /* ===========================================================================
@@ -595,38 +577,76 @@
   padding-block: calc(var(--rhythm) / 2);
   background: var(--umber);
   color: var(--paper);
-  text-align: center;
   border-block-end: 1px solid rgb(205 177 144 / .25);   /* the seam before the colophon */
 }
 
-/* The title card — hairlines above and below bracket the statement. */
+/* --- The bookend ---------------------------------------------------------------
+   The closer used to be centred inside a pair of bracketing hairlines. Centred,
+   it was the third symmetric block in a row and it answered a hero built
+   entirely on asymmetry — so the page's last word arrived in a voice it had
+   not used once in nine sections.
+
+   It now runs the hero's anatomy in reverse: an opening rule (label left,
+   colophon right, exactly the hero's masthead rule), the statement set LEFT at
+   display scale, and a closing rail that mirrors the hero's meta rail — the
+   pitch at the left hand, the way out at the right. The brackets are kept as
+   the rule above and the seam below, so the moment is still held. */
 .sf-close .sf-container {
-  border-block: 1px solid rgb(205 177 144 / .25);
-  padding-block: clamp(3rem, 8vh, 5.5rem);
+  padding-block: clamp(2.5rem, 7vh, 4.5rem);
 }
+
+.sf-close__rule {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  border-block-start: 1px solid rgb(205 177 144 / .45);
+  padding-block-start: .875rem;
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--champagne);
+}
+.sf-close__note { color: rgb(255 255 255 / .60); }
 
 .sf-close__title {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(2.5rem, 6.5vw, 7rem);   /* two clean lines at every width */
+  /* Slightly tighter than the old centred setting: left-aligned at a real
+     measure it breaks on sense instead of orphaning "Worth" at a line end. */
+  font-size: clamp(2.5rem, 6vw, 6.5rem);
   line-height: 1.02;
   letter-spacing: -.025em;
+  margin-block-start: clamp(2rem, 5vh, 3.5rem);
+  max-width: 16ch;
   color: var(--bone);
 }
 .sf-close__title em { font-style: italic; color: var(--champagne); }
 
+/* The closing rail — the hero's meta rail, at the other end of the film. */
+.sf-close__rail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: clamp(1.5rem, 4vh, 2.5rem) 3rem;
+  margin-block-start: clamp(2.5rem, 6vh, 4rem);
+  padding-block-start: clamp(1.5rem, 4vh, 2.25rem);
+  border-block-start: 1px solid rgb(205 177 144 / .25);
+}
 .sf-close__text {
   font-family: var(--font-sans);
   font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
   line-height: 1.65;
   color: rgb(255 255 255 / .68);
-  max-width: 38rem;
-  margin-inline: auto;
-  margin-block-start: clamp(1.75rem, 4vh, 2.5rem);
+  max-width: 34rem;
+  margin: 0;
 }
 
 .sf-close .sf-btn {
-  margin-block-start: clamp(2.25rem, 5vh, 3.25rem);
+  flex: none;
   color: var(--paper);
   border-color: rgb(205 177 144 / .45);
 }

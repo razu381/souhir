@@ -29,17 +29,16 @@ export default function NewsletterSection({ head, text }: { head: Head; text: st
       <div className="sf-container">
         <Chapter label="(Correspondence)" num={CHAPTER.correspondence} />
 
-        <Reveal className="sf-register__hold">
-          <div className="sf-register__card">
-            <p className="sf-register__brand">Dar SF</p>
-            <span className="sf-register__rule" aria-hidden="true" />
-            <p className="sf-register__sub">(Correspondence — Paris)</p>
-
+        <div className="sf-register__spread">
+          <Reveal className="sf-register__voice">
             <h2 className="sf-register__head">
               <Headed head={head} />
             </h2>
             <p className="sf-register__text">{text}</p>
+            <p className="sf-register__sub">(Correspondence — Paris)</p>
+          </Reveal>
 
+          <Reveal className="sf-register__entry" delay={120}>
             {state.status === 'sent' ? (
               <p className="sf-register__confirm" role="status">
                 Received. Thank you.
@@ -79,8 +78,8 @@ export default function NewsletterSection({ head, text }: { head: Head; text: st
             )}
 
             <p className="sf-register__fine">Est. MMXXVI — Paris</p>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
