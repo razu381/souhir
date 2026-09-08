@@ -11,6 +11,14 @@
 #   • Sanity GROQ webhook → POST /api/revalidate with the header
 #     `x-sanity-webhook-secret: <the same secret>`.
 
+#   • Publish directory: DO NOT SET ONE. Netlify detects Next.js and runs its
+#     OpenNext adapter, which provisions the serverless functions for SSR/ISR
+#     and route handlers and picks its own publish directory. `.next` is an
+#     intermediate build artefact with no index.html at its root, so naming it
+#     here overrode the adapter and published the artefact as a plain static
+#     folder — every route, including `/`, answered 404 while the build itself
+#     reported success. If the site's UI settings also name a publish
+#     directory, clear it: netlify.toml and the UI must both stay quiet.
+
 [build]
   command = "npm run build"
-  publish = ".next"
