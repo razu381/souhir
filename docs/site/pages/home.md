@@ -35,6 +35,9 @@ Chapter numerals `02…09` are the system's spine — the components carry them.
   the print settles from `scale(1.05)`. Transform-only (LCP element);
   `fetchPriority="high"`.
 - **WordReveal** statements (explore, clientele): scroll-linked per-word ink.
+  The component also carries its own fade-up (`is-revealed`) — the generic
+  `.sf-js [data-sf-reveal]` gate hides it until first intersection, a duty
+  `reveal.js` performed for every `data-sf-reveal` in the prototype.
 - **Work filter rail**: `aria-pressed` buttons, All + five categories; plates
   hide via `is-filtered`; the grid is CSS multicol so filtering reflows.
 - **Reveal** entrances everywhere, staggered by `--sf-delay`.
