@@ -373,13 +373,10 @@
   border-radius: 0;   /* sharp — §09 */
   transition: transform 140ms var(--ease);   /* fast exit, like the img below */
 }
-/* THE EMPTY MOUNT. The tile column is reserved at all times so the print can
-   drop in without shifting the row — but with the print clipped away at rest,
-   every row carried a 150px hole between its numeral and its label, and four
-   of them stacked read as broken padding rather than as reserved margin.
-   A hairline mount, in the same value as the row dividers, gives the column
-   something to be: a frame waiting for a plate. The print lands inside it on
-   hover and the whole mount tips together. */
+/* THE MOUNT. The tile column is reserved at all times so the print never
+   shifts the row. A hairline mount, in the same value as the row dividers,
+   frames the plate at rest — the print is always in it; the whole mount
+   tips together on hover. */
 .sf-service-row__tile::before {
   content: "";
   position: absolute;
@@ -401,25 +398,11 @@
   transform: rotate(-25deg);
   transition: transform var(--dur-base) var(--ease);
 }
+/* The print shows at rest — no clip, no entrance. It only needs to survive
+   the toss, hence the bleed. */
 .sf-service-row__tile img {
   position: absolute;
   inset: -6%;   /* rotation bleed — covers the tipped corners at any row */
-  clip-path: inset(0 0 100% 0);
-  transform: scale(1.06);
-  /* Asymmetric: a slow couture reveal (680ms in), a fast exit (140ms out) —
-     a symmetric out-transition left ghost tiles trailing when the cursor
-     crossed rows. */
-  transition:
-    clip-path 140ms var(--ease),
-    transform  140ms var(--ease);
-}
-.sf-service-row:hover .sf-service-row__tile img,
-.sf-service-row:focus-visible .sf-service-row__tile img {
-  clip-path: inset(0 0 0 0);
-  transform: scale(1);
-  transition:
-    clip-path var(--dur-base) var(--ease),
-    transform  var(--dur-base) var(--ease);
 }
 
 .sf-service-row:hover .sf-service-row__label,
