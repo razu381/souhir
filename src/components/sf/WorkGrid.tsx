@@ -57,6 +57,9 @@ export default function WorkGrid({
             'sf-work__item',
             item.ratio === 'tall' ? 'sf-work__item--tall' : '',
             item.ratio === 'square' ? 'sf-work__item--square' : '',
+            // A plate with no case study behind it must not wear a link's
+            // clothes: the ↗ below and the hover travel are both gated on this.
+            item.href ? '' : 'sf-work__item--static',
             apply(item) ? 'is-filtered' : '',
           ]
             .filter(Boolean)
@@ -80,8 +83,8 @@ export default function WorkGrid({
                 <span className="sf-work__num">{item.num}</span>
                 <span className="sf-work__title">{item.title}</span>
                 <span className="sf-work__meta">
-                  {item.categoryLabel || item.category}{' '}
-                  <span aria-hidden="true">&#8599;</span>
+                  {item.categoryLabel || item.category}
+                  {item.href && <span aria-hidden="true"> &#8599;</span>}
                 </span>
               </div>
             </>

@@ -415,24 +415,28 @@
    luxury signal is the stationery itself. Supersedes sf-news on the home
    page; /contact keeps the shared sf-news field grammar untouched.
    ======================================================================== */
+/* THE GROUND IS INVERTED FROM ITS FIRST BUILD, and the reason is the page's
+   rhythm rather than this section alone.
+
+   The home page ran D L L D L D L L D D D D: eight sections alternating, then
+   a four-deep blackout — interlude, correspondence, closer, footer. The
+   interlude is specified as the page's held breath, the still BETWEEN rooms;
+   arriving at position nine with three more dark sections behind it, it
+   contrasted with nothing and simply began the blackout.
+
+   Turning correspondence back to bone restores the alternation exactly where
+   it had collapsed — journal (L), interlude (D), correspondence (L), closer
+   (D), footer (D) — so the interlude is a breath again and the descent into
+   the closer lands because it follows light. The card keeps every idea it had;
+   it is now the printed card ON the sheet rather than the lit card in the
+   dark, which is also the only reading in which its champagne is legal
+   (§03: champagne belongs on black — so the card is where the black went). */
 .sf-register {
   padding-block: calc(var(--rhythm) / 2);
   isolation: isolate;
-  background: var(--umber);
-  color: var(--paper);
+  background: var(--bone);
+  color: var(--ink);
 }
-.sf-register::before {   /* the lamplight — a wider pool, centred on the desk */
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(64% 52% at 50% 0%,
-    rgb(205 177 144 / .12),
-    rgb(205 177 144 / 0) 72%);
-}
-.sf-register .sf-chapter { border-top-color: rgb(205 177 144 / .25); }
-.sf-register .sf-chapter__num { color: var(--champagne); }
 
 /* The hold — the card sits alone, centred, the section's one object. */
 .sf-register__hold {
@@ -441,17 +445,16 @@
   margin-block-start: clamp(2.5rem, 6vh, 4rem);
 }
 
-/* The card — stationery, not UI: sharp corners, a printed ink hairline,
-   the light falling on it from above and the sheet's weight beneath. */
+/* The card — stationery, not UI: sharp corners, a champagne hairline, and the
+   card's own weight resting on the bone sheet beneath it. Inverted from the
+   original lit-card-in-the-dark; see the section note above. */
 .sf-register__card {
   width: min(100%, 34rem);
   padding: clamp(2rem, 5vw, 3.25rem) clamp(1.5rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2rem);
-  background: var(--bone);
-  color: var(--ink);
-  border: 1px solid rgb(31 26 23 / .35);
-  box-shadow:
-    0 -1rem 3rem -.5rem rgb(205 177 144 / .22),   /* the picture light */
-    0 1.5rem 3rem -1rem rgb(10 8 6 / .55);        /* the sheet's weight */
+  background: var(--umber);
+  color: var(--paper);
+  border: 1px solid rgb(205 177 144 / .38);       /* the champagne frame, as the hero's plate */
+  box-shadow: 0 1.25rem 2.5rem -1rem rgb(31 26 23 / .28);   /* the card's weight on the sheet */
   text-align: center;
 }
 
@@ -468,7 +471,7 @@
   width: 3rem;
   height: 1px;
   margin: .875rem auto;
-  background: rgb(31 26 23 / .4);
+  background: rgb(205 177 144 / .55);
 }
 .sf-register__sub {
   font-family: var(--font-sans);
@@ -476,7 +479,7 @@
   font-weight: 500;
   letter-spacing: var(--track-label);
   text-transform: uppercase;
-  color: var(--graphite);
+  color: rgb(255 255 255 / .62);
 }
 
 .sf-register__head {
@@ -487,12 +490,12 @@
   letter-spacing: -.015em;
   margin-block-start: clamp(1.75rem, 4vh, 2.5rem);
 }
-.sf-register__head em { font-style: italic; color: var(--bronze); }
+.sf-register__head em { font-style: italic; color: var(--champagne); }   /* champagne on black — where it is legal */
 .sf-register__text {
   font-family: var(--font-sans);
   font-size: clamp(.9375rem, 1.1vw, 1.0625rem);
   line-height: 1.65;
-  color: var(--graphite);
+  color: rgb(255 255 255 / .72);
   max-width: 26rem;
   margin-inline: auto;
   margin-block-start: 1rem;
@@ -515,7 +518,7 @@
   font-weight: 500;
   letter-spacing: var(--track-label);
   text-transform: uppercase;
-  color: rgb(31 26 23 / .55);
+  color: rgb(255 255 255 / .62);
 }
 .sf-register__input {
   display: block;
@@ -525,15 +528,23 @@
   background: transparent;
   border: 0;
   border-radius: 0;
-  border-block-end: 1px solid rgb(31 26 23 / .35);
+  border-block-end: 1px solid rgb(205 177 144 / .40);
   font-family: var(--font-sans);
   font-size: 1rem;
-  color: var(--ink);
+  color: var(--paper);
   transition: border-color var(--dur-micro) var(--ease);
 }
-.sf-register__input::placeholder { color: rgb(31 26 23 / .32); }
-.sf-register__input:focus { outline: none; border-block-end-color: var(--ink); }
-.sf-register .sf-btn { justify-content: center; }
+.sf-register__input::placeholder { color: rgb(255 255 255 / .48); }   /* 4.89:1 on umber */
+.sf-register__input:focus { outline: none; border-block-end-color: var(--champagne); }
+/* The card is a dark ground: the button takes the sanctioned dark-ground
+   treatment — champagne fill, umber type — not the light-ground noir fill. */
+.sf-register .sf-btn { justify-content: center; color: var(--paper); border-color: var(--hairline-d); }
+.sf-register .sf-btn:hover,
+.sf-register .sf-btn:focus-visible {
+  background: var(--champagne);
+  border-color: var(--champagne);
+  color: var(--umber);
+}
 
 /* The states — filed, or refused — set on the card in its own voice. */
 .sf-register__confirm {
@@ -546,7 +557,9 @@
   margin-block-start: 1rem;
   font-size: var(--t-label);
   letter-spacing: .08em;
-  color: var(--bronze);
+  /* bronze is the LIGHT-ground accent and measures 3.23:1 here — under the bar
+     for the one line on the card a reader must not miss. Champagne is 8.44:1. */
+  color: var(--champagne);
 }
 .sf-register__hp {
   position: absolute;
@@ -563,7 +576,7 @@
   font-weight: 500;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: rgb(31 26 23 / .45);
+  color: rgb(255 255 255 / .50);   /* 5.16:1 on umber — .45 measured 4.45 and missed AA */
   margin-block-start: clamp(2rem, 4vh, 2.75rem);
 }
 

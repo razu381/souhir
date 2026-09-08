@@ -1,6 +1,7 @@
 import HeroNocturne from '@/components/sf/HeroNocturne';
 import WorkGrid from '@/components/sf/WorkGrid';
 import {
+  Chapter,
   Explore,
   ServicesList,
   Clientele,
@@ -12,6 +13,7 @@ import {
   ClosingCard,
 } from '@/components/sf/HomeSections';
 import { getHomeData } from '@/sanity/fetch';
+import { CHAPTER } from '@/content/chapters';
 
 export const revalidate = 600;
 
@@ -32,10 +34,7 @@ export default async function Home() {
 
       <section className="sf-section sf-work sf-work--nocturne" id="work">
         <div className="sf-container">
-          <div className="sf-chapter">
-            <span className="sf-chapter__label">(Selected Works)</span>
-            <span className="sf-chapter__num">06</span>
-          </div>
+          <Chapter label="(Selected Works)" num={CHAPTER.work} heading />
           <WorkGrid
             statement={data.work.statement}
             filters={data.work.filters}
