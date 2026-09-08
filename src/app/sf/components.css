@@ -1831,14 +1831,14 @@
 /* ===========================================================================
    FOOTER — the colophon
    The night's last wall: umber, champagne hairlines, the link register in
-   three quiet columns, and the direction's outro — "Dar SF" in Didone at
-   extreme scale, bleeding off the bottom edge the way the exhibition title
-   crossed its print. Mixed case: the system never sets a serif in all caps.
+   three quiet columns. The Nocturne carried a monumental "Dar SF" outro
+   bleeding off the floor; the brief's footer asks only for navigation and
+   socials, so the colophon ends at its bar.
    ======================================================================== */
 .sf-footer {
   position: relative;
   overflow: hidden;
-  padding-block-start: calc(var(--rhythm) / 2);
+  padding-block: calc(var(--rhythm) / 2) 1.5rem;
   background: var(--umber);
   color: var(--paper);
 }
@@ -1915,18 +1915,4 @@
 .sf-footer__top-link { color: rgb(255 255 255 / .68); white-space: nowrap; }
 .sf-footer__top-link:hover,
 .sf-footer__top-link:focus-visible { color: var(--champagne); }
-
-/* The outro wordmark — the page's last word, half-swallowed by the floor. */
-.sf-footer__outro {
-  display: block;
-  margin-block-end: -.34em;   /* the bleed — the floor takes its descender room */
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(6rem, 21vw, 22rem);
-  line-height: .82;
-  letter-spacing: -.025em;
-  white-space: nowrap;
-  color: var(--paper);
-  text-align: center;
-}
 }
