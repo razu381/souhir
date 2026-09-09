@@ -656,3 +656,149 @@
   border-color: var(--champagne);
   color: var(--noir);
 }
+
+/* ===========================================================================
+   JOURNAL STACK — sheets settling on a desk (JournalStack.tsx)
+   The mechanic is pure CSS: each card wrapper pins under the fixed header
+   a touch lower than the one before, so later sheets cover earlier ones
+   and the covered edges peek as ~14px steps. GSAP only scrubs `--sf-p`
+   (coverage) on each card; the recede — scale + a FLAT bone wash, never a
+   gradient — is defined here. Sheets carry the section's own ground via
+   --stack-sheet, so grounds that differ (the /home-v* labs retint this
+   section) re-point one variable and stay opaque.
+
+   Desktop-only (the clientele sticky precedent) and gated on
+   no-preference motion: phones and reduced-motion keep today's flat list.
+   ======================================================================== */
+@media (min-width: 1025px) and (prefers-reduced-motion: no-preference) {
+  .sf-journal__index {
+    --stack-sheet: var(--bone);
+    --stack-top: clamp(5.5rem, 12vh, 8rem);
+    --stack-step: 14px;
+    /* Runway: the held breath while the stack sits before the interlude. */
+    padding-block-end: clamp(3rem, 10vh, 7rem);
+  }
+  .sf-journal__card {
+    position: sticky;
+    top: calc(var(--stack-top) + var(--sf-i, 0) * var(--stack-step));
+  }
+  .sf-journal__card:nth-child(1) { --sf-i: 0; }
+  .sf-journal__card:nth-child(2) { --sf-i: 1; }
+  .sf-journal__card:nth-child(3) { --sf-i: 2; }
+  .sf-journal__card:nth-child(4) { --sf-i: 3; }
+
+  .sf-journal__card .sf-journal__row {
+    position: relative; /* the wash sits over the sheet */
+    background: var(--stack-sheet);
+    transform: scale(calc(1 - var(--sf-p, 0) * 0.04));
+    transform-origin: 50% 0;
+  }
+  .sf-journal__card .sf-journal__row::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--stack-sheet);
+    opacity: calc(var(--sf-p, 0) * 0.45);
+    pointer-events: none;
+  }
+}
+
+/* ===========================================================================
+   CUSTOM POINTER (CustomCursor.tsx)
+   A viewing frame, not a ring — square, hairline, sharp corners (§09's
+   one-curve rule keeps the pill button as the only radius). Frame and dot
+   are `--paper` under `mix-blend-mode: difference`, so they read on noir
+   and bone alike. Sizing states transition; the x/y follow is GSAP
+   `quickTo` on the children only — the wrapper NEVER takes a transform
+   (position:fixed + blend would break inside a transformed ancestor).
+
+   `html.sf-cursor` is added by JS only (fine pointer, motion allowed,
+   not /studio, not killed): without it the native cursor is untouched.
+   Escape restores the native cursor for the session — the kill-switch.
+   ======================================================================== */
+.sf-pointer {
+  position: fixed;
+  inset: 0 auto auto 0;
+  z-index: 60; /* above the header (50) and the menu (40): the pointer leads */
+  pointer-events: none;
+}
+html.sf-cursor,
+html.sf-cursor * {
+  cursor: none;
+}
+html.sf-cursor input,
+html.sf-cursor textarea,
+html.sf-cursor select {
+  cursor: auto; /* typing fields keep the I-beam */
+}
+.sf-cursor__frame,
+.sf-cursor__dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  color: var(--paper);
+  mix-blend-mode: difference;
+}
+.sf-cursor__frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  margin: -1rem 0 0 -1rem; /* centred on the pointer */
+  border: 1px solid currentColor;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1;
+  transition:
+    width var(--dur-micro) var(--ease),
+    height var(--dur-micro) var(--ease),
+    margin var(--dur-micro) var(--ease),
+    opacity var(--dur-micro) var(--ease);
+}
+.sf-cursor__glyph {
+  opacity: 0;
+  transition: opacity var(--dur-micro) var(--ease);
+}
+.sf-cursor__dot {
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  background: currentColor;
+  transition: opacity var(--dur-micro) var(--ease);
+}
+.sf-pointer[data-state='hidden'] .sf-cursor__frame,
+.sf-pointer[data-state='hidden'] .sf-cursor__dot {
+  opacity: 0;
+}
+.sf-pointer[data-state='text'] .sf-cursor__frame,
+.sf-pointer[data-state='text'] .sf-cursor__dot {
+  opacity: 0.25; /* dims out over typing fields; the I-beam leads */
+}
+.sf-pointer[data-state='link'] .sf-cursor__frame {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: -1.75rem 0 0 -1.75rem;
+}
+.sf-pointer[data-state='link'] .sf-cursor__glyph {
+  opacity: 1;
+}
+.sf-pointer[data-state='link'] .sf-cursor__dot {
+  opacity: 0; /* the glyph replaces the point */
+}
+.sf-pointer[data-pressed] .sf-cursor__frame {
+  width: 1.625rem;
+  height: 1.625rem;
+  margin: -0.8125rem 0 0 -0.8125rem;
+}
+.sf-pointer[data-pressed][data-state='link'] .sf-cursor__frame {
+  width: 3rem;
+  height: 3rem;
+  margin: -1.5rem 0 0 -1.5rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sf-pointer { display: none; }
+  html.sf-cursor,
+  html.sf-cursor * { cursor: auto; }
+}

@@ -150,6 +150,8 @@ The references animate fast and springy. Halving the speed and removing the over
 - **Page transitions** — full-bleed `--noir` wipe. This is what makes seven pages feel like one continuous film.
 - **`prefers-reduced-motion`** — reveals become instant; marquees and rotation stop.
 
+**Addendum — the scroll-choreography layer (Sept 2026).** GSAP/ScrollTrigger and Lenis were adopted for three hand-driven scenes (the press-covers deck deal, the journal's sticky sheet-stack, the wheel glide) plus a custom pointer — a square hairline viewing frame under `mix-blend-mode: difference`, killable with Escape. Two laws keep it maison rather than *portfolio-site*: **(1) tokens govern timed motion only** — the `--ease` curve is mirrored once into GSAP (`CustomEase('sf')`, `src/components/sf/animation/gsap.ts`) and used for time-driven tweens; scrubbed tweens run `ease: 'none'` because the reader's hand is the easing curve and `scrub: 1` supplies the glide — no token-fidelity claim is made for hand-driven motion. **(2) the same failure modes as the rest of the system** — Lenis mounts only on choreographed routes (never reading pages, never `/studio`), the pointer only on fine pointers without reduced-motion, and every effect degrades to its final state. JS writes classes and one custom property (`--sf-p`); CSS owns the look.
+
 ---
 
 ## 06 — Components

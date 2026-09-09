@@ -6,8 +6,10 @@
 import Link from 'next/link';
 import Reveal from './Reveal';
 import WordReveal from './WordReveal';
+import PressCovers from './PressCovers';
+import JournalStack from './JournalStack';
 import type { Head, Plate } from '@/content/seed';
-import type { HomeContent, PressCover } from '@/sanity/fetch';
+import type { HomeContent } from '@/sanity/fetch';
 import { CHAPTER } from '@/content/chapters';
 
 /**
@@ -69,7 +71,7 @@ export function Explore({ data }: { data: HomeContent['explore'] }) {
               </Link>
             </Reveal>
           </div>
-          <Reveal as="figure" className="sf-explore__figure" delay={200}>
+          <Reveal as="figure" className="sf-explore__figure" delay={200} curtain>
             <img
               src={data.image.src}
               srcSet={data.image.srcSet}
@@ -156,7 +158,7 @@ export function Founder({ data }: { data: HomeContent['founder'] }) {
       <div className="sf-container">
         <Chapter label="(About Dar SF)" num={CHAPTER.founder} />
         <div className="sf-founder__grid">
-          <Reveal as="figure" className="sf-founder__figure" delay={200}>
+          <Reveal as="figure" className="sf-founder__figure" delay={200} curtain>
             <img
               src={data.image.src}
               srcSet={data.image.srcSet}
@@ -248,11 +250,7 @@ export function PressSalon({
           </div>
 
           <div>
-            <div className="sf-press__covers">
-              {data.covers.map((cover, i) => (
-                <CoverPlate key={cover.caption} cover={cover} delay={i * 90} mod={i} />
-              ))}
-            </div>
+            <PressCovers covers={data.covers} />
             <Reveal as="p" className="sf-press__caption sf-press__caption--shared">
               {data.sharedCaption}
             </Reveal>
@@ -260,26 +258,6 @@ export function PressSalon({
         </div>
       </div>
     </section>
-  );
-}
-
-function CoverPlate({ cover, delay, mod }: { cover: PressCover; delay?: number; mod?: number }) {
-  const modClass =
-    mod === 1 ? ' sf-press__cover--b' : mod === 2 ? ' sf-press__cover--c' : '';
-  return (
-    <Reveal as="figure" className={`sf-press__cover${modClass}`} delay={delay}>
-      <img
-        src={cover.image.src}
-        srcSet={cover.image.srcSet}
-        sizes={cover.image.sizes}
-        alt={cover.image.alt}
-        width={cover.image.width}
-        height={cover.image.height}
-        loading="lazy"
-        decoding="async"
-      />
-      <figcaption className="sf-press__caption">{cover.caption}</figcaption>
-    </Reveal>
   );
 }
 
@@ -301,11 +279,11 @@ export function JournalIndex({ data }: { data: HomeContent['journal'] }) {
           </Reveal>
         </div>
 
-        <div className="sf-journal__index">
+        <JournalStack>
           {data.rows.map((row, i) => (
             <Row key={row.num} row={row} last={i === data.rows.length - 1} delay={i * 90} />
           ))}
-        </div>
+        </JournalStack>
 
         <Reveal>
           <Link className="sf-journal__more" href="/journal">
@@ -353,7 +331,10 @@ function Row({
     </>
   );
   return (
-    <Reveal delay={delay}>
+    /* The class rides the Reveal wrapper: it is the sticky card in the
+       JournalStack (site.css), while the .sf-journal__row inside it is
+       the opaque sheet that covers the previous card. */
+    <Reveal className="sf-journal__card" delay={delay}>
       {row.href ? (
         <Link className={cls} href={row.href}>
           {inner}

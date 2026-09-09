@@ -14,11 +14,15 @@ export default function Reveal({
   children,
   delay,
   className,
+  curtain = false,
   as: Tag = 'div',
 }: {
   children: ReactNode;
   delay?: number;
   className?: string;
+  /** §05 image reveal: wipe the frame open while the print settles —
+   *  see the curtain variant in components.css. */
+  curtain?: boolean;
   as?: 'div' | 'p' | 'span' | 'figure' | 'h2' | 'h3' | 'li' | 'a' | 'blockquote';
 }) {
   const ref = useRef<HTMLElement>(null);
@@ -47,7 +51,7 @@ export default function Reveal({
     <Tag
       ref={ref as never}
       className={className}
-      data-sf-reveal=""
+      data-sf-reveal={curtain ? 'curtain' : ''}
       style={delay ? ({ '--sf-delay': `${delay}ms` } as CSSProperties) : undefined}
     >
       {children}

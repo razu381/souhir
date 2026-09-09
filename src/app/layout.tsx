@@ -3,6 +3,8 @@ import './globals.css';
 import './sf/site.css';
 import SiteHeader from '@/components/sf/SiteHeader';
 import SiteFooter from '@/components/sf/SiteFooter';
+import SmoothScroll from '@/components/sf/animation/SmoothScroll';
+import CustomCursor from '@/components/sf/animation/CustomCursor';
 import { getSettings } from '@/sanity/fetch';
 
 /** The prototype's progressive-enhancement gate: hidden initial states in the
@@ -47,6 +49,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           Skip to content
         </a>
         <SiteHeader />
+        {/* The choreography layer — both null-render beside the cursor's
+            frame, both gated (routes / motion / pointer) inside themselves. */}
+        <SmoothScroll />
+        <CustomCursor />
         {children}
         <SiteFooter settings={settings} />
       </body>
