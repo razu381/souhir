@@ -294,6 +294,11 @@
    with a double masthead rule, and a compact centred colophon.
    ========================================================================== */
 
+/* The catalogue set in two columns. Half-width tracks can't carry the row's
+   four-track desktop geometry (tile + 26rem desc leave the 1fr label nothing,
+   and the Didone overflows its track over the description), so each row is
+   re-composed for the narrow measure: a stamp-sized plate spans both lines,
+   label and description stack to its right. */
 .sf-home--v4 .sf-explore__statement { font-size: clamp(1.375rem, 2.4vw, 2.25rem); }
 
 @media (min-width: 1025px) {
@@ -301,6 +306,20 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     column-gap: clamp(2.5rem, 5vw, 6rem);
+  }
+  .sf-home--v4 .sf-service-row {
+    grid-template-columns: 2.5rem clamp(64px, 6vw, 96px) minmax(0, 1fr);
+    grid-template-areas:
+      "num tile label"
+      "num tile desc";
+    column-gap: 1.125rem;
+    row-gap: .375rem;
+    align-items: start;
+  }
+  .sf-home--v4 .sf-service-row__label { font-size: clamp(1.375rem, 2vw, 2rem); }
+  .sf-home--v4 .sf-service-row__desc {
+    justify-self: start;
+    max-width: none;
   }
 }
 
