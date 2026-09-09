@@ -1,17 +1,22 @@
 'use client';
 
 /**
- * CustomCursor — the maison's pointer: a square hairline frame (a viewing
- * frame, not a ring — §09's "sharp corners" holds) and a 4px square dot,
- * both `--paper` under `mix-blend-mode: difference` so they read on noir
- * and bone alike.
+ * CustomCursor — the maison's pointer: a champagne orb with a trailing
+ * hairline orbit ring.
+ *
+ * The orb is a small filled disc in champagne — the house's own accent,
+ * sampled from the logo — with a soft outer aura (the one sanctioned glow
+ * in the system, borrowed from the picture-light treatment). A thin bone
+ * ring trails behind on the house long-tail, like a planet with its orbit.
+ * Over links the orb blooms into a "View" lens: a larger champagne disc
+ * carrying the label in noir caps, the ring dissolving outward.
  *
  * Isolation contract (this is the one component that can be deleted with
  * the site unchanged): no markup depends on it, and the only footprint is
  * the `sf-cursor` class it adds to <html> plus the CSS block in site.css.
  *
  * Invariants:
- * - The wrapper NEVER receives a transform — frame and dot are moved by
+ * - The wrapper NEVER receives a transform — orb and ring are moved by
  *   `gsap.quickTo` as direct children (position:fixed breaks if an
  *   ancestor gains a transform; nothing may ever transform <html>/<body>).
  * - `:focus-visible` outlines are untouched; the cursor is decoration,
@@ -54,32 +59,32 @@ export default function CustomCursor() {
     const root = rootRef.current;
     if (!active || !root) return;
 
-    const frame = root.querySelector<HTMLElement>('.sf-cursor__frame');
-    const dot = root.querySelector<HTMLElement>('.sf-cursor__dot');
-    if (!frame || !dot) return;
+    const orb = root.querySelector<HTMLElement>('.sf-cursor__orb');
+    const ring = root.querySelector<HTMLElement>('.sf-cursor__ring');
+    if (!orb || !ring) return;
 
     document.documentElement.classList.add('sf-cursor');
     root.dataset.state = 'hidden';
 
-    // Dot leads, frame drifts behind — the house long-tail as a follow.
-    const fx = gsap.quickTo(frame, 'x', { duration: 0.45, ease: 'sf' });
-    const fy = gsap.quickTo(frame, 'y', { duration: 0.45, ease: 'sf' });
-    const dx = gsap.quickTo(dot, 'x', { duration: 0.1, ease: 'sf' });
-    const dy = gsap.quickTo(dot, 'y', { duration: 0.1, ease: 'sf' });
+    // Orb leads, ring drifts behind — the house long-tail as a follow.
+    const rx = gsap.quickTo(ring, 'x', { duration: 0.5, ease: 'sf' });
+    const ry = gsap.quickTo(ring, 'y', { duration: 0.5, ease: 'sf' });
+    const ox = gsap.quickTo(orb, 'x', { duration: 0.12, ease: 'sf' });
+    const oy = gsap.quickTo(orb, 'y', { duration: 0.12, ease: 'sf' });
 
     let placed = false;
     const onMove = (e: PointerEvent) => {
       if (!placed) {
         // First appearance: materialise under the pointer, don't glide in.
         placed = true;
-        gsap.set([frame, dot], { x: e.clientX, y: e.clientY });
+        gsap.set([orb, ring], { x: e.clientX, y: e.clientY });
         root.dataset.state = 'default';
         return;
       }
-      fx(e.clientX);
-      fy(e.clientY);
-      dx(e.clientX);
-      dy(e.clientY);
+      rx(e.clientX);
+      ry(e.clientY);
+      ox(e.clientX);
+      oy(e.clientY);
     };
 
     const INTERACTIVE = 'a, button, [data-sf-cursor], label, summary';
@@ -134,10 +139,10 @@ export default function CustomCursor() {
 
   return (
     <div aria-hidden="true" className="sf-pointer" data-state="hidden" ref={rootRef}>
-      <span className="sf-cursor__frame">
-        <span className="sf-cursor__glyph">&#8599;</span>
+      <span className="sf-cursor__ring" />
+      <span className="sf-cursor__orb">
+        <span className="sf-cursor__label">View</span>
       </span>
-      <span className="sf-cursor__dot" />
     </div>
   );
 }

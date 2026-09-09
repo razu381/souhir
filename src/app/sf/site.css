@@ -705,12 +705,15 @@
 
 /* ===========================================================================
    CUSTOM POINTER (CustomCursor.tsx)
-   A viewing frame, not a ring — square, hairline, sharp corners (§09's
-   one-curve rule keeps the pill button as the only radius). Frame and dot
-   are `--paper` under `mix-blend-mode: difference`, so they read on noir
-   and bone alike. Sizing states transition; the x/y follow is GSAP
-   `quickTo` on the children only — the wrapper NEVER takes a transform
-   (position:fixed + blend would break inside a transformed ancestor).
+   A champagne orb with a trailing orbit ring — the house accent as a light
+   source, not a wireframe. The orb is champagne with a soft aura (the one
+   sanctioned glow, borrowed from the picture-light treatment); the ring is
+   a bone hairline that lags behind on the house long-tail. Over links the
+   orb blooms into a "View" lens — a champagne disc with noir tracked caps —
+   while the ring dissolves outward. Aura and lens transitions run the
+   house tokens; the x/y follow is GSAP `quickTo` on the children only —
+   the wrapper NEVER takes a transform (position:fixed + blend would break
+   inside a transformed ancestor).
 
    `html.sf-cursor` is added by JS only (fine pointer, motion allowed,
    not /studio, not killed): without it the native cursor is untouched.
@@ -731,71 +734,101 @@ html.sf-cursor textarea,
 html.sf-cursor select {
   cursor: auto; /* typing fields keep the I-beam */
 }
-.sf-cursor__frame,
-.sf-cursor__dot {
+.sf-cursor__orb,
+.sf-cursor__ring {
   position: absolute;
   top: 0;
   left: 0;
   display: block;
-  color: var(--paper);
-  mix-blend-mode: difference;
+  border-radius: 999px;
 }
-.sf-cursor__frame {
+/* The orb — champagne, lit from within. */
+.sf-cursor__orb {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  margin: -1rem 0 0 -1rem; /* centred on the pointer */
-  border: 1px solid currentColor;
-  font-family: var(--font-sans);
-  font-size: 0.9375rem;
-  line-height: 1;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px; /* centred on the pointer */
+  background: var(--champagne);
+  /* The aura: the picture-light's glow, shrunk to a fingertip. */
+  box-shadow:
+    0 0 12px rgb(205 177 144 / .55),
+    0 0 32px rgb(205 177 144 / .22);
   transition:
     width var(--dur-micro) var(--ease),
     height var(--dur-micro) var(--ease),
     margin var(--dur-micro) var(--ease),
-    opacity var(--dur-micro) var(--ease);
+    opacity var(--dur-micro) var(--ease),
+    background-color var(--dur-micro) var(--ease);
 }
-.sf-cursor__glyph {
+/* The orbit ring — a bone hairline trailing the orb. */
+.sf-cursor__ring {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: -1.25rem 0 0 -1.25rem;
+  border: 1px solid rgb(246 243 238 / .65);
+  mix-blend-mode: difference;
+  transition:
+    width var(--dur-micro) var(--ease),
+    height var(--dur-micro) var(--ease),
+    margin var(--dur-micro) var(--ease),
+    opacity var(--dur-micro) var(--ease),
+    transform var(--dur-micro) var(--ease);
+}
+/* The lens label — noir tracked caps, the system's own voice. */
+.sf-cursor__label {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--noir);
   opacity: 0;
-  transition: opacity var(--dur-micro) var(--ease);
+  transform: scale(.6);
+  transition:
+    opacity var(--dur-micro) var(--ease),
+    transform var(--dur-micro) var(--ease);
 }
-.sf-cursor__dot {
-  width: 4px;
-  height: 4px;
-  margin: -2px 0 0 -2px;
-  background: currentColor;
-  transition: opacity var(--dur-micro) var(--ease);
-}
-.sf-pointer[data-state='hidden'] .sf-cursor__frame,
-.sf-pointer[data-state='hidden'] .sf-cursor__dot {
+.sf-pointer[data-state='hidden'] .sf-cursor__orb,
+.sf-pointer[data-state='hidden'] .sf-cursor__ring {
   opacity: 0;
 }
-.sf-pointer[data-state='text'] .sf-cursor__frame,
-.sf-pointer[data-state='text'] .sf-cursor__dot {
+.sf-pointer[data-state='text'] .sf-cursor__orb,
+.sf-pointer[data-state='text'] .sf-cursor__ring {
   opacity: 0.25; /* dims out over typing fields; the I-beam leads */
 }
-.sf-pointer[data-state='link'] .sf-cursor__frame {
-  width: 3.5rem;
-  height: 3.5rem;
-  margin: -1.75rem 0 0 -1.75rem;
+/* The bloom: orb opens into a lens, ring breathes outward and dissolves. */
+.sf-pointer[data-state='link'] .sf-cursor__orb {
+  width: 4.5rem;
+  height: 4.5rem;
+  margin: -2.25rem 0 0 -2.25rem;
+  background: var(--champagne);
+  box-shadow:
+    0 0 20px rgb(205 177 144 / .65),
+    0 0 56px rgb(205 177 144 / .30);
 }
-.sf-pointer[data-state='link'] .sf-cursor__glyph {
+.sf-pointer[data-state='link'] .sf-cursor__label {
   opacity: 1;
+  transform: none;
 }
-.sf-pointer[data-state='link'] .sf-cursor__dot {
-  opacity: 0; /* the glyph replaces the point */
+.sf-pointer[data-state='link'] .sf-cursor__ring {
+  width: 5.75rem;
+  height: 5.75rem;
+  margin: -2.875rem 0 0 -2.875rem;
+  opacity: 0;
+  transform: scale(1.15);
 }
-.sf-pointer[data-pressed] .sf-cursor__frame {
-  width: 1.625rem;
-  height: 1.625rem;
-  margin: -0.8125rem 0 0 -0.8125rem;
+/* Pressed: the orb tightens like a held breath. */
+.sf-pointer[data-pressed] .sf-cursor__orb {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
 }
-.sf-pointer[data-pressed][data-state='link'] .sf-cursor__frame {
-  width: 3rem;
-  height: 3rem;
-  margin: -1.5rem 0 0 -1.5rem;
+.sf-pointer[data-pressed][data-state='link'] .sf-cursor__orb {
+  width: 3.75rem;
+  height: 3.75rem;
+  margin: -1.875rem 0 0 -1.875rem;
 }
 @media (prefers-reduced-motion: reduce) {
   .sf-pointer { display: none; }
