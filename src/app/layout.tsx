@@ -13,7 +13,7 @@ import { getSettings } from '@/sanity/fetch';
 const SF_JS = `document.documentElement.classList.add('sf-js')`;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://darsf.netlify.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://darsfsouhir.netlify.app'),
   title: {
     default: 'Dar SF — Beyond Visibility. Into Memory.',
     template: '%s — Dar SF',

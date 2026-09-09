@@ -5,7 +5,7 @@ import { CASE_STUDY_SLUGS, ARTICLE_SLUGS } from '@/sanity/queries';
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://darsf.netlify.app';
+  const base = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://darsfsouhir.netlify.app';
   const routes = ['', '/about', '/services', '/portfolio', '/journal', '/editorial', '/contact'].map(
     (path) => ({ url: `${base}${path}`, lastModified: new Date() }),
   );
