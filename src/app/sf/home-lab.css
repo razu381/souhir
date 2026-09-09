@@ -1,0 +1,362 @@
+/* ===========================================================================
+   HOME LAB — five recompositions of the full homepage (/home-v1 … /home-v5).
+
+   Nothing here touches production: every rule is scoped under a wrapper
+   class (.sf-home--v1 … .sf-home--v5) that only the lab pages carry. The
+   section order and the chapter numbering stay canonical; the variants
+   change the LIGHTING, the TYPE and — with the most attention — the closing
+   movement (interlude, correspondence, closer), per the brief.
+
+   Two pieces of existing machinery do most of the work:
+   · the sections' own dark/light retint contracts (--noir variants,
+     --sf-w-dim/--sf-w-ink word-reveal props, champagne/bronze numeral law);
+   · the interlude's scrim, which is mixed from --umber-rgb and can therefore
+     be re-graded to any warm ground by re-declaring one custom property.
+   ======================================================================== */
+
+/* ==========================================================================
+   THE INDEX — /home-lab dresses the hero lab's intro band; only the notes
+   column is its own.
+   ========================================================================== */
+.sf-home-lab-index__descs { display: grid; gap: .9rem; }
+.sf-home-lab-index__num { color: var(--champagne); margin-inline-end: .75rem; }
+
+/* ==========================================================================
+   V1 · LUMIÈRE — the daylight maison
+   The page that never goes dark after the entry: the hero keeps the noir
+   doré wall (the fixed header's contract), and every room after it is
+   daylight — champagne, sable, paper, bone. The works stay in their one
+   umber room, mid-page, like a single dark gallery. The closing movement
+   runs entirely in daylight and ends on ink, handing the reader to the
+   noir colophon (footer) as the page's only other dark.
+   ========================================================================== */
+
+.sf-home--v1 .sf-explore--bone { background: var(--lab-champagne); }
+.sf-home--v1 .sf-services--bone { background: var(--lab-sable); }
+
+/* The register's dark room, returned to the light. */
+.sf-home--v1 .sf-clientele--nocturne {
+  background: var(--bone);
+  color: var(--ink);
+  --sf-w-dim: var(--graphite);
+  --sf-w-ink: var(--ink);
+}
+.sf-home--v1 .sf-clientele--nocturne::before { content: none; }
+.sf-home--v1 .sf-clientele--nocturne .sf-chapter { border-top-color: var(--hairline); }
+.sf-home--v1 .sf-clientele--nocturne .sf-chapter__num { color: var(--bronze); }
+.sf-home--v1 .sf-clientele--nocturne .sf-clientele__head em { color: var(--bronze); }
+.sf-home--v1 .sf-clientele--nocturne .sf-clientele__register { border-bottom-color: var(--hairline); }
+.sf-home--v1 .sf-clientele--nocturne .sf-clientele__row { border-top-color: var(--hairline); }
+.sf-home--v1 .sf-clientele--nocturne .sf-clientele__num { color: var(--graphite); }
+.sf-home--v1 .sf-clientele--nocturne .sf-clientele__row:hover .sf-clientele__num { color: var(--bronze); }
+.sf-home--v1 .sf-clientele--nocturne .sf-clientele__desc { color: var(--graphite); }
+
+.sf-home--v1 .sf-founder--bone { background: var(--lab-champagne); }
+.sf-home--v1 .sf-press { background: var(--paper); }
+.sf-home--v1 .sf-journal { background: var(--lab-sable); }
+
+/* --- V1 closing movement · the salon, the sheet, the ink ------------------ */
+
+/* Interlude → THE SALON QUOTE. The full-bleed night becomes a bone wall with
+   the photograph as a hung plate on the right; the founder's line is set in
+   ink beside it. Under 1025px the plate stacks above the quote. */
+.sf-home--v1 .sf-interlude { background: var(--bone); color: var(--ink); }
+.sf-home--v1 .sf-interlude__media {
+  inset: 0 0 0 auto;
+  width: min(42%, 560px);
+}
+.sf-home--v1 .sf-interlude__media::after { content: none; }
+.sf-home--v1 .sf-interlude__scrim { content: none; display: none; }
+.sf-home--v1 .sf-interlude__quote { color: var(--ink); }
+.sf-home--v1 .sf-interlude__quote em { color: var(--bronze); }
+.sf-home--v1 .sf-interlude__cite { border-block-start-color: var(--hairline); color: var(--graphite); }
+.sf-home--v1 .sf-interlude__inner { width: 100%; }
+@media (max-width: 1024px) {
+  .sf-home--v1 .sf-interlude { display: block; }
+  .sf-home--v1 .sf-interlude__media { position: static; width: 100%; height: 44svh; }
+  .sf-home--v1 .sf-interlude__inner { padding-block: clamp(2rem, 5vh, 3rem); }
+}
+
+/* Correspondence → THE SHEET: champagne ground, the entry line opened to a
+   full-width rule — stationery, not a card. */
+.sf-home--v1 .sf-register { background: var(--lab-champagne); }
+.sf-home--v1 .sf-register__form { width: 100%; max-width: none; }
+
+/* Closer → THE INK PAGE. The umber night is gone; the last statement is set
+   in ink on bone, em in bronze, and the champagne seam below becomes a
+   hairline — the hand-off to the footer is a page turn, not a fade. */
+.sf-home--v1 .sf-close { background: var(--bone); color: var(--ink); border-block-end-color: var(--hairline); }
+.sf-home--v1 .sf-close__rule { border-block-start-color: var(--hairline); color: var(--ink); }
+.sf-home--v1 .sf-close__note { color: var(--graphite); }
+.sf-home--v1 .sf-close__title { color: var(--ink); }
+.sf-home--v1 .sf-close__title em { color: var(--bronze); }
+.sf-home--v1 .sf-close__rail { border-block-start-color: var(--hairline); }
+.sf-home--v1 .sf-close__text { color: var(--graphite); }
+.sf-home--v1 .sf-close .sf-btn { color: var(--ink); border-color: var(--hairline); }
+.sf-home--v1 .sf-close .sf-btn:hover,
+.sf-home--v1 .sf-close .sf-btn:focus-visible { background: var(--ink); border-color: var(--ink); color: var(--bone); }
+
+/* ==========================================================================
+   V2 · LE MUSÉE — paper rooms, the black final wing
+   Stark paper galleries with monumental Didone heads and catalogue-scale
+   numerals, then three black rooms at the end: the quote as pure type, the
+   register as a lit entry on noir, and the centred monumental closer —
+   symmetry answering the monument hero.
+   ========================================================================== */
+
+.sf-home--v2 .sf-explore--bone,
+.sf-home--v2 .sf-services--bone,
+.sf-home--v2 .sf-founder--bone,
+.sf-home--v2 .sf-journal { background: var(--paper); }
+.sf-home--v2 .sf-press { background: var(--bone); }
+
+/* Catalogue-scale numerals on the service rows. */
+.sf-home--v2 .sf-service-row__num {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 3rem);
+  line-height: 1;
+}
+
+/* Monumental heads on the register rooms. */
+.sf-home--v2 :is(.sf-clientele__head, .sf-press__head) {
+  font-size: clamp(2.5rem, 5vw, 4.75rem);
+  line-height: 1.04;
+}
+
+/* --- V2 closing movement · the black wing ---------------------------------- */
+
+/* Interlude → THE HELD BREATH, pure type. No photograph: one champagne-dusted
+   Didone line centred on noir. */
+.sf-home--v2 .sf-interlude { background: var(--noir); min-height: 70svh; }
+.sf-home--v2 .sf-interlude__media,
+.sf-home--v2 .sf-interlude__scrim { display: none; }
+.sf-home--v2 .sf-interlude__inner { text-align: center; }
+.sf-home--v2 .sf-interlude__quote {
+  max-width: none;
+  margin-inline: auto;
+  font-size: clamp(2rem, 4.5vw, 4rem);
+}
+.sf-home--v2 .sf-interlude__cite {
+  margin-inline: auto;
+  border-block-start-color: rgb(205 177 144 / .45);
+}
+
+/* Correspondence → THE LIT ENTRY: the form alone in a black room. */
+.sf-home--v2 .sf-register { background: var(--noir); color: var(--paper); }
+.sf-home--v2 .sf-register .sf-chapter { border-top-color: var(--hairline-d); }
+.sf-home--v2 .sf-register .sf-chapter__num { color: var(--champagne); }
+.sf-home--v2 .sf-register__head { color: var(--champagne); }
+.sf-home--v2 .sf-register__text { color: rgb(255 255 255 / .68); }
+.sf-home--v2 .sf-register__sub { color: rgb(255 255 255 / .45); }
+.sf-home--v2 .sf-register__entry { border-block-start-color: var(--hairline-d); }
+.sf-home--v2 .sf-register__label { color: var(--champagne); }
+.sf-home--v2 .sf-register__input { color: var(--paper); border-block-end-color: rgb(255 255 255 / .35); }
+.sf-home--v2 .sf-register__input::placeholder { color: rgb(255 255 255 / .55); }
+.sf-home--v2 .sf-register__input:focus { border-block-end-color: var(--paper); }
+.sf-home--v2 .sf-register .sf-btn { color: var(--paper); border-color: var(--hairline-d); }
+.sf-home--v2 .sf-register__fine { color: rgb(255 255 255 / .45); }
+.sf-home--v2 .sf-register__error { color: var(--champagne); }
+
+/* Closer → THE CENTRED MONUMENT. The bookend made literal: centred between
+   its two champagne rules, at display scale. */
+.sf-home--v2 .sf-close { background: var(--noir); }
+.sf-home--v2 .sf-close__title {
+  max-width: none;
+  margin-inline: auto;
+  text-align: center;
+  font-size: clamp(2.75rem, 8vw, 9rem);
+}
+.sf-home--v2 .sf-close__rail {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ==========================================================================
+   V3 · LA NUIT — one continuous night
+   The alternation rule suspended as a direction: after the hero, no daylight
+   at all. Noir rooms for the catalogue, cognac for the register, fig for the
+   press, taupe for the journal — every ground a warm brand dark, every
+   numeral champagne. The closing movement re-grades the scrim itself.
+   ========================================================================== */
+
+/* The catalogue rooms on noir. */
+.sf-home--v3 .sf-explore--bone {
+  background: var(--noir);
+  color: var(--paper);
+  --sf-w-dim: rgb(255 255 255 / .42);
+  --sf-w-ink: var(--paper);
+}
+.sf-home--v3 .sf-explore--bone .sf-chapter { border-top-color: var(--hairline-d); }
+.sf-home--v3 .sf-explore--bone .sf-chapter__num { color: var(--champagne); }
+.sf-home--v3 .sf-explore--bone .sf-btn { color: var(--paper); border-color: var(--hairline-d); }
+.sf-home--v3 .sf-explore--bone .sf-explore__caption { color: var(--champagne); }
+.sf-home--v3 .sf-explore--bone .sf-explore__felt { color: var(--champagne); }
+
+.sf-home--v3 .sf-services--bone { background: var(--noir); color: var(--paper); }
+.sf-home--v3 .sf-services--bone .sf-chapter { border-top-color: var(--hairline-d); }
+.sf-home--v3 .sf-services--bone .sf-chapter__num { color: var(--champagne); }
+.sf-home--v3 .sf-services--bone .sf-service-row { border-top-color: var(--hairline-d); }
+.sf-home--v3 .sf-services--bone .sf-service-row__num { color: var(--champagne); }
+.sf-home--v3 .sf-services--bone .sf-service-row__desc { color: rgb(255 255 255 / .60); }
+.sf-home--v3 .sf-services--bone .sf-service-row__tile::before { border-color: rgb(205 177 144 / .30); }
+
+.sf-home--v3 .sf-clientele--nocturne { background: var(--lab-cognac); }
+.sf-home--v3 .sf-founder--bone {
+  background: var(--lab-noir-dore);
+  color: var(--paper);
+}
+.sf-home--v3 .sf-founder--bone .sf-chapter { border-top-color: var(--hairline-d); }
+.sf-home--v3 .sf-founder--bone .sf-chapter__num { color: var(--champagne); }
+.sf-home--v3 .sf-founder--bone .sf-founder__refrain { color: var(--bone); }
+.sf-home--v3 .sf-founder--bone .sf-founder__refrain em { color: var(--champagne); }
+.sf-home--v3 .sf-founder--bone .sf-founder__text { color: rgb(255 255 255 / .60); }
+.sf-home--v3 .sf-founder--bone .sf-founder__felt { color: var(--champagne); }
+.sf-home--v3 .sf-founder--bone .sf-founder__credit { border-top-color: var(--hairline-d); }
+.sf-home--v3 .sf-founder--bone .sf-founder__role { color: rgb(255 255 255 / .60); }
+.sf-home--v3 .sf-founder--bone .sf-btn { color: var(--paper); border-color: var(--hairline-d); }
+.sf-home--v3 .sf-founder--bone .sf-founder__caption { color: rgb(255 255 255 / .45); }
+
+/* The press on fig, the journal on taupe fumé. */
+.sf-home--v3 .sf-press { background: var(--lab-fig); color: var(--paper); }
+.sf-home--v3 .sf-journal { background: var(--lab-taupe); color: var(--paper); }
+.sf-home--v3 :is(.sf-press, .sf-journal) .sf-chapter { border-top-color: rgb(205 177 144 / .25); }
+.sf-home--v3 :is(.sf-press, .sf-journal) .sf-chapter__num { color: var(--champagne); }
+.sf-home--v3 .sf-press .sf-press__head { color: var(--bone); }
+.sf-home--v3 .sf-press .sf-press__statement { color: rgb(255 255 255 / .60); }
+.sf-home--v3 .sf-press .sf-press__stat-num { color: var(--bone); }
+.sf-home--v3 .sf-press .sf-press__stat-label { color: rgb(255 255 255 / .55); }
+.sf-home--v3 :is(.sf-press, .sf-journal) .sf-press__caption,
+.sf-home--v3 .sf-journal .sf-journal__statement,
+.sf-home--v3 .sf-journal .sf-journal__sub { color: rgb(255 255 255 / .55); }
+.sf-home--v3 .sf-journal .sf-journal__head { color: var(--bone); }
+.sf-home--v3 .sf-journal .sf-journal__row { border-top-color: var(--hairline-d); }
+.sf-home--v3 .sf-journal .sf-journal__row-title { color: var(--paper); }
+.sf-home--v3 .sf-journal .sf-journal__cat { color: var(--champagne); }
+.sf-home--v3 .sf-journal .sf-journal__row-desc { color: rgb(255 255 255 / .60); }
+.sf-home--v3 .sf-journal .sf-journal__row-read { color: var(--champagne); }
+.sf-home--v3 .sf-journal .sf-journal__more { color: var(--paper); border-color: var(--hairline-d); }
+
+/* --- V3 closing movement · the candlelit register -------------------------- */
+
+/* Interlude → re-graded, not rebuilt: one custom property moves the scrim's
+   whole mix from umber to cognac. The photograph stays at full range. */
+.sf-home--v3 .sf-interlude { background: var(--lab-cognac); --umber-rgb: 42 30 18; }
+
+/* Correspondence → THE CANDLELIT REGISTER: cognac sheet, champagne lockup. */
+.sf-home--v3 .sf-register { background: var(--lab-cognac); color: var(--paper); }
+.sf-home--v3 .sf-register .sf-chapter { border-top-color: rgb(205 177 144 / .25); }
+.sf-home--v3 .sf-register .sf-chapter__num { color: var(--champagne); }
+.sf-home--v3 .sf-register__head { color: var(--champagne); }
+.sf-home--v3 .sf-register__text { color: rgb(255 255 255 / .70); }
+.sf-home--v3 .sf-register__sub { color: rgb(255 255 255 / .45); }
+.sf-home--v3 .sf-register__entry { border-block-start-color: rgb(205 177 144 / .30); }
+.sf-home--v3 .sf-register__label { color: var(--champagne); }
+.sf-home--v3 .sf-register__input { color: var(--paper); border-block-end-color: rgb(255 255 255 / .35); }
+.sf-home--v3 .sf-register__input::placeholder { color: rgb(255 255 255 / .55); }
+.sf-home--v3 .sf-register__input:focus { border-block-end-color: var(--paper); }
+.sf-home--v3 .sf-register .sf-btn { color: var(--paper); border-color: rgb(205 177 144 / .45); }
+.sf-home--v3 .sf-register__fine { color: rgb(255 255 255 / .45); }
+.sf-home--v3 .sf-register__error { color: var(--champagne); }
+
+/* Closer → fig: the night ends on the jewel ground. */
+.sf-home--v3 .sf-close { background: var(--lab-fig); }
+
+/* ==========================================================================
+   V4 · LA GAZETTE — the editorial issue
+   Same lighting as production, a different voice: the catalogue set in two
+   columns, statements at magazine scale, and a closing movement that reads
+   like the issue's back pages — a banner pull-quote, a subscription drive
+   with a double masthead rule, and a compact centred colophon.
+   ========================================================================== */
+
+.sf-home--v4 .sf-explore__statement { font-size: clamp(1.375rem, 2.4vw, 2.25rem); }
+
+@media (min-width: 1025px) {
+  .sf-home--v4 .sf-services__list {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: clamp(2.5rem, 5vw, 6rem);
+  }
+}
+
+.sf-home--v4 .sf-journal__head { font-size: clamp(2.5rem, 5vw, 4.5rem); }
+.sf-home--v4 .sf-press__stat-num { font-size: clamp(2.5rem, 4.5vw, 4.25rem); }
+
+/* --- V4 closing movement · the back pages ---------------------------------- */
+
+/* Interlude → THE BANNER PULL-QUOTE: a shorter band, the photograph cropped
+   to its lower action, the quote set wider between two hairlines. */
+.sf-home--v4 .sf-interlude { min-height: clamp(20rem, 44svh, 28rem); }
+.sf-home--v4 .sf-interlude__media img { object-position: center 68%; }
+.sf-home--v4 .sf-interlude__quote {
+  max-width: 46rem;
+  font-size: clamp(1.875rem, 3.6vw, 3.25rem);
+  padding-block: clamp(1.5rem, 3vh, 2.25rem);
+  border-block-start: 1px solid rgb(205 177 144 / .45);
+  border-block-end: 1px solid rgb(205 177 144 / .25);
+}
+
+/* Correspondence → THE SUBSCRIPTION DRIVE: paper ground, a double masthead
+   rule, the head dropped from tracked caps to monumental mixed case, and the
+   entry line opened across the sheet. */
+.sf-home--v4 .sf-register { background: var(--paper); }
+.sf-home--v4 .sf-register .sf-chapter { border-block-start: 3px double var(--ink); }
+.sf-home--v4 .sf-register__head {
+  text-transform: none;
+  color: var(--ink);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.04;
+  letter-spacing: -.02em;
+}
+.sf-home--v4 .sf-register__head em { color: var(--bronze); }
+.sf-home--v4 .sf-register__form { width: 100%; max-width: none; }
+.sf-home--v4 .sf-register__input { font-size: 1.1875rem; }
+
+/* Closer → THE COLOPHON: compact, centred, the back cover. */
+.sf-home--v4 .sf-close .sf-container { padding-block: clamp(3rem, 8vh, 5rem); }
+.sf-home--v4 .sf-close__title {
+  max-width: 22ch;
+  margin-inline: auto;
+  text-align: center;
+  font-size: clamp(2rem, 4.5vw, 4rem);
+}
+.sf-home--v4 .sf-close__rail {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-block-start: clamp(2rem, 4vh, 3rem);
+}
+
+/* ==========================================================================
+   V5 · LES SALONS — the brand rooms as page rhythm
+   The hero lab's D-grounds hung as a full house: cognac entry, champagne and
+   sable salons, fig and taupe register rooms, the works on noir doré. Dark
+   rooms keep their own machinery; only the grounds move.
+   ========================================================================== */
+
+.sf-home--v5 .sf-explore--bone { background: var(--lab-champagne); }
+.sf-home--v5 .sf-services--bone { background: var(--lab-sable); }
+.sf-home--v5 .sf-clientele--nocturne { background: var(--lab-fig); }
+.sf-home--v5 .sf-founder--bone { background: var(--lab-sable); }
+.sf-home--v5 .sf-work--nocturne { background: var(--lab-noir-dore); }
+.sf-home--v5 .sf-journal { background: var(--lab-sable); }
+
+/* The press room on taupe fumé — a light machine re-hung in the dark. */
+.sf-home--v5 .sf-press { background: var(--lab-taupe); color: var(--paper); }
+.sf-home--v5 .sf-press .sf-chapter { border-top-color: rgb(205 177 144 / .25); }
+.sf-home--v5 .sf-press .sf-chapter__num { color: var(--champagne); }
+.sf-home--v5 .sf-press .sf-press__head { color: var(--bone); }
+.sf-home--v5 .sf-press .sf-press__statement { color: rgb(255 255 255 / .60); }
+.sf-home--v5 .sf-press .sf-press__stat-num { color: var(--bone); }
+.sf-home--v5 .sf-press .sf-press__stat-label { color: rgb(255 255 255 / .55); }
+.sf-home--v5 .sf-press .sf-press__caption { color: rgb(255 255 255 / .55); }
+
+/* --- V5 closing movement · the salons at the end of the night -------------- */
+
+.sf-home--v5 .sf-interlude { background: var(--lab-cognac); --umber-rgb: 42 30 18; }
+
+.sf-home--v5 .sf-register { background: var(--lab-champagne); }
+.sf-home--v5 .sf-register__form { width: 100%; max-width: none; }
+
+.sf-home--v5 .sf-close { background: var(--lab-noir-dore); }

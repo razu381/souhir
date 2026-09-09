@@ -8,6 +8,10 @@
  * than choreography: wait for the image to decode; within the budget, play
  * the full sequence; past it, jump straight to the final state. The failure
  * mode is "no animation", never "wrong order".
+ *
+ * The `variant` / `layout` / `className` / `id` / `titleAs` props exist for
+ * the /hero-lab review page only; omitted (the homepage's call), the markup
+ * is byte-for-byte what it always was.
  */
 import { useEffect, useRef } from 'react';
 import type { Plate } from '@/content/seed';
@@ -23,6 +27,11 @@ export default function HeroNocturne({
   labelMeta,
   mark,
   sub,
+  variant,
+  layout,
+  className,
+  id = 'hero',
+  titleAs: TitleTag = 'h1',
 }: {
   label: string;
   note: string;
@@ -32,6 +41,16 @@ export default function HeroNocturne({
   labelMeta: string;
   mark: string;
   sub: string;
+  /** Hero Lab: ground modifier — appended as `sf-nocturne--{variant}`. */
+  variant?: string;
+  /** Hero Lab: composition modifier — appended as `sf-nocturne--{layout}`. */
+  layout?: string;
+  /** Hero Lab: extra classes (e.g. a plate pairing's object-position). */
+  className?: string;
+  /** Hero Lab: seventeen instances on the review page need unique ids. */
+  id?: string;
+  /** Hero Lab: the review page's single h1 lives above the variants. */
+  titleAs?: 'h1' | 'h2';
 }) {
   const rootRef = useRef<HTMLElement>(null);
 
@@ -78,7 +97,20 @@ export default function HeroNocturne({
   }, []);
 
   return (
-    <section className="sf-section sf-nocturne" id="hero" data-sf-hero ref={rootRef}>
+    <section
+      className={[
+        'sf-section',
+        'sf-nocturne',
+        variant ? `sf-nocturne--${variant}` : null,
+        layout ? `sf-nocturne--${layout}` : null,
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
+      id={id}
+      data-sf-hero
+      ref={rootRef}
+    >
       <div className="sf-container sf-nocturne__inner">
         <div className="sf-nocturne__rule">
           <span>{label}</span>
@@ -89,7 +121,7 @@ export default function HeroNocturne({
           {/* The lines are display:block, so the space between them is purely
               for the accessible name: without it the h1's text content is the
               single token "BeyondVisibility." */}
-          <h1 className="sf-nocturne__title">
+          <TitleTag className="sf-nocturne__title">
             {titleLines.map((line, i) => (
               <span
                 key={line}
@@ -99,7 +131,7 @@ export default function HeroNocturne({
                 {i < titleLines.length - 1 && ' '}
               </span>
             ))}
-          </h1>
+          </TitleTag>
 
           <figure className="sf-nocturne__plate">
             <img

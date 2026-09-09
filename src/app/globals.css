@@ -17,6 +17,8 @@
 @import "./sf/tokens.css";
 @import "./sf/base.css" layer(base);
 @import "./sf/components.css";
+@import "./sf/hero-lab.css";  /* /hero-lab review page only — see its file header */
+@import "./sf/home-lab.css";  /* /home-v1…v5 review pages only — see file header */
 
 /* Breakpoints carried over from the prototype (originally pinned to
    Elementor's devices; kept identical so the port is 1:1 rather than a

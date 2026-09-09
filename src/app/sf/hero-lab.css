@@ -1,0 +1,418 @@
+/* ===========================================================================
+   HERO LAB — experimental grounds & compositions for /hero-lab.
+
+   Nothing here is production styling. Production's contract still holds
+   (tokens.css owns colour; components.css owns the nocturne); this file
+   only attaches review modifiers to the existing .sf-nocturne DOM and
+   dresses the lab page itself. When a pair wins, its token moves into
+   tokens.css, its rules into components.css — and this file shrinks.
+
+   The governing idea: the wall is half the photograph. DESIGN-DIRECTION
+   §03 tuned --umber to the staircase print's own shadows so the plate
+   dissolves into the ground rather than butting against it; §08's
+   one-grade-per-viewport law applies to the hero too. So the lab reviews
+   PAIRS, and each ground modifier is annotated with the plate temperature
+   it expects.
+   ======================================================================== */
+
+/* --------------------------------------------------------------------------
+   01 · Experimental ground tokens — namespaced `--lab-*` until promoted.
+   Champagne stays the only accent; the daylight inversions fall back to
+   bronze per the system's contrast rule.
+   -------------------------------------------------------------------------- */
+:root {
+  --lab-espresso: #2B211A;  /* warm coffee — warm-shadow plates melt into it  */
+  --lab-bordeaux: #2B151A;  /* oxblood — the wine wall; candlelight's home    */
+  --lab-forest:   #14251E;  /* cool pine — deliberately NOT olive: the warm
+                               plates' shadows would mud against an olive wall */
+  --lab-midnight: #10151F;  /* cold navy — cool plates' blue-black shadows sink */
+
+  /* Group D — the brand rooms. Every ground is DERIVED from a system token
+     (champagne #CDB190, bronze #7F674A) or from champagne's own classic
+     partners (taupe, cognac leather, gold-olive, warm aubergine), so each
+     wall is traceable to the mark rather than chosen by taste. */
+  --lab-noir-dore: #171310; /* noir warmed toward the mark — the logo pairing */
+  --lab-bronze-noir: #221C13; /* the system's bronze, darkened to a wall */
+  --lab-cognac: #2A1E12;    /* candlelit leather — the warm photography's register */
+  --lab-taupe: #282320;     /* champagne's pale-taupe undertone, smoked */
+  --lab-vert-dore: #1E2114; /* olive with a gold undertone — the brand-correct green */
+  --lab-fig: #271A1D;       /* warm aubergine — the jewel tone champagne sits on */
+  --lab-champagne: #EFE6D8; /* the accent itself, lifted to a light ground */
+  --lab-sable: #E2D7C4;     /* champagne's taupe shadow — warm sand, light */
+}
+
+/* --------------------------------------------------------------------------
+   02 · Group A — the ground sweep. Composition and plate untouched; the
+   champagne hairlines (.45/.38/.25), the picture light and the in-frame
+   grade are all wall-independent, so each dark wall is one line.
+   -------------------------------------------------------------------------- */
+.sf-nocturne--espresso { background: var(--lab-espresso); }
+.sf-nocturne--bordeaux { background: var(--lab-bordeaux); }
+.sf-nocturne--noir     { background: var(--noir); }
+.sf-nocturne--charcoal { background: var(--charcoal); }
+.sf-nocturne--forest   { background: var(--lab-forest); }
+.sf-nocturne--midnight { background: var(--lab-midnight); }
+
+/* Group D, the brand rooms — one line each, like Group A, because the
+   champagne hairlines, the picture light and the in-frame grade are
+   wall-independent. All six darks are warm-family: the staircase's warm
+   shadows dissolve into every one of them by construction. */
+.sf-nocturne--noir-dore   { background: var(--lab-noir-dore); }
+.sf-nocturne--bronze-noir { background: var(--lab-bronze-noir); }
+.sf-nocturne--cognac      { background: var(--lab-cognac); }
+.sf-nocturne--taupe       { background: var(--lab-taupe); }
+.sf-nocturne--vert-dore   { background: var(--lab-vert-dore); }
+.sf-nocturne--fig         { background: var(--lab-fig); }
+
+/* The daylight inversions. Champagne fails every contrast threshold on a
+   light ground, so bronze takes the accents and hairline takes the rules —
+   and the picture light is OFF. A lamp pooled over a print is a nocturne's
+   device; in daylight it would read as a smudge. The hairline frame stays. */
+.sf-nocturne--bone,
+.sf-nocturne--paper {
+  background: var(--bone);
+  color: var(--ink);
+}
+.sf-nocturne--paper { background: var(--paper); }
+
+/* The champagne-tinted lights — the accent itself lifted to a ground, and
+   its pale-taupe shadow (sable). Same inversion contract: ink type, bronze
+   accents, hairline rules, the picture light OFF. */
+.sf-nocturne--champagne,
+.sf-nocturne--sable {
+  background: var(--lab-champagne);
+  color: var(--ink);
+}
+.sf-nocturne--sable { background: var(--lab-sable); }
+
+:is(.sf-nocturne--bone, .sf-nocturne--paper, .sf-nocturne--champagne, .sf-nocturne--sable) .sf-nocturne__title         { color: var(--ink); }
+:is(.sf-nocturne--bone, .sf-nocturne--paper, .sf-nocturne--champagne, .sf-nocturne--sable) .sf-nocturne__rule          { border-top-color: var(--hairline); }
+:is(.sf-nocturne--bone, .sf-nocturne--paper, .sf-nocturne--champagne, .sf-nocturne--sable) .sf-nocturne__note          { color: var(--graphite); }
+:is(.sf-nocturne--bone, .sf-nocturne--paper, .sf-nocturne--champagne, .sf-nocturne--sable) .sf-nocturne__plate         { border-color: var(--hairline); box-shadow: none; }
+:is(.sf-nocturne--bone, .sf-nocturne--paper, .sf-nocturne--champagne, .sf-nocturne--sable) .sf-nocturne__plate::before { background: var(--hairline); }
+:is(.sf-nocturne--bone, .sf-nocturne--paper, .sf-nocturne--champagne, .sf-nocturne--sable) .sf-nocturne__label-title   { color: var(--bronze); }
+:is(.sf-nocturne--bone, .sf-nocturne--paper, .sf-nocturne--champagne, .sf-nocturne--sable) .sf-nocturne__label-meta    { color: var(--graphite); }
+:is(.sf-nocturne--bone, .sf-nocturne--paper, .sf-nocturne--champagne, .sf-nocturne--sable) .sf-nocturne__meta          { border-top-color: var(--hairline); }
+:is(.sf-nocturne--bone, .sf-nocturne--paper, .sf-nocturne--champagne, .sf-nocturne--sable) .sf-nocturne__mark          { color: var(--bronze); }
+:is(.sf-nocturne--bone, .sf-nocturne--paper, .sf-nocturne--champagne, .sf-nocturne--sable) .sf-nocturne__sub           { color: var(--graphite); }
+
+/* --------------------------------------------------------------------------
+   03 · Group B — recompositions. Each keeps the nocturne's DOM and its
+   entrance choreography; only the grid's placement grammar changes.
+   -------------------------------------------------------------------------- */
+
+/* — MIRROR — the hang reversed: the print on the left wall. The ±100vw rail
+   still draws from the section's left edge, so the print hangs ON it exactly
+   as the original does — the composition is reflected, not redesigned. On
+   phones the plate steps above the title, mirroring the desktop reading
+   order too. */
+.sf-nocturne--mirror .sf-nocturne__plate { order: -1; }
+
+@media (min-width: 1025px) {
+  .sf-nocturne--mirror .sf-nocturne__title { grid-column: 2; grid-row: 1; order: 0; }
+  .sf-nocturne--mirror .sf-nocturne__plate { grid-column: 1; grid-row: 1 / span 2; justify-self: end; order: 0; }
+  .sf-nocturne--mirror .sf-nocturne__label { grid-column: 2; grid-row: 2; }
+}
+
+/* — MONUMENT — the centred stack. Every piece of gallery furniture stays
+   (masthead rule, museum label, meta rail): what's under test is pure
+   typographic symmetry wearing the nocturne's clothes, not the generic
+   centred template hero. The plate drops a size so the stack still closes
+   inside one screen. */
+.sf-nocturne--monument .sf-nocturne__grid  { justify-items: center; }
+.sf-nocturne--monument .sf-nocturne__title,
+.sf-nocturne--monument .sf-nocturne__label { text-align: center; }
+.sf-nocturne--monument .sf-nocturne__label { max-width: none; }
+.sf-nocturne--monument .sf-nocturne__plate { --plate-h: clamp(220px, 40svh, 560px); justify-self: center; }
+
+@media (min-width: 1025px) {
+  .sf-nocturne--monument .sf-nocturne__grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+  }
+  .sf-nocturne--monument .sf-nocturne__title { grid-column: 1; grid-row: 1; }
+  .sf-nocturne--monument .sf-nocturne__plate { grid-column: 1; grid-row: 2; --plate-h: clamp(260px, 44svh, 560px); }
+  .sf-nocturne--monument .sf-nocturne__label { grid-column: 1; grid-row: 3; align-self: auto; }
+}
+
+/* — SPLIT — the doorway. The print stops being an object and becomes
+   architecture: a full-height half of the section, bleeding flush to the
+   viewport's right edge. A doorway carries no jewellery — the frame, the
+   picture light and the rail are all struck. The bleed margin covers the
+   container gutter PLUS the centred-container overhang on ultrawide
+   screens, so the photograph meets the viewport edge at every width. */
+@media (min-width: 1025px) {
+  .sf-nocturne--split .sf-nocturne__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    flex: 1;   /* the grid, not just the wall, reaches the meta rail */
+  }
+  /* The title spans BOTH columns — it crosses the seam onto the photograph
+     (z-index 2 does the crossing, as in the original hang). Constrained to
+     the left half, "Visibility." would clip inside the line mask. */
+  .sf-nocturne--split .sf-nocturne__title { grid-column: 1 / -1; grid-row: 1; align-self: start; }
+  .sf-nocturne--split .sf-nocturne__label { grid-column: 1; grid-row: 2; align-self: end; }
+  .sf-nocturne--split .sf-nocturne__plate {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: stretch;
+    /* The img is absolutely positioned, so the figure has NO intrinsic size:
+       width:auto + justify-self:end collapsed it to zero. Stretch fills the
+       column; the negative right margin carries it to the viewport edge. */
+    justify-self: stretch;
+    height: auto;
+    width: auto;
+    margin: 0 calc((max(0px, (100vw - var(--content)) / 2) + var(--gutter)) * -1) 0 0;
+    border: 0;
+    box-shadow: none;
+  }
+  .sf-nocturne--split .sf-nocturne__plate::before { display: none; }  /* the rail ends at a doorway */
+}
+
+/* — CINEMA — §07's original hero, re-tested: the photograph IS the wall.
+   The plate escapes the container (its containing block is the positioned
+   section), the rail and picture light are struck, and the in-frame grade
+   is re-poured as a legibility scrim — the same warm black, deepest at the
+   header and the meta rail. The rule, label and meta are lifted above the
+   plate with position:relative; the grid itself must stay static, since it
+   is the plate's containing block. The scrim is a candidate fourth
+   exception to DESIGN-DIRECTION §09 — if promoted, §09 amends first. */
+.sf-nocturne--cinema { background: var(--noir); }
+.sf-nocturne--cinema .sf-nocturne__grid { grid-template-columns: minmax(0, 1fr); }
+.sf-nocturne--cinema .sf-nocturne__plate {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  box-shadow: none;
+}
+.sf-nocturne--cinema .sf-nocturne__plate::before { display: none; }
+.sf-nocturne--cinema .sf-nocturne__plate::after {
+  background:
+    linear-gradient(to bottom,
+      rgb(10 8 6 / .55),
+      rgb(10 8 6 / .28) 42%,
+      rgb(10 8 6 / .62));
+}
+.sf-nocturne--cinema .sf-nocturne__rule,
+.sf-nocturne--cinema .sf-nocturne__label,
+.sf-nocturne--cinema .sf-nocturne__meta { position: relative; z-index: 2; }
+
+/* — TYPOGRAPHIC — the wordmark-as-architecture pole: no plate at all, the
+   Didone alone carries the screen. The rail vanishes with the plate; the
+   meta rail keeps the floor. The brief is photographic — the footer's
+   monumental type outro was already cut as off-brief — so this is a horizon
+   check, not a favourite. */
+.sf-nocturne--typographic .sf-nocturne__plate { display: none; }
+.sf-nocturne--typographic .sf-nocturne__title { font-size: clamp(3.5rem, 15vw, 16rem); }
+.sf-nocturne--typographic .sf-nocturne__label { max-width: none; }
+
+/* — MARQUEE — the one-line statement. 2026's typography-led hero: the whole
+   promise set as a single spanning line, the plate keeping its hung-print
+   grammar beneath. The two masked lines go inline-block so the entrance
+   animation survives; their collapsed word gap is re-cut with a margin. */
+.sf-nocturne--marquee .sf-nocturne__title {
+  font-size: clamp(2.25rem, 9.5vw, 9.5rem);
+  white-space: nowrap;
+}
+.sf-nocturne--marquee .sf-nocturne__line { display: inline-block; }
+.sf-nocturne--marquee .sf-nocturne__line--a { margin-inline-end: .22em; }
+
+/* — PAYSAGE — the landscape hang. The system only ever hangs 2:3 portraits
+   on the hero wall; this swings the frame to 3:2 and lets one wide print
+   breathe across the right column (the research pattern: one image, one
+   line, generous air). The title crosses onto it, as at the split. */
+.sf-nocturne--paysage .sf-nocturne__plate {
+  --plate-w: min(88vw, 540px);
+  width: var(--plate-w);
+  height: calc(var(--plate-w) * .6667);
+  justify-self: center;
+}
+
+@media (min-width: 1025px) {
+  .sf-nocturne--paysage .sf-nocturne__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
+  .sf-nocturne--paysage .sf-nocturne__title { grid-column: 1 / -1; }
+  .sf-nocturne--paysage .sf-nocturne__plate {
+    --plate-w: clamp(420px, 44vw, 780px);
+    width: var(--plate-w);
+    height: calc(var(--plate-w) * .6667);
+    align-self: start;
+    justify-self: end;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   04 · Group C — plate pairings. The walls are Group A's; the plates change
+   with them, because the decision under review is a PAIR. Two of the three
+   sources are landscape, so each pairing carries its own object-position —
+   the first thing to retune in review.
+   -------------------------------------------------------------------------- */
+.sf-pair-velocity .sf-nocturne__plate img { object-position: 62% 42%; }  /* hold the coat and the platinum bob */
+.sf-pair-ritual   .sf-nocturne__plate img { object-position: 45% 62%; }  /* hold the candlelit diagonal */
+
+/* --------------------------------------------------------------------------
+   05 · The lab page itself. The intro opens on noir (the fixed header's
+   contract), the wall labels sit ON each variant's ground so the page reads
+   as one continuous wall, and the notes band is the decision artifact.
+   -------------------------------------------------------------------------- */
+.sf-lab-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  min-height: 88vh;
+  min-height: 88svh;
+  background: var(--noir);
+  color: var(--paper);
+  padding-block: clamp(7rem, 14vh, 11rem) clamp(2.5rem, 5vh, 4rem);
+}
+.sf-lab-intro__label {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--champagne);
+}
+.sf-lab-intro__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--t-h1);
+  line-height: 1.02;
+  letter-spacing: -.02em;
+  color: var(--bone);
+  max-width: 18ch;
+}
+.sf-lab-intro__lede {
+  max-width: 46rem;
+  line-height: 1.7;
+  color: rgb(255 255 255 / .72);
+}
+.sf-lab-intro__flag {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--champagne);
+}
+
+/* The jump index — pinned to the intro's floor like the hero's meta rail. */
+.sf-lab-index {
+  margin-top: auto;
+  border-top: 1px solid var(--hairline-d);
+  padding-block-start: 1.75rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 2rem;
+}
+.sf-lab-index__head {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--champagne);
+  margin-block-end: 1rem;
+}
+.sf-lab-index ul { list-style: none; display: grid; gap: .55rem; }
+.sf-lab-index a {
+  display: flex;
+  align-items: center;
+  gap: .625rem;
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: rgb(255 255 255 / .72);
+  text-decoration: none;
+  transition: color var(--dur-micro) var(--ease);
+}
+.sf-lab-index a:hover,
+.sf-lab-index a:focus-visible { color: var(--champagne); }
+.sf-lab-index__chip {
+  inline-size: .875rem;
+  block-size: .875rem;
+  flex: none;
+  border: 1px solid var(--hairline-d);
+}
+
+/* Wall labels — background and colour come in inline per variant, so each
+   strip sits ON its own ground. currentColor keeps the hairline honest on
+   both the dark and the daylight inversions. */
+.sf-lab-tag {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .375rem 1.5rem;
+  padding: .875rem var(--gutter);
+  border-top: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  scroll-margin-top: 4.5rem;
+}
+.sf-lab-tag__hex, .sf-lab-tag__note { opacity: .68; }
+.sf-lab-tag__note { text-transform: none; letter-spacing: .02em; }
+
+/* The notes band — bone ground, hairline table, blank verdict column. */
+.sf-lab-notes {
+  background: var(--bone);
+  color: var(--ink);
+  padding-block: clamp(4rem, 8vw, 7rem);
+}
+.sf-lab-notes__head {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+.sf-lab-notes__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--t-h2);
+  line-height: 1.1;
+  letter-spacing: -.01em;
+  margin-block: 1rem 1.5rem;
+}
+.sf-lab-notes__rubric {
+  margin-block: 0 3rem;
+  padding-inline-start: 1.25rem;
+  max-width: 60rem;
+  line-height: 1.7;
+  color: var(--graphite);
+}
+.sf-lab-notes__rubric li { margin-block: .375rem; }
+.sf-lab-notes__rubric li::marker { color: var(--bronze); font-weight: 500; }
+.sf-lab-notes__scroll { overflow-x: auto; }
+.sf-lab-notes table { width: 100%; min-width: 46rem; border-collapse: collapse; font-size: .875rem; }
+.sf-lab-notes th {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--graphite);
+  text-align: left;
+  padding: .75rem .75rem .75rem 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.sf-lab-notes td {
+  padding: .875rem .75rem .875rem 0;
+  border-bottom: 1px solid var(--hairline);
+  vertical-align: top;
+}
+.sf-lab-notes td:first-child { font-weight: 500; white-space: nowrap; }
+.sf-lab-notes__swatch {
+  display: inline-block;
+  inline-size: .75rem;
+  block-size: .75rem;
+  margin-inline-end: .5rem;
+  border: 1px solid var(--hairline);
+  vertical-align: baseline;
+}
