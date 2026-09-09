@@ -8,8 +8,9 @@
  * sampled from the logo — with a soft outer aura (the one sanctioned glow
  * in the system, borrowed from the picture-light treatment). A thin bone
  * ring trails behind on the house long-tail, like a planet with its orbit.
- * Over links the orb blooms into a "View" lens: a larger champagne disc
- * carrying the label in noir caps, the ring dissolving outward.
+ * Over links the pointer never covers what it points at: the orb grows a
+ * touch, warms one step brighter and its aura swells — the wick turned up —
+ * while the ring breathes outward and holds.
  *
  * Isolation contract (this is the one component that can be deleted with
  * the site unchanged): no markup depends on it, and the only footprint is
@@ -140,9 +141,7 @@ export default function CustomCursor() {
   return (
     <div aria-hidden="true" className="sf-pointer" data-state="hidden" ref={rootRef}>
       <span className="sf-cursor__ring" />
-      <span className="sf-cursor__orb">
-        <span className="sf-cursor__label">View</span>
-      </span>
+      <span className="sf-cursor__orb" />
     </div>
   );
 }

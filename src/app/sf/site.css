@@ -709,10 +709,11 @@
    source, not a wireframe. The orb is champagne with a soft aura (the one
    sanctioned glow, borrowed from the picture-light treatment); the ring is
    a bone hairline that lags behind on the house long-tail. Over links the
-   orb blooms into a "View" lens — a champagne disc with noir tracked caps —
-   while the ring dissolves outward. Aura and lens transitions run the
-   house tokens; the x/y follow is GSAP `quickTo` on the children only —
-   the wrapper NEVER takes a transform (position:fixed + blend would break
+   orb warms and brightens — a shade lighter champagne and a stronger aura,
+   the wick turned up — and the ring breathes outward and holds; the pointer
+   never covers the thing it points at. Aura transitions run the house
+   tokens; the x/y follow is GSAP `quickTo` on the children only — the
+   wrapper NEVER takes a transform (position:fixed + blend would break
    inside a transformed ancestor).
 
    `html.sf-cursor` is added by JS only (fine pointer, motion allowed,
@@ -744,9 +745,7 @@ html.sf-cursor select {
 }
 /* The orb — champagne, lit from within. */
 .sf-cursor__orb {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   width: 12px;
   height: 12px;
   margin: -6px 0 0 -6px; /* centred on the pointer */
@@ -760,7 +759,8 @@ html.sf-cursor select {
     height var(--dur-micro) var(--ease),
     margin var(--dur-micro) var(--ease),
     opacity var(--dur-micro) var(--ease),
-    background-color var(--dur-micro) var(--ease);
+    background-color var(--dur-micro) var(--ease),
+    box-shadow var(--dur-micro) var(--ease);
 }
 /* The orbit ring — a bone hairline trailing the orb. */
 .sf-cursor__ring {
@@ -774,20 +774,7 @@ html.sf-cursor select {
     height var(--dur-micro) var(--ease),
     margin var(--dur-micro) var(--ease),
     opacity var(--dur-micro) var(--ease),
-    transform var(--dur-micro) var(--ease);
-}
-/* The lens label — noir tracked caps, the system's own voice. */
-.sf-cursor__label {
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-  color: var(--noir);
-  opacity: 0;
-  transform: scale(.6);
-  transition:
-    opacity var(--dur-micro) var(--ease),
+    border-color var(--dur-micro) var(--ease),
     transform var(--dur-micro) var(--ease);
 }
 .sf-pointer[data-state='hidden'] .sf-cursor__orb,
@@ -798,26 +785,23 @@ html.sf-cursor select {
 .sf-pointer[data-state='text'] .sf-cursor__ring {
   opacity: 0.25; /* dims out over typing fields; the I-beam leads */
 }
-/* The bloom: orb opens into a lens, ring breathes outward and dissolves. */
+/* The link hover: the circle a touch larger, the wick turned up — a lighter
+   champagne and a stronger aura. No fill change of scale, no cover: the
+   pointer keeps pointing. The ring breathes outward and holds. */
 .sf-pointer[data-state='link'] .sf-cursor__orb {
-  width: 4.5rem;
-  height: 4.5rem;
-  margin: -2.25rem 0 0 -2.25rem;
-  background: var(--champagne);
+  width: 1.125rem;
+  height: 1.125rem;
+  margin: -0.5625rem 0 0 -0.5625rem;
+  background: #e8d9bd; /* champagne, one step brighter — lit, not bloomed */
   box-shadow:
-    0 0 20px rgb(205 177 144 / .65),
-    0 0 56px rgb(205 177 144 / .30);
-}
-.sf-pointer[data-state='link'] .sf-cursor__label {
-  opacity: 1;
-  transform: none;
+    0 0 16px rgb(205 177 144 / .85),
+    0 0 44px rgb(205 177 144 / .42);
 }
 .sf-pointer[data-state='link'] .sf-cursor__ring {
-  width: 5.75rem;
-  height: 5.75rem;
-  margin: -2.875rem 0 0 -2.875rem;
-  opacity: 0;
-  transform: scale(1.15);
+  width: 3rem;
+  height: 3rem;
+  margin: -1.5rem 0 0 -1.5rem;
+  border-color: rgb(246 243 238 / .9);
 }
 /* Pressed: the orb tightens like a held breath. */
 .sf-pointer[data-pressed] .sf-cursor__orb {
@@ -826,9 +810,9 @@ html.sf-cursor select {
   margin: -4px 0 0 -4px;
 }
 .sf-pointer[data-pressed][data-state='link'] .sf-cursor__orb {
-  width: 3.75rem;
-  height: 3.75rem;
-  margin: -1.875rem 0 0 -1.875rem;
+  width: 0.875rem;
+  height: 0.875rem;
+  margin: -0.4375rem 0 0 -0.4375rem;
 }
 @media (prefers-reduced-motion: reduce) {
   .sf-pointer { display: none; }
