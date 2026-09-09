@@ -216,6 +216,12 @@
 .sf-home--v3 .sf-founder--bone .sf-founder__role { color: rgb(255 255 255 / .60); }
 .sf-home--v3 .sf-founder--bone .sf-btn { color: var(--paper); border-color: var(--hairline-d); }
 .sf-home--v3 .sf-founder--bone .sf-founder__caption { color: rgb(255 255 255 / .45); }
+/* The signature ink is near-black: invisible on noir-doré. On the night
+   cut it prints in bone at low strength — a watermark, not a scan. */
+.sf-home--v3 .sf-founder--bone .sf-founder__signature {
+  filter: invert(1);
+  opacity: 0.55;
+}
 
 /* The press on fig, the journal on taupe fumé. */
 .sf-home--v3 .sf-press { background: var(--lab-fig); color: var(--paper); }
@@ -236,6 +242,24 @@
 .sf-home--v3 .sf-journal .sf-journal__row-desc { color: rgb(255 255 255 / .60); }
 .sf-home--v3 .sf-journal .sf-journal__row-read { color: var(--champagne); }
 .sf-home--v3 .sf-journal .sf-journal__more { color: var(--paper); border-color: var(--hairline-d); }
+/* The stack's sheets ride the journal's own ground: without this they stay
+   bone cards sliding over a taupe wall. The wash uses the same variable. */
+.sf-home--v3 .sf-journal__index { --stack-sheet: var(--lab-taupe); }
+.sf-home--v3 .sf-journal .sf-journal__row-num { color: rgb(255 255 255 / .45); }
+.sf-home--v3 .sf-journal .sf-journal__row:hover .sf-journal__row-num,
+.sf-home--v3 .sf-journal .sf-journal__row:focus-visible .sf-journal__row-num { color: var(--champagne); }
+/* The night masthead: bone display type at statement scale against the
+   taupe fumé, intro muted to a whisper — the section's own opening line
+   carries the room instead of the default bone-on-bone voice. */
+.sf-home--v3 .sf-journal__masthead {
+  padding-block: clamp(1rem, 3vh, 2rem);
+}
+.sf-home--v3 .sf-journal .sf-journal__head {
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  letter-spacing: -0.02em;
+}
+.sf-home--v3 .sf-journal .sf-journal__statement { color: rgb(255 255 255 / .75); }
+.sf-home--v3 .sf-journal .sf-journal__sub { color: var(--champagne); }
 
 /* --- V3 closing movement · the candlelit register -------------------------- */
 
