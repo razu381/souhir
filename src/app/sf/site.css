@@ -725,6 +725,9 @@
   inset: 0 auto auto 0;
   z-index: 60; /* above the header (50) and the menu (40): the pointer leads */
   pointer-events: none;
+  /* The hot-spot radius CustomCursor.tsx reads: the ring's own radius, so
+     hover and click both cover everything the visible circle touches. */
+  --sf-cursor-reach: 20px;
 }
 html.sf-cursor,
 html.sf-cursor * {

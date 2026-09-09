@@ -12,6 +12,11 @@
  * touch, warms one step brighter and its aura swells — the wick turned up —
  * while the ring breathes outward and holds.
  *
+ * The whole visible circle is the hot spot, not the orb's exact pixel: the
+ * link state lights whenever the circle overlaps a clickable, and a click
+ * landing on plain ground within the circle's reach is re-dispatched to the
+ * nearest clickable it covers (form fields and direct hits untouched).
+ *
  * Isolation contract (this is the one component that can be deleted with
  * the site unchanged): no markup depends on it, and the only footprint is
  * the `sf-cursor` class it adds to <html> plus the CSS block in site.css.
@@ -73,6 +78,37 @@ export default function CustomCursor() {
     const ox = gsap.quickTo(orb, 'x', { duration: 0.12, ease: 'sf' });
     const oy = gsap.quickTo(orb, 'y', { duration: 0.12, ease: 'sf' });
 
+    const INTERACTIVE = 'a, button, [data-sf-cursor], label, summary';
+    const TYPING = 'input, textarea, select, [contenteditable]';
+
+    // The whole visible circle is the pointer's hot spot: the reach is the
+    // ring's radius (--sf-cursor-reach in site.css), so hover light and click
+    // both cover everything under the circle, not just the orb's exact pixel.
+    const reach = parseFloat(getComputedStyle(root).getPropertyValue('--sf-cursor-reach')) || 20;
+    const nearestInteractive = (x: number, y: number): HTMLElement | null => {
+      let best: HTMLElement | null = null;
+      let bestDist = reach;
+      for (const el of document.querySelectorAll<HTMLElement>(INTERACTIVE)) {
+        const r = el.getBoundingClientRect();
+        if (r.width < 1 || r.height < 1) continue; // hidden or filtered out
+        const dx = Math.max(r.left - x, 0, x - r.right);
+        const dy = Math.max(r.top - y, 0, y - r.bottom);
+        const d = Math.hypot(dx, dy);
+        if (d < bestDist) {
+          bestDist = d;
+          best = el;
+        }
+      }
+      return best;
+    };
+
+    const updateState = (e: PointerEvent) => {
+      const t = (e.target as Element | null)?.closest?.(`${INTERACTIVE}, ${TYPING}`);
+      let next = !t ? 'default' : t.closest(TYPING) ? 'text' : 'link';
+      if (next === 'default' && nearestInteractive(e.clientX, e.clientY)) next = 'link';
+      root.dataset.state = next;
+    };
+
     let placed = false;
     const onMove = (e: PointerEvent) => {
       if (!placed) {
@@ -86,13 +122,27 @@ export default function CustomCursor() {
       ry(e.clientY);
       ox(e.clientX);
       oy(e.clientY);
+      updateState(e);
     };
 
-    const INTERACTIVE = 'a, button, [data-sf-cursor], label, summary';
-    const TYPING = 'input, textarea, select, [contenteditable]';
+    // DOM changes can move interactive ground under a still pointer.
     const onOver = (e: PointerEvent) => {
-      const t = (e.target as Element | null)?.closest?.(`${INTERACTIVE}, ${TYPING}`);
-      root.dataset.state = !t ? 'default' : t.closest(TYPING) ? 'text' : 'link';
+      if (placed) updateState(e);
+    };
+
+    // Click forgiveness: a click anywhere in the circle lands on the nearest
+    // clickable it covers. Direct hits and form fields are left alone; the
+    // re-dispatched click re-enters this handler and takes the direct path.
+    const onClick = (e: MouseEvent) => {
+      if (e.detail === 0 || !(e.clientX || e.clientY)) return; // keyboard / synthetic
+      const t = e.target as Element | null;
+      if (!t || !t.closest) return;
+      if (t.closest(INTERACTIVE) || t.closest(TYPING)) return;
+      const near = nearestInteractive(e.clientX, e.clientY);
+      if (!near) return;
+      e.preventDefault();
+      e.stopPropagation();
+      near.click();
     };
 
     const onDown = () => {
@@ -118,6 +168,7 @@ export default function CustomCursor() {
 
     window.addEventListener('pointermove', onMove, { passive: true });
     document.addEventListener('pointerover', onOver, { passive: true });
+    window.addEventListener('click', onClick, { capture: true });
     window.addEventListener('pointerdown', onDown, { passive: true });
     window.addEventListener('pointerup', onUp, { passive: true });
     document.documentElement.addEventListener('pointerleave', onLeave);
@@ -128,6 +179,7 @@ export default function CustomCursor() {
       document.documentElement.classList.remove('sf-cursor');
       window.removeEventListener('pointermove', onMove);
       document.removeEventListener('pointerover', onOver);
+      window.removeEventListener('click', onClick, { capture: true });
       window.removeEventListener('pointerdown', onDown);
       window.removeEventListener('pointerup', onUp);
       document.documentElement.removeEventListener('pointerleave', onLeave);
