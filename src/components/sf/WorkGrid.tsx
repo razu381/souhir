@@ -8,11 +8,22 @@
  * in React now; the hidden/visible treatment is still one CSS line
  * (.sf-work__item.is-filtered), and the failure mode is unchanged:
  * "no filtering", never "no work".
+ *
+ * The transition is a FLIP (Flip plugin): React flips the classes and the
+ * columns reflow instantly; Flip measured the pre-reflow rects, so it can
+ * compensate each survivor with a transform and glide it to its new spot,
+ * fade the incoming plates up off the wall and lift the outgoing ones out.
+ * The classes stay the single source of truth — Flip only ever animates
+ * toward the state the CSS has already declared. Reduced motion skips it
+ * and keeps today's instant swap.
  */
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Reveal from './Reveal';
+import { gsap, Flip } from './animation/gsap';
 import type { WorkItem } from '@/sanity/fetch';
+
+type FlipState = ReturnType<typeof Flip.getState>;
 
 export default function WorkGrid({
   statement,
@@ -24,24 +35,80 @@ export default function WorkGrid({
   items: WorkItem[];
 }) {
   const [active, setActive] = useState('all');
+  const rootRef = useRef<HTMLDivElement>(null);
+  // The rect snapshot taken in the click handler, consumed by the layout
+  // effect that runs after React has reflowed the columns.
+  const pending = useRef<FlipState | null>(null);
+  const mounted = useRef(false);
 
   const apply = (item: WorkItem) =>
     active !== 'all' && !` ${item.category} `.includes(` ${active} `);
 
+  const select = (slug: string) => {
+    if (slug === active) return;
+    const root = rootRef.current;
+    // Snapshot BEFORE the state change: Flip.from will read these rects and
+    // walk each plate to wherever the reflow lands it. Querying the live DOM
+    // (not the React list) is the contract — Flip animates what is hung.
+    pending.current = root
+      ? Flip.getState(root.querySelectorAll('.sf-work__item'))
+      : null;
+    setActive(slug);
+  };
+
+  useLayoutEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
+    }
+    const state = pending.current;
+    pending.current = null;
+    const root = rootRef.current;
+    if (!state || !root) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const plates = root.querySelectorAll('.sf-work__item');
+    gsap.killTweensOf(plates); // a fast second click restarts the walk
+
+    Flip.from(state, {
+      duration: 0.9,
+      ease: 'sf',
+      stagger: 0.05,
+      onEnter: (entered) =>
+        gsap.fromTo(
+          entered,
+          { opacity: 0, y: 28 },
+          { opacity: 1, y: 0, duration: 0.9, ease: 'sf', stagger: 0.06 },
+        ),
+      onLeave: (leaving) =>
+        gsap.to(leaving, {
+          opacity: 0,
+          y: -14,
+          duration: 0.4,
+          ease: 'sf',
+          stagger: 0.03,
+        }),
+    });
+
+    return () => {
+      gsap.killTweensOf(plates);
+    };
+  }, [active]);
+
   return (
-    <>
+    <div ref={rootRef}>
       <Reveal as="p" className="sf-work__statement">
         {statement}
       </Reveal>
 
-      <div className="sf-work__rail" data-sf-work>
+      <div className="sf-work__rail" data-sf_work="">
         {filters.map((f) => (
           <button
             key={f.slug}
             className="sf-work__filter"
             type="button"
             aria-pressed={active === f.slug}
-            onClick={() => setActive(f.slug)}
+            onClick={() => select(f.slug)}
           >
             {f.label}
           </button>
@@ -102,6 +169,6 @@ export default function WorkGrid({
           );
         })}
       </Reveal>
-    </>
+    </div>
   );
 }
