@@ -86,32 +86,38 @@
 
 /* ===========================================================================
    SHARED — curtain variant (§05: "a curtain, not a fade")
-   Figures opt in via Reveal's `curtain` prop. The frame is wiped open
-   top→bottom while the print settles from 1.08 to 1 beneath it — same
-   trigger and --sf-delay stagger as the fade-up, same failure mode
+   Figures opt in via Reveal's `curtain` prop, which wraps the contents in
+   an inner .sf-curtain-frame. The CLIP lives on that inner frame — never
+   on the figure itself, which must keep visible area so its own observer
+   fires (a fully-clipped figure intersects at 0% and sits "missing"
+   forever). The print settles from 1.08 to 1 beneath the opening wipe;
+   same trigger and --sf-delay stagger as the fade-up, same failure mode
    (no-JS renders the open frame). The figcaption rides inside the figure,
    so it arrives on the curtain's final beat.
    ======================================================================== */
 .sf-js [data-sf-reveal='curtain'] {
   opacity: 1;
   transform: none;
+}
+.sf-curtain-frame {
+  display: block;
   clip-path: inset(0 0 100% 0);
   transition: clip-path var(--dur-slow) var(--ease);
   transition-delay: var(--sf-delay, 0ms);
 }
-.sf-js [data-sf-reveal='curtain'] > img {
+.sf-js [data-sf-reveal='curtain'] .sf-curtain-frame img {
   transform: scale(1.08);
   transition: transform var(--dur-slow) var(--ease);
   transition-delay: var(--sf-delay, 0ms);
 }
-[data-sf-reveal='curtain'].is-revealed { clip-path: inset(0 0 0 0); }
-[data-sf-reveal='curtain'].is-revealed > img { transform: scale(1); }
+[data-sf-reveal='curtain'].is-revealed .sf-curtain-frame { clip-path: inset(0 0 0 0); }
+[data-sf-reveal='curtain'].is-revealed .sf-curtain-frame img { transform: scale(1); }
 @media (prefers-reduced-motion: reduce) {
-  [data-sf-reveal='curtain'] {
+  .sf-curtain-frame {
     clip-path: none !important;
     transition: none !important;
   }
-  [data-sf-reveal='curtain'] > img {
+  [data-sf-reveal='curtain'] .sf-curtain-frame img {
     transform: none !important;
     transition: none !important;
   }

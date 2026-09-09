@@ -54,7 +54,10 @@ export default function Reveal({
       data-sf-reveal={curtain ? 'curtain' : ''}
       style={delay ? ({ '--sf-delay': `${delay}ms` } as CSSProperties) : undefined}
     >
-      {children}
+      {/* The curtain clips an INNER frame, never the figure itself: a
+          fully-clipped figure has zero visible area, so its own observer
+          would never fire and the image would read as "missing". */}
+      {curtain ? <span className="sf-curtain-frame">{children}</span> : children}
     </Tag>
   );
 }
