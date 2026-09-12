@@ -172,7 +172,6 @@ type V2Hero = {
   mods?: string[];
   wall: Wall;
   caption: string;
-  note: string;
 };
 
 const HEROES: V2Hero[] = [
@@ -182,25 +181,21 @@ const HEROES: V2Hero[] = [
     num: 'A1', name: 'The Desk at Night', slug: 'desk-late', dims: '1774 × 887',
     layout: 'v2-backdrop', mods: ['v2-anchor-mid'], wall: NOIR,
     caption: 'Fig. 01 — The Desk at Night, Paris',
-    note: 'Pure black across the left third — the emptiest frame in the set. Watch the Dar SF script already inside the photograph, bottom left.',
   },
   {
     num: 'A2', name: 'The Spread', slug: 'desk-spread', dims: '1774 × 887',
     layout: 'v2-backdrop', wall: UMBER,
     caption: 'Fig. 02 — The Spread, Paris',
-    note: 'The same desk re-staged, warmer. Empty top left, so the type keeps the masthead position.',
   },
   {
     num: 'A3', name: 'Morning Shaft', slug: 'light-shaft', dims: '1717 × 916',
     layout: 'v2-backdrop', mods: ['v2-anchor-mid'], wall: UMBER,
     caption: 'Fig. 03 — Morning Shaft, Paris',
-    note: 'The light does the composing. The type sits in the shadow the shafts fall through, not on them.',
   },
   {
     num: 'A4', name: 'The Moodboard', slug: 'moodboard', dims: '1536 × 1024',
     layout: 'v2-backdrop', mods: ['v2-anchor-floor'], wall: UMBER,
     caption: 'Fig. 04 — The Moodboard, Studio',
-    note: 'No empty edge anywhere — prints fill two thirds, the subject holds the last third. The type goes to the floor and the scrim follows it.',
   },
 
   // — Group B · the same four, stripped. The apparatus under review.
@@ -208,25 +203,21 @@ const HEROES: V2Hero[] = [
     num: 'B1', name: 'The Desk — Bare', slug: 'desk-late', dims: '1774 × 887',
     layout: 'v2-backdrop', mods: ['v2-anchor-mid', 'v2-bare'], wall: NOIR,
     caption: 'Fig. 01 — The Desk at Night, Paris',
-    note: 'A1 with the masthead rule, the mark and the sub-headline struck. The photograph already carries a wordmark; does it need ours twice?',
   },
   {
     num: 'B2', name: 'The Spread — Bare', slug: 'desk-spread', dims: '1774 × 887',
     layout: 'v2-backdrop', mods: ['v2-bare'], wall: UMBER,
     caption: 'Fig. 02 — The Spread, Paris',
-    note: 'A2 stripped. The DAR SF notebook is in-frame and legible — the same question, put more sharply.',
   },
   {
     num: 'B3', name: 'Morning Shaft — Bare', slug: 'light-shaft', dims: '1717 × 916',
     layout: 'v2-backdrop', mods: ['v2-anchor-mid', 'v2-bare'], wall: UMBER,
     caption: 'Fig. 03 — Morning Shaft, Paris',
-    note: 'A3 stripped. The frame with the most air in it — the one most likely to be crowded by furniture.',
   },
   {
     num: 'B4', name: 'The Moodboard — Bare', slug: 'moodboard', dims: '1536 × 1024',
     layout: 'v2-backdrop', mods: ['v2-bare'], wall: UMBER,
     caption: 'Fig. 04 — The Moodboard, Studio',
-    note: 'A4 stripped, and back to the top anchor: with the rule gone the masthead position is free again.',
   },
 
   // — Group C · the splits. Seven tall editorial frames: a portrait cannot
@@ -236,43 +227,36 @@ const HEROES: V2Hero[] = [
     num: 'C1', name: 'Over the Shoulder', slug: 'staircase-shoulder', dims: '843 × 1316',
     layout: 'v2-split', mods: ['v2-contain'], wall: NOIR,
     caption: 'Fig. 05 — Grand Staircase, Paris',
-    note: 'Mean luminance 137, top decile 216 — the title is contained rather than crossing. The crop holds the turn of the head.',
   },
   {
     num: 'C2', name: 'Seated', slug: 'staircase-seated', dims: '843 × 1261',
     layout: 'v2-split', wall: NOIR,
     caption: 'Fig. 06 — Grand Staircase, Seated',
-    note: 'Dark at the top where the title crosses, bright where the gown falls. The crossing is kept here.',
   },
   {
     num: 'C3', name: 'The Sculpture Gallery', slug: 'gallery-standing', dims: '843 × 1261',
     layout: 'v2-split', mods: ['v2-contain'], wall: NOIR,
     caption: 'Fig. 07 — The Sculpture Gallery',
-    note: 'A wide-angle interior squeezed into a half — the statue and the plinth have to survive the crop together.',
   },
   {
     num: 'C4', name: 'The Gallery, Gilt', slug: 'gallery-gilt', dims: '930 × 1616',
     layout: 'v2-split', mods: ['v2-mirror', 'v2-contain'], wall: UMBER,
     caption: 'Fig. 08 — The Sculpture Gallery, Gilt',
-    note: 'The only colour frame in the set, and its palette IS champagne. Mirrored, on umber — the one hang where the wall and the photograph share a temperature by nature rather than by tuning.',
   },
   {
     num: 'C5', name: 'Tailoring, Noir', slug: 'blazer-noir', dims: '1080 × 1616',
     layout: 'v2-split', wall: NOIR,
     caption: 'Fig. 09 — Tailoring, Noir',
-    note: 'The darkest portrait, and the only one already wearing the brand: black tailoring, hands in pockets. The title crosses freely.',
   },
   {
     num: 'C6', name: 'By the Window', slug: 'window-portrait', dims: '1080 × 1616',
     layout: 'v2-column', wall: CHARCOAL,
     caption: 'Fig. 10 — By the Window',
-    note: 'The tightest crop in the set, so not a half but a slit — the print reads as a doorway rather than a wall.',
   },
   {
     num: 'C7', name: 'The Cast Shadow', slug: 'window-shadow', dims: '1080 × 1616',
     layout: 'v2-split', mods: ['v2-mirror', 'v2-contain'], wall: NOIR,
     caption: 'Fig. 11 — The Cast Shadow',
-    note: 'The most graphic frame here. Mirrored on purpose: she holds the outer edge and the shadow points inward, at the title — which is contained, because the corner it would have crossed is the lit wall, not the dark mass.',
   },
 
   // — Group D · the framed wides. Landscape, but 843px and 817px wide: at
@@ -282,13 +266,11 @@ const HEROES: V2Hero[] = [
     num: 'D1', name: 'The Balustrade', slug: 'balustrade', dims: '843 × 563',
     layout: 'v2-paysage', wall: CHARCOAL,
     caption: 'Fig. 12 — The Balustrade',
-    note: 'Wide, but only 843px of it. Framed, lit and railed like a print, because that is the largest hang the pixels can carry honestly.',
   },
   {
     num: 'D2', name: 'The Mosaic Floor', slug: 'mosaic-floor', dims: '817 × 540',
     layout: 'v2-paysage', wall: NOIR,
     caption: 'Fig. 13 — The Mosaic Floor',
-    note: 'Shot from above — the one frame in the set with no horizon. 817px wide; same verdict as D1.',
   },
 ];
 
@@ -313,20 +295,6 @@ export default function HeroLabV2Page() {
         <div className="sf-container">
           <p className="sf-lab-intro__label">(Hero Lab v2)</p>
           <h1 className="sf-lab-intro__title">Thirteen photographs, seventeen hangs.</h1>
-          <p className="sf-lab-intro__lede">
-            The first lab asked which wall the hero hangs on. This one asks the
-            opposite question: which photograph the hero should be built
-            around. Four of the thirteen new frames are wide, dark and almost
-            empty — they become the wall, and the type lives in the negative
-            space they were chosen for. Seven are tall editorial portraits that
-            cannot hold a full-width screen, so they become architecture: a
-            full-height half of the section, bleeding to the viewport edge. Two
-            are wide but only 840px of it, and are framed rather than bled,
-            because a soft hero is not a hero you can judge. The four backdrops
-            are each hung twice, furnished and bare, because the gallery
-            apparatus is under review with them. The copy never changes — only
-            the label, and the picture.
-          </p>
           <p className="sf-lab-intro__flag">Unindexed — internal review only</p>
         </div>
 
@@ -364,7 +332,6 @@ export default function HeroLabV2Page() {
             <span>{v.name}</span>
             <span className="sf-lab-tag__hang">{HANG_LABEL[v.layout]}</span>
             <span className="sf-lab-tag__dims">{v.dims}</span>
-            <span className="sf-lab-tag__note">{v.note}</span>
           </div>
           <HeroNocturne
             {...hero}
@@ -381,89 +348,6 @@ export default function HeroLabV2Page() {
         </Fragment>
       ))}
 
-      <footer className="sf-lab-notes">
-        <div className="sf-container">
-          <p className="sf-lab-notes__head">(The Verdict)</p>
-          <h2 className="sf-lab-notes__title">How to judge a photograph.</h2>
-          <ol className="sf-lab-notes__rubric">
-            <li>
-              Does the frame hold a title — is there space the type can live in,
-              or is it fighting the picture for the same pixels?
-            </li>
-            <li>
-              Does the subject survive the handset crop? A 2:1 frame on a
-              390&thinsp;×&thinsp;844 screen shows about a quarter of its width.
-            </li>
-            <li>
-              Are the pixels honest at this hang — nothing upscaled, nothing
-              soft at 2× device pixel ratio?
-            </li>
-            <li>
-              Do the photograph and its wall agree on temperature? One grade per
-              viewport (§08), and the wall is half of it.
-            </li>
-            <li>
-              Furnished or bare: does the gallery apparatus earn its place on
-              this frame, or crowd it? Compare each A against its B.
-            </li>
-            <li>
-              Does it still read as Dar SF’s museum-night, rather than a stock
-              luxury template?
-            </li>
-          </ol>
-
-          <p className="sf-lab-notes__flag">
-            <strong>One flag before anything ships.</strong> Every backdrop
-            carries a legibility scrim, and a scrim is a gradient —
-            DESIGN-DIRECTION §09 permits exactly three depth exceptions, and
-            this is not yet one of them. /hero-lab raised the same flag against
-            its Cinema variant. If a backdrop wins here, §09 is amended to name
-            the scrim as a fourth exception <em>first</em>, and the hero ships
-            after.
-          </p>
-
-          <div className="sf-lab-notes__scroll">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Hang</th>
-                  <th scope="col">Photograph</th>
-                  <th scope="col">Source</th>
-                  <th scope="col">Treatment</th>
-                  <th scope="col">Wall</th>
-                  <th scope="col">Verdict</th>
-                </tr>
-              </thead>
-              <tbody>
-                {HEROES.map((v) => (
-                  <tr key={v.num}>
-                    <td>
-                      {v.num} — {v.name}
-                    </td>
-                    <td>{v.caption.replace(/^Fig\. \d+ — /, '')}</td>
-                    <td>{v.dims}</td>
-                    <td>
-                      {HANG_LABEL[v.layout]}
-                      {(v.mods ?? [])
-                        .map((m) => ` · ${m.replace('v2-', '')}`)
-                        .join('')}
-                    </td>
-                    <td>
-                      <span
-                        className="sf-lab-notes__swatch"
-                        style={{ background: v.wall.hex }}
-                        aria-hidden="true"
-                      />
-                      {v.wall.hex}
-                    </td>
-                    <td aria-label="Verdict, to be filled in during review" />
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </footer>
     </main>
   );
 }

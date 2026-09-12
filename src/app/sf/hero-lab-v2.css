@@ -392,23 +392,3 @@
    -------------------------------------------------------------------------- */
 .sf-lab-tag__hang { opacity: .68; }
 .sf-lab-tag__dims { opacity: .68; font-variant-numeric: tabular-nums; }
-
-/* v2's title is a longer line than v1's and wraps to two, so the Didone's
-   descenders reach the lede — the shared block has no gap between them
-   because both sit inside the same container. Scoped to v2 so v1's intro,
-   which does not wrap that far, is left exactly as it is. */
-.sf-lab-intro--v2 .sf-lab-intro__lede { margin-block-start: 1.5rem; }
-
-/* v2's index drops v1's wall chip: the chip signals the variable under
-   review, and here that is the photograph, not the ground — all three walls
-   in this lab are dark, so seventeen near-black chips signal nothing. The
-   source dimensions do not move here either; at four groups the tracks are
-   ~290px and name-plus-dimensions wraps every row. They live on each tag
-   strip and in the notes table, which is twice already. */
-.sf-lab-notes__flag {
-  margin-block: 0 2.5rem;
-  max-width: 60rem;
-  line-height: 1.7;
-  color: var(--graphite);
-}
-.sf-lab-notes__flag strong { color: var(--ink); font-weight: 500; }
