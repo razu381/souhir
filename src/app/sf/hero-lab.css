@@ -283,11 +283,6 @@
   color: var(--bone);
   max-width: 18ch;
 }
-.sf-lab-intro__lede {
-  max-width: 46rem;
-  line-height: 1.7;
-  color: rgb(255 255 255 / .72);
-}
 .sf-lab-intro__flag {
   font-family: var(--font-sans);
   font-size: var(--t-label);
@@ -355,64 +350,4 @@
   text-transform: uppercase;
   scroll-margin-top: 4.5rem;
 }
-.sf-lab-tag__hex, .sf-lab-tag__note { opacity: .68; }
-.sf-lab-tag__note { text-transform: none; letter-spacing: .02em; }
-
-/* The notes band — bone ground, hairline table, blank verdict column. */
-.sf-lab-notes {
-  background: var(--bone);
-  color: var(--ink);
-  padding-block: clamp(4rem, 8vw, 7rem);
-}
-.sf-lab-notes__head {
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-  color: var(--bronze);
-}
-.sf-lab-notes__title {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: var(--t-h2);
-  line-height: 1.1;
-  letter-spacing: -.01em;
-  margin-block: 1rem 1.5rem;
-}
-.sf-lab-notes__rubric {
-  margin-block: 0 3rem;
-  padding-inline-start: 1.25rem;
-  max-width: 60rem;
-  line-height: 1.7;
-  color: var(--graphite);
-}
-.sf-lab-notes__rubric li { margin-block: .375rem; }
-.sf-lab-notes__rubric li::marker { color: var(--bronze); font-weight: 500; }
-.sf-lab-notes__scroll { overflow-x: auto; }
-.sf-lab-notes table { width: 100%; min-width: 46rem; border-collapse: collapse; font-size: .875rem; }
-.sf-lab-notes th {
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-  color: var(--graphite);
-  text-align: left;
-  padding: .75rem .75rem .75rem 0;
-  border-bottom: 1px solid var(--hairline);
-}
-.sf-lab-notes td {
-  padding: .875rem .75rem .875rem 0;
-  border-bottom: 1px solid var(--hairline);
-  vertical-align: top;
-}
-.sf-lab-notes td:first-child { font-weight: 500; white-space: nowrap; }
-.sf-lab-notes__swatch {
-  display: inline-block;
-  inline-size: .75rem;
-  block-size: .75rem;
-  margin-inline-end: .5rem;
-  border: 1px solid var(--hairline);
-  vertical-align: baseline;
-}
+.sf-lab-tag__hex { opacity: .68; }
