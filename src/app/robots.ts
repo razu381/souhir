@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/studio', '/api', '/hero-lab', '/home-lab', '/home-v1', '/home-v2', '/home-v3', '/home-v4', '/home-v5'],
+        disallow: ['/studio', '/api', '/hero-lab', '/hero-lab-v2', '/home-lab', '/home-v1', '/home-v2', '/home-v3', '/home-v4', '/home-v5'],
       },
     ],
     sitemap: `${base}/sitemap.xml`,

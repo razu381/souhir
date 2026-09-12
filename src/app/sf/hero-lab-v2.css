@@ -1,0 +1,367 @@
+/* ===========================================================================
+   HERO LAB v2 — thirteen photographs, seventeen hangs, for /hero-lab-v2.
+
+   /hero-lab asks which WALL the hero should hang on: one photograph, held
+   constant, on twenty-seven grounds. This file asks the opposite question —
+   which PHOTOGRAPH the hero should be built around. Thirteen new frames, each
+   composed for its own negative space, with the copy held constant so the
+   comparison is about the picture.
+
+   Nothing here is production styling. tokens.css still owns colour (this file
+   introduces NO new colour token — the walls are noir, umber and charcoal,
+   already in the system), and components.css still owns the nocturne; this
+   file only attaches review modifiers to the existing .sf-nocturne DOM.
+
+   SELF-CONTAINED BY DESIGN. hero-lab.css's own header says it shrinks to
+   nothing when a pairing wins, so the four layouts below are written fresh
+   rather than extending it — either lab has to be deletable on its own. Their
+   geometry is modelled on v1's proven work (hero-lab.css §03: split, cinema,
+   paysage) and the lineage is named at each block. The one thing v2 does
+   borrow is the lab PAGE CHROME — .sf-lab-intro / .sf-lab-index / .sf-lab-tag
+   / .sf-lab-notes, hero-lab.css §05. That is page furniture, not hero
+   styling; if v1 is ever deleted, those five blocks move here.
+
+   §09 FLAG, INHERITED. The backdrop scrim is a gradient, and DESIGN-DIRECTION
+   §09 permits exactly three depth exceptions. v1 flagged the same device as a
+   candidate fourth (hero-lab.css §03, CINEMA) and so does this file: the
+   scrim is UNDER REVIEW here. If a backdrop wins, §09 is amended before
+   anything ships — not after.
+
+   TWO RULES THE MEASUREMENTS FORCED, not taste:
+
+   1. A backdrop needs TWO crops. The wide sources are 1.87–2.00:1; covering a
+      390x844 handset (0.46) shows only ~23% of their width, so the desktop
+      anchor crops to an empty black rectangle. Every backdrop therefore
+      carries a desktop anchor + horizontal scrim (type on the empty edge) and
+      a handset anchor + vertical scrim (anchor the subject, type over the
+      darkened top). §04 holds both.
+
+   2. A BRIGHT plate may not let the title cross the seam. v1's split sends
+      "Visibility." onto the print with no scrim — right on a near-black
+      plate, illegible on the three bright ones (mean luminance 127/137/153,
+      90th percentile 190–217). Those get --v2-contain; the dark plates keep
+      the crossing.
+   ======================================================================== */
+
+/* --------------------------------------------------------------------------
+   00 · The walls. Three, all already in tokens.css — v2 introduces no colour.
+   Umber is the base nocturne's own ground and needs no modifier; noir takes
+   the neutral black-and-white frames (an umber wall would warm a grade the
+   camera left neutral), charcoal the two mid-grey ones. §08's law holds
+   either way: one grade per viewport, and the wall is half of it.
+   -------------------------------------------------------------------------- */
+.sf-nocturne--v2-noir     { background: var(--noir); }
+.sf-nocturne--v2-charcoal { background: var(--charcoal); }
+
+/* --------------------------------------------------------------------------
+   01 · THE WALL — the photograph IS the section.
+   Lineage: hero-lab.css §03 CINEMA. The plate escapes the container (its
+   containing block is the positioned section, so the grid must stay static),
+   the frame, the picture light and the ±100vw rail are all struck — a
+   photograph that is the wall has no frame to hang from — and the rule, the
+   label and the meta rail are lifted above it. The in-frame cinematic grade
+   is struck with the frame and re-poured as a legibility scrim in §02.
+   -------------------------------------------------------------------------- */
+.sf-nocturne--v2-backdrop .sf-nocturne__plate {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  box-shadow: none;
+}
+.sf-nocturne--v2-backdrop .sf-nocturne__plate::before { display: none; }
+
+.sf-nocturne--v2-backdrop .sf-nocturne__rule,
+.sf-nocturne--v2-backdrop .sf-nocturne__label,
+.sf-nocturne--v2-backdrop .sf-nocturne__meta { position: relative; z-index: 2; }
+
+/* The plate is out of flow, so the grid carries only the title and the label.
+   The title drops two grades from the reference scale: over a photograph the
+   type SHARES the frame instead of owning it, and at 12vw "Visibility." ran
+   past the negative space every one of these frames was chosen for. */
+.sf-nocturne--v2-backdrop .sf-nocturne__grid {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto;
+}
+.sf-nocturne--v2-backdrop .sf-nocturne__title { font-size: clamp(2.5rem, 7.5vw, 8.5rem); }
+.sf-nocturne--v2-backdrop .sf-nocturne__label { max-width: 34rem; }
+
+/* --------------------------------------------------------------------------
+   02 · THE SCRIM — §09's candidate fourth exception, under review.
+   The same warm black the in-frame grade uses (10 8 6), poured in the
+   direction of the type rather than uniformly: deepest where the words are,
+   nearly absent over the subject. Never a flat wash — a flat wash is a
+   dimmer, and it would cost the photograph the dynamic range it was chosen
+   for. Vertical is the BASE (handsets, per rule 1); §04 swings it horizontal
+   on the wide viewports.
+   -------------------------------------------------------------------------- */
+.sf-nocturne--v2-backdrop .sf-nocturne__plate::after {
+  background: linear-gradient(to bottom,
+    rgb(10 8 6 / .80) 0%,
+    rgb(10 8 6 / .48) 32%,
+    rgb(10 8 6 / .38) 58%,
+    rgb(10 8 6 / .82) 100%);
+}
+
+/* --------------------------------------------------------------------------
+   03 · BARE — the apparatus itself under review.
+   Each backdrop is hung twice: once wearing the full gallery furniture, once
+   stripped to the title, the museum label and the scroll cue. What goes is
+   the masthead rule, the Est. MMXXVI mark and the sub-headline; what stays is
+   the promise and the caption. `display:none` rather than opacity — the
+   furniture is genuinely ABSENT from this composition, so it should be absent
+   from the accessibility tree too.
+   -------------------------------------------------------------------------- */
+.sf-nocturne--v2-bare .sf-nocturne__rule,
+.sf-nocturne--v2-bare .sf-nocturne__mark,
+.sf-nocturne--v2-bare .sf-nocturne__sub { display: none; }
+/* The rail's hairline goes with the rail's contents; the cue keeps its right
+   anchor, which space-between would surrender once it is the only child. */
+.sf-nocturne--v2-bare .sf-nocturne__meta {
+  border-top: 0;
+  justify-content: flex-end;
+}
+
+/* --------------------------------------------------------------------------
+   04 · THE TYPE ANCHORS — one per frame's negative space (desktop only; on a
+   handset every backdrop reverts to the top anchor, which is where the base
+   nocturne puts the type and where the vertical scrim is deepest).
+
+   · default    — top left, under the masthead rule    (02 The Spread)
+   · anchor-mid  — centred on the empty edge            (01 Desk, 07 Shaft)
+   · anchor-floor — pinned to the floor above the rail   (06 Moodboard)
+   -------------------------------------------------------------------------- */
+@media (min-width: 1025px) {
+  .sf-nocturne--v2-anchor-mid .sf-nocturne__grid,
+  .sf-nocturne--v2-anchor-floor .sf-nocturne__grid { flex: 1; }
+  .sf-nocturne--v2-anchor-mid   .sf-nocturne__grid { align-content: center; }
+  .sf-nocturne--v2-anchor-floor .sf-nocturne__grid { align-content: end; }
+
+  /* Rule 1: the wide viewports read left-to-right, so the scrim does too —
+     deepest on the empty edge the type sits on, nearly gone over the subject
+     cluster, with a breath at the far edge so it does not glare. */
+  .sf-nocturne--v2-backdrop .sf-nocturne__plate::after {
+    background: linear-gradient(to right,
+      rgb(10 8 6 / .84) 0%,
+      rgb(10 8 6 / .52) 30%,
+      rgb(10 8 6 / .08) 58%,
+      rgb(10 8 6 / .22) 100%);
+  }
+  /* The moodboard has no empty edge — the prints fill two thirds and the
+     subject holds the third — so its type goes to the floor and the scrim
+     follows it down. */
+  .sf-nocturne--v2-anchor-floor .sf-nocturne__plate::after {
+    /* The stops are placed off the measured type band: with the floor anchor
+       the title occupies 53–73% of the section's height, so the ramp has to
+       be dark BY 56%, not at the very bottom. */
+    background: linear-gradient(to bottom,
+      rgb(10 8 6 / .50) 0%,
+      rgb(10 8 6 / .20) 24%,
+      rgb(10 8 6 / .62) 56%,
+      rgb(10 8 6 / .92) 100%);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   05 · THE SPLIT — the doorway.
+   Lineage: hero-lab.css §03 SPLIT. The print stops being an object and
+   becomes architecture: a full-height half of the section bleeding flush to
+   the viewport edge. The bleed margin covers the container gutter PLUS the
+   centred-container overhang on ultrawide screens, so the photograph meets
+   the edge at every width — v1's formula, kept verbatim because it is right.
+   A doorway carries no jewellery: frame, picture light and rail are struck.
+   -------------------------------------------------------------------------- */
+@media (min-width: 1025px) {
+  .sf-nocturne--v2-split .sf-nocturne__grid,
+  .sf-nocturne--v2-column .sf-nocturne__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    flex: 1;   /* the grid, not just the wall, reaches the meta rail */
+  }
+  /* The one tight portrait in the set is not a half — it is a slit. */
+  .sf-nocturne--v2-column .sf-nocturne__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, .58fr);
+  }
+
+  .sf-nocturne--v2-split .sf-nocturne__title,
+  .sf-nocturne--v2-column .sf-nocturne__title { grid-column: 1 / -1; grid-row: 1; align-self: start; }
+  .sf-nocturne--v2-split .sf-nocturne__label,
+  .sf-nocturne--v2-column .sf-nocturne__label { grid-column: 1; grid-row: 2; align-self: end; }
+
+  .sf-nocturne--v2-split .sf-nocturne__plate,
+  .sf-nocturne--v2-column .sf-nocturne__plate {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    /* The img is absolutely positioned, so the figure has NO intrinsic size:
+       width:auto + justify-self:end collapses it to zero. Stretch fills the
+       column; the negative margin carries it to the viewport edge. */
+    align-self: stretch;
+    justify-self: stretch;
+    width: auto;
+    height: auto;
+    margin: 0 calc((max(0px, (100vw - var(--content)) / 2) + var(--gutter)) * -1) 0 0;
+    border: 0;
+    box-shadow: none;
+  }
+  .sf-nocturne--v2-split .sf-nocturne__plate::before,
+  .sf-nocturne--v2-column .sf-nocturne__plate::before { display: none; }  /* the rail ends at a doorway */
+
+  /* — MIRROR — the hang reversed: the doorway on the left wall, the bleed with
+     it. Used where the frame's own subject sits at its left edge (13, whose
+     cast shadow then points inward at the title) or where the brightest mass
+     is upper-right (10). */
+  .sf-nocturne--v2-mirror .sf-nocturne__plate {
+    grid-column: 1;
+    margin: 0 0 0 calc((max(0px, (100vw - var(--content)) / 2) + var(--gutter)) * -1);
+  }
+  .sf-nocturne--v2-mirror .sf-nocturne__label { grid-column: 2; }
+
+  /* — CONTAIN — rule 2. The title stays inside its own column instead of
+     crossing onto a bright print. MUST follow the mirror block: the two carry
+     equal specificity on the title, so source order decides. */
+  .sf-nocturne--v2-contain .sf-nocturne__title { grid-column: 1; }
+  .sf-nocturne--v2-mirror.sf-nocturne--v2-contain .sf-nocturne__title { grid-column: 2; }
+}
+
+/* Rule 2's second half, and the reason v1 refused to contain the title at
+   all: held inside ONE column, "Visibility." runs past the column edge and
+   .sf-nocturne__line CLIPS it — overflow:hidden is what makes the entrance
+   mask work, so the line cannot simply overflow. The reference scale has to
+   come down wherever the title is columned (contain, and the paysage hang).
+
+   The cap is absolute (7rem), not vw: above 1440px the container stops
+   growing while the viewport does not, so the column is NARROWEST on the
+   WIDEST screens — a pure vw size clips at 1920 having looked fine at 1440.
+   Measured worst case: column 588px at 1920, longest line 431px. */
+@media (min-width: 1025px) {
+  .sf-nocturne--v2-contain .sf-nocturne__title,
+  .sf-nocturne--v2-paysage .sf-nocturne__title { font-size: clamp(2.5rem, 7.4vw, 7rem); }
+}
+
+/* A half-bleed has no second column on a handset, so the doorway becomes the
+   wall — §01 and §02's treatment again, with the frame's own crop anchor. The
+   scrim runs deeper than the backdrops': seven of these nine plates are
+   black-and-white editorial frames with 90th-percentile values of 190–217,
+   and bone type has to hold over them. */
+@media (max-width: 1024px) {
+  .sf-nocturne--v2-split .sf-nocturne__plate,
+  .sf-nocturne--v2-column .sf-nocturne__plate {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border: 0;
+    box-shadow: none;
+  }
+  .sf-nocturne--v2-split .sf-nocturne__plate::before,
+  .sf-nocturne--v2-column .sf-nocturne__plate::before { display: none; }
+
+  .sf-nocturne--v2-split .sf-nocturne__plate::after,
+  .sf-nocturne--v2-column .sf-nocturne__plate::after {
+    background: linear-gradient(to bottom,
+      rgb(10 8 6 / .84) 0%,
+      rgb(10 8 6 / .52) 30%,
+      rgb(10 8 6 / .42) 56%,
+      rgb(10 8 6 / .86) 100%);
+  }
+
+  .sf-nocturne--v2-split .sf-nocturne__rule,
+  .sf-nocturne--v2-column .sf-nocturne__rule,
+  .sf-nocturne--v2-split .sf-nocturne__label,
+  .sf-nocturne--v2-column .sf-nocturne__label,
+  .sf-nocturne--v2-split .sf-nocturne__meta,
+  .sf-nocturne--v2-column .sf-nocturne__meta { position: relative; z-index: 2; }
+
+  .sf-nocturne--v2-split .sf-nocturne__grid,
+  .sf-nocturne--v2-column .sf-nocturne__grid { grid-template-columns: minmax(0, 1fr); }
+  .sf-nocturne--v2-split .sf-nocturne__title,
+  .sf-nocturne--v2-column .sf-nocturne__title { font-size: clamp(2.5rem, 10.5vw, 6rem); }
+}
+
+/* --------------------------------------------------------------------------
+   06 · PAYSAGE — the framed wide print.
+   Lineage: hero-lab.css §03 PAYSAGE. Two frames in the set are landscape but
+   only ~840px wide: at 100vw they would be upscaled 2x on a laptop and 4x on
+   retina, and a soft hero cannot be judged. So they keep the base nocturne's
+   hang — champagne hairline frame, picture light, ±100vw rail, all intact —
+   with the frame swung from 2:3 to 3:2. The title stays in its own column
+   (rule 2 again: both plates are mid-bright).
+   -------------------------------------------------------------------------- */
+.sf-nocturne--v2-paysage .sf-nocturne__plate {
+  --plate-w: min(88vw, 560px);
+  width: var(--plate-w);
+  height: calc(var(--plate-w) / 1.5);
+  justify-self: center;
+}
+
+@media (min-width: 1025px) {
+  .sf-nocturne--v2-paysage .sf-nocturne__grid { grid-template-columns: minmax(0, 1fr) auto; }
+  .sf-nocturne--v2-paysage .sf-nocturne__plate {
+    /* Capped at 640 rather than the 780 v1 allowed: past 1440px the container
+       is frozen, so every pixel the print takes comes straight out of the
+       title's column. 640 leaves it 536px at any width. */
+    --plate-w: clamp(420px, 44vw, 640px);
+    justify-self: end;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   07 · THE CROPS — one anchor per photograph, measured off the frame.
+   `cover` throws away whatever does not fit; these say what to keep. The
+   handset block is rule 1: on a portrait viewport the wide frames must anchor
+   a SUBJECT, or they crop to an empty rectangle.
+   -------------------------------------------------------------------------- */
+/* The backdrops — desktop: hold the subject cluster off the type's edge. */
+.sf-v2-desk-late    .sf-nocturne__plate img { object-position: 72% 50%; }  /* camera, cup, spread — clear of the in-frame Dar SF script */
+.sf-v2-desk-spread  .sf-nocturne__plate img { object-position: 62% 50%; }  /* the notebook and the open magazine */
+.sf-v2-light-shaft  .sf-nocturne__plate img { object-position: 60% 50%; }  /* the doorway light and the vase */
+.sf-v2-moodboard    .sf-nocturne__plate img { object-position: 42% 45%; }  /* the pinned prints, her shoulder at the edge */
+
+/* The splits and the framed wides — hold the face, or the gesture. */
+.sf-v2-staircase-shoulder .sf-nocturne__plate img { object-position: 52% 22%; }  /* the turn of the head */
+.sf-v2-staircase-seated   .sf-nocturne__plate img { object-position: 45% 30%; }  /* face and shoulder, gown spilling below */
+.sf-v2-gallery-standing   .sf-nocturne__plate img { object-position: 48% 45%; }  /* the statue and the plinth together */
+.sf-v2-gallery-gilt       .sf-nocturne__plate img { object-position: 50% 40%; }  /* the gilt ceiling stays in */
+.sf-v2-blazer-noir        .sf-nocturne__plate img { object-position: 50% 32%; }
+.sf-v2-window-portrait    .sf-nocturne__plate img { object-position: 48% 28%; }
+.sf-v2-window-shadow      .sf-nocturne__plate img { object-position: 35% 45%; }  /* her at the window; the shadow reaches right */
+.sf-v2-balustrade         .sf-nocturne__plate img { object-position: 58% 45%; }
+.sf-v2-mosaic-floor       .sf-nocturne__plate img { object-position: 50% 50%; }
+
+@media (max-width: 1024px) {
+  .sf-v2-desk-late   .sf-nocturne__plate img { object-position: 74% 55%; }
+  .sf-v2-desk-spread .sf-nocturne__plate img { object-position: 66% 58%; }
+  .sf-v2-light-shaft .sf-nocturne__plate img { object-position: 72% 60%; }
+  .sf-v2-moodboard   .sf-nocturne__plate img { object-position: 55% 40%; }
+}
+
+/* --------------------------------------------------------------------------
+   08 · The lab page's own additions. The page chrome is hero-lab.css §05;
+   these two are v2's, because v2's tag strip carries the source dimensions
+   (the whole point of the review is whether a frame has the pixels for the
+   hang it is given) and its index needs a fourth group.
+   -------------------------------------------------------------------------- */
+.sf-lab-tag__hang { opacity: .68; }
+.sf-lab-tag__dims { opacity: .68; font-variant-numeric: tabular-nums; }
+
+/* v2's title is a longer line than v1's and wraps to two, so the Didone's
+   descenders reach the lede — the shared block has no gap between them
+   because both sit inside the same container. Scoped to v2 so v1's intro,
+   which does not wrap that far, is left exactly as it is. */
+.sf-lab-intro--v2 .sf-lab-intro__lede { margin-block-start: 1.5rem; }
+
+/* v2's index drops v1's wall chip: the chip signals the variable under
+   review, and here that is the photograph, not the ground — all three walls
+   in this lab are dark, so seventeen near-black chips signal nothing. The
+   source dimensions do not move here either; at four groups the tracks are
+   ~290px and name-plus-dimensions wraps every row. They live on each tag
+   strip and in the notes table, which is twice already. */
+.sf-lab-notes__flag {
+  margin-block: 0 2.5rem;
+  max-width: 60rem;
+  line-height: 1.7;
+  color: var(--graphite);
+}
+.sf-lab-notes__flag strong { color: var(--ink); font-weight: 500; }

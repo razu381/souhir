@@ -32,6 +32,7 @@ export default function HeroNocturne({
   className,
   id = 'hero',
   titleAs: TitleTag = 'h1',
+  priority = true,
 }: {
   label: string;
   note: string;
@@ -51,6 +52,13 @@ export default function HeroNocturne({
   id?: string;
   /** Hero Lab: the review page's single h1 lives above the variants. */
   titleAs?: 'h1' | 'h2';
+  /** Hero Lab: only the FIRST hero on a review page is an LCP candidate —
+   *  seventeen images all claiming fetchPriority="high" is seventeen images
+   *  competing. Note what this does NOT do: add loading="lazy". The entrance
+   *  below gates on img.decode() inside a 600ms budget, and an image that has
+   *  not begun loading blows it — every hero past the fold would snap to
+   *  is-instant and lose the choreography that is under review. */
+  priority?: boolean;
 }) {
   const rootRef = useRef<HTMLElement>(null);
 
@@ -141,7 +149,7 @@ export default function HeroNocturne({
               alt={image.alt}
               width={image.width}
               height={image.height}
-              fetchPriority="high"
+              fetchPriority={priority ? 'high' : 'auto'}
               decoding="async"
             />
           </figure>

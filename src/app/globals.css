@@ -18,6 +18,7 @@
 @import "./sf/base.css" layer(base);
 @import "./sf/components.css";
 @import "./sf/hero-lab.css";  /* /hero-lab review page only — see its file header */
+@import "./sf/hero-lab-v2.css";  /* /hero-lab-v2 review page only — see its file header */
 @import "./sf/home-lab.css";  /* /home-v1…v5 review pages only — see file header */
 
 /* Breakpoints carried over from the prototype (originally pinned to
