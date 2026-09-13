@@ -167,11 +167,16 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
+  /* Measured: at ~.6 peak alpha the wall strip still jumped 6→73 luminance
+     in one 20px column — invisible. The toe now holds near-full black
+     THROUGH the seam (~46%) and lets the wall climb for ~40% of the frame. */
   background: linear-gradient(to right,
-    rgb(10 8 6 / .92) 40%,
-    rgb(10 8 6 / .60) 47%,
-    rgb(10 8 6 / .22) 55%,
-    rgb(10 8 6 / 0) 66%);
+    rgb(10 8 6 / .98) 38%,
+    rgb(10 8 6 / .93) 48%,
+    rgb(10 8 6 / .68) 56%,
+    rgb(10 8 6 / .38) 64%,
+    rgb(10 8 6 / .16) 72%,
+    rgb(10 8 6 / 0) 82%);
 }
 /* Handset: the 55% crop puts the seam near the frame's left edge, so the
    ramp moves with it. */
