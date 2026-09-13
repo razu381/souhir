@@ -71,11 +71,11 @@ const PLATES = {
     SIZES.backdrop,
     'A woman in a beaded gown at a tall arched window at night, the shadow of a classical statue cast large on the wall beside her; half the frame is black.',
   ),
-  'man-reflection': plate(
-    'man-reflection',
-    [[480, 577], [800, 961], [1200, 1442]],
+  'statue-shadow-dark': plate(
+    'statue-shadow-dark',
+    [[480, 577], [800, 961], [1200, 1441], [1665, 2000]],
     SIZES.split,
-    'A man in a black suit in profile before a tall bright window, the panes raking light across him; the wall falls soft to the left, in black and white.',
+    'A woman in a beaded gown at a tall arched window at night, in the darker portrait crop; the shadow of a classical statue cast large on the wall beside her.',
   ),
   'desk-late': plate(
     'desk-late',
@@ -205,15 +205,14 @@ const HEROES: V2Hero[] = [
     layout: 'v2-backdrop', mods: ['v2-feather'], wall: NOIR,
     caption: 'Fig. 00b — The Statue’s Shadow, Paris',
   },
-  // — A0c · the split candidate. The same review, asked of a second frame:
-  //   the man in profile before the window, hung as architecture — the print
-  //   bleeds to the right viewport edge and the title is CONTAINED in the
-  //   left column (rule 2: it never crosses onto a bright print). He faces
-  //   the type.
+  // — A0c · the split candidate. The statue-shadow scene in its darker,
+  //   portrait crop — hung as architecture: the print bleeds to the right
+  //   viewport edge and the title is CONTAINED in the left column (rule 2:
+  //   it never crosses onto the bright panes).
   {
-    num: 'A0c', name: 'The Man in Reflection', slug: 'man-reflection', dims: '1290 × 1550',
+    num: 'A0c', name: 'The Statue’s Shadow — Split', slug: 'statue-shadow-dark', dims: '1665 × 2000',
     layout: 'v2-split', mods: ['v2-contain'], wall: NOIR,
-    caption: 'Fig. 00c — The Man in Reflection, Paris',
+    caption: 'Fig. 00c — The Statue’s Shadow, Paris',
   },
 
   // — Group A · the backdrops. Four wide, dark, mostly-empty frames; the
