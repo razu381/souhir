@@ -1,5 +1,5 @@
 /* ===========================================================================
-   HERO LAB v2 — fourteen photographs, eighteen hangs, for /hero-lab-v2.
+   HERO LAB v2 — fourteen photographs, nineteen hangs, for /hero-lab-v2.
 
    /hero-lab asks which WALL the hero should hang on: one photograph, held
    constant, on twenty-seven grounds. This file asks the opposite question —
@@ -149,6 +149,39 @@
 .sf-nocturne--v2-bare .sf-nocturne__meta {
   border-top: 0;
   justify-content: flex-end;
+}
+
+/* --------------------------------------------------------------------------
+   03b · THE EASED SEAM — the feather coat (hang A0b).
+
+   The candidate frame's own black meets the grey wall on a hard vertical
+   seam at ~43% of the image. The feather is a black ramp laid in the plate's
+   free ::before (backdrop hangs display:none it; this re-opens it), so the
+   wall's luminance falls into the black over ~15% of the frame and the join
+   reads as falloff, not a cut. It paints UNDER the legibility scrim
+   (::after), which is unchanged.
+   -------------------------------------------------------------------------- */
+.sf-nocturne--v2-backdrop.sf-nocturne--v2-feather .sf-nocturne__plate::before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to right,
+    rgb(10 8 6 / .92) 40%,
+    rgb(10 8 6 / .60) 47%,
+    rgb(10 8 6 / .22) 55%,
+    rgb(10 8 6 / 0) 66%);
+}
+/* Handset: the 55% crop puts the seam near the frame's left edge, so the
+   ramp moves with it. */
+@media (max-width: 1024px) {
+  .sf-nocturne--v2-backdrop.sf-nocturne--v2-feather .sf-nocturne__plate::before {
+    background: linear-gradient(to right,
+      rgb(10 8 6 / .92) 4%,
+      rgb(10 8 6 / .45) 14%,
+      rgb(10 8 6 / 0) 30%);
+  }
 }
 
 /* --------------------------------------------------------------------------

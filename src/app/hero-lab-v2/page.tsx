@@ -9,10 +9,11 @@ import { hero, type Plate } from '@/content/seed';
  *
  * /hero-lab asks which WALL the hero hangs on: one photograph held constant,
  * twenty-seven grounds. This page asks the opposite question — which
- * PHOTOGRAPH the hero should be built around. Eighteen new hangs over fourteen frames, the first of them the
- * hangs backdrops appear twice, furnished and bare, because the
- * gallery apparatus is itself under review), each composed for its own
- * negative space.
+ * PHOTOGRAPH the hero should be built around. Nineteen hangs over fourteen
+ * frames: the candidate first; then four backdrops hung twice — furnished and
+ * bare, because the gallery apparatus is itself under review; seven tall
+ * frames hung as architecture; and two framed wides — each composed for its
+ * own negative space.
  *
  * The copy is held constant — same title, same promise — so the comparison is
  * about the picture. Only the museum label and the alt text change, because a
@@ -189,6 +190,15 @@ const HEROES: V2Hero[] = [
     layout: 'v2-backdrop', wall: NOIR,
     caption: 'Fig. 00 — The Statue’s Shadow, Paris',
   },
+  // — A0b · the same hang with the seam eased. The frame's own black meets
+  //   the grey wall on a hard vertical; the feather coat in
+  //   sf/hero-lab-v2.css §03b pulls the wall down into the black over ~15%
+  //   of the frame so the join reads as falloff, not a cut.
+  {
+    num: 'A0b', name: 'The Statue’s Shadow — Feathered', slug: 'statue-shadow', dims: '1920 × 1080',
+    layout: 'v2-backdrop', mods: ['v2-feather'], wall: NOIR,
+    caption: 'Fig. 00b — The Statue’s Shadow, Paris',
+  },
 
   // — Group A · the backdrops. Four wide, dark, mostly-empty frames; the
   //   photograph is the wall and the type lives in the negative space.
@@ -297,11 +307,11 @@ const HANG_LABEL: Record<V2Hero['layout'], string> = {
 };
 
 const GROUPS: { head: string; blurb: string; from: number; to: number }[] = [
-  { head: 'The Candidate', blurb: 'The frame under review', from: 0, to: 1 },
-  { head: 'The Backdrops', blurb: 'Wide, dark, furnished', from: 1, to: 5 },
-  { head: 'Stripped', blurb: 'The same four, bare', from: 5, to: 9 },
-  { head: 'The Splits', blurb: 'Tall frames as architecture', from: 9, to: 16 },
-  { head: 'The Framed Wides', blurb: 'Too small to bleed', from: 16, to: 18 },
+  { head: 'The Candidate', blurb: 'The frame under review', from: 0, to: 2 },
+  { head: 'The Backdrops', blurb: 'Wide, dark, furnished', from: 2, to: 6 },
+  { head: 'Stripped', blurb: 'The same four, bare', from: 6, to: 10 },
+  { head: 'The Splits', blurb: 'Tall frames as architecture', from: 10, to: 17 },
+  { head: 'The Framed Wides', blurb: 'Too small to bleed', from: 17, to: 19 },
 ];
 
 export default function HeroLabV2Page() {
@@ -310,7 +320,7 @@ export default function HeroLabV2Page() {
       <header className="sf-lab-intro sf-lab-intro--v2">
         <div className="sf-container">
           <p className="sf-lab-intro__label">(Hero Lab v2)</p>
-          <h1 className="sf-lab-intro__title">Fourteen photographs, eighteen hangs.</h1>
+          <h1 className="sf-lab-intro__title">Fourteen photographs, nineteen hangs.</h1>
           <p className="sf-lab-intro__flag">Unindexed — internal review only</p>
         </div>
 
