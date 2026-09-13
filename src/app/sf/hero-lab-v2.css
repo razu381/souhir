@@ -155,37 +155,49 @@
    03b · THE EASED SEAM — the feather coat (hang A0b).
 
    The candidate frame's own black meets the grey wall on a hard vertical
-   seam at ~43% of the image. The feather is a black ramp laid in the plate's
-   free ::before (backdrop hangs display:none it; this re-opens it), so the
-   wall's luminance falls into the black over ~15% of the frame and the join
-   reads as falloff, not a cut. It paints UNDER the legibility scrim
-   (::after), which is unchanged.
+   seam at ~43% of the image. The feather is a black ramp appended ON TOP of
+   the scrim's own background stack in the plate's ::after — the pseudo that
+   demonstrably paints on every load. (A first cut laid it in the plate's
+   ::before, which the base nocturne display:none's for backdrops; it showed
+   only on hot-reloaded pages and vanished on cold loads, so it moved here.)
+
+   Measured: the toe holds near-full black THROUGH the seam (~46%) and lets
+   the wall climb for ~40% of the frame — wall entry falls 91→20 luminance.
+   The scrim beneath is reproduced verbatim.
    -------------------------------------------------------------------------- */
-.sf-nocturne--v2-backdrop.sf-nocturne--v2-feather .sf-nocturne__plate::before {
-  content: "";
-  display: block;
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  /* Measured: at ~.6 peak alpha the wall strip still jumped 6→73 luminance
-     in one 20px column — invisible. The toe now holds near-full black
-     THROUGH the seam (~46%) and lets the wall climb for ~40% of the frame. */
-  background: linear-gradient(to right,
-    rgb(10 8 6 / .98) 38%,
-    rgb(10 8 6 / .93) 48%,
-    rgb(10 8 6 / .68) 56%,
-    rgb(10 8 6 / .38) 64%,
-    rgb(10 8 6 / .16) 72%,
-    rgb(10 8 6 / 0) 82%);
-}
-/* Handset: the 55% crop puts the seam near the frame's left edge, so the
-   ramp moves with it. */
-@media (max-width: 1024px) {
-  .sf-nocturne--v2-backdrop.sf-nocturne--v2-feather .sf-nocturne__plate::before {
-    background: linear-gradient(to right,
+.sf-nocturne--v2-backdrop.sf-nocturne--v2-feather .sf-nocturne__plate::after {
+  background:
+    linear-gradient(to right,
       rgb(10 8 6 / .92) 4%,
       rgb(10 8 6 / .45) 14%,
-      rgb(10 8 6 / 0) 30%);
+      rgb(10 8 6 / 0) 30%),
+    linear-gradient(to bottom,
+      rgb(10 8 6 / .82) 0%,
+      rgb(10 8 6 / .66) 28%,
+      rgb(10 8 6 / .56) 46%,
+      rgb(10 8 6 / .30) 66%,
+      rgb(10 8 6 / .70) 86%,
+      rgb(10 8 6 / .90) 100%);
+}
+@media (min-width: 1025px) {
+  .sf-nocturne--v2-backdrop.sf-nocturne--v2-feather .sf-nocturne__plate::after {
+    background:
+      linear-gradient(to right,
+        rgb(10 8 6 / .98) 38%,
+        rgb(10 8 6 / .93) 48%,
+        rgb(10 8 6 / .68) 56%,
+        rgb(10 8 6 / .38) 64%,
+        rgb(10 8 6 / .16) 72%,
+        rgb(10 8 6 / 0) 82%),
+      linear-gradient(to top,
+        rgb(10 8 6 / .68) 0%,
+        rgb(10 8 6 / .34) 8%,
+        rgb(10 8 6 / 0) 18%),
+      linear-gradient(to right,
+        rgb(10 8 6 / .84) 0%,
+        rgb(10 8 6 / .52) 30%,
+        rgb(10 8 6 / .08) 58%,
+        rgb(10 8 6 / .22) 100%);
   }
 }
 
