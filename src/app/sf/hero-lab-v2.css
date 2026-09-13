@@ -1,9 +1,9 @@
 /* ===========================================================================
-   HERO LAB v2 — thirteen photographs, seventeen hangs, for /hero-lab-v2.
+   HERO LAB v2 — fourteen photographs, eighteen hangs, for /hero-lab-v2.
 
    /hero-lab asks which WALL the hero should hang on: one photograph, held
    constant, on twenty-seven grounds. This file asks the opposite question —
-   which PHOTOGRAPH the hero should be built around. Thirteen new frames, each
+   which PHOTOGRAPH the hero should be built around. Fourteen new frames, each
    composed for its own negative space, with the copy held constant so the
    comparison is about the picture.
 
@@ -361,6 +361,7 @@
    a SUBJECT, or they crop to an empty rectangle.
    -------------------------------------------------------------------------- */
 /* The backdrops — desktop: hold the subject cluster off the type's edge. */
+.sf-v2-statue-shadow .sf-nocturne__plate img { object-position: 88% 50%; }  /* her at the window and the statue shadow keep the right edge; the black field stays under the type */
 .sf-v2-desk-late    .sf-nocturne__plate img { object-position: 72% 50%; }  /* camera, cup, spread — clear of the in-frame Dar SF script */
 .sf-v2-desk-spread  .sf-nocturne__plate img { object-position: 62% 50%; }  /* the notebook and the open magazine */
 .sf-v2-light-shaft  .sf-nocturne__plate img { object-position: 60% 50%; }  /* the doorway light and the vase */
@@ -378,6 +379,9 @@
 .sf-v2-mosaic-floor       .sf-nocturne__plate img { object-position: 50% 50%; }
 
 @media (max-width: 1024px) {
+  /* The handset crop keeps her at the window, the shadow entering at the
+     right edge — the vertical scrim carries the type over the lit window. */
+  .sf-v2-statue-shadow .sf-nocturne__plate img { object-position: 55% 50%; }
   .sf-v2-desk-late   .sf-nocturne__plate img { object-position: 74% 55%; }
   .sf-v2-desk-spread .sf-nocturne__plate img { object-position: 66% 58%; }
   .sf-v2-light-shaft .sf-nocturne__plate img { object-position: 72% 60%; }

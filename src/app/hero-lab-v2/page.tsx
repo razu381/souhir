@@ -9,8 +9,8 @@ import { hero, type Plate } from '@/content/seed';
  *
  * /hero-lab asks which WALL the hero hangs on: one photograph held constant,
  * twenty-seven grounds. This page asks the opposite question — which
- * PHOTOGRAPH the hero should be built around. Thirteen new frames, seventeen
- * hangs (the four backdrops appear twice, furnished and bare, because the
+ * PHOTOGRAPH the hero should be built around. Eighteen new hangs over fourteen frames, the first of them the
+ * hangs backdrops appear twice, furnished and bare, because the
  * gallery apparatus is itself under review), each composed for its own
  * negative space.
  *
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 /* --------------------------------------------------------------------------
    The plates. Every rendition below exists on disk — the widths are the ones
    scripts/hero-lab-v2-assets.mjs actually emitted, which is NOT a tidy ladder:
-   it never upscales, and five of these thirteen sources are under 1100px. The
+   it never upscales, and five of these fourteen sources are under 1100px. The
    two framed wides get a single 800w step because their sources are 843x563
    and 817x540; that is the whole reason they are framed rather than bled.
    -------------------------------------------------------------------------- */
@@ -64,6 +64,12 @@ function plate(
 }
 
 const PLATES = {
+  'statue-shadow': plate(
+    'statue-shadow',
+    [[800, 450], [1200, 675], [1600, 900], [1920, 1080]],
+    SIZES.backdrop,
+    'A woman in a beaded gown at a tall arched window at night, the shadow of a classical statue cast large on the wall beside her; half the frame is black.',
+  ),
   'desk-late': plate(
     'desk-late',
     [[800, 400], [1200, 600], [1600, 800]],
@@ -175,6 +181,15 @@ type V2Hero = {
 };
 
 const HEROES: V2Hero[] = [
+  // — A0 · the candidate. The frame the review exists to test against: the
+  //   subject cluster holds the right half, the left half is the blackest
+  //   field in the set — the type's wall is inside the photograph itself.
+  {
+    num: 'A0', name: 'The Statue’s Shadow', slug: 'statue-shadow', dims: '1920 × 1080',
+    layout: 'v2-backdrop', wall: NOIR,
+    caption: 'Fig. 00 — The Statue’s Shadow, Paris',
+  },
+
   // — Group A · the backdrops. Four wide, dark, mostly-empty frames; the
   //   photograph is the wall and the type lives in the negative space.
   {
@@ -282,10 +297,11 @@ const HANG_LABEL: Record<V2Hero['layout'], string> = {
 };
 
 const GROUPS: { head: string; blurb: string; from: number; to: number }[] = [
-  { head: 'The Backdrops', blurb: 'Wide, dark, furnished', from: 0, to: 4 },
-  { head: 'Stripped', blurb: 'The same four, bare', from: 4, to: 8 },
-  { head: 'The Splits', blurb: 'Tall frames as architecture', from: 8, to: 15 },
-  { head: 'The Framed Wides', blurb: 'Too small to bleed', from: 15, to: 17 },
+  { head: 'The Candidate', blurb: 'The frame under review', from: 0, to: 1 },
+  { head: 'The Backdrops', blurb: 'Wide, dark, furnished', from: 1, to: 5 },
+  { head: 'Stripped', blurb: 'The same four, bare', from: 5, to: 9 },
+  { head: 'The Splits', blurb: 'Tall frames as architecture', from: 9, to: 16 },
+  { head: 'The Framed Wides', blurb: 'Too small to bleed', from: 16, to: 18 },
 ];
 
 export default function HeroLabV2Page() {
@@ -294,7 +310,7 @@ export default function HeroLabV2Page() {
       <header className="sf-lab-intro sf-lab-intro--v2">
         <div className="sf-container">
           <p className="sf-lab-intro__label">(Hero Lab v2)</p>
-          <h1 className="sf-lab-intro__title">Thirteen photographs, seventeen hangs.</h1>
+          <h1 className="sf-lab-intro__title">Fourteen photographs, eighteen hangs.</h1>
           <p className="sf-lab-intro__flag">Unindexed — internal review only</p>
         </div>
 
