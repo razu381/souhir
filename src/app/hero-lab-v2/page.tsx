@@ -9,7 +9,7 @@ import { hero, type Plate } from '@/content/seed';
  *
  * /hero-lab asks which WALL the hero hangs on: one photograph held constant,
  * twenty-seven grounds. This page asks the opposite question — which
- * PHOTOGRAPH the hero should be built around. Nineteen hangs over fourteen
+ * PHOTOGRAPH the hero should be built around. Twenty hangs over fifteen
  * frames: the candidate first; then four backdrops hung twice — furnished and
  * bare, because the gallery apparatus is itself under review; seven tall
  * frames hung as architecture; and two framed wides — each composed for its
@@ -70,6 +70,12 @@ const PLATES = {
     [[800, 450], [1200, 675], [1600, 900], [1920, 1080]],
     SIZES.backdrop,
     'A woman in a beaded gown at a tall arched window at night, the shadow of a classical statue cast large on the wall beside her; half the frame is black.',
+  ),
+  'man-reflection': plate(
+    'man-reflection',
+    [[480, 577], [800, 961], [1200, 1442]],
+    SIZES.split,
+    'A man in a black suit in profile before a tall bright window, the panes raking light across him; the wall falls soft to the left, in black and white.',
   ),
   'desk-late': plate(
     'desk-late',
@@ -199,6 +205,16 @@ const HEROES: V2Hero[] = [
     layout: 'v2-backdrop', mods: ['v2-feather'], wall: NOIR,
     caption: 'Fig. 00b — The Statue’s Shadow, Paris',
   },
+  // — A0c · the split candidate. The same review, asked of a second frame:
+  //   the man in profile before the window, hung as architecture — the print
+  //   bleeds to the right viewport edge and the title is CONTAINED in the
+  //   left column (rule 2: it never crosses onto a bright print). He faces
+  //   the type.
+  {
+    num: 'A0c', name: 'The Man in Reflection', slug: 'man-reflection', dims: '1290 × 1550',
+    layout: 'v2-split', mods: ['v2-contain'], wall: NOIR,
+    caption: 'Fig. 00c — The Man in Reflection, Paris',
+  },
 
   // — Group A · the backdrops. Four wide, dark, mostly-empty frames; the
   //   photograph is the wall and the type lives in the negative space.
@@ -307,11 +323,11 @@ const HANG_LABEL: Record<V2Hero['layout'], string> = {
 };
 
 const GROUPS: { head: string; blurb: string; from: number; to: number }[] = [
-  { head: 'The Candidate', blurb: 'The frame under review', from: 0, to: 2 },
-  { head: 'The Backdrops', blurb: 'Wide, dark, furnished', from: 2, to: 6 },
-  { head: 'Stripped', blurb: 'The same four, bare', from: 6, to: 10 },
-  { head: 'The Splits', blurb: 'Tall frames as architecture', from: 10, to: 17 },
-  { head: 'The Framed Wides', blurb: 'Too small to bleed', from: 17, to: 19 },
+  { head: 'The Candidate', blurb: 'The frames under review', from: 0, to: 3 },
+  { head: 'The Backdrops', blurb: 'Wide, dark, furnished', from: 3, to: 7 },
+  { head: 'Stripped', blurb: 'The same four, bare', from: 7, to: 11 },
+  { head: 'The Splits', blurb: 'Tall frames as architecture', from: 11, to: 18 },
+  { head: 'The Framed Wides', blurb: 'Too small to bleed', from: 18, to: 20 },
 ];
 
 export default function HeroLabV2Page() {
@@ -320,7 +336,7 @@ export default function HeroLabV2Page() {
       <header className="sf-lab-intro sf-lab-intro--v2">
         <div className="sf-container">
           <p className="sf-lab-intro__label">(Hero Lab v2)</p>
-          <h1 className="sf-lab-intro__title">Fourteen photographs, nineteen hangs.</h1>
+          <h1 className="sf-lab-intro__title">Fifteen photographs, twenty hangs.</h1>
           <p className="sf-lab-intro__flag">Unindexed — internal review only</p>
         </div>
 

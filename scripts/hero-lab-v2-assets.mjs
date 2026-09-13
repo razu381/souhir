@@ -34,6 +34,7 @@ const OUT = join(ROOT, 'public', 'assets', 'hero-lab-v2');
  *  what the review page and the CSS crop classes are keyed on. */
 const PLATES = [
   ['statue-shadow.jpg',                                 'statue-shadow'],
+  ['man-reflection.jpg',                                'man-reflection'],
   ['1E0C72CF-4F2A-4832-B2BE-F27584B51DE5.PNG',          'desk-late'],
   ['4DB3AD56-15C2-4B3C-AE77-B1C5DA40C4D8.PNG',          'desk-spread'],
   ['ChatGPT Image Jun 15_ 2026 at 08_46_39 AM.png',     'light-shaft'],
