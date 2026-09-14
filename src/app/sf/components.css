@@ -1118,9 +1118,15 @@
 .sf-nocturne--backdrop .sf-nocturne__plate img { object-position: 88% 50%; }
 
 .sf-nocturne--backdrop .sf-nocturne__rule,
-.sf-nocturne--backdrop .sf-nocturne__grid,
 .sf-nocturne--backdrop .sf-nocturne__label,
 .sf-nocturne--backdrop .sf-nocturne__meta { position: relative; z-index: 2; }
+
+/* The GRID stays static, per the lab's contract: the plate's containing
+   block must remain the positioned SECTION. Lifting the grid too re-anchors
+   the plate to the grid box, where the base desktop placement
+   (grid-column: 2) collapses it onto a phantom second column — a 0px plate,
+   no photograph. The title carries its own z-index; the label is lifted
+   above. */
 
 .sf-nocturne--backdrop .sf-nocturne__grid {
   grid-template-columns: minmax(0, 1fr);
