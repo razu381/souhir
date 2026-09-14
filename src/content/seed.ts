@@ -24,7 +24,7 @@ export const hero = {
   note: 'Luxury Visual Presence',
   titleLines: ['Beyond', 'Visibility.'],
   labelTitle: '— Into Memory.',
-  labelMeta: 'Fig. 01 — The Statue’s Shadow, Paris',
+  labelMeta: '',   // the museum label retired from the homepage hero (Sept 2026)
   image: {
     src: '/assets/hero/statue-shadow-1920.webp',
     srcSet:

@@ -156,7 +156,11 @@ export default function HeroNocturne({
 
           <div className="sf-nocturne__label">
             <p className="sf-nocturne__label-title">{labelTitle}</p>
-            <p className="sf-nocturne__label-meta">{labelMeta}</p>
+            {/* The museum label is optional — an empty labelMeta renders no
+                line and leaves no orphan margin. */}
+            {labelMeta ? (
+              <p className="sf-nocturne__label-meta">{labelMeta}</p>
+            ) : null}
           </div>
         </div>
 
