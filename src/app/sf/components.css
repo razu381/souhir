@@ -1182,7 +1182,18 @@
   }
 }
 @media (max-width: 1024px) {
-  .sf-nocturne--backdrop .sf-nocturne__plate img { object-position: 55% 50%; }
+  .sf-nocturne--backdrop .sf-nocturne__plate img { object-position: 75% 50%; }
+
+  /* Mobile only: the type block centres mid-wall on BOTH axes — the grid
+     fills the wall between the rule and the rail, centres its rows in
+     height, centres the blocks and their words across. Desktop keeps the
+     left column. */
+  .sf-nocturne--backdrop .sf-nocturne__grid {
+    flex: 1;
+    align-content: center;
+    justify-items: center;
+    text-align: center;
+  }
 }
 
 
