@@ -1133,7 +1133,15 @@
   grid-template-rows: auto auto;
 }
 .sf-nocturne--backdrop .sf-nocturne__title { font-size: clamp(2.5rem, 7.5vw, 8.5rem); }
-.sf-nocturne--backdrop .sf-nocturne__label { max-width: 34rem; }
+/* The type block keeps its LEFT position over the black field, and the
+   words centre INSIDE it — on mobile and desktop alike. The blocks cap at
+   the label's measure so centring reads as the left side's own alignment,
+   not a pull to mid-wall. */
+.sf-nocturne--backdrop .sf-nocturne__title,
+.sf-nocturne--backdrop .sf-nocturne__label {
+  max-width: 34rem;
+  text-align: center;
+}
 
 /* The scrim + feather, poured in the direction of the words rather than
    uniformly: the feather eases the frame's own black-to-grey seam (measured
@@ -1182,7 +1190,7 @@
   }
 }
 @media (max-width: 1024px) {
-  .sf-nocturne--backdrop .sf-nocturne__plate img { object-position: 55% 50%; }
+  .sf-nocturne--backdrop .sf-nocturne__plate img { object-position: 75% 50%; }
 }
 
 
