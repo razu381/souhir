@@ -248,7 +248,7 @@ ratio must fall through to the seed plate rather than be forced —
 **Never**
 
 - Rounded corners, drop shadows, gradients, glows — no depth effects of any kind,
-  **with three named exceptions, and no others:**
+  **with four named exceptions, and no others:**
   1. **The outline button is a pill** (`border-radius: 999px`). §06 specifies it;
      this line used to forbid it, and the two contradicted each other. §06 wins:
      the pill is the system's one curve.
@@ -259,8 +259,17 @@ ratio must fall through to the seed plate rather than be forced —
      a frame as glass over the print (`.sf-nocturne__plate::after`,
      `.sf-work__plate::after`). The photograph keeps its full dynamic range
      underneath; the grade never replaces it.
+  4. **The hero legibility scrim** — the warm-black ramps poured over a
+     full-bleed hero photograph (`.sf-nocturne--backdrop .sf-nocturne__plate::after`),
+     promoted from /hero-lab-v2 hang A0b (Sept 2026). Named here BEFORE that
+     hang shipped, per this section's own rule. Three coats, each earning its
+     place by measurement: the feather eases the frame's own black-to-grey
+     seam (wall entry 91→20 luminance); the edge ramp darkens the type's
+     ground; the floor coat keeps the rail's champagne at 4.5 : 1. Poured in
+     the direction of the words, never uniformly — a flat wash is a dimmer,
+     and it would cost the photograph the dynamic range it was chosen for.
 
-  Anything else with depth is a bug. If a fourth exception is ever wanted, it
+  Anything else with depth is a bug. If a fifth exception is ever wanted, it
   gets added here first.
 - Any accent colour other than champagne
 - All-caps serif, or serif in a button

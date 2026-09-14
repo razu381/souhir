@@ -14,6 +14,7 @@ import {
 } from '@/components/sf/HomeSections';
 import { getHomeData } from '@/sanity/fetch';
 import { CHAPTER } from '@/content/chapters';
+import { hero as seedHero } from '@/content/seed';
 
 export const revalidate = 600;
 
@@ -23,7 +24,16 @@ export default async function Home() {
 
   return (
     <main id="main">
-      <HeroNocturne {...data.hero} />
+      {/* The statue-shadow backdrop (hero-lab-v2 A0b, promoted Sept 2026).
+          The plate and its museum label are pinned from the seed — the
+          photograph and its treatment are a DESIGN decision, not editorial
+          copy — while the words stay studio-owned. */}
+      <HeroNocturne
+        {...data.hero}
+        image={seedHero.image}
+        labelMeta={seedHero.labelMeta}
+        variant="backdrop"
+      />
 
       <span data-sf-header-sentinel aria-hidden="true" />
 

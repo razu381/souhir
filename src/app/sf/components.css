@@ -1086,6 +1086,100 @@
   .sf-nocturne__meta { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
 
+/* --- The backdrop variant — the photograph IS the wall ------------------------
+   Promoted from /hero-lab-v2 hang A0b ("The Statue's Shadow — Feathered",
+   Sept 2026): the plate escapes the container, the frame, the picture light
+   and the ±100vw rail — a photograph that is the wall has no frame to hang
+   from — and the rule, the label and the meta rail are lifted above it.
+   The in-frame cinematic grade is struck with the frame and re-poured as a
+   legibility scrim + feather (§09's fourth depth exception, named there).
+
+   The type is CENTRED — the promotion's one departure from the lab hang,
+   which anchored it top-left: the words hold the middle of the wall while
+   the black field and the subject share the wings. The title drops two
+   grades from the reference scale because over a photograph the type SHARES
+   the frame instead of owning it. */
+.sf-nocturne--backdrop { background: var(--noir); }
+
+.sf-nocturne--backdrop .sf-nocturne__plate {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  box-shadow: none;
+}
+.sf-nocturne--backdrop .sf-nocturne__plate::before { display: none; }
+/* Her at the window and the statue shadow keep the right edge; the black
+   field stays under the centred words. Handset: the crop keeps her at the
+   window, the shadow entering at the right edge. */
+.sf-nocturne--backdrop .sf-nocturne__plate img { object-position: 88% 50%; }
+
+.sf-nocturne--backdrop .sf-nocturne__rule,
+.sf-nocturne--backdrop .sf-nocturne__grid,
+.sf-nocturne--backdrop .sf-nocturne__label,
+.sf-nocturne--backdrop .sf-nocturne__meta { position: relative; z-index: 2; }
+
+.sf-nocturne--backdrop .sf-nocturne__grid {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  justify-items: center;
+  text-align: center;
+}
+.sf-nocturne--backdrop .sf-nocturne__title { font-size: clamp(2.5rem, 7.5vw, 8.5rem); }
+.sf-nocturne--backdrop .sf-nocturne__label { max-width: 34rem; }
+
+/* The scrim + feather, poured in the direction of the words rather than
+   uniformly: the feather eases the frame's own black-to-grey seam (measured
+   at ~46% of the plate; wall entry 91→20 luminance), the edge ramp darkens
+   the type's ground, the floor coat keeps the rail's champagne at 4.5 : 1.
+   Vertical is the base (handsets — the type stays in the top half); §the
+   desktop block swings it horizontal and rides the feather on top. */
+.sf-nocturne--backdrop .sf-nocturne__plate::after {
+  background:
+    linear-gradient(to right,
+      rgb(10 8 6 / .55) 0%,
+      rgb(10 8 6 / .28) 10%,
+      rgb(10 8 6 / 0) 22%),
+    linear-gradient(to bottom,
+      rgb(10 8 6 / .82) 0%,
+      rgb(10 8 6 / .66) 28%,
+      rgb(10 8 6 / .56) 46%,
+      rgb(10 8 6 / .30) 66%,
+      rgb(10 8 6 / .70) 86%,
+      rgb(10 8 6 / .90) 100%);
+}
+@media (min-width: 1025px) {
+  /* Centred words, held mid-wall: the grid reaches the rail and centres
+     itself between the rule and it. */
+  .sf-nocturne--backdrop .sf-nocturne__inner { padding-block-start: clamp(5rem, 10svh, 8rem); }
+  .sf-nocturne--backdrop .sf-nocturne__grid { flex: 1; align-content: center; }
+  .sf-nocturne--backdrop .sf-nocturne__plate img { object-position: 88% 50%; }
+  .sf-nocturne--backdrop .sf-nocturne__plate::after {
+    background:
+      linear-gradient(to right,
+        rgb(10 8 6 / .98) 38%,
+        rgb(10 8 6 / .93) 48%,
+        rgb(10 8 6 / .68) 56%,
+        rgb(10 8 6 / .38) 64%,
+        rgb(10 8 6 / .16) 72%,
+        rgb(10 8 6 / 0) 82%),
+      linear-gradient(to top,
+        rgb(10 8 6 / .68) 0%,
+        rgb(10 8 6 / .34) 8%,
+        rgb(10 8 6 / 0) 18%),
+      linear-gradient(to right,
+        rgb(10 8 6 / .84) 0%,
+        rgb(10 8 6 / .52) 30%,
+        rgb(10 8 6 / .08) 58%,
+        rgb(10 8 6 / .22) 100%);
+  }
+}
+@media (max-width: 1024px) {
+  .sf-nocturne--backdrop .sf-nocturne__plate img { object-position: 55% 50%; }
+}
+
 
 /* ===========================================================================
    SECTION 04, THE NOCTURNE'S GROUND — the register by lamplight
