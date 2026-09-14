@@ -1094,11 +1094,12 @@
    The in-frame cinematic grade is struck with the frame and re-poured as a
    legibility scrim + feather (§09's fourth depth exception, named there).
 
-   The type is CENTRED — the promotion's one departure from the lab hang,
-   which anchored it top-left: the words hold the middle of the wall while
-   the black field and the subject share the wings. The title drops two
-   grades from the reference scale because over a photograph the type SHARES
-   the frame instead of owning it. */
+   The type keeps the lab hang's left column — over the black field, the
+   words left-aligned — and CENTRES VERTICALLY on that side (the lab's
+   anchor-mid treatment): the block rides mid-wall between the rule and the
+   rail, the black field under it, the subject on the right wing. The title
+   drops two grades from the reference scale because over a photograph the
+   type SHARES the frame instead of owning it. */
 .sf-nocturne--backdrop { background: var(--noir); }
 
 .sf-nocturne--backdrop .sf-nocturne__plate {
@@ -1112,7 +1113,7 @@
 }
 .sf-nocturne--backdrop .sf-nocturne__plate::before { display: none; }
 /* Her at the window and the statue shadow keep the right edge; the black
-   field stays under the centred words. Handset: the crop keeps her at the
+   field stays under the words. Handset: the crop keeps her at the
    window, the shadow entering at the right edge. */
 .sf-nocturne--backdrop .sf-nocturne__plate img { object-position: 88% 50%; }
 
@@ -1124,8 +1125,6 @@
 .sf-nocturne--backdrop .sf-nocturne__grid {
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto auto;
-  justify-items: center;
-  text-align: center;
 }
 .sf-nocturne--backdrop .sf-nocturne__title { font-size: clamp(2.5rem, 7.5vw, 8.5rem); }
 .sf-nocturne--backdrop .sf-nocturne__label { max-width: 34rem; }
@@ -1151,8 +1150,8 @@
       rgb(10 8 6 / .90) 100%);
 }
 @media (min-width: 1025px) {
-  /* Centred words, held mid-wall: the grid reaches the rail and centres
-     itself between the rule and it. */
+  /* Left column, centred on its own height (the lab's anchor-mid): the
+     grid reaches the rail and the type block rides mid-wall on the left. */
   .sf-nocturne--backdrop .sf-nocturne__inner { padding-block-start: clamp(5rem, 10svh, 8rem); }
   .sf-nocturne--backdrop .sf-nocturne__grid { flex: 1; align-content: center; }
   .sf-nocturne--backdrop .sf-nocturne__plate img { object-position: 88% 50%; }
