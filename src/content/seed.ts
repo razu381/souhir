@@ -1,6 +1,11 @@
 /**
- * Seed content — the Nocturne home page's copy and plates, extracted verbatim
- * from src/hero-nocturne.html @ 7a7bced (plan §1.1).
+ * Seed content — the home page's copy and plates.
+ *
+ * The copy is the client's final website copy
+ * (SF_Muse_Website_Copy_Shorter_Updated.docx, HOME PAGE), verbatim: every
+ * heading, sentence and label the page shows comes from that document, and
+ * the design follows it. The plates are baked from the client's delivery by
+ * scripts/home-assets.mjs into public/assets/home.
  *
  * The site renders Sanity content when the documents exist and this when they
  * don't — so a fresh clone renders the full page before a single document is
@@ -14,16 +19,40 @@ export type Plate = {
   width: number;
   height: number;
   alt: string;
+  /** An art-directed crop for handsets (≤ 767px), served through <picture>.
+   *  The banners are 6–9:1 strips: a band taller than the strip, filled by
+   *  object-fit, picks its candidate by WIDTH and blows the strip up by
+   *  height — so each band carries its own crop at its own ratio. */
+  mobile?: Plate;
 };
 
 /** [before, emphasised] — the system's mixed-Didone pattern: <h2>{before}<em>{em}</em></h2> */
 export type Head = [before: string, em: string];
 
+/** A homepage rendition set — widths as baked by scripts/home-assets.mjs. */
+function plate(
+  slug: string,
+  widths: number[],
+  [width, height]: [number, number],
+  sizes: string,
+  alt: string,
+): Plate {
+  const at = (w: number) => `/assets/home/${slug}-${w}.webp`;
+  return {
+    src: at(widths[widths.length - 1]),
+    srcSet: widths.map((w) => `${at(w)} ${w}w`).join(', '),
+    sizes,
+    width,
+    height,
+    alt,
+  };
+}
+
 export const hero = {
-  label: '(Dar SF)',
-  note: 'Luxury Visual Presence',
+  label: '(SF Muse)',
+  note: '',
   titleLines: ['Beyond', 'Visibility.'],
-  labelTitle: '— Into Memory.',
+  labelTitle: 'Into Memory.',
   labelMeta: '',   // the museum label retired from the homepage hero (Sept 2026)
   image: {
     src: '/assets/hero/statue-shadow-1920.webp',
@@ -34,43 +63,56 @@ export const hero = {
     height: 1080,
     alt: 'A woman in a beaded gown at a tall arched window at night, the shadow of a classical statue cast large on the wall beside her; half the frame is black.',
   } as Plate,
-  mark: 'Est. MMXXVI',
-  sub: 'Crafting experiences designed to be remembered',
+  mark: '',
+  sub: 'Crafting Experiences Designed To Be Remembered',
+  intro: [
+    'SF Muse is a creative studio dedicated to shaping perception through storytelling, design, and experience.',
+    'Working at the intersection of luxury, culture, and innovation, we create visual worlds that inspire emotion, elevate presence, and leave a lasting impression.',
+  ],
+  cta: { label: 'Explore SF Muse', href: '#explore' },
 };
 
 export const explore = {
+  heading: 'Explore SF Muse',
   statement:
-    'Dar SF is a creative studio dedicated to shaping perception through storytelling, design, and experience. Working at the intersection of luxury, culture, and innovation, we create visual worlds that inspire emotion, elevate presence, and leave a lasting impression. Because the most memorable brands are not built through visibility alone.',
-  felt: 'They are remembered through feeling.',
-  image: {
-    src: '/assets/explore/spa-1200.webp',
-    srcSet:
-      '/assets/explore/spa-800.webp 800w, /assets/explore/spa-1200.webp 1200w, /assets/explore/spa-1800.webp 1800w',
-    sizes: '(min-width: 1025px) 40vw, 100vw',
-    width: 1200,
-    height: 1800,
-    alt: 'A woman receiving a candlelit spa treatment, warm amber light against deep shadow.',
-  } as Plate,
-  caption: 'Fig. 02 — Candlelight, Paris',
-  cta: { label: 'Explore Dar SF', href: '/about' },
+    'SF Muse is a luxury creative studio dedicated to shaping perception through visual storytelling, creative direction, and immersive brand experiences.',
+  body: [
+    'Working at the intersection of strategy, aesthetics, and innovation, the studio creates distinctive brand worlds for hospitality, wellness, beauty, lifestyle, and contemporary luxury brands seeking more than visibility.',
+    'From cinematic imagery and editorial narratives to digital experiences and intelligent brand growth, every project is guided by a simple belief: the most memorable brands are not defined by what they show, but by what they make people feel.',
+  ],
+  image: plate('explore-wall', [800, 1200, 1800], [1800, 2700], '(min-width: 1025px) 30vw, 88vw',
+    'A studio wall hung with black-and-white portrait prints, director’s chairs standing beside it.'),
+  inset: plate('explore-shoot', [480, 800, 1200], [1200, 1500], '(min-width: 1025px) 14vw, 44vw',
+    'A photographer moving through a bright white studio, the lights and reflector blurred in motion.'),
 };
+
+/** "What we create" — the services chapter's own headline and standfirst. */
+export const servicesIntro = {
+  label: 'What We Create',
+  head: 'The Art of Brand Presence',
+  text: 'SF Muse creates luxury brand experiences through the convergence of storytelling, strategy, design, and intelligent innovation. Every service is designed to elevate perception, create emotional connection, and leave a lasting impression.',
+  more: 'Learn More',
+};
+
+const tile = (slug: string) =>
+  plate(slug, [480, 800, 1200], [1200, 1500], '(min-width: 1025px) 22vw, (min-width: 768px) 45vw, 88vw', '');
 
 export const services = [
   {
     num: '01',
     title: 'The Art of Brand Presence',
-    slug: 'art-of-brand-presence',
+    slug: 'luxury-visual-storytelling',
     summary:
       'Cinematic narratives crafted to shape perception, evoke emotion, and transform brands into experiences worth remembering.',
-    tile: { src: '/assets/services/tile-moodboard-480.webp', width: 480, height: 600, alt: '' } as Plate,
+    tile: tile('service-brand-presence'),
   },
   {
     num: '02',
     title: 'Creative Direction & Identity',
-    slug: 'creative-direction-identity',
+    slug: 'creative-direction',
     summary:
       'Defining the visual and emotional language of brands through thoughtful strategy, refined aesthetics, and creative vision.',
-    tile: { src: '/assets/services/tile-flatlay-480.webp', width: 480, height: 600, alt: '' } as Plate,
+    tile: tile('service-creative-direction'),
   },
   {
     num: '03',
@@ -78,7 +120,7 @@ export const services = [
     slug: 'digital-experiences',
     summary:
       'Designing immersive digital environments that combine elegance, functionality, and meaningful user engagement.',
-    tile: { src: '/assets/services/tile-workspace-480.webp', width: 480, height: 600, alt: '' } as Plate,
+    tile: tile('service-digital'),
   },
   {
     num: '04',
@@ -86,7 +128,7 @@ export const services = [
     slug: 'intelligent-brand-growth',
     summary:
       'Combining creativity, data, and intelligent systems to help brands strengthen visibility, build influence, and grow with purpose.',
-    tile: { src: '/assets/services/tile-notebook-480.webp', width: 480, height: 600, alt: '' } as Plate,
+    tile: tile('service-growth'),
   },
 ];
 
@@ -106,9 +148,9 @@ export const serviceProcess = {
 };
 
 export const clientele = {
-  head: ['Created For Those Building ', 'More Than Brands.'] as Head,
+  head: ['Created For Those Building ', 'More Than Brands'] as Head,
   statement:
-    'We collaborate with brands, founders, and destinations who understand that luxury is not created through appearance alone. It is shaped through atmosphere, meaning, and the experiences people carry with them long after the moment has passed.',
+    'We collaborate with brands, founders, and destinations who understand that luxury is not created through appearance alone.',
   rows: [
     ['Boutique Hotels', 'Luxury hotels, boutique properties, retreats, and destination experiences designed to create memorable guest journeys.'],
     ['Luxury Hospitality Concepts', 'Restaurants, private clubs, hospitality groups, and experience-led venues shaping modern luxury culture.'],
@@ -121,29 +163,27 @@ export const clientele = {
 };
 
 export const founder = {
-  image: {
-    src: '/assets/hero/hands-pockets-800.webp',
-    srcSet:
-      '/assets/hero/hands-pockets-480.webp 480w, /assets/hero/hands-pockets-800.webp 800w, /assets/hero/hands-pockets-1200.webp 1200w, /assets/explore/hands-pockets-1800.webp 1800w',
-    sizes: '(min-width: 1025px) 40vw, 100vw',
-    width: 1200,
-    height: 1800,
-    alt: 'A woman in a black tailored suit, hands in pockets, standing in a Parisian street at dusk.',
-  } as Plate,
-  caption: 'Fig. 03 — The Founder, at Dusk',
+  image: plate('founder-staircase', [480, 800, 1200, 1800], [1800, 2700], '(min-width: 1025px) 26vw, 78vw',
+    'Souhir Fhima in a tweed jacket, seated on a carved wooden grand staircase, in black and white.'),
   refrain: ['Beyond Visibility. ', 'Into Memory.'] as Head,
   texts: [
-    'They exist in atmosphere, emotion, perception, and the experiences people carry with them long after the moment has passed.',
-    'Dar SF brings together creative intelligence, visual storytelling, and strategic thinking to craft brands and experiences designed to inspire, connect, and endure.',
+    'SF Muse brings together creative intelligence, visual storytelling, and strategic thinking to craft brands and experiences designed to inspire, connect, and endure.',
   ],
-  felt: 'The most powerful expressions of luxury are often invisible.',
   name: 'Souhir Fhima',
   role: 'Founder & Creative Director',
   signature: { src: '/assets/explore/signature-ink-600.webp', width: 600, height: 205, alt: '' } as Plate,
   cta: { label: 'Explore Our Philosophy', href: '/about' },
 };
 
+/** Portraits hang three-up in a 2:3 frame; a landscape hangs wide, across two. */
+const workPlate = (slug: string, widths: number[], dims: [number, number], alt: string) =>
+  plate(slug, widths, dims,
+    dims[0] > dims[1] ? '(min-width: 768px) 60vw, 92vw' : '(min-width: 1025px) 28vw, (min-width: 768px) 45vw, 92vw',
+    alt);
+
 export const work = {
+  label: 'Featured Work',
+  head: 'Selected Works',
   statement:
     'A curated collection of visual stories and brand experiences shaped through atmosphere, perception, and creative intelligence.',
   filters: [
@@ -156,99 +196,87 @@ export const work = {
   ],
   items: [
     {
-      num: '05.1',
-      title: 'The Ocean Suite',
-      category: 'hospitality',
-      ratio: 'std',
+      title: 'Botanical Contrast',
+      category: 'Beauty',
       href: null,
-      image: {
-        src: '/assets/work/suite-800.webp',
-        srcSet: '/assets/work/suite-800.webp 800w, /assets/work/suite-1200.webp 1200w',
-        sizes: '(min-width: 1025px) 28vw, 100vw',
-        width: 800,
-        height: 600,
-        alt: 'A luxury hotel suite at sunset with an ocean view, warm golden light across the room.',
-      } as Plate,
+      desc: 'A beauty portrait exploring the contrast between sculpted hair, expressive makeup and natural foliage. Dark styling and rich green tones create a mood of confidence and understated drama.',
+      credits: [
+        ['Hair styling', 'Souhir Fhima'],
+        ['Makeup', 'Souhir Fhima, with assistance from Jesmine Ferdause'],
+        ['Photography', 'Clarence Gabriel'],
+        ['Location', 'London'],
+        ['Project type', 'Creative collaboration'],
+      ] as [role: string, name: string][],
+      image: workPlate('work-beauty', [800, 1200], [1200, 1800],
+        'A beauty portrait — sculpted hair and dramatic makeup framed by dark green foliage and white blossom.'),
     },
     {
-      num: '05.2',
-      title: 'Velocity Noir',
-      category: 'editorial',
-      ratio: 'tall',
-      href: '/portfolio/velocity-noir',
-      image: {
-        src: '/assets/work/velocity-800.webp',
-        srcSet: '/assets/work/velocity-800.webp 800w, /assets/work/velocity-1200.webp 1200w',
-        sizes: '(min-width: 1025px) 28vw, 100vw',
-        width: 800,
-        height: 1000,
-        alt: 'A woman beside a vintage sports car on a Parisian street at night, in warm-toned black and white.',
-      } as Plate,
+      title: 'A Moment in Residence',
+      category: 'Hospitality',
+      href: null,
+      desc: 'A styled editorial set within a hotel lounge, bringing fashion into conversation with the interior. Colour, texture and setting come together to evoke the character of a refined stay.',
+      credits: [
+        ['Concept & creative direction', 'Souhir Fhima'],
+        ['Wardrobe styling, hair & makeup', 'Souhir Fhima'],
+        ['Photography', 'Gil D’entrecasteaux'],
+        ['Location', 'Henley'],
+        ['Project type', 'Creative collaboration'],
+      ] as [role: string, name: string][],
+      image: workPlate('work-hospitality', [800, 1200], [1200, 1800],
+        'A woman in a black blouse and lime skirt standing in a hotel lounge of books, velvet and lamplight.'),
     },
     {
-      num: '05.3',
-      title: 'Candlelit Ritual',
-      category: 'wellness',
-      ratio: 'square',
+      title: 'Strength & Expression',
+      category: 'Editorial',
       href: null,
-      image: {
-        src: '/assets/work/ritual-800.webp',
-        srcSet: '/assets/work/ritual-800.webp 800w, /assets/work/ritual-1200.webp 1200w',
-        sizes: '(min-width: 1025px) 28vw, 100vw',
-        width: 800,
-        height: 800,
-        alt: 'A candlelit spa treatment, warm amber light against deep shadow.',
-      } as Plate,
+      desc: 'An editorial portrait pairing dramatic beauty styling with boxing gloves. The concept explores strength and elegance, using a close composition and dark backdrop to create an assertive visual presence.',
+      credits: [
+        ['Concept & creative direction', 'Souhir Fhima'],
+        ['Wardrobe styling, hair & makeup', 'Souhir Fhima'],
+        ['Photography', 'John Miller'],
+        ['Location', 'Swindon'],
+        ['Project type', 'Creative collaboration'],
+      ] as [role: string, name: string][],
+      image: workPlate('work-editorial', [800, 1200], [1200, 1789],
+        'A close portrait in dramatic makeup, a black boxing glove raised to the face against a dark backdrop.'),
     },
     {
-      num: '05.4',
-      title: 'Marble & Rose',
-      category: 'beauty',
-      ratio: 'std',
+      title: 'After Hours',
+      category: 'Fashion',
       href: null,
-      image: {
-        src: '/assets/work/marble-800.webp',
-        srcSet: '/assets/work/marble-800.webp 800w, /assets/work/marble-1200.webp 1200w',
-        sizes: '(min-width: 1025px) 28vw, 100vw',
-        width: 800,
-        height: 600,
-        alt: 'Luxury beauty products arranged on a marble surface in warm light.',
-      } as Plate,
+      desc: 'A fashion story framed by the sculptural lines of a luxury car. Statement styling, an evening setting and a confident pose create a bold, cinematic mood.',
+      credits: [
+        ['Concept & creative direction', 'Souhir Fhima'],
+        ['Wardrobe styling, hair & makeup', 'Souhir Fhima'],
+        ['Photography', 'Humberto Mayorga'],
+        ['Location', 'Oxford'],
+        ['Project type', 'Creative collaboration'],
+      ] as [role: string, name: string][],
+      image: workPlate('work-fashion', [800, 1152], [1152, 1728],
+        'A woman in statement black styling and sunglasses seated in the open door of a luxury car at dusk.'),
     },
     {
-      num: '05.5',
-      title: 'Parisian Reverie',
-      category: 'editorial',
-      ratio: 'tall',
+      title: 'The Art of Slowing Down',
+      category: 'Lifestyle',
       href: null,
-      image: {
-        src: '/assets/work/reverie-800.webp',
-        srcSet: '/assets/work/reverie-800.webp 800w, /assets/work/reverie-1200.webp 1200w',
-        sizes: '(min-width: 1025px) 28vw, 100vw',
-        width: 800,
-        height: 1000,
-        alt: 'A woman in a black tailored suit on a rain-wet Parisian street at night.',
-      } as Plate,
-    },
-    {
-      num: '05.6',
-      title: 'Champagne Altitude',
-      category: 'lifestyle',
-      ratio: 'square',
-      href: null,
-      image: {
-        src: '/assets/work/altitude-800.webp',
-        srcSet: '/assets/work/altitude-800.webp 800w, /assets/work/altitude-1200.webp 1200w',
-        sizes: '(min-width: 1025px) 28vw, 100vw',
-        width: 800,
-        height: 800,
-        alt: 'Champagne and private-jet interiors at sunset, warm golden light.',
-      } as Plate,
+      desc: 'A quiet lifestyle story centred on a moment of reading in a lounge. Black-and-white photography draws attention to light, texture and gesture, expressing luxury through ease and atmosphere.',
+      credits: [
+        ['Concept & creative direction', 'Souhir Fhima'],
+        ['Wardrobe styling, hair & makeup', 'Souhir Fhima'],
+        ['Location', 'Henley'],
+        ['Project type', 'Creative collaboration'],
+      ] as [role: string, name: string][],
+      image: workPlate('work-lifestyle', [800, 1200], [1200, 800],
+        'A woman reading on a leather sofa by the lounge window, coffee and newspapers on the table, in black and white.'),
     },
   ],
 };
 
+const cover = (slug: string, alt: string) =>
+  plate(slug, [600, 900], [900, 1165], '(min-width: 1025px) 18vw, 30vw', alt);
+
 export const press = {
+  label: 'Editorial Recognition',
   head: ['Where Vision ', 'Earns Recognition.'] as Head,
   statement:
     'Featured across international editorial publications celebrating visual storytelling, creativity, and contemporary culture.',
@@ -259,132 +287,108 @@ export const press = {
   ] as [figure: string, label: string][],
   covers: [
     {
+      publication: 'Artego',
       caption: 'Cover Feature — Artego, Dec 2025',
-      image: {
-        src: '/assets/press/cover-artego-dec-600.webp',
-        srcSet: '/assets/press/cover-artego-dec-600.webp 600w, /assets/press/cover-artego-dec-900.webp 900w',
-        sizes: '(min-width: 1025px) 24vw, 30vw',
-        width: 600,
-        height: 776,
-        alt: 'Artego Magazine cover — portrait editorial.',
-      } as Plate,
+      image: cover('press-artego-dec',
+        'Artego magazine cover, Portrait December, issue 1170 — a portrait in black lace and sunglasses.'),
     },
     {
+      publication: 'Artego',
       caption: 'Cover Feature — Artego, Feb 2026',
-      image: {
-        src: '/assets/press/cover-artego-feb-600.webp',
-        srcSet: '/assets/press/cover-artego-feb-600.webp 600w, /assets/press/cover-artego-feb-900.webp 900w',
-        sizes: '(min-width: 1025px) 24vw, 30vw',
-        width: 600,
-        height: 776,
-        alt: 'Artego Magazine cover — beach editorial.',
-      } as Plate,
+      image: cover('press-artego-feb',
+        'Artego magazine cover, Portrait February, issue 1249 — a black-and-white portrait on a chair at the shoreline.'),
     },
     {
+      publication: 'Quadro',
       caption: 'Cover Feature — Quadro, Dec 2025',
-      image: {
-        src: '/assets/press/cover-quadro-dec-600.webp',
-        srcSet: '/assets/press/cover-quadro-dec-600.webp 600w, /assets/press/cover-quadro-dec-900.webp 900w',
-        sizes: '(min-width: 1025px) 24vw, 30vw',
-        width: 600,
-        height: 776,
-        alt: 'Quadro Magazine cover — portrait editorial.',
-      } as Plate,
+      image: cover('press-quadro-dec',
+        'Quadro magazine cover, Portrait December, issue 1395 — a portrait in a black feather stole beside a tree.'),
     },
   ],
   sharedCaption: 'Cover Features — Artego · Artego · Quadro',
 };
 
+const thumb = (slug: string, alt: string) =>
+  plate(slug, [600], [600, 800], '(min-width: 1025px) 220px, 34vw', alt);
+
 export const journal = {
-  head: 'The Dar SF Journal',
+  head: 'The SF Muse Journal',
   statement:
     'Perspectives on luxury, creativity, hospitality, branding, and the evolving relationship between culture, technology, and human experience.',
-  sub: 'A curated collection of essays, observations, and creative reflections exploring the invisible elements that shape perception, emotion, and lasting brand value.',
+  banner: {
+    ...plate('journal-banner', [1600, 2400, 3200], [3200, 394], '(min-width: 1440px) 1440px, 100vw',
+      'An editorial desk at sunset — contact sheets, an open notebook and a camera above the city skyline.'),
+    mobile: plate('journal-banner-mobile', [800, 1200], [1200, 400], '100vw', ''),
+  } as Plate,
+  featuredLabel: 'Featured Editorial',
+  featured: {
+    title: 'The Invisible Luxury',
+    desc: 'What truly makes an experience unforgettable? Exploring the intangible elements that transform products, spaces, and brands into lasting memories.',
+    href: null as string | null,
+    read: 'Read Article',
+    image: plate('journal-invisible-luxury', [600, 900, 1200], [1200, 1500], '(min-width: 1025px) 34vw, 88vw',
+      'A woman in a long dark gown at open doors in a sunlit, pale-panelled interior.'),
+  },
+  moreLabel: 'Additional Articles',
   rows: [
     {
-      num: '07.1',
-      category: 'Luxury & Culture',
-      title: 'The Invisible Luxury',
-      desc: 'What truly makes an experience unforgettable? Exploring the intangible elements that transform products, spaces, and brands into lasting memories.',
-      href: null,
-      image: {
-        src: '/assets/journal/desk-800.webp',
-        sizes: '(min-width: 1025px) 220px, 34vw',
-        width: 600,
-        height: 800,
-        alt: 'A creative director writing in a notebook at a lamplit desk, warm amber light against deep shadow.',
-      } as Plate,
-    },
-    {
-      num: '07.2',
-      category: 'Luxury & Culture',
       title: 'Why Luxury Is No Longer About Price',
       desc: 'Experience. Emotion. Meaning. The new language of luxury.',
-      href: null,
-      image: {
-        src: '/assets/journal/price-600.webp',
-        sizes: '(min-width: 1025px) 220px, 34vw',
-        width: 600,
-        height: 800,
-        alt: 'A luxury lifestyle flatlay of fashion and beauty objects.',
-      } as Plate,
+      href: null as string | null,
+      image: thumb('journal-luxury-price', 'A woman in a tweed jacket and beret taking tea at a garden table.'),
     },
     {
-      num: '07.3',
-      category: 'Visual Storytelling',
       title: 'The Psychology of Visual Desire',
       desc: 'How imagery shapes perception, influences behaviour, and creates emotional resonance.',
-      href: null,
-      image: {
-        src: '/assets/journal/desire-600.webp',
-        sizes: '(min-width: 1025px) 220px, 34vw',
-        width: 600,
-        height: 800,
-        alt: 'A woman in a veil and hat with earrings, in warm-toned black and white.',
-      } as Plate,
+      href: null as string | null,
+      image: thumb('journal-visual-desire', 'A blurred figure in black framed between studio clamps against a pale wall.'),
     },
     {
-      num: '07.4',
-      category: 'Creative Intelligence',
       title: 'When AI Meets Creativity',
       desc: 'Exploring the intersection of human imagination and intelligent technology.',
-      href: null,
-      image: {
-        src: '/assets/journal/ai-600.webp',
-        sizes: '(min-width: 1025px) 220px, 34vw',
-        width: 600,
-        height: 800,
-        alt: 'A creative workspace with a laptop and camera, evening light.',
-      } as Plate,
+      href: null as string | null,
+      image: thumb('journal-ai-creativity', 'A woman in profile wearing fractured, glass-like digital glasses and a sequinned top.'),
     },
   ],
+  more: { label: 'Explore The Journal', href: '/journal' },
 };
 
 export const interlude = {
   image: {
-    src: '/assets/banners/quote-1600.webp',
-    srcSet: '/assets/banners/quote-1600.webp 1600w, /assets/banners/quote-2400.webp 2400w',
-    sizes: '100vw',
-    width: 2400,
-    height: 390,
-    alt: 'A silhouetted figure walking toward window light at the end of a hotel corridor.',
+    ...plate('quote', [1600, 2400, 3200], [3200, 1455], '100vw',
+      'A woman in a white gown standing alone at the end of a long marble colonnade.'),
+    mobile: plate('quote-mobile', [800, 1200], [1200, 1600], '100vw',
+      'A woman in a white gown standing alone at the end of a long marble colonnade.'),
   } as Plate,
   quote: ['People rarely remember what they saw.', 'They remember how they felt.'] as Head,
-  cite: 'Souhir Fhima — Founder, Dar SF',
+  cite: 'Souhir Fhima',
+  role: 'Founder, SF Muse',
 };
 
 export const news = {
   head: ['Curated Perspectives. ', 'Delivered Occasionally.'] as Head,
   text: 'Receive thoughtful insights exploring luxury, creativity, hospitality, branding, innovation, and the future of experience.',
+  image: {
+    ...plate('newsletter', [1600, 2400], [2400, 1000], '(min-width: 1440px) 1440px, 100vw',
+      'A dark library lounge — a leather armchair, a reading lamp and softly lit bookshelves.'),
+    mobile: plate('newsletter-mobile', [800, 1200], [1200, 900], '100vw',
+      'A dark library lounge — a leather armchair, a reading lamp and softly lit bookshelves.'),
+  } as Plate,
 };
 
 export const cta = {
   head: ['Let’s Create Something ', 'Worth Remembering.'] as Head,
   text: 'Whether developing a hospitality destination, a wellness concept, an editorial campaign, or a refined digital experience, every memorable story begins with a clear vision.',
   cta: { label: 'Start a Project', href: '/contact' },
+  image: {
+    ...plate('cta', [1600, 2324], [2324, 1033], '100vw',
+      'A lounge at night above the city lights — an armchair, a low table with an open book, a brass lamp.'),
+    mobile: plate('cta-mobile', [775], [775, 1033], '100vw',
+      'A lounge at night above the city lights — an armchair, a low table with an open book, a brass lamp.'),
+  } as Plate,
 };
 
 export const settings = {
-  tagline: 'Luxury Visual Presence — Paris',
+  tagline: '',
   contactEmail: 'hello@darsf.com',
 };

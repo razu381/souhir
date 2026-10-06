@@ -1,5 +1,6 @@
 import HeroNocturne from '@/components/sf/HeroNocturne';
 import WorkGrid from '@/components/sf/WorkGrid';
+import Reveal from '@/components/sf/Reveal';
 import {
   Chapter,
   Explore,
@@ -18,7 +19,8 @@ import { hero as seedHero } from '@/content/seed';
 
 export const revalidate = 600;
 
-/** The Nocturne (src/hero-nocturne.html @ 7a7bced), fed from the studio. */
+/** The Nocturne (src/hero-nocturne.html @ 7a7bced), set to the client's
+ *  final copy (SF_Muse_Website_Copy_Shorter_Updated.docx, Oct 2026). */
 export default async function Home() {
   const data = await getHomeData();
 
@@ -38,13 +40,16 @@ export default async function Home() {
       <span data-sf-header-sentinel aria-hidden="true" />
 
       <Explore data={data.explore} />
-      <ServicesList data={data.services} />
+      <ServicesList data={data.services} intro={data.servicesIntro} />
       <Clientele data={data.clientele} />
       <Founder data={data.founder} />
 
       <section className="sf-section sf-work sf-work--nocturne" id="work">
         <div className="sf-container">
-          <Chapter label="(Selected Works)" num={CHAPTER.work} heading />
+          <Chapter label={`(${data.work.label})`} num={CHAPTER.work} />
+          <Reveal as="h2" className="sf-work__head">
+            {data.work.head}
+          </Reveal>
           <WorkGrid
             statement={data.work.statement}
             filters={data.work.filters}
@@ -53,18 +58,24 @@ export default async function Home() {
         </div>
       </section>
 
-      <PressSalon data={data.press} />
-      <JournalIndex data={data.journal} />
+      <PressSalon data={data.press} compact />
+      <JournalIndex data={data.journal} categories={false} />
       <Interlude
         image={data.interlude.image}
         quote={data.interlude.quote}
         cite={data.interlude.cite}
+        role={data.interlude.role}
       />
-      <NewsletterSection head={data.news.head} text={data.news.text} />
+      <NewsletterSection
+        head={data.news.head}
+        text={data.news.text}
+        image={data.news.image}
+      />
       <ClosingCard
         head={data.cta.head}
         text={data.cta.text}
         cta={data.cta.cta}
+        image={data.cta.image}
       />
     </main>
   );

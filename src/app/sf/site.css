@@ -491,6 +491,79 @@
   color: var(--bronze);
 }
 
+/* --- THE DARK BANNER (final copy, Oct 2026) ------------------------------------
+   The copy asks for "a different visual concept — large dark banner". The
+   spread above now hangs INSIDE a dark banner within the page margins, on the
+   library lounge: the voice and the entry line stacked in the left column
+   over the photograph's own black, the chair and the lamp at the right. On
+   handsets the photograph (a 4:3 crop around the chair) heads the banner and
+   the words sit below it on the black. The section's ground stays bone — the
+   page keeps its light/dark alternation into the closing film. */
+.sf-register__banner {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin-block-start: clamp(2.5rem, 6vh, 4rem);
+  background: var(--noir);
+  color: var(--paper);
+}
+.sf-register__media { margin: 0; }
+.sf-register__media img { width: 100%; height: auto; }
+@media (min-width: 768px) {
+  .sf-register__banner--image {
+    display: grid;
+    align-items: center;
+    min-height: clamp(30rem, 66svh, 42rem);
+  }
+  .sf-register__media {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+  .sf-register__media img {
+    height: 100%;
+    object-fit: cover;
+    object-position: right center;
+  }
+  /* The ground under the words: the photograph's own black, extended. */
+  .sf-register__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right,
+      rgb(10 8 6 / .94) 0%,
+      rgb(10 8 6 / .88) 36%,
+      rgb(10 8 6 / .45) 58%,
+      rgb(10 8 6 / 0) 80%);
+  }
+}
+.sf-register__banner .sf-register__spread {
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: clamp(2rem, 5vh, 2.75rem);
+  max-width: 46rem;   /* the headline holds two lines, not four */
+  margin: 0;
+  padding: clamp(2.25rem, 6vw, 5rem);
+}
+.sf-register__banner .sf-register__head { color: var(--bone); }
+.sf-register__banner .sf-register__head em { color: var(--champagne); }
+.sf-register__banner .sf-register__text { color: rgb(255 255 255 / .72); }
+.sf-register__banner .sf-register__entry { border-block-start-color: var(--hairline-d); }
+.sf-register__banner .sf-register__input {
+  color: var(--paper);
+  border-block-end-color: rgb(255 255 255 / .40);
+}
+.sf-register__banner .sf-register__input::placeholder { color: rgb(255 255 255 / .62); }
+.sf-register__banner .sf-register__input:focus { border-block-end-color: var(--champagne); }
+.sf-register__banner .sf-btn { color: var(--paper); border-color: rgb(205 177 144 / .45); }
+.sf-register__banner .sf-btn:hover,
+.sf-register__banner .sf-btn:focus-visible {
+  background: var(--champagne);
+  border-color: var(--champagne);
+  color: var(--noir);
+}
+.sf-register__banner .sf-register__confirm { color: var(--bone); }
+.sf-register__banner .sf-register__error { color: var(--champagne); }
+
 /* The entry — one ruled line on the sheet, opened by a hairline of its own so
    the right column has a top edge to hang from, exactly as the chapter rule
    gives the section one. */
@@ -561,6 +634,63 @@
   height: 1px;
   overflow: hidden;
 }
+
+/* ===========================================================================
+   THE HOUSE LIGHTS — with the photograph (homepage, final copy Oct 2026)
+   The copy asks the closer for "a large luxury cinematic image". The two
+   photograph attempts recorded below failed on the delivery's 6.4:1 strip —
+   a band filled from a strip is a sliver or a blur. This one is art-directed:
+   a 9:4 crop at the strip's full height (the chair, the table, the lamp, the
+   city beyond) on desktop, 3:4 on handsets, so the band is never asked to
+   stretch the strip. The words keep the closer's left setting at the band's
+   foot, on a scrim poured from the left and the floor. */
+.sf-close--image {
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  align-items: end;
+  min-height: clamp(34rem, 88svh, 56rem);
+  background: var(--noir);
+}
+.sf-close__media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  margin: 0;
+}
+.sf-close__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 50%;
+}
+.sf-close__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(to right,
+      rgb(var(--umber-rgb) / .90) 0%,
+      rgb(var(--umber-rgb) / .74) 36%,
+      rgb(var(--umber-rgb) / .46) 56%,
+      rgb(var(--umber-rgb) / .14) 78%,
+      rgb(var(--umber-rgb) / .08) 100%),
+    linear-gradient(to top,
+      rgb(var(--umber-rgb) / .92) 0%,
+      rgb(var(--umber-rgb) / .40) 34%,
+      rgb(var(--umber-rgb) / 0) 60%);
+}
+@media (max-width: 767px) {
+  .sf-close__scrim {
+    background: linear-gradient(to top,
+      rgb(var(--umber-rgb) / .94) 0%,
+      rgb(var(--umber-rgb) / .78) 45%,
+      rgb(var(--umber-rgb) / .30) 80%,
+      rgb(var(--umber-rgb) / .15) 100%);
+  }
+}
+.sf-close--image .sf-close__title { margin-block-start: 0; }
 
 /* ===========================================================================
    THE HOUSE LIGHTS (the closing invitation, redesigned again)

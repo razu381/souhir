@@ -1,13 +1,15 @@
 /**
  * Home sections — ports of src/hero-nocturne.html (commit 7a7bced), section
- * by section, same class names, same grounds, same chapter numbering. All
- * server components; motion enters only via the Reveal / WordReveal wrappers.
+ * by section, same class names, same grounds, same chapter numbering, re-set
+ * to the client's final copy (Oct 2026). All server components; motion
+ * enters only via the Reveal / WordReveal wrappers.
  */
 import Link from 'next/link';
 import Reveal from './Reveal';
 import WordReveal from './WordReveal';
 import PressCovers from './PressCovers';
 import JournalStack from './JournalStack';
+import Picture from './Picture';
 import type { Head, Plate } from '@/content/seed';
 import type { HomeContent } from '@/sanity/fetch';
 import { CHAPTER } from '@/content/chapters';
@@ -52,76 +54,89 @@ export function Headed({ head }: { head: Head }) {
   );
 }
 
-/* --- 02 — EXPLORE DAR SF (bone salon, amber plate) ------------------------- */
+/* --- 01 — EXPLORE SF MUSE (bone salon, two plates) ------------------------- */
 
 export function Explore({ data }: { data: HomeContent['explore'] }) {
   return (
     <section className="sf-section sf-explore sf-explore--bone" id="explore">
       <div className="sf-container">
-        <Chapter label="(Explore Dar SF)" num={CHAPTER.explore} heading />
+        <Chapter label={`(${data.heading})`} num={CHAPTER.explore} heading />
         <div className="sf-explore__grid">
           <div className="sf-explore__body">
             <WordReveal className="sf-explore__statement" text={data.statement} />
-            <Reveal as="p" className="sf-explore__felt">
-              {data.felt}
+            {data.body.map((text, i) => (
+              <Reveal as="p" className="sf-explore__text" key={text.slice(0, 24)} delay={i * 90}>
+                {text}
+              </Reveal>
+            ))}
+          </div>
+          {/* The studio wall hangs as the plate; the shoot in motion is pinned
+              over its lower corner, a contact print laid on the wall. */}
+          <div className="sf-explore__plates">
+            <Reveal as="figure" className="sf-explore__figure" delay={200} curtain>
+              <Picture plate={data.image} />
             </Reveal>
-            <Reveal>
-              <Link className="sf-btn" href={data.cta.href}>
-                {data.cta.label} <span aria-hidden="true">&#8599;</span>
-              </Link>
+            <Reveal as="figure" className="sf-explore__inset" delay={420} curtain>
+              <Picture plate={data.inset} />
             </Reveal>
           </div>
-          <Reveal as="figure" className="sf-explore__figure" delay={200} curtain>
-            <img
-              src={data.image.src}
-              srcSet={data.image.srcSet}
-              sizes={data.image.sizes}
-              alt={data.image.alt}
-              width={data.image.width}
-              height={data.image.height}
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption className="sf-explore__caption">{data.caption}</figcaption>
-          </Reveal>
         </div>
       </div>
     </section>
   );
 }
 
-/* --- 03 — THE ART OF BRAND PRESENCE (the service catalogue) ---------------- */
+/* --- 02 — WHAT WE CREATE (the service catalogue, as visual blocks) --------- */
 
-export function ServicesList({ data }: { data: HomeContent['services'] }) {
+/**
+ * `intro` is the homepage's headline and standfirst. Without it (the
+ * /services page) the chapter label stays the section's only name and is
+ * promoted to its <h2>, as before.
+ */
+export function ServicesList({
+  data,
+  intro,
+}: {
+  data: HomeContent['services'];
+  intro?: HomeContent['servicesIntro'];
+}) {
   return (
     <section className="sf-section sf-services sf-services--bone" id="services">
       <div className="sf-container">
-        <Chapter label="(Services)" num={CHAPTER.services} heading />
-        <div className="sf-services__list">
-          {data.map((s) => (
-            <Link className="sf-service-row" href={`/services/${s.slug}`} key={s.slug}>
-              <span className="sf-service-row__num">{s.num}</span>
-              <span className="sf-service-row__tile" aria-hidden="true">
-                <img
-                  src={s.tile.src}
-                  alt=""
-                  width={s.tile.width}
-                  height={s.tile.height}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </span>
-              <span className="sf-service-row__label">{s.title}</span>
-              <span className="sf-service-row__desc">{s.summary}</span>
-            </Link>
+        <Chapter label={`(${intro?.label ?? 'Services'})`} num={CHAPTER.services} heading={!intro} />
+        {intro && (
+          <div className="sf-services__masthead">
+            <Reveal as="h2" className="sf-services__head">
+              {intro.head}
+            </Reveal>
+            <Reveal as="p" className="sf-services__intro" delay={90}>
+              {intro.text}
+            </Reveal>
+          </div>
+        )}
+        <ul className="sf-services__blocks">
+          {data.map((s, i) => (
+            <Reveal as="li" className="sf-service-block" key={s.slug} delay={i * 90}>
+              <Link className="sf-service-block__link" href={`/services/${s.slug}`}>
+                <span className="sf-service-block__plate" aria-hidden="true">
+                  <Picture plate={s.tile} />
+                </span>
+                <span className="sf-service-block__num">{s.num}</span>
+                <h3 className="sf-service-block__title">{s.title}</h3>
+                <p className="sf-service-block__desc">{s.summary}</p>
+                <span className="sf-service-block__more">
+                  {intro?.more ?? 'Learn More'} <span aria-hidden="true">&#8594;</span>
+                </span>
+              </Link>
+            </Reveal>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );
 }
 
-/* --- 04 — WHO WE WORK WITH (the register by lamplight) --------------------- */
+/* --- 03 — WHO WE WORK WITH (the register by lamplight) --------------------- */
 
 export function Clientele({ data }: { data: HomeContent['clientele'] }) {
   return (
@@ -150,26 +165,16 @@ export function Clientele({ data }: { data: HomeContent['clientele'] }) {
   );
 }
 
-/* --- 05 — ABOUT DAR SF (the founder, the signature) ------------------------ */
+/* --- 04 — ABOUT SF MUSE (the founder, the signature) ----------------------- */
 
 export function Founder({ data }: { data: HomeContent['founder'] }) {
   return (
     <section className="sf-section sf-founder sf-founder--bone" id="founder">
       <div className="sf-container">
-        <Chapter label="(About Dar SF)" num={CHAPTER.founder} />
+        <Chapter label="(About SF Muse)" num={CHAPTER.founder} />
         <div className="sf-founder__grid">
           <Reveal as="figure" className="sf-founder__figure" delay={200} curtain>
-            <img
-              src={data.image.src}
-              srcSet={data.image.srcSet}
-              sizes={data.image.sizes}
-              alt={data.image.alt}
-              width={data.image.width}
-              height={data.image.height}
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption className="sf-founder__caption">{data.caption}</figcaption>
+            <Picture plate={data.image} />
           </Reveal>
 
           <div className="sf-founder__body">
@@ -181,9 +186,6 @@ export function Founder({ data }: { data: HomeContent['founder'] }) {
                 {t}
               </Reveal>
             ))}
-            <Reveal as="p" className="sf-founder__felt">
-              {data.felt}
-            </Reveal>
 
             {/* THE SIGNATURE: the rule spans the column; the name at the left
                 hand, the founder's hand at the right. */}
@@ -215,44 +217,59 @@ export function Founder({ data }: { data: HomeContent['founder'] }) {
   );
 }
 
-/* --- 07 — EDITORIAL RECOGNITION (the press salon) --------------------------- */
+/* --- 06 — EDITORIAL RECOGNITION (the press salon) --------------------------- */
 
+/**
+ * `compact` is the homepage's reading of the final copy: the chapter label
+ * is the section's name (promoted to its <h2>), one sentence, the covers
+ * captioned by publication. The /editorial page keeps the headline, the
+ * register of numbers and the dated captions.
+ */
 export function PressSalon({
   data,
   chapter = CHAPTER.press,
+  compact = false,
 }: {
   data: HomeContent['press'];
   chapter?: number | string;
+  compact?: boolean;
 }) {
+  const covers = compact
+    ? data.covers.map((c) => ({ ...c, caption: c.publication || c.caption }))
+    : data.covers;
   return (
-    <section className="sf-section sf-press" id="press">
+    <section className={`sf-section sf-press${compact ? ' sf-press--compact' : ''}`} id="press">
       <div className="sf-container">
-        <Chapter label="(Editorial Recognition)" num={chapter} />
+        <Chapter label={`(${data.label})`} num={chapter} heading={compact} />
         <div className="sf-press__grid">
           <div className="sf-press__spine">
-            <Reveal as="h2" className="sf-press__head">
-              <Headed head={data.head} />
-            </Reveal>
+            {!compact && (
+              <Reveal as="h2" className="sf-press__head">
+                <Headed head={data.head} />
+              </Reveal>
+            )}
             <Reveal as="p" className="sf-press__statement">
               {data.statement}
             </Reveal>
-            <div className="sf-press__stats">
-              {data.stats.map(([figure, label], i) => (
-                <Reveal className="sf-press__stat" key={label} delay={i * 90}>
-                  <span className="sf-press__stat-num">
-                    {figure.replace(/\++$/, '')}
-                    <em>+</em>
-                  </span>
-                  <span className="sf-press__stat-label">{label}</span>
-                </Reveal>
-              ))}
-            </div>
+            {!compact && (
+              <div className="sf-press__stats">
+                {data.stats.map(([figure, label], i) => (
+                  <Reveal className="sf-press__stat" key={label} delay={i * 90}>
+                    <span className="sf-press__stat-num">
+                      {figure.replace(/\++$/, '')}
+                      <em>+</em>
+                    </span>
+                    <span className="sf-press__stat-label">{label}</span>
+                  </Reveal>
+                ))}
+              </div>
+            )}
           </div>
 
           <div>
-            <PressCovers covers={data.covers} />
+            <PressCovers covers={covers} />
             <Reveal as="p" className="sf-press__caption sf-press__caption--shared">
-              {data.sharedCaption}
+              {compact ? covers.map((c) => c.caption).join(' · ') : data.sharedCaption}
             </Reveal>
           </div>
         </div>
@@ -261,9 +278,36 @@ export function PressSalon({
   );
 }
 
-/* --- 08 — THE DAR SF JOURNAL (the contents page) ---------------------------- */
+/* --- 07 — THE SF MUSE JOURNAL (the contents page) --------------------------- */
 
-export function JournalIndex({ data }: { data: HomeContent['journal'] }) {
+/**
+ * `categories={false}` is the homepage: its copy names the essays without
+ * their perspectives. /journal keeps them.
+ */
+export function JournalIndex({
+  data,
+  categories = true,
+}: {
+  data: HomeContent['journal'];
+  categories?: boolean;
+}) {
+  const lead = data.featured;
+  const leadBody = (
+    <>
+      <figure className="sf-journal__lead-plate">
+        <Picture plate={lead.image} />
+      </figure>
+      <div className="sf-journal__lead-text">
+        {categories && lead.category && <span className="sf-journal__cat">{lead.category}</span>}
+        <h4 className="sf-journal__lead-title">{lead.title}</h4>
+        <p className="sf-journal__lead-desc">{lead.desc}</p>
+        <span className="sf-journal__lead-read">
+          {lead.read} <span aria-hidden="true">&#8594;</span>
+        </span>
+      </div>
+    </>
+  );
+
   return (
     <section className="sf-section sf-journal" id="journal">
       <div className="sf-container">
@@ -275,19 +319,39 @@ export function JournalIndex({ data }: { data: HomeContent['journal'] }) {
           </Reveal>
           <Reveal className="sf-journal__intro" delay={90}>
             <p className="sf-journal__statement">{data.statement}</p>
-            <p className="sf-journal__sub">{data.sub}</p>
           </Reveal>
         </div>
 
+        <Reveal as="figure" className="sf-journal__banner" curtain>
+          <Picture plate={data.banner} />
+        </Reveal>
+
+        <h3 className="sf-journal__sublabel">{data.featuredLabel}</h3>
+        <Reveal className="sf-journal__lead-wrap">
+          {lead.href ? (
+            <Link className="sf-journal__lead" href={lead.href}>
+              {leadBody}
+            </Link>
+          ) : (
+            <div className="sf-journal__lead">{leadBody}</div>
+          )}
+        </Reveal>
+
+        <h3 className="sf-journal__sublabel">{data.moreLabel}</h3>
         <JournalStack>
           {data.rows.map((row, i) => (
-            <Row key={row.num} row={row} last={i === data.rows.length - 1} delay={i * 90} />
+            <Row
+              key={row.num}
+              row={categories ? row : { ...row, category: undefined }}
+              last={i === data.rows.length - 1}
+              delay={i * 90}
+            />
           ))}
         </JournalStack>
 
         <Reveal>
-          <Link className="sf-journal__more" href="/journal">
-            Explore The Journal <span aria-hidden="true">&#8599;</span>
+          <Link className="sf-journal__more" href={data.more.href}>
+            {data.more.label} <span aria-hidden="true">&#8599;</span>
           </Link>
         </Reveal>
       </div>
@@ -309,24 +373,15 @@ function Row({
     <>
       <span className="sf-journal__row-num">{row.num}</span>
       <figure className="sf-journal__row-thumb">
-        <img
-          src={row.image.src}
-          srcSet={row.image.srcSet}
-          sizes={row.image.sizes}
-          alt={row.image.alt}
-          width={row.image.width}
-          height={row.image.height}
-          loading="lazy"
-          decoding="async"
-        />
+        <Picture plate={row.image} />
       </figure>
       <div className="sf-journal__row-text">
-        <span className="sf-journal__cat">{row.category}</span>
-        <span className="sf-journal__row-title">{row.title}</span>
+        {row.category && <span className="sf-journal__cat">{row.category}</span>}
+        <h4 className="sf-journal__row-title">{row.title}</h4>
         <span className="sf-journal__row-desc">{row.desc}</span>
       </div>
-      <span className="sf-journal__row-read">
-        Read <span aria-hidden="true">&#8594;</span>
+      <span className="sf-journal__row-read" aria-hidden="true">
+        <span>&#8594;</span>
       </span>
     </>
   );
@@ -340,7 +395,7 @@ function Row({
           {inner}
         </Link>
       ) : (
-        <span className={cls}>{inner}</span>
+        <div className={cls}>{inner}</div>
       )}
     </Reveal>
   );
@@ -352,24 +407,17 @@ export function Interlude({
   image,
   quote,
   cite,
+  role,
 }: {
   image: Plate;
   quote: Head;
   cite: string;
+  role?: string;
 }) {
   return (
     <section className="sf-section sf-interlude" aria-label="Founder's quote">
       <figure className="sf-interlude__media">
-        <img
-          src={image.src}
-          srcSet={image.srcSet}
-          sizes={image.sizes}
-          alt={image.alt}
-          width={image.width}
-          height={image.height}
-          loading="lazy"
-          decoding="async"
-        />
+        <Picture plate={image} />
       </figure>
       <div className="sf-interlude__scrim" aria-hidden="true" />
       {/* The quote sits in the page's own left column rather than centred on
@@ -378,14 +426,17 @@ export function Interlude({
         <Reveal as="blockquote" className="sf-interlude__quote">
           <span className="sf-interlude__line">{quote[0]}</span>
           <em>{quote[1]}</em>
-          <cite className="sf-interlude__cite">{cite}</cite>
+          <cite className="sf-interlude__cite">
+            <span className="sf-interlude__cite-name">{cite}</span>
+            {role && <span className="sf-interlude__cite-role">{role}</span>}
+          </cite>
         </Reveal>
       </div>
     </section>
   );
 }
 
-/* --- 09 — CORRESPONDENCE + CTA (import the form from its own client file) --- */
+/* --- 08 — NEWSLETTER + CTA (import the form from its own client file) ------ */
 
 export { default as NewsletterSection } from './NewsletterSection';
 export { default as ClosingCard } from './ClosingCard';

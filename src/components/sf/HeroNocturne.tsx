@@ -27,6 +27,8 @@ export default function HeroNocturne({
   labelMeta,
   mark,
   sub,
+  intro,
+  cta,
   variant,
   layout,
   className,
@@ -42,6 +44,11 @@ export default function HeroNocturne({
   labelMeta: string;
   mark: string;
   sub: string;
+  /** The final copy's hero: two sentences and a way in. When present they
+   *  join the label block under the sub-headline, and the meta rail (mark,
+   *  sub, scroll cue) is retired — the button IS the cue. */
+  intro?: string[];
+  cta?: { label: string; href: string };
   /** Hero Lab: ground modifier — appended as `sf-nocturne--{variant}`. */
   variant?: string;
   /** Hero Lab: composition modifier — appended as `sf-nocturne--{layout}`. */
@@ -111,6 +118,7 @@ export default function HeroNocturne({
         'sf-nocturne',
         variant ? `sf-nocturne--${variant}` : null,
         layout ? `sf-nocturne--${layout}` : null,
+        intro?.length ? 'sf-nocturne--intro' : null,
         className,
       ]
         .filter(Boolean)
@@ -122,7 +130,7 @@ export default function HeroNocturne({
       <div className="sf-container sf-nocturne__inner">
         <div className="sf-nocturne__rule">
           <span>{label}</span>
-          <span className="sf-nocturne__note">{note}</span>
+          {note ? <span className="sf-nocturne__note">{note}</span> : null}
         </div>
 
         <div className="sf-nocturne__grid">
@@ -161,16 +169,33 @@ export default function HeroNocturne({
             {labelMeta ? (
               <p className="sf-nocturne__label-meta">{labelMeta}</p>
             ) : null}
+            {intro?.length ? (
+              <div className="sf-nocturne__intro">
+                <p className="sf-nocturne__standfirst">{sub}</p>
+                {intro.map((text) => (
+                  <p className="sf-nocturne__text" key={text.slice(0, 24)}>
+                    {text}
+                  </p>
+                ))}
+                {cta ? (
+                  <a className="sf-btn sf-nocturne__cta" href={cta.href}>
+                    {cta.label} <span aria-hidden="true">&darr;</span>
+                  </a>
+                ) : null}
+              </div>
+            ) : null}
           </div>
         </div>
 
-        <div className="sf-nocturne__meta">
-          <span className="sf-nocturne__mark">{mark}</span>
-          <span className="sf-nocturne__sub">{sub}</span>
-          <a className="sf-nocturne__cue" href="#explore">
-            Scroll <span aria-hidden="true">&darr;</span>
-          </a>
-        </div>
+        {intro?.length ? null : (
+          <div className="sf-nocturne__meta">
+            <span className="sf-nocturne__mark">{mark}</span>
+            <span className="sf-nocturne__sub">{sub}</span>
+            <a className="sf-nocturne__cue" href="#explore">
+              Scroll <span aria-hidden="true">&darr;</span>
+            </a>
+          </div>
+        )}
       </div>
     </section>
   );

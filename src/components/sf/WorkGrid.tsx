@@ -41,8 +41,9 @@ export default function WorkGrid({
   const pending = useRef<FlipState | null>(null);
   const mounted = useRef(false);
 
-  const apply = (item: WorkItem) =>
-    active !== 'all' && !` ${item.category} `.includes(` ${active} `);
+  const inRoom = (item: WorkItem, slug: string) =>
+    slug === 'all' || ` ${item.category} `.includes(` ${slug} `);
+  const apply = (item: WorkItem) => !inRoom(item, active);
 
   const select = (slug: string) => {
     if (slug === active) return;
@@ -102,12 +103,16 @@ export default function WorkGrid({
       </Reveal>
 
       <div className="sf-work__rail" data-sf_work="">
+        {/* The copy names its rooms; a room with nothing hung in it yet
+            (Wellness, today) stays on the index but cannot be entered —
+            an empty wall is not a filter result. */}
         {filters.map((f) => (
           <button
             key={f.slug}
             className="sf-work__filter"
             type="button"
             aria-pressed={active === f.slug}
+            disabled={!items.some((item) => inRoom(item, f.slug))}
             onClick={() => select(f.slug)}
           >
             {f.label}
@@ -115,15 +120,18 @@ export default function WorkGrid({
         ))}
       </div>
 
-      {/* One entrance for the hang (the prototype staggered each plate;
-          column children can't carry the observer without breaking the
-          multicol contract — the container reveal keeps the motion honest). */}
-      <Reveal className="sf-work__grid">
+      {/* No entrance on the hang itself. A Reveal fires at 15% visible, and
+          with five captioned projects the one-column handset grid runs
+          ~4500px — 15% of it never fits a phone screen, so the work never
+          appeared. The FLIP's per-plate transforms stay the only motion on
+          the items. */}
+      <div className="sf-work__grid">
         {items.map((item) => {
+          // A landscape hangs wide, across two columns, at the portraits' height.
+          const wide = item.image.width > item.image.height;
           const cls = [
             'sf-work__item',
-            item.ratio === 'tall' ? 'sf-work__item--tall' : '',
-            item.ratio === 'square' ? 'sf-work__item--square' : '',
+            wide ? 'sf-work__item--wide' : '',
             // A plate with no case study behind it must not wear a link's
             // clothes: the ↗ below and the hover travel are both gated on this.
             item.href ? '' : 'sf-work__item--static',
@@ -131,7 +139,6 @@ export default function WorkGrid({
           ]
             .filter(Boolean)
             .join(' ');
-
           const body = (
             <>
               <figure className="sf-work__plate">
@@ -147,16 +154,35 @@ export default function WorkGrid({
                 />
               </figure>
               <div className="sf-work__caption">
-                <span className="sf-work__num">{item.num}</span>
-                <span className="sf-work__title">{item.title}</span>
-                <span className="sf-work__meta">
-                  {item.categoryLabel || item.category}
+                <span className="sf-work__num">
+                  {item.num}
                   {item.href && <span aria-hidden="true"> &#8599;</span>}
                 </span>
+                {/* "Beauty — Botanical Contrast", as the copy sets it: the
+                    category in caps, the title in Didone. */}
+                <h3 className="sf-work__heading">
+                  {item.categoryLabel && (
+                    <>
+                      <span className="sf-work__meta">{item.categoryLabel}</span>
+                      <span className="sf-work__sep"> — </span>
+                    </>
+                  )}
+                  <span className="sf-work__title">{item.title}</span>
+                </h3>
+                {item.desc && <p className="sf-work__desc">{item.desc}</p>}
+                {item.credits.length > 0 && (
+                  <dl className="sf-work__credits">
+                    {item.credits.map(([role, name]) => (
+                      <div className="sf-work__credit" key={role}>
+                        <dt>{role}</dt>
+                        <dd>{name}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
               </div>
             </>
           );
-
           // A plate without a write-up is a hung print, not a link.
           return item.href ? (
             <Link key={item.num} href={item.href} className={cls}>
@@ -168,7 +194,7 @@ export default function WorkGrid({
             </div>
           );
         })}
-      </Reveal>
+      </div>
     </div>
   );
 }

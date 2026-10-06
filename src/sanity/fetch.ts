@@ -125,39 +125,53 @@ export type WorkItem = {
   title: string;
   category: string; // filter token, lowercase
   categoryLabel: string;
-  ratio: 'std' | 'tall' | 'square';
   href: string | null;
+  desc: string;
+  credits: [role: string, name: string][];
   image: Plate;
 };
 
 export type JournalRow = {
   num: string;
-  category: string;
+  category?: string;
   title: string;
   desc: string;
   href: string | null;
   image: Plate;
 };
 
-export type PressCover = { caption: string; image: Plate };
+export type JournalFeature = Omit<JournalRow, 'num'> & { read: string };
+
+export type PressCover = { publication: string; caption: string; image: Plate };
 
 export type HomeContent = {
   hero: typeof seed.hero;
   explore: typeof seed.explore;
+  servicesIntro: typeof seed.servicesIntro;
   services: { num: string; title: string; slug: string; summary: string; tile: Plate }[];
   clientele: typeof seed.clientele;
   founder: typeof seed.founder;
-  work: { statement: string; filters: { slug: string; label: string }[]; items: WorkItem[] };
+  work: {
+    label: string;
+    head: string;
+    statement: string;
+    filters: { slug: string; label: string }[];
+    items: WorkItem[];
+  };
   press: typeof seed.press & { covers: PressCover[] };
   journal: {
     head: string;
     statement: string;
-    sub: string;
+    banner: Plate;
+    featuredLabel: string;
+    featured: JournalFeature;
+    moreLabel: string;
     rows: JournalRow[];
+    more: { label: string; href: string };
   };
-  interlude: { image: Plate; quote: seed.Head; cite: string };
-  news: { head: seed.Head; text: string };
-  cta: { head: seed.Head; text: string; cta: { label: string; href: string } };
+  interlude: { image: Plate; quote: seed.Head; cite: string; role: string };
+  news: { head: seed.Head; text: string; image: Plate };
+  cta: { head: seed.Head; text: string; cta: { label: string; href: string }; image: Plate };
 };
 
 const categoryToken = (c?: string) => (c ?? '').toLowerCase().replace(/\s*&\s*/, '-').replace(/\s+/g, '-') || 'editorial';
@@ -178,90 +192,112 @@ export async function getHomeData(): Promise<HomeContent> {
     slug: s.slug,
     summary: s.summary ?? '',
     tile:
-      sanityPlate(s.tile, [480, 720], [4, 5]) ??
+      sanityPlate(s.tile, [480, 800, 1200], [4, 5], seed.services[0].tile.sizes) ??
       seed.services[i % seed.services.length].tile,
   }));
 
-  /* Work hang */
-  const items: WorkItem[] = ((worksRaw?.length ? worksRaw : seed.work.items) as Record<string, any>[]).map((w, i) => {
-    const ratio = (w.ratio ?? 'std') as WorkItem['ratio'];
-    const ratios: Record<string, [number, number]> = { std: [4, 3], tall: [4, 5], square: [1, 1] };
-    return {
-      num: plateNum(CHAPTER.work, i),
-      title: w.title,
-      category: categoryToken(w.category),
-      categoryLabel: w.category ?? '',
-      ratio,
-      href: w.slug ? `/portfolio/${w.slug}` : null,
-      image: sanityPlate(w.image, [800, 1200], ratios[ratio], '(min-width: 1025px) 28vw, 100vw') ?? seed.work.items[i % seed.work.items.length].image,
-    };
-  });
+  /* Work hang — a studio item is cropped to its declared ratio; the seed
+     plates hang as shot (their width/height carry the frame). */
+  const ratios: Record<string, [number, number]> = { std: [4, 3], tall: [4, 5], square: [1, 1] };
+  const items: WorkItem[] = worksRaw?.length
+    ? worksRaw.map((w, i) => ({
+        num: plateNum(CHAPTER.work, i),
+        title: w.title,
+        category: categoryToken(w.category),
+        categoryLabel: w.category ?? '',
+        href: w.slug ? `/portfolio/${w.slug}` : null,
+        desc: w.description ?? '',
+        credits: (w.credits ?? [])
+          .filter((c: { role?: string; name?: string }) => c.role && c.name)
+          .map((c: { role: string; name: string }) => [c.role, c.name] as [string, string]),
+        image:
+          sanityPlate(w.image, [800, 1200], ratios[w.ratio ?? 'tall'] ?? ratios.tall, seed.work.items[0].image.sizes) ??
+          seed.work.items[i % seed.work.items.length].image,
+      }))
+    : seed.work.items.map((w, i) => ({
+        num: plateNum(CHAPTER.work, i),
+        title: w.title,
+        category: categoryToken(w.category),
+        categoryLabel: w.category,
+        href: w.href,
+        desc: w.desc,
+        credits: w.credits,
+        image: w.image,
+      }));
 
   /* Press salon */
   const covers: PressCover[] = pressRaw?.length
     ? pressRaw
         .filter((p) => p.cover?.asset)
         .map((p, i) => ({
+          publication: p.publication ?? '',
           caption: p.caption ?? `Cover Feature — ${p.publication}${p.date ? `, ${p.date}` : ''}`,
           image:
-            sanityPlate(p.cover, [600, 900], [3, 4], '(min-width: 1025px) 24vw, 30vw') ??
+            sanityPlate(p.cover, [600, 900], [3, 4], '(min-width: 1025px) 18vw, 30vw') ??
             seed.press.covers[i % seed.press.covers.length].image,
         }))
     : seed.press.covers;
 
-  /* Journal rows — real articles when they exist, seed rows when they don't */
+  /* Journal — the featured editorial, then the three additional articles.
+     Real articles when they exist (the one marked featured leads, else the
+     newest), seed when they don't. */
   const articles = await safeFetch<
-    { title: string; excerpt?: string; category?: string; slug?: string; heroImage?: SanityImage }[]
+    { title: string; excerpt?: string; category?: string; slug?: string; featured?: boolean; heroImage?: SanityImage }[]
   >(
-    `*[_type == "journalArticle"] | order(publishedAt desc){ title, excerpt, category, "slug": slug.current, heroImage{asset, alt, hotspot} }`,
+    `*[_type == "journalArticle"] | order(publishedAt desc){ title, excerpt, category, "slug": slug.current, featured, heroImage{asset, alt, hotspot} }`,
     undefined,
     ['journal', 'home']
   );
 
-  let journal: HomeContent['journal'];
+  const h = home ?? {};
+  const sj = seed.journal;
+  let journal: HomeContent['journal'] = {
+    ...sj,
+    statement: h.journalStatement ?? sj.statement,
+    rows: sj.rows.map((r, i) => ({ ...r, num: plateNum(CHAPTER.journal, i + 1) })),
+  };
   if (articles?.length) {
-    /* The four newest essays fill the register (no featured slot). */
+    const lead = articles.find((a) => a.featured) ?? articles[0];
+    const rest = articles.filter((a) => a !== lead).slice(0, 3);
     journal = {
-      head: seed.journal.head,
-      statement: home?.journalStatement ?? seed.journal.statement,
-      sub: home?.journalSub ?? seed.journal.sub,
-      rows: articles.slice(0, 4).map((a, i) => ({
-        num: plateNum(CHAPTER.journal, i),
-        category: a.category ?? '',
+      ...journal,
+      featured: {
+        category: lead.category,
+        title: lead.title,
+        desc: lead.excerpt ?? '',
+        href: lead.slug ? `/journal/${lead.slug}` : null,
+        read: sj.featured.read,
+        image: sanityPlate(lead.heroImage, [600, 900, 1200], [4, 5], sj.featured.image.sizes) ?? sj.featured.image,
+      },
+      rows: rest.map((a, i) => ({
+        num: plateNum(CHAPTER.journal, i + 1),
+        category: a.category,
         title: a.title,
         desc: a.excerpt ?? '',
         href: a.slug ? `/journal/${a.slug}` : null,
-        image: sanityPlate(a.heroImage, [600], [3, 4], '(min-width: 1025px) 220px, 34vw') ?? seed.journal.rows[i % seed.journal.rows.length].image,
+        image: sanityPlate(a.heroImage, [600], [3, 4], sj.rows[0].image.sizes) ?? sj.rows[i % sj.rows.length].image,
       })),
-    };
-  } else {
-    journal = {
-      ...seed.journal,
-      statement: home?.journalStatement ?? seed.journal.statement,
-      sub: home?.journalSub ?? seed.journal.sub,
     };
   }
 
   /* Home singleton overrides, per section */
-  const h = home ?? {};
-  const heroPlate = sanityPlate(h.heroImage, [800, 1200, 1800], [2, 3], '(min-width: 1025px) 32vw, 88vw');
-  const explorePlate = sanityPlate(h.exploreImage, [800, 1200, 1800], [2, 3], '(min-width: 1025px) 40vw, 100vw');
-  const founderPlate = sanityPlate(h.founderImage, [480, 800, 1200, 1800], [2, 3], '(min-width: 1025px) 40vw, 100vw');
-  const interludePlate = sanityPlate(h.interludeImage, [1600, 2400], [6.4, 1], '100vw');
+  const explorePlate = sanityPlate(h.exploreImage, [800, 1200, 1800], [2, 3], seed.explore.image.sizes);
+  const founderPlate = sanityPlate(h.founderImage, [480, 800, 1200, 1800], [2, 3], seed.founder.image.sizes);
+  const interludePlate = sanityPlate(h.interludeImage, [1600, 2400, 3200], [11, 5], '100vw');
 
   return {
     hero: {
       ...seed.hero,
       titleLines: [h.heroTitleA ?? seed.hero.titleLines[0], h.heroTitleB ?? seed.hero.titleLines[1]],
       labelMeta: h.heroLabelMeta ?? seed.hero.labelMeta,
-      image: heroPlate ?? seed.hero.image,
     },
     explore: {
       ...seed.explore,
       statement: h.exploreStatement ?? seed.explore.statement,
-      felt: h.exploreFelt ?? seed.explore.felt,
+      body: h.exploreBody?.length ? h.exploreBody : seed.explore.body,
       image: explorePlate ?? seed.explore.image,
     },
+    servicesIntro: seed.servicesIntro,
     services,
     clientele: {
       ...seed.clientele,
@@ -274,11 +310,12 @@ export async function getHomeData(): Promise<HomeContent> {
       image: founderPlate ?? seed.founder.image,
       refrain: h.founderRefrain ? splitHead(h.founderRefrain) : seed.founder.refrain,
       texts: h.founderTexts?.length ? h.founderTexts : seed.founder.texts,
-      felt: h.founderFelt ?? seed.founder.felt,
       name: h.founderName ?? seed.founder.name,
       role: h.founderRole ?? seed.founder.role,
     },
     work: {
+      label: seed.work.label,
+      head: seed.work.head,
       statement: h.workStatement ?? seed.work.statement,
       filters: seed.work.filters,
       items,
@@ -294,18 +331,24 @@ export async function getHomeData(): Promise<HomeContent> {
     },
     journal,
     interlude: {
+      // A studio image has no art-directed handset crop; the band's own
+      // object-position carries it.
       image: interludePlate ?? seed.interlude.image,
       quote: h.interludeQuote ? splitHead(h.interludeQuote) : seed.interlude.quote,
+      // A studio attribution is one line; the seed's runs name and role.
       cite: h.interludeAttribution ?? seed.interlude.cite,
+      role: h.interludeAttribution ? '' : seed.interlude.role,
     },
     news: {
       head: h.newsHeading ? splitHead(h.newsHeading) : seed.news.head,
       text: h.newsText ?? seed.news.text,
+      image: seed.news.image,
     },
     cta: {
       head: h.ctaHeading ? splitHead(h.ctaHeading) : seed.cta.head,
       text: h.ctaText ?? seed.cta.text,
       cta: seed.cta.cta,
+      image: seed.cta.image,
     },
   };
 }

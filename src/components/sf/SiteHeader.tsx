@@ -63,8 +63,8 @@ export default function SiteHeader() {
   return (
     <>
       <header className="sf-header" ref={rootRef} data-sf-header>
-        <Link className="sf-header__brand" href="/" aria-label="Dar SF — home">
-          Dar <em>SF</em>
+        <Link className="sf-header__brand" href="/" aria-label="SF Muse — home">
+          SF <em>Muse</em>
         </Link>
         <button
           className="sf-header__menu"
@@ -98,7 +98,6 @@ export default function SiteHeader() {
               ))}
             </ul>
             <div className="sf-menu__foot">
-              <span>Luxury Visual Presence — Paris</span>
               <a href="mailto:hello@darsf.com">hello@darsf.com</a>
             </div>
           </div>

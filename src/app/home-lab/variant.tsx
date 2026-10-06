@@ -50,13 +50,14 @@ export default function HomeVariant({
       <span data-sf-header-sentinel aria-hidden="true" />
 
       <Explore data={data.explore} />
-      <ServicesList data={data.services} />
+      <ServicesList data={data.services} intro={data.servicesIntro} />
       <Clientele data={data.clientele} />
       <Founder data={data.founder} />
 
       <section className="sf-section sf-work sf-work--nocturne" id="work">
         <div className="sf-container">
-          <Chapter label="(Selected Works)" num={CHAPTER.work} heading />
+          <Chapter label={`(${data.work.label})`} num={CHAPTER.work} />
+          <h2 className="sf-work__head">{data.work.head}</h2>
           <WorkGrid
             statement={data.work.statement}
             filters={data.work.filters}
@@ -65,15 +66,16 @@ export default function HomeVariant({
         </div>
       </section>
 
-      <PressSalon data={data.press} />
-      <JournalIndex data={data.journal} />
+      <PressSalon data={data.press} compact />
+      <JournalIndex data={data.journal} categories={false} />
       <Interlude
         image={data.interlude.image}
         quote={data.interlude.quote}
         cite={data.interlude.cite}
+        role={data.interlude.role}
       />
-      <NewsletterSection head={data.news.head} text={data.news.text} />
-      <ClosingCard head={data.cta.head} text={data.cta.text} cta={data.cta.cta} />
+      <NewsletterSection head={data.news.head} text={data.news.text} image={data.news.image} />
+      <ClosingCard head={data.cta.head} text={data.cta.text} cta={data.cta.cta} image={data.cta.image} />
     </main>
   );
 }

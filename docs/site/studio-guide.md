@@ -85,9 +85,10 @@ house style.
 ## Services
 
 Four documents, ordered by their `num` (01–04). Title, summary (shows in the
-home/services rows), 4:5 tile image, slug (must match the seed slugs if you
-want to keep the current URLs: `art-of-brand-presence`,
-`creative-direction-identity`, `digital-experiences`, `intelligent-brand-growth`).
+home/services blocks), 4:5 tile image, slug (must match the seed slugs if you
+want to keep the current URLs: `luxury-visual-storytelling`,
+`creative-direction`, `digital-experiences`, `intelligent-brand-growth` — the
+first two were renamed with the final copy in Oct 2026; the old URLs redirect).
 Detail-page chapters use the same section blocks as case studies. The
 six-step process register at the bottom of each detail page is fixed copy.
 

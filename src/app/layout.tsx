@@ -15,11 +15,11 @@ const SF_JS = `document.documentElement.classList.add('sf-js')`;
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://darsfsouhir.netlify.app'),
   title: {
-    default: 'Dar SF — Beyond Visibility. Into Memory.',
-    template: '%s — Dar SF',
+    default: 'SF Muse — Beyond Visibility. Into Memory.',
+    template: '%s — SF Muse',
   },
   description:
-    'Dar SF is a luxury creative studio shaping perception through storytelling, design and experience.',
+    'SF Muse is a luxury creative studio dedicated to shaping perception through visual storytelling, creative direction, and immersive brand experiences.',
 };
 
 export const viewport: Viewport = {

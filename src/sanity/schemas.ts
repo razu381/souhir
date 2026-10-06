@@ -1,5 +1,5 @@
 /**
- * The Dar SF content model.
+ * The SF Muse content model.
  *
  * `caseStudy` and `journalArticle` match the dataset's existing documents
  * field-for-field (they were already rendering pre-migration) — do not rename
@@ -263,12 +263,33 @@ export const workItem = defineType({
       name: 'category',
       type: 'string',
       options: {
-        list: ['Hospitality', 'Beauty', 'Wellness', 'Editorial', 'Lifestyle'],
+        list: ['Hospitality', 'Beauty', 'Wellness', 'Editorial', 'Fashion', 'Lifestyle'],
         layout: 'radio',
       },
       validation: (r) => r.required(),
     }),
     image('image'),
+    defineField({
+      name: 'description',
+      type: 'text',
+      rows: 3,
+      description: 'The paragraph under the plate.',
+    }),
+    defineField({
+      name: 'credits',
+      type: 'array',
+      description: 'One line per credit, e.g. Photography — Clarence Gabriel.',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'role', type: 'string' },
+            { name: 'name', type: 'string' },
+          ],
+          preview: { select: { title: 'name', subtitle: 'role' } },
+        },
+      ],
+    }),
     defineField({
       name: 'ratio',
       title: 'Plate ratio',
@@ -335,8 +356,9 @@ export const home = defineType({
     image('heroImage', 'Hero plate'),
     defineField({ name: 'heroLabelMeta', title: 'Hero figure label', type: 'string' }),
     // 02 — explore
-    defineField({ name: 'exploreStatement', type: 'text', rows: 4 }),
-    defineField({ name: 'exploreFelt', title: 'Felt line', type: 'string' }),
+    defineField({ name: 'exploreStatement', title: 'Explore statement (the large first paragraph)', type: 'text', rows: 4 }),
+    defineField({ name: 'exploreBody', title: 'Explore paragraphs', type: 'array', of: [{ type: 'text', rows: 3 }] }),
+    defineField({ name: 'exploreFelt', title: 'Felt line (retired — not shown)', type: 'string', hidden: true }),
     image('exploreImage', 'Explore plate'),
     // 04 — clientele
     defineField({
@@ -358,7 +380,7 @@ export const home = defineType({
     image('founderImage', 'Founder plate'),
     defineField({ name: 'founderRefrain', type: 'string' }),
     defineField({ name: 'founderTexts', type: 'array', of: [{ type: 'text', rows: 3 }] }),
-    defineField({ name: 'founderFelt', title: 'Founder felt line', type: 'string' }),
+    defineField({ name: 'founderFelt', title: 'Founder felt line (retired — not shown)', type: 'string', hidden: true }),
     defineField({ name: 'founderName', type: 'string' }),
     defineField({ name: 'founderRole', type: 'string' }),
     // 06 — work

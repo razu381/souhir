@@ -42,9 +42,9 @@ export const INDEX = defineQuery(`{
 export const HOME = defineQuery(`*[_type == "home" && !(_id in path("drafts.**"))][0]{
   heroTitleA, heroTitleB, heroLabelMeta,
   heroImage{asset, alt, hotspot},
-  exploreStatement, exploreFelt, exploreImage{asset, alt, hotspot},
+  exploreStatement, exploreBody, exploreImage{asset, alt, hotspot},
   clientele[]{ _key, label, description },
-  founderImage{asset, alt, hotspot}, founderRefrain, founderTexts, founderFelt,
+  founderImage{asset, alt, hotspot}, founderRefrain, founderTexts,
   founderName, founderRole,
   workStatement,
   press{ heading, statement, stats[]{ _key, figure, label } },
@@ -56,7 +56,8 @@ export const HOME = defineQuery(`*[_type == "home" && !(_id in path("drafts.**")
 
 export const WORK_ITEMS = defineQuery(
   `*[_type == "workItem"] | order(publishedAt desc){
-    title, category, ratio, "slug": caseStudy->slug.current, image{asset, alt, hotspot}
+    title, category, ratio, description, credits[]{ role, name },
+    "slug": caseStudy->slug.current, image{asset, alt, hotspot}
   }`
 );
 

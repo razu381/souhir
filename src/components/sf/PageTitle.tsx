@@ -22,7 +22,7 @@ export default function PageTitle({
       <div className="sf-container">
         <div className="sf-pagetitle__rule">
           <span>{label}</span>
-          <span className="sf-pagetitle__num">{num ?? '(Dar SF)'}</span>
+          <span className="sf-pagetitle__num">{num ?? '(SF Muse)'}</span>
         </div>
         <h1 className="sf-pagetitle__title">
           <Headed head={title} />

@@ -26,17 +26,15 @@ export default function SiteFooter({ settings }: { settings: Settings | null }) 
   return (
     <footer className="sf-footer">
       <div className="sf-container">
+        {/* The final copy's footer: Navigation, Instagram, LinkedIn, Email —
+            the wordmark, the page register, and the three ways to reach the
+            studio in one column beside it. */}
         <div className="sf-footer__grid">
-          <div>
-            <p className="sf-footer__brand">
-              Dar <em>SF</em>
-            </p>
-            <p className="sf-footer__tagline">
-              {settings?.tagline ?? 'Luxury Visual Presence — Paris'}
-            </p>
-          </div>
+          <p className="sf-footer__brand">
+            SF <em>Muse</em>
+          </p>
           <nav aria-label="Footer">
-            <h3 className="sf-footer__heading">Navigate</h3>
+            <h3 className="sf-footer__heading">Navigation</h3>
             <ul className="sf-footer__list">
               {NAV.map((item) => (
                 <li key={item.href}>
@@ -47,8 +45,8 @@ export default function SiteFooter({ settings }: { settings: Settings | null }) 
               ))}
             </ul>
           </nav>
-          <div>
-            <h3 className="sf-footer__heading">Follow</h3>
+          <div className="sf-footer__connect">
+            <h3 className="sf-sr-only">Connect</h3>
             <ul className="sf-footer__list">
               {socials.map((s) => (
                 <li key={s.label}>
@@ -62,11 +60,6 @@ export default function SiteFooter({ settings }: { settings: Settings | null }) 
                   </a>
                 </li>
               ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="sf-footer__heading">Contact</h3>
-            <ul className="sf-footer__list">
               <li>
                 <a
                   className="sf-footer__link"
@@ -80,7 +73,7 @@ export default function SiteFooter({ settings }: { settings: Settings | null }) 
         </div>
 
         <div className="sf-footer__bar">
-          <span>&copy; MMXXVI Dar SF</span>
+          <span>&copy; MMXXVI SF Muse</span>
           <a className="sf-footer__top-link" href="#main">
             Back to top <span aria-hidden="true">&uarr;</span>
           </a>

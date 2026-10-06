@@ -7,7 +7,7 @@ import { schemaTypes, sectionTypes } from './schemas';
  * the pages they are editing (plan §4.2). */
 const structure: StructureResolver = (S) =>
   S.list()
-    .title('Dar SF')
+    .title('SF Muse')
     .items([
       S.listItem()
         .title('Home page')
@@ -27,7 +27,7 @@ const structure: StructureResolver = (S) =>
 
 export default defineConfig({
   name: 'dar-sf',
-  title: 'Dar SF',
+  title: 'SF Muse',
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
   basePath: '/studio',

@@ -58,7 +58,7 @@ export default async function CaseStudyPage({ params }: Props) {
   return (
     <main id="main">
       <PageTitle
-        label={`(Case Study — ${project.category ?? 'Dar SF'})`}
+        label={`(Case Study — ${project.category ?? 'SF Muse'})`}
         title={split}
         intro={project.tagline}
         num={project.category ?? '01'}

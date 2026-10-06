@@ -11,7 +11,7 @@ export const revalidate = 600;
 export const metadata: Metadata = {
   title: 'Services',
   description:
-    'Brand presence, creative direction, digital experiences, and intelligent growth — the four disciplines of Dar SF.',
+    'Brand presence, creative direction, digital experiences, and intelligent growth — the four disciplines of SF Muse.',
 };
 
 export default async function ServicesPage() {

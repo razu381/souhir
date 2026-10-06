@@ -9,7 +9,7 @@ export const dynamic = 'force-static';
 export const metadata: Metadata = {
   title: 'Contact',
   description:
-    'Start a project with Dar SF — hospitality destinations, wellness concepts, editorial campaigns, and refined digital experiences.',
+    'Start a project with SF Muse — hospitality destinations, wellness concepts, editorial campaigns, and refined digital experiences.',
 };
 
 export default async function ContactPage() {

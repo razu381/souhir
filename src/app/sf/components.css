@@ -144,6 +144,15 @@
 }
 
 /* ===========================================================================
+   SHARED — art-directed plates
+   Picture.tsx wraps a plate that carries a handset crop in <picture>. The
+   wrapper must not become a box of its own (base.css makes picture a block):
+   every `.x img` rule keeps sizing the img against the same parent it always
+   had, absolutely-positioned bands included.
+   ======================================================================== */
+.sf-picture { display: contents; }
+
+/* ===========================================================================
    SHARED — chapter header (the system's signature device, §06)
    Full-width hairline, then label left · numeral right. Ground-agnostic:
    variants retint the rule and the numeral.
@@ -208,7 +217,7 @@
 }
 
 /* ===========================================================================
-   SECTION 02 — "EXPLORE DAR SF", in each hero's voice
+   SECTION 02 — "EXPLORE SF MUSE", in each hero's voice
    One skeleton (chapter header · word-by-word statement · felt closing line ·
    outline button · 2:3 portrait right), three grounds. The paragraph is the
    brief's own copy, verbatim; its last sentence is split off into the felt
@@ -271,28 +280,50 @@
   max-width: 36rem;
 }
 
-/* The felt line — brief copy, split from the paragraph's end. Voice 1. */
-.sf-explore__felt {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(1.75rem, 3vw, 2.875rem);
-  line-height: 1.15;
-  letter-spacing: -.01em;
-  max-width: 26rem;
-  margin-block-start: clamp(1.75rem, 4.5vh, 3rem);
+/* The copy's second and third paragraphs, under the statement in its
+   reading voice. */
+.sf-explore__text {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 1.15vw, 1.125rem);
+  line-height: 1.7;
+  color: var(--graphite);
+  max-width: 34rem;
+  margin-block-start: clamp(1.25rem, 3vh, 1.75rem);
 }
+.sf-explore__statement + .sf-explore__text { margin-block-start: clamp(1.75rem, 4.5vh, 2.75rem); }
+.sf-explore--noir .sf-explore__text { color: rgb(255 255 255 / .60); }
 
-/* The felt line hands off to the button — 20px of air, per spec. */
-.sf-explore .sf-btn { margin-block-start: 1.25rem; }
-
-.sf-explore__figure {
-  margin: 0;
-  max-width: min(78vw, 360px);   /* mobile: a left-hung book plate with air beside it */
+/* The two plates: the studio wall hangs as the print, the shoot in motion is
+   pinned over its lower corner as a contact print — a bone mat between them
+   so the two photographs never touch. The pair hangs right on handsets as
+   well, the inset reaching back toward the text column. */
+.sf-explore__plates {
+  position: relative;
+  justify-self: end;
+  width: min(100%, 440px);
+  padding-inline-start: 24%;   /* the inset's reach */
+  padding-block-end: 16%;
 }
 @media (min-width: 1025px) {
-  .sf-explore__figure { max-width: min(26vw, 380px); }
+  .sf-explore__plates { width: min(34vw, 500px); }
 }
+.sf-explore__figure { margin: 0; }
+.sf-explore__inset {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 44%;
+  margin: 0;
+}
+.sf-explore__inset img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: clamp(6px, .7vw, 10px) solid var(--bone);   /* the mat */
+}
+.sf-explore--noir .sf-explore__inset img { border-color: var(--noir); }
 .sf-explore__figure img {
   width: 100%;
   height: auto;             /* LOAD-BEARING: the <img height> attribute is a presentational
@@ -304,16 +335,6 @@
   max-height: 70vh;         /* short-viewport guard — crops rather than dominating */
   object-fit: cover;
 }
-.sf-explore__caption {
-  margin-block-start: .875rem;
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-  color: var(--graphite);
-}
-.sf-explore--noir .sf-explore__caption { color: var(--champagne); }
 
 @media (prefers-reduced-motion: reduce) {
   [data-sf-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
@@ -321,13 +342,13 @@
 
 
 /* ===========================================================================
-   SECTION 03 — "THE ART OF BRAND PRESENCE" (services), §06 service rows
-   Four numbered rows: numeral and label in Didone, description in graphite
-   sans right, hairline dividers. The 4:5 preview tile lives in the row's LEFT
-   MARGIN — the quiet column between numeral and label — and curtain-reveals
-   on hover / focus. Pure CSS: the tiles are authored <img>s, so no JS
-   module, no layout shift (the column is reserved), and in Elementor each
-   tile is simply an Image widget inside the row container.
+   SECTION 03 — "WHAT WE CREATE" (services), the copy's "elegant visual blocks"
+   The catalogue rows (numeral · tossed tile · label · line) became four
+   blocks when the final copy asked to display the services as visual blocks:
+   a 4:5 print over a hairline, the catalogue numeral, the Didone title, its
+   one line and the way in. Four-up on desktop, two-up on tablets, one column
+   on handsets. The homepage adds the copy's headline and standfirst above
+   (ServicesList `intro`); /services shows the blocks under its own label.
    ======================================================================== */
 .sf-services {
   padding-block: calc(var(--rhythm) / 2);   /* halves stack: section-to-section = one rhythm */
@@ -342,132 +363,117 @@
 .sf-services--noir .sf-chapter { border-top-color: var(--hairline-d); }
 .sf-services--noir .sf-chapter__num { color: var(--champagne); }
 
-.sf-services__list {
-  display: block;
-  margin-block-start: clamp(2.5rem, 7vh, 5rem);
-  border-bottom: 1px solid var(--hairline);
+/* --- The masthead: headline left, standfirst beside it (the journal's) ---- */
+.sf-services__masthead { margin-block-start: clamp(2rem, 5vh, 3rem); }
+@media (min-width: 1025px) {
+  .sf-services__masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: clamp(3rem, 6vw, 6rem);
+    align-items: start;
+  }
+  .sf-services__intro { margin-block-start: 0; }
 }
-.sf-services--noir .sf-services__list { border-bottom-color: var(--hairline-d); }
-
-/* --- The row ------------------------------------------------------------------
-   Desktop grid: numeral · tile margin · label · description. The tile column
-   is RESERVED space — the reveal never reflows the row. */
-.sf-service-row {
-  display: grid;
-  grid-template-columns: 3rem minmax(0, 1fr);
-  grid-template-areas: "num label" "desc desc";
-  column-gap: 1.5rem;
-  row-gap: .625rem;
-  align-items: baseline;
-  padding-block: clamp(1.625rem, 3.5vh, 2.375rem);
-  border-top: 1px solid var(--hairline);
-  text-decoration: none;
-  color: inherit;
-}
-.sf-services--noir .sf-service-row { border-top-color: var(--hairline-d); }
-
-.sf-service-row__num {
-  grid-area: num;
-  position: relative;
-  z-index: 2;   /* the tipped print slides UNDER the type — collage, not cover */
-  font-family: var(--font-display);
-  font-size: clamp(1.125rem, 1.4vw, 1.375rem);
-  color: var(--bronze);
-  transition: color var(--dur-micro) var(--ease);
-}
-.sf-services--noir .sf-service-row__num { color: var(--champagne); }
-
-.sf-service-row__label {
-  grid-area: label;
-  position: relative;
-  z-index: 2;
+.sf-services__head {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(1.5rem, 2.4vw, 2.375rem);
+  font-size: clamp(2.125rem, 3.2vw, 3.25rem);
   line-height: 1.1;
-  letter-spacing: -.02em;
-  transition: transform var(--dur-micro) var(--ease);
+  letter-spacing: -.015em;
+  max-width: 30rem;
 }
-
-.sf-service-row__desc {
-  grid-area: desc;
-  position: relative;
-  z-index: 2;
+.sf-services__intro {
   font-family: var(--font-sans);
-  font-size: clamp(.9375rem, 1.1vw, 1.0625rem);
+  font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
   line-height: 1.65;
   color: var(--graphite);
-  max-width: 38rem;
+  max-width: 34rem;
+  margin-block-start: clamp(1.25rem, 3vh, 1.75rem);
 }
-.sf-services--noir .sf-service-row__desc { color: rgb(255 255 255 / .60); }
+.sf-services--noir .sf-services__intro { color: rgb(255 255 255 / .60); }
 
-/* --- The left-margin tile --------------------------------------------------- */
-.sf-service-row__tile {
-  grid-area: tile;
-  display: none;
-  position: relative;
-  align-self: center;
-  overflow: hidden;
+/* --- The blocks --------------------------------------------------------------- */
+.sf-services__blocks {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(3rem, 7vh, 4rem) clamp(1.5rem, 2.4vw, 2.5rem);
+  margin: clamp(2.5rem, 7vh, 5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 768px)  { .sf-services__blocks { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1025px) { .sf-services__blocks { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.sf-service-block__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+.sf-service-block__plate {
+  display: block;
+  overflow: hidden;   /* the settle scales inside the frame, never past it */
+}
+.sf-service-block__plate img {
+  width: 100%;
+  height: auto;   /* see .sf-explore__figure img — the presentational-hint trap */
   aspect-ratio: 4 / 5;
-  border-radius: 0;   /* sharp — §09 */
-  transition: transform 140ms var(--ease);   /* fast exit, like the img below */
-}
-/* THE MOUNT. The tile column is reserved at all times so the print never
-   shifts the row. A hairline mount, in the same value as the row dividers,
-   frames the plate at rest — the print is always in it; the whole mount
-   tips together on hover. */
-.sf-service-row__tile::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;   /* the frame stays over the print, as a mount does */
-  pointer-events: none;
-  border: 1px solid var(--hairline);
-}
-.sf-services--noir .sf-service-row__tile::before { border-color: rgb(205 177 144 / .30); }
-/* The toss: on hover the print swings 25° — dropped on the catalogue table,
-   not placed. It sweeps under the typography (text spans are z-2) and the
-   hovered row lifts above its neighbours, so the tipped plate never fights
-   the type for the reader's eye. */
-.sf-service-row { position: relative; }
-.sf-service-row:hover,
-.sf-service-row:focus-visible { z-index: 5; }
-.sf-service-row:hover .sf-service-row__tile,
-.sf-service-row:focus-visible .sf-service-row__tile {
-  transform: rotate(-25deg);
+  object-fit: cover;
   transition: transform var(--dur-base) var(--ease);
 }
-/* The print shows at rest — no clip, no entrance. It only needs to survive
-   the toss, hence the bleed. */
-.sf-service-row__tile img {
-  position: absolute;
-  inset: -6%;   /* rotation bleed — covers the tipped corners at any row */
-}
+.sf-service-block__link:hover .sf-service-block__plate img,
+.sf-service-block__link:focus-visible .sf-service-block__plate img { transform: scale(1.03); }
 
-.sf-service-row:hover .sf-service-row__label,
-.sf-service-row:focus-visible .sf-service-row__label {
-  transform: translateX(.375rem);   /* the quiet nudge */
+.sf-service-block__num {
+  margin-block-start: 1.25rem;
+  padding-block-start: .875rem;
+  border-top: 1px solid var(--hairline);
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1.4vw, 1.375rem);
+  line-height: 1;
+  color: var(--bronze);
 }
-
-/* Desktop: four columns, tile margin between numeral and label. */
-@media (min-width: 1025px) {
-  .sf-service-row {
-    grid-template-columns: 3.5rem clamp(96px, 9vw, 150px) minmax(0, 1fr) minmax(0, 26rem);
-    grid-template-areas: "num tile label desc";
-    row-gap: 0;
-  }
-  .sf-service-row__tile { display: block; }
-  .sf-service-row__desc { justify-self: end; text-align: left; }
+.sf-services--noir .sf-service-block__num { color: var(--champagne); border-top-color: var(--hairline-d); }
+.sf-service-block__title {
+  margin-block-start: .625rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 1.8vw, 1.875rem);
+  line-height: 1.12;
+  letter-spacing: -.015em;
 }
+.sf-service-block__desc {
+  margin-block-start: .75rem;
+  font-family: var(--font-sans);
+  font-size: clamp(.9375rem, 1.05vw, 1.0625rem);
+  line-height: 1.65;
+  color: var(--graphite);
+}
+.sf-services--noir .sf-service-block__desc { color: rgb(255 255 255 / .60); }
+/* The way in sits on the block's floor, so the four line up across the row
+   whatever their descriptions run to. */
+.sf-service-block__more {
+  margin-block-start: auto;
+  padding-block-start: 1.25rem;
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+.sf-services--noir .sf-service-block__more { color: var(--champagne); }
+.sf-service-block__more span {
+  display: inline-block;
+  transition: transform var(--dur-micro) var(--ease);
+}
+.sf-service-block__link:hover .sf-service-block__more span,
+.sf-service-block__link:focus-visible .sf-service-block__more span { transform: translateX(.25em); }
 
 @media (prefers-reduced-motion: reduce) {
-  .sf-service-row__tile,
-  .sf-service-row__tile img {
-    transform: none !important;
-    transition: none !important;
-  }
-  .sf-service-row__tile img { clip-path: none !important; }
-  .sf-service-row__label { transform: none !important; transition: none !important; }
+  .sf-service-block__plate img,
+  .sf-service-block__more span { transform: none !important; transition: none !important; }
 }
 
 
@@ -602,7 +608,7 @@
 
 
 /* ===========================================================================
-   SECTION 05 — "ABOUT DAR SF" (the founder)
+   SECTION 05 — "ABOUT SF MUSE" (the founder)
    The explore composition mirrored: the plate hangs LEFT, the statement
    reads right — the page's rhythm alternates instead of repeating. The
    refrain is the hero's own line, returned; the felt line closes; the
@@ -650,16 +656,6 @@
   max-height: 70vh;
   object-fit: cover;
 }
-.sf-founder__caption {
-  margin-block-start: .875rem;
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-  color: var(--graphite);
-}
-.sf-founder--noir .sf-founder__caption { color: var(--champagne); }
 
 .sf-founder__refrain {
   font-family: var(--font-display);
@@ -681,17 +677,6 @@
   margin-block-start: clamp(1.5rem, 3.5vh, 2.25rem);
 }
 .sf-founder--noir .sf-founder__text { color: rgb(255 255 255 / .60); }
-
-.sf-founder__felt {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(1.5rem, 2.2vw, 2.125rem);
-  line-height: 1.2;
-  letter-spacing: -.01em;
-  max-width: 26rem;
-  margin-block-start: clamp(1.75rem, 4.5vh, 3rem);
-}
 
 /* The colophon: name and role on one hairline. */
 .sf-founder__credit {
@@ -1228,6 +1213,72 @@
 }
 
 
+/* --- The hero's own words (final copy, Oct 2026) ------------------------------
+   The copy's hero carries a sub-headline, two sentences and a way in. They
+   join the label block under "Into Memory." — the left column over the black
+   field on desktop, centred with the title on handsets — and the meta rail
+   they would have shared with the mark and the scroll cue is retired: the
+   button IS the cue. Without the rail holding the floor, the wall keeps a
+   bottom margin of its own so the block still rides mid-wall. */
+.sf-nocturne--intro .sf-nocturne__inner { padding-block-end: clamp(2.5rem, 7svh, 5rem); }
+.sf-nocturne__intro { margin-block-start: clamp(1.25rem, 3.5svh, 2.25rem); }
+.sf-nocturne__standfirst {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--champagne);
+}
+.sf-nocturne__text {
+  max-width: 32rem;
+  margin-block-start: .875rem;
+  font-family: var(--font-sans);
+  font-size: clamp(.9375rem, 1.05vw, 1.0625rem);
+  line-height: 1.65;
+  color: rgb(255 255 255 / .80);
+}
+.sf-nocturne__standfirst + .sf-nocturne__text { margin-block-start: clamp(1rem, 2.5svh, 1.5rem); }
+.sf-nocturne__cta {
+  margin-block-start: clamp(1.5rem, 4svh, 2.5rem);
+  color: var(--paper);
+  border-color: rgb(205 177 144 / .45);
+}
+.sf-nocturne__cta:hover,
+.sf-nocturne__cta:focus-visible {
+  background: var(--champagne);
+  border-color: var(--champagne);
+  color: var(--noir);
+}
+/* Short laptops (1366×688 measured): the block ran ~20px past the fold. The
+   title gives first — it is set by width, and these screens are wide but
+   short. */
+@media (min-width: 1025px) and (max-height: 780px) {
+  .sf-nocturne--intro.sf-nocturne--backdrop .sf-nocturne__title { font-size: min(7.5vw, 13svh); }
+  .sf-nocturne--intro.sf-nocturne--backdrop .sf-nocturne__label { margin-block-start: clamp(1rem, 3svh, 2rem); }
+}
+@media (max-width: 1024px) {
+  .sf-nocturne--backdrop .sf-nocturne__text { margin-inline: auto; }
+  /* Two paragraphs now ride the handset's open valley, over her at the
+     window — the pool behind the words deepens and reaches lower to hold
+     body copy, not just the display line. */
+  .sf-nocturne--intro.sf-nocturne--backdrop .sf-nocturne__plate::after {
+    background:
+      radial-gradient(150% 72% at 50% 55%,
+        rgb(10 8 6 / .78) 0%,
+        rgb(10 8 6 / .56) 55%,
+        rgb(10 8 6 / .20) 100%),
+      linear-gradient(to bottom,
+        rgb(10 8 6 / .82) 0%,
+        rgb(10 8 6 / .66) 28%,
+        rgb(10 8 6 / .56) 46%,
+        rgb(10 8 6 / .30) 66%,
+        rgb(10 8 6 / .70) 86%,
+        rgb(10 8 6 / .90) 100%);
+  }
+}
+
+
 /* ===========================================================================
    SECTION 04, THE NOCTURNE'S GROUND — the register by lamplight
    Where the Exhibition loops back to its noir entry hall, the Nocturne loops
@@ -1293,6 +1344,17 @@
 .sf-work--nocturne .sf-chapter { border-top-color: rgb(205 177 144 / .25); }
 .sf-work--nocturne .sf-chapter__num { color: var(--champagne); }
 
+.sf-work__head {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.125rem, 3.2vw, 3.25rem);
+  line-height: 1.1;
+  letter-spacing: -.015em;
+  margin-block-start: clamp(2rem, 5vh, 3rem);
+  color: var(--bone);
+}
+.sf-work__head + div > .sf-work__statement { margin-block-start: clamp(1.25rem, 3vh, 1.75rem); }
+
 .sf-work__statement {
   font-family: var(--font-sans);
   font-weight: 400;
@@ -1332,42 +1394,37 @@
   color: var(--champagne);
   border-block-end-color: var(--champagne);
 }
+/* A room with nothing hung in it yet stays on the index, unlit. */
+.sf-work__filter:disabled,
+.sf-work__filter:disabled:hover { color: rgb(255 255 255 / .28); cursor: default; }
 
 /* --- The hang ---------------------------------------------------------------
-   A salon hang in three columns, on GRID rather than multicol.
-
-   Multicol balanced the plates by height, which meant the catalogue ran DOWN
-   each column: the top row read 05.1 · 05.3 · 05.5 and the second 05.2 · 05.4 ·
-   05.6, so a reader scanning left to right watched the numbers skip. In a
-   section whose whole grammar is numbering, that read as a fault. Grid puts
-   source order back on the wall left-to-right, and the stagger below becomes a
-   COMPOSED offset instead of a balancing artefact — a regular descending step
-   across the three columns, which is what a salon hang actually looks like.
-
-   height:auto is load-bearing: the imgs carry width/height attributes for
-   preload space, and without an explicit CSS height those attributes act as
-   presentational hints that pin the box tall and silently defeat the
-   aspect-ratio (the bug that made every ratio look wrong). */
-/* The hang — multicol, not grid. Items flow down each column, so the gap
-   between stacked plates is the item's own margin and nothing else. A grid
-   shares row tracks: paired with drop margins it stretched every row to its
-   tallest column and left a plate-height of void under the short ones (the
-   first column read as a hole between 05.1 and 05.4). Column-first order:
-   05.1–05.2, 05.3–05.4, 05.5–05.6; filtering reflows as before. */
-.sf-work__grid { columns: 1; }
-@media (min-width: 768px)  { .sf-work__grid { columns: 2; } }
-@media (min-width: 1025px) { .sf-work__grid { columns: 3; } }
+   Three columns, on GRID. The final copy hangs five projects, each with a
+   paragraph and a credit list under the print — too much text for the old
+   multicol salon, where five plates of mixed height balanced into one full
+   column and one with a plate-height of void. So the portraits share ONE
+   frame (2:3, baked to it) and the rows align: Beauty · Hospitality ·
+   Editorial, then Fashion beside Lifestyle, the one landscape, hung wide
+   across two columns AT THE PORTRAITS' HEIGHT (see --wide below). Two
+   columns on tablets, one on handsets; the filter rail's FLIP is unchanged. */
 .sf-work__grid {
-  column-gap: clamp(2rem, 3vw, 3rem);
+  --work-gap: clamp(1.5rem, 2.4vw, 2.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(3rem, 7vh, 4.5rem) var(--work-gap);
+  align-items: start;
   margin-block-start: clamp(2.5rem, 6vh, 4.5rem);
 }
+@media (min-width: 768px) {
+  .sf-work__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sf-work__item--wide { grid-column: span 2; }
+}
+@media (min-width: 1025px) { .sf-work__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 .sf-work__item {
   display: block;
   text-decoration: none;
   color: inherit;
-  break-inside: avoid;
-  margin-block-end: clamp(2.25rem, 6vh, 4rem);
 }
 .sf-work__item.is-filtered { display: none; }   /* the rail's whole effect, in one line */
 
@@ -1406,26 +1463,34 @@
 .sf-work__plate img {
   width: 100%;
   height: auto;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 2 / 3;
   object-fit: cover;
   transform: scale(1);
   transition: transform var(--dur-base) var(--ease);
 }
-.sf-work__item--tall   .sf-work__plate img { aspect-ratio: 4 / 5; }
-.sf-work__item--square .sf-work__plate img { aspect-ratio: 1 / 1; }
+/* The wide plate stands exactly as tall as a portrait beside it. Its width is
+   two columns and a gap (W = 2c + g) and a portrait is 1.5c tall, so its
+   height is 0.75(W − g) — true at two columns and at three. Handsets hang it
+   alone, at its own 3:2. */
+.sf-work__item--wide { container-type: inline-size; }
+.sf-work__item--wide .sf-work__plate img { aspect-ratio: 3 / 2; }
+@media (min-width: 768px) {
+  .sf-work__item--wide .sf-work__plate img {
+    aspect-ratio: auto;
+    height: calc(.75 * (100cqw - var(--work-gap)));
+  }
+}
 /* Link affordances are gated on the item ACTUALLY being a link — a plate with
    no case study behind it stays still (see --static below). */
 .sf-work__item:not(.sf-work__item--static):hover .sf-work__plate img,
 .sf-work__item:not(.sf-work__item--static):focus-visible .sf-work__plate img { transform: scale(1.03); }
 
-.sf-work__caption {
-  display: grid;
-  grid-template-columns: 2.75rem minmax(0, 1fr) auto;
-  align-items: baseline;
-  column-gap: 1.25rem;
-  margin-block-start: .875rem;
-}
+/* The caption: catalogue numeral, the copy's "Category — Title" (the
+   category in caps as a kicker, the title in Didone beneath), the paragraph,
+   and the credits as a quiet two-column register under a hairline. */
+.sf-work__caption { margin-block-start: 1.125rem; }
 .sf-work__num {
+  display: block;
   font-family: var(--font-sans);
   font-size: .75rem;
   font-weight: 500;
@@ -1435,31 +1500,91 @@
 }
 .sf-work__item:not(.sf-work__item--static):hover .sf-work__num,
 .sf-work__item:not(.sf-work__item--static):focus-visible .sf-work__num { color: var(--champagne); }
-.sf-work__title {
-  font-family: var(--font-display);
+.sf-work__heading {
+  margin-block-start: .625rem;
   font-weight: 400;
-  font-size: clamp(1.125rem, 1.4vw, 1.5rem);
-  line-height: 1.15;
-  letter-spacing: -.015em;
-  transition: transform var(--dur-micro) var(--ease);
 }
-.sf-work__item:not(.sf-work__item--static):hover .sf-work__title,
-.sf-work__item:not(.sf-work__item--static):focus-visible .sf-work__title { transform: translateX(.375rem); }
-
-/* --- The hung print ------------------------------------------------------------
-   A plate whose case study is not published yet. It keeps the catalogue entry
-   and the category, drops the ↗ (in the markup) and every travel a link would
-   promise. The section stopped offering six navigations it could not honour. */
-.sf-work__item--static { cursor: default; }
 .sf-work__meta {
   font-family: var(--font-sans);
   font-size: var(--t-label);
   font-weight: 500;
   letter-spacing: var(--track-label);
   text-transform: uppercase;
-  color: rgb(255 255 255 / .55);
-  white-space: nowrap;
+  color: var(--champagne);
 }
+.sf-work__sep {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  color: rgb(205 177 144 / .70);
+}
+.sf-work__title {
+  display: block;
+  margin-block-start: .375rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 1.9vw, 2rem);
+  line-height: 1.12;
+  letter-spacing: -.015em;
+  color: var(--bone);
+  transition: transform var(--dur-micro) var(--ease);
+}
+.sf-work__item:not(.sf-work__item--static):hover .sf-work__title,
+.sf-work__item:not(.sf-work__item--static):focus-visible .sf-work__title { transform: translateX(.375rem); }
+.sf-work__desc {
+  max-width: 34rem;
+  margin-block-start: .875rem;
+  font-family: var(--font-sans);
+  font-size: clamp(.9375rem, 1.05vw, 1.0625rem);
+  line-height: 1.65;
+  color: rgb(255 255 255 / .70);
+}
+.sf-work__credits {
+  display: grid;
+  row-gap: .5rem;
+  margin: 1.25rem 0 0;
+  padding-block-start: 1rem;
+  border-top: 1px solid rgb(205 177 144 / .25);
+}
+.sf-work__credit {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  column-gap: 1rem;
+  align-items: baseline;
+}
+.sf-work__credit dt {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: .12em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / .55);
+}
+.sf-work__credit dd {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: .875rem;
+  line-height: 1.5;
+  color: rgb(255 255 255 / .82);
+}
+/* The wide plate's caption uses its width: the paragraph left, the credits
+   beside it. */
+@media (min-width: 1025px) {
+  .sf-work__item--wide .sf-work__caption {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: var(--work-gap);
+    align-items: start;
+  }
+  .sf-work__item--wide .sf-work__num,
+  .sf-work__item--wide .sf-work__heading { grid-column: 1 / -1; }
+  .sf-work__item--wide .sf-work__credits { margin-block-start: .875rem; }
+}
+
+/* --- The hung print ------------------------------------------------------------
+   A plate whose case study is not published yet: no ↗ (in the markup) and no
+   travel a link would promise. */
+.sf-work__item--static { cursor: default; }
 
 @media (prefers-reduced-motion: reduce) {
   .sf-work__plate img,
@@ -1499,6 +1624,18 @@
   max-width: 30rem;
   margin-block-start: clamp(1.5rem, 3.5vh, 2.25rem);
   color: var(--graphite);
+}
+
+/* The homepage's reading of the final copy: the chapter label names the
+   section, one sentence holds the spine at the statement's reading scale,
+   and the covers carry the room. */
+.sf-press--compact .sf-press__statement {
+  margin-block-start: 0;
+  font-size: clamp(1.25rem, 1.8vw, 1.75rem);
+  line-height: 1.5;
+  letter-spacing: -.005em;
+  color: var(--ink);
+  max-width: 28rem;
 }
 
 /* --- The salon hang -----------------------------------------------------------
@@ -1605,7 +1742,7 @@
 
 
 /* ===========================================================================
-   SECTION 08 — "THE DAR SF JOURNAL" (the contents page)
+   SECTION 08 — "THE SF MUSE JOURNAL" (the contents page)
    Redesigned as the magazine's own opening spread: a masthead (head left,
    the two paragraphs beside it), the featured editorial as a real hung
    4:5 plate carrying the catalogue caption 08.1, and the remaining essays
@@ -1657,14 +1794,93 @@
   letter-spacing: -.002em;
   max-width: 34rem;
 }
-.sf-journal__sub {
+
+/* --- The banner, the sub-labels, the featured editorial ---------------------
+   The final copy runs masthead → FEATURED EDITORIAL → ADDITIONAL ARTICLES →
+   the way into the journal. The desk at sunset hangs as a cinematic strip
+   under the masthead (8:1 as delivered; a 3:1 crop on handsets, where the
+   strip would be a sliver). The copy's two sub-heads are set as the system's
+   tracked caps, the featured editorial as a spread — a 4:5 print beside its
+   Didone title — and the additional articles keep the stacked register. */
+.sf-journal__banner { margin: clamp(2.5rem, 6vh, 4rem) 0 0; }
+.sf-journal__banner img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+.sf-journal__sublabel {
+  margin-block-start: clamp(3rem, 8vh, 5rem);
   font-family: var(--font-sans);
-  font-size: clamp(.9375rem, 1.1vw, 1.0625rem);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+.sf-journal__sublabel + .sf-journal__index { margin-block-start: 1.25rem; }
+
+.sf-journal__lead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: clamp(1.5rem, 4vh, 2.25rem);
+  margin-block-start: 1.25rem;
+  padding-block-start: clamp(1.5rem, 4vh, 2.25rem);
+  border-top: 1px solid var(--hairline);
+  color: inherit;
+  text-decoration: none;
+}
+@media (min-width: 768px) {
+  .sf-journal__lead {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    column-gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: center;
+  }
+}
+.sf-journal__lead-plate { margin: 0; overflow: hidden; }
+.sf-journal__lead-plate img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  max-height: 80vh;
+  object-fit: cover;
+  transition: transform var(--dur-base) var(--ease);
+}
+a.sf-journal__lead:hover .sf-journal__lead-plate img,
+a.sf-journal__lead:focus-visible .sf-journal__lead-plate img { transform: scale(1.03); }
+.sf-journal__lead-title {
+  margin-block-start: .5rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 3.4vw, 3.5rem);
+  line-height: 1.06;
+  letter-spacing: -.02em;
+  max-width: 14ch;
+}
+.sf-journal__lead-desc {
+  margin-block-start: clamp(1rem, 2.5vh, 1.5rem);
+  font-family: var(--font-sans);
+  font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
   line-height: 1.65;
   color: var(--graphite);
-  max-width: 34rem;
-  margin-block-start: 1rem;
+  max-width: 30rem;
 }
+.sf-journal__lead-read {
+  display: inline-block;
+  margin-block-start: clamp(1.5rem, 4vh, 2.25rem);
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+.sf-journal__lead-read span {
+  display: inline-block;
+  transition: transform var(--dur-micro) var(--ease);
+}
+a.sf-journal__lead:hover .sf-journal__lead-read span,
+a.sf-journal__lead:focus-visible .sf-journal__lead-read span { transform: translateX(.25em); }
 
 /* --- The lead spread ---------------------------------------------------------
    REMOVED post-port: the featured-lead block was dropped — §08 runs
@@ -1740,7 +1956,7 @@
 }
 .sf-journal__row-read {
   font-family: var(--font-sans);
-  font-size: var(--t-label);
+  font-size: .875rem;
   font-weight: 500;
   letter-spacing: var(--track-label);
   text-transform: uppercase;
@@ -1790,7 +2006,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .sf-journal__row-thumb img,
-  .sf-journal__row-read span { transform: none !important; transition: none !important; }
+  .sf-journal__row-read span,
+  .sf-journal__lead-plate img,
+  .sf-journal__lead-read span { transform: none !important; transition: none !important; }
   .sf-journal__row-num { transition: none !important; }
 }
 
@@ -1806,7 +2024,8 @@
   position: relative;
   display: grid;
   align-items: center;
-  min-height: clamp(22rem, 55svh, 34rem);
+  /* "Large cinematic image": the colonnade at the band's full height. */
+  min-height: clamp(28rem, 80svh, 48rem);
   background: var(--umber);
   color: var(--paper);
   overflow: hidden;
@@ -1885,6 +2104,12 @@
   display: block;
   font-style: italic;
   color: var(--champagne);
+}
+.sf-interlude__cite-name,
+.sf-interlude__cite-role { display: block; }
+.sf-interlude__cite-role {
+  margin-block-start: .375rem;
+  color: rgb(255 255 255 / .52);
 }
 .sf-interlude__cite {
   display: block;
@@ -2011,7 +2236,7 @@
 /* ===========================================================================
    FOOTER — the colophon
    The night's last wall: umber, champagne hairlines, the link register in
-   three quiet columns. The Nocturne carried a monumental "Dar SF" outro
+   three quiet columns. The Nocturne carried a monumental wordmark outro
    bleeding off the floor; the brief's footer asks only for navigation and
    socials, so the colophon ends at its bar.
    ======================================================================== */
@@ -2029,9 +2254,12 @@
 }
 @media (min-width: 1025px) {
   .sf-footer__grid {
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
     column-gap: clamp(2.5rem, 5vw, 5rem);
   }
+  /* The connect column has no visible heading: it opens on the nav list's
+     first line, not the heading's. */
+  .sf-footer__connect { padding-block-start: calc(var(--t-label) * 1.7 + .5rem); }
 }
 .sf-footer__brand {
   font-family: var(--font-display);

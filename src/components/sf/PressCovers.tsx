@@ -80,7 +80,7 @@ export default function PressCovers({ covers }: { covers: PressCover[] }) {
       {covers.map((cover, i) => (
         <figure
           className={`sf-press__cover${i === 1 ? ' sf-press__cover--b' : i === 2 ? ' sf-press__cover--c' : ''}`}
-          key={cover.caption}
+          key={cover.image.src}
         >
           <img
             src={cover.image.src}
