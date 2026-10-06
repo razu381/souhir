@@ -39,6 +39,12 @@
   --lab-fig: #271A1D;       /* warm aubergine — the jewel tone champagne sits on */
   --lab-champagne: #EFE6D8; /* the accent itself, lifted to a light ground */
   --lab-sable: #E2D7C4;     /* champagne's taupe shadow — warm sand, light */
+
+  /* The two text tokens, deepened for the sand walls (champagne, sable).
+     Graphite measures 3.8 : 1 on sable and 4.3 : 1 on champagne, bronze
+     3.7 / 4.3 — both under the 4.5 : 1 text bar. These clear it. */
+  --lab-graphite-sand: #56514B; /* 5.5 : 1 on sable, 6.3 : 1 on champagne */
+  --lab-bronze-sand:   #5F4E3A; /* bronze 70% · ink 30% — 5.6 : 1 on sable */
 }
 
 /* --------------------------------------------------------------------------
@@ -95,6 +101,17 @@
 :is(.sf-nocturne--bone, .sf-nocturne--paper, .sf-nocturne--champagne, .sf-nocturne--sable) .sf-nocturne__meta          { border-top-color: var(--hairline); }
 :is(.sf-nocturne--bone, .sf-nocturne--paper, .sf-nocturne--champagne, .sf-nocturne--sable) .sf-nocturne__mark          { color: var(--bronze); }
 :is(.sf-nocturne--bone, .sf-nocturne--paper, .sf-nocturne--champagne, .sf-nocturne--sable) .sf-nocturne__sub           { color: var(--graphite); }
+/* The final copy's hero words (sub-headline, two sentences, the way in) —
+   written for the night, so the light walls retint them by the same
+   contract: bronze caps, graphite text, the pill in ink. */
+:is(.sf-nocturne--bone, .sf-nocturne--paper, .sf-nocturne--champagne, .sf-nocturne--sable) .sf-nocturne__standfirst    { color: var(--bronze); }
+:is(.sf-nocturne--bone, .sf-nocturne--paper, .sf-nocturne--champagne, .sf-nocturne--sable) .sf-nocturne__text          { color: var(--graphite); }
+:is(.sf-nocturne--bone, .sf-nocturne--paper, .sf-nocturne--champagne, .sf-nocturne--sable) .sf-nocturne__cta           { color: var(--ink); border-color: rgb(20 20 20 / .28); }
+:is(.sf-nocturne--bone, .sf-nocturne--paper, .sf-nocturne--champagne, .sf-nocturne--sable) .sf-nocturne__cta:hover,
+:is(.sf-nocturne--bone, .sf-nocturne--paper, .sf-nocturne--champagne, .sf-nocturne--sable) .sf-nocturne__cta:focus-visible { background: var(--ink); border-color: var(--ink); color: var(--bone); }
+/* The sand walls carry the deepened text tokens (see :root above). */
+.sf-nocturne--champagne,
+.sf-nocturne--sable { --graphite: var(--lab-graphite-sand); --bronze: var(--lab-bronze-sand); }
 
 /* --------------------------------------------------------------------------
    03 · Group B — recompositions. Each keeps the nocturne's DOM and its
@@ -198,6 +215,30 @@
 .sf-nocturne--cinema .sf-nocturne__rule,
 .sf-nocturne--cinema .sf-nocturne__label,
 .sf-nocturne--cinema .sf-nocturne__meta { position: relative; z-index: 2; }
+/* The final copy's two paragraphs and button sit on the photograph's bright
+   middle tones — the scrim gains a ground poured from the left, where the
+   words are (the production backdrop's own move). Handsets, where the words
+   span the frame, take a deeper wash overall. */
+.sf-nocturne--cinema.sf-nocturne--intro .sf-nocturne__plate::after {
+  background:
+    linear-gradient(to right,
+      rgb(10 8 6 / .84) 0%,
+      rgb(10 8 6 / .74) 34%,
+      rgb(10 8 6 / .34) 56%,
+      rgb(10 8 6 / 0) 74%),
+    linear-gradient(to bottom,
+      rgb(10 8 6 / .55),
+      rgb(10 8 6 / .28) 42%,
+      rgb(10 8 6 / .62));
+}
+@media (max-width: 1024px) {
+  .sf-nocturne--cinema.sf-nocturne--intro .sf-nocturne__plate::after {
+    background: linear-gradient(to bottom,
+      rgb(10 8 6 / .72),
+      rgb(10 8 6 / .64) 45%,
+      rgb(10 8 6 / .84));
+  }
+}
 
 /* — TYPOGRAPHIC — the wordmark-as-architecture pole: no plate at all, the
    Didone alone carries the screen. The rail vanishes with the plate; the

@@ -55,6 +55,15 @@
 .sf-home--v1 .sf-press { background: var(--paper); }
 .sf-home--v1 .sf-journal { background: var(--lab-sable); }
 
+/* The sand rooms carry the deepened text tokens (hero-lab.css :root):
+   graphite and bronze fall under 4.5 : 1 on champagne and sable. */
+.sf-home--v1 :is(.sf-explore--bone, .sf-services--bone, .sf-founder--bone, .sf-journal) {
+  --graphite: var(--lab-graphite-sand);
+  --bronze: var(--lab-bronze-sand);
+}
+/* The inset print's mat is cut from the room's own wall. */
+.sf-home--v1 .sf-explore--bone .sf-explore__inset img { border-color: var(--lab-champagne); }
+
 /* --- V1 closing movement · the salon, the sheet, the ink ------------------ */
 
 /* Interlude → THE SALON QUOTE. The full-bleed night becomes a bone wall with
@@ -70,6 +79,7 @@
 .sf-home--v1 .sf-interlude__quote { color: var(--ink); }
 .sf-home--v1 .sf-interlude__quote em { color: var(--bronze); }
 .sf-home--v1 .sf-interlude__cite { border-block-start-color: var(--hairline); color: var(--graphite); }
+.sf-home--v1 .sf-interlude__cite-role { color: var(--graphite); }
 .sf-home--v1 .sf-interlude__inner { width: 100%; }
 @media (max-width: 1024px) {
   .sf-home--v1 .sf-interlude { display: block; }
@@ -95,6 +105,11 @@
 .sf-home--v1 .sf-close .sf-btn { color: var(--ink); border-color: var(--hairline); }
 .sf-home--v1 .sf-close .sf-btn:hover,
 .sf-home--v1 .sf-close .sf-btn:focus-visible { background: var(--ink); border-color: var(--ink); color: var(--bone); }
+/* The ink page keeps its bare sheet: the homepage's closing photograph (and
+   its umber scrim) would put the ink type on a night picture. */
+.sf-home--v1 .sf-close__media,
+.sf-home--v1 .sf-close__scrim { display: none; }
+.sf-home--v1 .sf-close--image { display: block; min-height: 0; }
 
 /* ==========================================================================
    V2 · LE MUSÉE — paper rooms, the black final wing
@@ -111,11 +126,13 @@
 .sf-home--v2 .sf-press { background: var(--bone); }
 
 /* Catalogue-scale numerals on the service rows. */
-.sf-home--v2 .sf-service-row__num {
+.sf-home--v2 .sf-service-row__num,
+.sf-home--v2 .sf-service-block__num {
   font-family: var(--font-display);
   font-size: clamp(1.75rem, 3vw, 3rem);
   line-height: 1;
 }
+.sf-home--v2 .sf-explore--bone .sf-explore__inset img { border-color: var(--paper); }
 
 /* Monumental heads on the register rooms. */
 .sf-home--v2 :is(.sf-clientele__head, .sf-press__head) {
@@ -192,6 +209,8 @@
 .sf-home--v3 .sf-explore--bone .sf-btn { color: var(--paper); border-color: var(--hairline-d); }
 .sf-home--v3 .sf-explore--bone .sf-explore__caption { color: var(--champagne); }
 .sf-home--v3 .sf-explore--bone .sf-explore__felt { color: var(--champagne); }
+.sf-home--v3 .sf-explore--bone .sf-explore__text { color: rgb(255 255 255 / .60); }
+.sf-home--v3 .sf-explore--bone .sf-explore__inset img { border-color: var(--noir); }
 
 .sf-home--v3 .sf-services--bone { background: var(--noir); color: var(--paper); }
 .sf-home--v3 .sf-services--bone .sf-chapter { border-top-color: var(--hairline-d); }
@@ -200,6 +219,10 @@
 .sf-home--v3 .sf-services--bone .sf-service-row__num { color: var(--champagne); }
 .sf-home--v3 .sf-services--bone .sf-service-row__desc { color: rgb(255 255 255 / .60); }
 .sf-home--v3 .sf-services--bone .sf-service-row__tile::before { border-color: rgb(205 177 144 / .30); }
+.sf-home--v3 .sf-services--bone .sf-services__intro,
+.sf-home--v3 .sf-services--bone .sf-service-block__desc { color: rgb(255 255 255 / .60); }
+.sf-home--v3 .sf-services--bone .sf-service-block__num { color: var(--champagne); border-top-color: var(--hairline-d); }
+.sf-home--v3 .sf-services--bone .sf-service-block__more { color: var(--champagne); }
 
 .sf-home--v3 .sf-clientele--nocturne { background: var(--lab-cognac); }
 .sf-home--v3 .sf-founder--bone {
@@ -212,7 +235,8 @@
 .sf-home--v3 .sf-founder--bone .sf-founder__refrain em { color: var(--champagne); }
 .sf-home--v3 .sf-founder--bone .sf-founder__text { color: rgb(255 255 255 / .60); }
 .sf-home--v3 .sf-founder--bone .sf-founder__felt { color: var(--champagne); }
-.sf-home--v3 .sf-founder--bone .sf-founder__credit { border-top-color: var(--hairline-d); }
+.sf-home--v3 .sf-founder--bone .sf-founder__credit,
+.sf-home--v3 .sf-founder--bone .sf-founder__foot { border-top-color: var(--hairline-d); }
 .sf-home--v3 .sf-founder--bone .sf-founder__role { color: rgb(255 255 255 / .60); }
 .sf-home--v3 .sf-founder--bone .sf-btn { color: var(--paper); border-color: var(--hairline-d); }
 .sf-home--v3 .sf-founder--bone .sf-founder__caption { color: rgb(255 255 255 / .45); }
@@ -242,6 +266,11 @@
 .sf-home--v3 .sf-journal .sf-journal__row-desc { color: rgb(255 255 255 / .60); }
 .sf-home--v3 .sf-journal .sf-journal__row-read { color: var(--champagne); }
 .sf-home--v3 .sf-journal .sf-journal__more { color: var(--paper); border-color: var(--hairline-d); }
+.sf-home--v3 .sf-journal .sf-journal__sublabel,
+.sf-home--v3 .sf-journal .sf-journal__lead-read { color: var(--champagne); }
+.sf-home--v3 .sf-journal .sf-journal__lead { border-top-color: var(--hairline-d); }
+.sf-home--v3 .sf-journal .sf-journal__lead-title { color: var(--bone); }
+.sf-home--v3 .sf-journal .sf-journal__lead-desc { color: rgb(255 255 255 / .60); }
 /* The stack's sheets ride the journal's own ground: without this they stay
    bone cards sliding over a taupe wall. The wash uses the same variable. */
 .sf-home--v3 .sf-journal__index { --stack-sheet: var(--lab-taupe); }
@@ -384,6 +413,13 @@
 .sf-home--v5 .sf-founder--bone { background: var(--lab-sable); }
 .sf-home--v5 .sf-work--nocturne { background: var(--lab-noir-dore); }
 .sf-home--v5 .sf-journal { background: var(--lab-sable); }
+
+/* The sand salons carry the deepened text tokens, as in V1. */
+.sf-home--v5 :is(.sf-explore--bone, .sf-services--bone, .sf-founder--bone, .sf-journal) {
+  --graphite: var(--lab-graphite-sand);
+  --bronze: var(--lab-bronze-sand);
+}
+.sf-home--v5 .sf-explore--bone .sf-explore__inset img { border-color: var(--lab-champagne); }
 
 /* The press room on taupe fumé — a light machine re-hung in the dark. */
 .sf-home--v5 .sf-press { background: var(--lab-taupe); color: var(--paper); }
