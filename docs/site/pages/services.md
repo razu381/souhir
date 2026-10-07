@@ -1,51 +1,52 @@
-# `/services` + `/services/[slug]`
+# `/services`
 
-The disciplines catalogue and each discipline's detail page.
+The disciplines, each in full, on one page. The per-service detail pages
+(`/services/[slug]`) are retired — see *Retired detail pages* below.
 
-## `/services` — the index
+## `/services` — Shaping Perception Through Experience
+
+The client's final Services copy (`SF_Muse_Website_Copy_Shorter_Updated.docx`,
+SERVICES PAGE), verbatim and in its order, on the homepage's frame: a black
+hero, then rooms alternating D7 Champagne and D8 Sable, the footer black.
 
 | | |
 | --- | --- |
 | File | `src/app/services/page.tsx` |
-| Rendering | Static, `revalidate = 600` |
-| Data | `getHomeData()` (services) + `seed.serviceProcess` |
-| Metadata | title "Services", fixed description |
+| Styles | `src/app/sf/services.css` (scoped to `.sf-svc*`) + the shared walls in `rooms.css` |
+| Rendering | Static |
+| Data | `src/content/services.ts` — no Sanity document yet |
+| Plates | `images/SF images  new/Services/` → `npm run assets:services` → `public/assets/services/` |
+| Metadata | title "Services", description = the hero's second paragraph |
 
-| # | Section | Component | Content source |
+| # | Section | Ground | Content |
 | --- | --- | --- | --- |
-| 01 | **Title band** | `PageTitle` | "(Services)" · "What We *Create.*" |
-| 01 | The Disciplines (bone) | `ServicesList` | the 4 service rows (num · tile · title · summary), each → detail |
-| 02 | The Process (noir) | inline clientele-register markup | `seed.serviceProcess` — six steps, split on ` — ` into label + description |
-| — | Closing card | `ClosingCard` | seed CTA |
+| — | **Hero** | noir, full bleed | "Shaping Perception *Through Experience*" · two paragraphs · `Banner_.jpg` cropped 16:9 (desktop), `Hero page_.jpg` (handsets) |
+| 01 | **What we create** | champagne | "Experiences Shaped Through Strategy, *Storytelling & Creative Intelligence*" · standfirst |
+| — | Service 1–4 | sable / champagne alternating | label · title · description · "Includes:" register · 4:5 plate, sides alternating. Anchors: `#luxury-visual-storytelling`, `#creative-direction`, `#digital-experiences`, `#intelligent-brand-growth` |
+| 02 | **The SF Muse Method** (`#method`) | sable | "From Vision *To Experience.*" · standfirst · six steps with `Process/` plates, 3 × 2 |
 
-The six-step process ("Six Steps. *Every Time.*") is **fixed copy**, not
-studio content — it's the studio's discipline statement (DESIGN-DIRECTION §07).
+The doc gives the Services page no closing section, so it has none.
 
-## `/services/[slug]` — a discipline in full
+The delivery names two process plates "Discovery" and none "Elevate": the
+research flat-lay (`Discovery.jpg`) opens the method and the director at her
+desk (`Discovery 1 .jpg`) closes it — swap in `scripts/home-assets.mjs` if the
+client meant otherwise.
 
-| | |
-| --- | --- |
-| File | `src/app/services/[slug]/page.tsx` |
-| Rendering | SSG via `generateStaticParams` (seed slugs ∪ Sanity services — new services are picked up automatically), `revalidate = 600` |
-| Data | `getHomeData()` (row meta) + `safeFetchService(slug)` (chapters, tag `services`) |
-| Metadata | from the service document (`title`, `summary`) |
+## Retired detail pages
 
-Structure: **title band** (label `(Service 01)`; the title's first word stays
-upright, the rest italic) → **chapters** from the studio (`chapters[]`, rendered
-by `SectionBlock` with automatic numbering) → **the process register** (seed's
-six steps, numbered as the final chapter) → *All Services* button → **closing
-card**.
+The homepage's service tiles ("Learn More") land on their section of
+`/services` — `/services#<slug>`. The old `/services/<slug>` URLs answer with a
+permanent redirect to the same anchor (`next.config.mjs`), including the two
+slugs the final copy renamed (`art-of-brand-presence` →
+`#luxury-visual-storytelling`, `creative-direction-identity` →
+`#creative-direction`).
 
 ## Editing
 
-- Rows and detail chapters: **Services** documents (studio-guide → *Services*).
-- Publishing the first `service` replaces the seed's four — have all four
-  ready; keep slugs stable to preserve URLs.
-- The process register cannot be edited in the studio (deliberate).
-
-## Notes
-
-- With no `service` documents, all four detail pages render from seed rows with
-  empty chapter lists — the process register closes the page.
-- Services have no per-item body fields other than chapters; the summary line
-  doubles as the detail page's intro.
+- The homepage's service tiles: **Services** documents (studio-guide →
+  *Services*) — title, number, summary, tile. Publishing the first `service`
+  replaces the seed's four — have all four ready.
+- A tile's slug must match its section's anchor on `/services` (the `id`s in
+  `src/content/services.ts`), or its Learn More lands at the top of the page.
+- The `/services` page is not studio-fed: its copy is `src/content/services.ts`.
+- A service document's *Detail chapters* field no longer renders anywhere.

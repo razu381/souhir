@@ -19,7 +19,7 @@ where its content comes from, and how it is edited.
 | --- | --- |
 | `/` — The Nocturne home | [pages/home.md](pages/home.md) |
 | `/about` — The Language of Presence | [pages/about.md](pages/about.md) |
-| `/services` + `/services/[slug]` | [pages/services.md](pages/services.md) |
+| `/services` | [pages/services.md](pages/services.md) |
 | `/portfolio` + `/portfolio/[slug]` (case studies) | [pages/portfolio.md](pages/portfolio.md) |
 | `/journal` + `/journal/[slug]` (articles) | [pages/journal.md](pages/journal.md) |
 | `/editorial` — press recognition | [pages/editorial.md](pages/editorial.md) |

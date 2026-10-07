@@ -1,75 +1,126 @@
 import type { Metadata } from 'next';
-import PageTitle, { HeaderSentinel } from '@/components/sf/PageTitle';
-import { ServicesList } from '@/components/sf/HomeSections';
-import ClosingCard from '@/components/sf/ClosingCard';
+import { Chapter, Headed } from '@/components/sf/HomeSections';
+import { HeaderSentinel } from '@/components/sf/PageTitle';
+import Picture from '@/components/sf/Picture';
 import Reveal from '@/components/sf/Reveal';
-import { getHomeData } from '@/sanity/fetch';
-import * as seed from '@/content/seed';
-
-export const revalidate = 600;
+import * as content from '@/content/services';
 
 export const metadata: Metadata = {
   title: 'Services',
   description:
-    'Brand presence, creative direction, digital experiences, and intelligent growth — the four disciplines of SF Muse.',
+    'Through visual storytelling, creative direction, digital experiences, and intelligent growth systems, SF Muse helps brands transform ideas into experiences designed to endure.',
 };
 
-export default async function ServicesPage() {
-  const data = await getHomeData();
+/**
+ * Shaping Perception Through Experience — the client's final Services copy
+ * (SF_Muse_Website_Copy_Shorter_Updated.docx, SERVICES PAGE), section for
+ * section, on the homepage's frame: a black hero, then rooms alternating
+ * champagne and sable (services.css), the footer black.
+ */
+export default function ServicesPage() {
+  const { hero, create, services, method } = content;
 
   return (
-    <main id="main">
-      <PageTitle
-        label="(Services)"
-        title={['What We ', 'Create.']}
-        intro="Four disciplines, one standard: work that is remembered."
-        num="01"
-      />
+    <main id="main" className="sf-svc">
+      {/* HERO — the studio under its spotlight, the words in its dark third. */}
+      <section className="sf-svc-hero">
+        <figure className="sf-svc-hero__media">
+          <Picture plate={hero.image} loading="eager" />
+        </figure>
+        <div className="sf-svc-hero__scrim" aria-hidden="true" />
+        <div className="sf-container sf-svc-hero__inner">
+          <h1 className="sf-svc-hero__title">
+            <Headed head={hero.title} />
+          </h1>
+          <div className="sf-svc-hero__body">
+            {hero.texts.map((t) => (
+              <p className="sf-svc-hero__text" key={t.slice(0, 24)}>
+                {t}
+              </p>
+            ))}
+          </div>
+        </div>
+      </section>
       <HeaderSentinel />
 
-      <section className="sf-section sf-services sf-services--bone">
+      {/* 01 — WHAT WE CREATE: the masthead, then the four services, each its
+          own room, the plate alternating sides. */}
+      <section className="sf-section sf-room sf-svc-create">
         <div className="sf-container">
-          <div className="sf-chapter">
-            <span className="sf-chapter__label">(The Disciplines)</span>
-            <span className="sf-chapter__num">01</span>
+          <Chapter label={`(${create.label})`} num={1} />
+          <div className="sf-svc-create__masthead">
+            <Reveal as="h2" className="sf-room__head">
+              <Headed head={create.head} />
+            </Reveal>
+            <Reveal as="p" className="sf-room__lead" delay={90}>
+              {create.text}
+            </Reveal>
           </div>
-          <ServicesList data={data.services} />
         </div>
       </section>
 
-      <section className="sf-section sf-clientele sf-clientele--nocturne">
-        <div className="sf-container">
-          <div className="sf-chapter">
-            <span className="sf-chapter__label">(The Process)</span>
-            <span className="sf-chapter__num">02</span>
-          </div>
-          <div className="sf-clientele__grid">
-            <div className="sf-clientele__aside">
-              <Reveal as="h2" className="sf-clientele__head">
-                Six Steps. <em>Every Time.</em>
+      {services.map((s, i) => (
+        <section
+          key={s.id}
+          id={s.id}
+          className={`sf-section sf-room sf-svc-service${i % 2 === 0 ? ' sf-room--sable' : ' sf-svc-service--mirror'}`}
+          aria-labelledby={`${s.id}-title`}
+        >
+          <div className="sf-container sf-svc-service__grid">
+            <Reveal as="figure" className="sf-svc-service__figure" curtain>
+              <Picture plate={s.image} />
+            </Reveal>
+            <div className="sf-svc-service__body">
+              <Reveal as="p" className="sf-svc-service__label">
+                {s.label}
               </Reveal>
-              <Reveal as="p" className="sf-clientele__statement">
-                {seed.serviceProcess.intro}
+              <Reveal as="h3" className="sf-svc-service__title" delay={60}>
+                <span id={`${s.id}-title`}>{s.title}</span>
+              </Reveal>
+              <Reveal as="p" className="sf-room__text sf-svc-service__text" delay={120}>
+                {s.text}
+              </Reveal>
+              <Reveal className="sf-svc-service__includes" delay={180}>
+                <p className="sf-svc-service__includes-label">{s.includesLabel}</p>
+                <ul className="sf-svc-service__list">
+                  {s.includes.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
               </Reveal>
             </div>
-            <ul className="sf-clientele__register">
-              {seed.serviceProcess.items.map((item, i) => (
-                <Reveal as="li" className="sf-clientele__row" key={item} delay={i * 60}>
-                  <span className="sf-clientele__num">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="sf-clientele__label">{item.split(' — ')[0]}</span>
-                  <span className="sf-clientele__desc">{item.split(' — ')[1]}</span>
-                </Reveal>
-              ))}
-            </ul>
           </div>
+        </section>
+      ))}
+
+      {/* 02 — THE SF MUSE METHOD: six steps, each with its plate. */}
+      <section className="sf-section sf-room sf-room--sable sf-svc-method" id="method">
+        <div className="sf-container">
+          <Chapter label={`(${method.label})`} num={2} />
+          <div className="sf-svc-method__masthead">
+            <Reveal as="h2" className="sf-room__head">
+              <Headed head={method.head} />
+            </Reveal>
+            <Reveal as="p" className="sf-room__lead" delay={90}>
+              {method.text}
+            </Reveal>
+          </div>
+          <ol className="sf-svc-method__steps">
+            {method.steps.map((step, i) => (
+              <Reveal as="li" className="sf-svc-method__step" key={step.num} delay={(i % 3) * 90}>
+                <figure className="sf-svc-method__figure">
+                  <Picture plate={step.image} />
+                </figure>
+                <span className="sf-svc-method__num" aria-hidden="true">
+                  {step.num}
+                </span>
+                <h3 className="sf-svc-method__title">{step.title}</h3>
+                <p className="sf-svc-method__text">{step.text}</p>
+              </Reveal>
+            ))}
+          </ol>
         </div>
       </section>
-
-      <ClosingCard
-        head={seed.cta.head}
-        text={seed.cta.text}
-        cta={seed.cta.cta}
-      />
     </main>
   );
 }

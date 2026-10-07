@@ -30,7 +30,9 @@ export default function WordReveal({
     const frag = document.createDocumentFragment();
     words.forEach((word, i) => {
       const span = document.createElement('span');
-      span.className = 'sf-w';
+      // A lone dash is marked so a Didone setting can give it body: Bodoni
+      // Moda draws its dashes as sub-pixel hairlines at display sizes.
+      span.className = /^[\u2013\u2014-]$/.test(word) ? 'sf-w sf-w--dash' : 'sf-w';
       span.style.setProperty('--sf-i', String(i));
       span.textContent = word;
       frag.appendChild(span);

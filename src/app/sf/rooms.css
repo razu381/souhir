@@ -1,0 +1,80 @@
+/* ===========================================================================
+   THE ROOMS — the light walls of the inner pages (client direction, Oct 2026)
+   "Keep the hero black and alternate the sections between D7 Champagne and
+   D8 Sable. Use dark charcoal text on both light backgrounds, with gold or
+   bronze reserved for accents." The homepage applies it to its own section
+   components (site.css, HOMEPAGE WALLS); the rebuilt inner pages (/about,
+   /services) hang their sections in these rooms and speak in these voices.
+   ======================================================================== */
+
+/* The homepage walls' token swap: charcoal voice, softer charcoal second
+   voice, bronze deepened to clear 4.5 : 1 on sable, bronze-tinted rules. */
+.sf-room {
+  --ink: var(--charcoal);
+  --graphite: var(--charcoal-soft);
+  --bronze: var(--bronze-wall);
+  --hairline: var(--hairline-wall);
+  --sf-w-ink: var(--charcoal);
+  --sf-w-dim: rgb(42 42 42 / .38);
+  padding-block: calc(var(--rhythm) / 2);
+  background: var(--wall-champagne);
+  color: var(--charcoal);
+}
+.sf-room--sable { background: var(--wall-sable); }
+
+/* The shared voices. */
+.sf-room__head {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.125rem, 3.6vw, 3.75rem);
+  line-height: 1.06;
+  letter-spacing: -.02em;
+}
+.sf-room__head em { font-style: italic; color: var(--bronze); }
+
+/* The second heading, under the client mock-up's short accent rule. */
+.sf-room__subhead {
+  margin: clamp(1.5rem, 3.5vh, 2.25rem) 0 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.375rem, 1.9vw, 1.875rem);
+  line-height: 1.2;
+  letter-spacing: -.01em;
+}
+.sf-room__subhead::before {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 1px;
+  margin-block-end: clamp(1.25rem, 3vh, 1.75rem);
+  background: var(--bronze);
+}
+
+.sf-room__statement {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 3.4vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+}
+.sf-room__statement em { display: block; font-style: italic; color: var(--bronze); }
+
+.sf-room__lead {
+  font-family: var(--font-sans);
+  font-size: clamp(1.125rem, 1.45vw, 1.375rem);
+  line-height: 1.6;
+  color: var(--charcoal);
+  max-width: 34rem;
+  margin-block-start: clamp(1.5rem, 3.5vh, 2.25rem);
+}
+.sf-room__text {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 1.15vw, 1.125rem);
+  line-height: 1.7;
+  color: var(--graphite);
+  max-width: 34rem;
+  margin-block-start: clamp(1.125rem, 2.5vh, 1.5rem);
+}
+.sf-room__statement + .sf-room__text { margin-block-start: clamp(1.75rem, 4.5vh, 2.75rem); }

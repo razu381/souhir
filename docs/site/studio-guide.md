@@ -84,13 +84,13 @@ house style.
 
 ## Services
 
-Four documents, ordered by their `num` (01–04). Title, summary (shows in the
-home/services blocks), 4:5 tile image, slug (must match the seed slugs if you
-want to keep the current URLs: `luxury-visual-storytelling`,
-`creative-direction`, `digital-experiences`, `intelligent-brand-growth` — the
-first two were renamed with the final copy in Oct 2026; the old URLs redirect).
-Detail-page chapters use the same section blocks as case studies. The
-six-step process register at the bottom of each detail page is fixed copy.
+Four documents, ordered by their `num` (01–04). Title, summary and 4:5 tile
+image feed the homepage's service blocks. The slug is where the block's
+"Learn More" lands — the matching section of the Services page — so keep the
+current ones: `luxury-visual-storytelling`, `creative-direction`,
+`digital-experiences`, `intelligent-brand-growth`. The Services page itself
+(and its Detail chapters field) is not edited here; there are no per-service
+pages any more, and their old URLs redirect to the Services page.
 
 **Publishing the first service replaces the seed list** — have all four ready.
 

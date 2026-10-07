@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "assets:hero-lab-v2": "node scripts/hero-lab-v2-assets.mjs",
-    "assets:home": "node scripts/home-assets.mjs"
+    "assets:home": "node scripts/home-assets.mjs",
+    "assets:about": "node scripts/home-assets.mjs about/",
+    "assets:services": "node scripts/home-assets.mjs services/"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

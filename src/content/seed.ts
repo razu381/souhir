@@ -132,21 +132,6 @@ export const services = [
   },
 ];
 
-/** The service page's process sequence (DESIGN-DIRECTION §07). */
-export const serviceProcess = {
-  heading: 'The process',
-  intro:
-    'Six steps, in order, on every engagement — the sequence is the discipline.',
-  items: [
-    'Discovery — we begin with understanding',
-    'Creative Direction — details create distinction',
-    'Production — creativity with purpose',
-    'Refinement — collaboration is part of the craft',
-    'Delivery — technology should feel invisible',
-    'Elevate — we build for longevity',
-  ],
-};
-
 export const clientele = {
   head: ['Created For Those Building ', 'More Than Brands'] as Head,
   statement:
@@ -172,7 +157,7 @@ export const founder = {
   name: 'Souhir Fhima',
   role: 'Founder & Creative Director',
   signature: { src: '/assets/explore/signature-ink-600.webp', width: 600, height: 205, alt: '' } as Plate,
-  cta: { label: 'Explore Our Philosophy', href: '/about' },
+  cta: { label: 'Explore Our Philosophy', href: '/about#philosophy' },
 };
 
 /** Portraits hang three-up in a 2:3 frame; a landscape hangs wide, across two. */

@@ -69,26 +69,9 @@ export const PRESS_FEATURES = defineQuery(
 
 export const SERVICES = defineQuery(
   `*[_type == "service"] | order(num asc){
-    title, "slug": slug.current, num, summary, tile{asset, alt},
-    chapters[]{
-      _type, _key, heading, intro, items, layout,
-      pillars[]{ _key, title, description },
-      images[]{ _key, alt, asset },
-      image, caption, width
-    }
+    title, "slug": slug.current, num, summary, tile{asset, alt}
   }`
 );
-
-export const SERVICE = defineQuery(`
-  *[_type == "service" && slug.current == $slug][0]{
-    title, num, summary, tile{asset, alt}, chapters[]{
-      _type, _key, heading, intro, items, layout,
-      pillars[]{ _key, title, description },
-      images[]{ _key, alt, asset },
-      image, caption, width
-    }
-  }
-`);
 
 export const SETTINGS = defineQuery(
   `*[_type == "siteSettings"][0]{ tagline, contactEmail, socials[]{ _key, label, href } }`

@@ -117,7 +117,7 @@ export function ServicesList({
         <ul className="sf-services__blocks">
           {data.map((s, i) => (
             <Reveal as="li" className="sf-service-block" key={s.slug} delay={i * 90}>
-              <Link className="sf-service-block__link" href={`/services/${s.slug}`}>
+              <Link className="sf-service-block__link" href={`/services#${s.slug}`}>
                 <span className="sf-service-block__plate" aria-hidden="true">
                   <Picture plate={s.tile} />
                 </span>

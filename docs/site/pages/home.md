@@ -16,7 +16,7 @@ The full Nocturne one-pager, section by section, now studio-fed.
 | 01 | **Hero — the Nocturne** | `HeroNocturne` | `heroTitleA/B`, `heroLabelMeta`, `heroImage`; note + sub-line are seed-fixed |
 | — | header sentinel | `<span data-sf-header-sentinel>` | triggers the header's solid ground |
 | 02 | Explore Dar SF (bone) | `Explore` | statement (word-reveal), felt line, spa plate, `Fig. 02` caption, → `/about` |
-| 03 | Services (bone) | `ServicesList` | 4 rows from `service` docs (num, tile, title, summary) → `/services/[slug]` |
+| 03 | Services (bone) | `ServicesList` | 4 rows from `service` docs (num, tile, title, summary) → `/services#<slug>` |
 | 04 | Who We Work With (noir) | `Clientele` | headline, statement (word-reveal), 7 register rows |
 | 05 | About Dar SF (bone) | `Founder` | hands-pockets plate, refrain, 2 texts, felt line, signature, name/role, → `/about` |
 | 06 | Selected Works (noir) | inline chapter + `WorkGrid` | statement + 6 plates from `workItem` docs; filter rail |

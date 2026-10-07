@@ -1,12 +1,15 @@
 /**
- * home-assets — bakes the homepage plates from the client's SF Muse delivery.
+ * home-assets — bakes the homepage and About plates from the client's SF Muse
+ * delivery.
  *
  * `images/` is gitignored (the originals stay local), so the renditions are
- * derived into public/assets/home and committed, exactly as the hero plates
+ * derived into public/assets/<page> and committed, exactly as the hero plates
  * are. Run:
  *
  *     npm run assets:home
- *     npm run assets:home -- work-     (only the slugs with that prefix)
+ *     npm run assets:home -- home/work-   (only the plates under that prefix)
+ *     npm run assets:about                (= -- about/)
+ *     npm run assets:services             (= -- services/)
  *
  * The rules (the same as hero-lab-v2-assets.mjs, plus crops):
  *
@@ -33,15 +36,19 @@ import sharp from 'sharp';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 // The delivery's folder names carry a double space and trailing spaces.
-const SRC = join(ROOT, 'images', 'SF images  new', 'Home page ');
-const OUT = join(ROOT, 'public', 'assets', 'home');
+const DELIVERY = join(ROOT, 'images', 'SF images  new');
+const PAGES = {
+  home:  { src: join(DELIVERY, 'Home page '),  out: join(ROOT, 'public', 'assets', 'home') },
+  about: { src: join(DELIVERY, 'About page '), out: join(ROOT, 'public', 'assets', 'about') },
+  services: { src: join(DELIVERY, 'Services'), out: join(ROOT, 'public', 'assets', 'services') },
+};
 
 const QUALITY = 76;
 const NATIVE_MARGIN = 1.15;
 
 /**
- * slug, source (relative to SRC), crop ratio [w, h] or null (keep the frame),
- * width steps, focus [x, y].
+ * page (default home), slug, source (relative to the page's folder), crop
+ * ratio [w, h] or null (keep the frame), width steps, focus [x, y].
  */
 const PLATES = [
   // 01 Explore — the studio wall (main) and the shoot in motion (inset).
@@ -87,6 +94,33 @@ const PLATES = [
   { slug: 'newsletter-mobile',     src: 'Newsletters _ home page .jpg',  ratio: [4, 3],   steps: [800, 1200], focus: [0.75, 0.5] },
   { slug: 'cta',                   src: 'CTA Banner _home page .jpg',    ratio: [9, 4],   steps: [1600, 2400], focus: [0.575, 0.5] },
   { slug: 'cta-mobile',            src: 'CTA Banner _home page .jpg',    ratio: [3, 4],   steps: [800, 1200], focus: [0.65, 0.5] },
+
+  // ABOUT — the hero's draped alcove (a square delivery, hung 4:5 beside the
+  // title), the founder in tweed and veil, and the colonnade in fur. The two
+  // portraits keep their 3:4 frames as shot.
+  { page: 'about', slug: 'hero',       src: 'About_Hero.jpg',    ratio: [4, 5], steps: [480, 800, 1200, 1600] },
+  { page: 'about', slug: 'founder',    src: 'Founder_Story.jpg', ratio: null,   steps: [480, 800, 1200, 1600] },
+  { page: 'about', slug: 'philosophy', src: 'Philosophy.jpg',    ratio: null,   steps: [480, 800, 1200, 1600] },
+
+  // SERVICES — the studio under its spotlight: the delivery's 3:1 banner
+  // cropped 16:9 for the desktop hero (the dark left third holds the words),
+  // its portrait sibling for handsets.
+  { page: 'services', slug: 'hero',        src: 'Banner_.jpg',     ratio: [16, 9], steps: [1600, 2400, 3200], focus: [0.6, 0.5] },
+  { page: 'services', slug: 'hero-mobile', src: 'Hero page_.jpg',  ratio: [2, 3],  steps: [800, 1200] },
+  // The four services, hung 4:5.
+  { page: 'services', slug: 'service-storytelling',       src: 'Luxury visual story telling.jpg', ratio: [4, 5], steps: [480, 800, 1200], focus: [0.5, 0.55] },
+  { page: 'services', slug: 'service-creative-direction', src: 'Creative_Direction.jpg',          ratio: [4, 5], steps: [480, 800, 1200], focus: [0.5, 0.6] },
+  { page: 'services', slug: 'service-digital',            src: 'Digital experience.jpg',          ratio: [4, 5], steps: [480, 800, 1200] },
+  { page: 'services', slug: 'service-growth',             src: 'Intelligent_Brand_Growth.jpg',    ratio: [4, 5], steps: [480, 800, 1200] },
+  // The method, 3:2 as shot. The delivery names two plates "Discovery" and
+  // none "Elevate": the research flat-lay opens the method, the director at
+  // her desk — the ongoing creative direction — closes it.
+  { page: 'services', slug: 'method-discovery',          src: 'Process/Discovery.jpg',          ratio: null, steps: [480, 800, 1200] },
+  { page: 'services', slug: 'method-creative-direction', src: 'Process/Creative Direction .jpg', ratio: null, steps: [480, 800, 1200] },
+  { page: 'services', slug: 'method-production',         src: 'Process/Production.jpg',         ratio: null, steps: [480, 800, 1200] },
+  { page: 'services', slug: 'method-refinement',         src: 'Process/refinement .jpg',        ratio: null, steps: [480, 800, 1200] },
+  { page: 'services', slug: 'method-delivery',           src: 'Process/Delivery.jpg',           ratio: null, steps: [480, 800, 1200] },
+  { page: 'services', slug: 'method-elevate',            src: 'Process/Discovery 1 .jpg',       ratio: null, steps: [480, 800, 1200] },
 ];
 
 /** The largest box of `ratio` inside w×h, centred on `focus`, kept in frame. */
@@ -113,16 +147,18 @@ function stepsFor(width, steps) {
   return out;
 }
 
-await mkdir(OUT, { recursive: true });
-
 let total = 0;
 let count = 0;
 
-// `npm run assets:home -- work-` re-bakes only the slugs with that prefix.
+// `npm run assets:home -- home/work-` re-bakes only the plates whose
+// page/slug starts with that prefix.
 const only = process.argv[2];
 
 for (const plate of PLATES) {
-  if (only && !plate.slug.startsWith(only)) continue;
+  const page = plate.page ?? 'home';
+  if (only && !`${page}/${plate.slug}`.startsWith(only)) continue;
+  const { src: SRC, out: OUT } = PAGES[page];
+  await mkdir(OUT, { recursive: true });
   const buf = await readFile(join(SRC, plate.src));
   // Bake EXIF orientation first so the crop is planned on the upright frame.
   const upright = await sharp(buf).rotate().toBuffer();
@@ -143,7 +179,7 @@ for (const plate of PLATES) {
     total += data.length;
     count += 1;
   }
-  console.log(`${plate.slug.padEnd(28)} ${w}×${h} → crop ${box.width}×${box.height}  →  ${emitted.join('  ')}`);
+  console.log(`${`${page}/${plate.slug}`.padEnd(33)} ${w}×${h} → crop ${box.width}×${box.height}  →  ${emitted.join('  ')}`);
 }
 
-console.log(`\n${count} files, ${(total / 1024 / 1024).toFixed(2)} MB → public/assets/home/`);
+console.log(`\n${count} files, ${(total / 1024 / 1024).toFixed(2)} MB → public/assets/`);

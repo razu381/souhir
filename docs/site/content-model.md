@@ -12,7 +12,7 @@ The studio lives at `/studio` (embedded, dynamic route).
 | `workItem` | Work items | home §06 hang + `/portfolio` grid |
 | `caseStudy` | Case studies | `/portfolio/[slug]` |
 | `journalArticle` | Journal | home §08 + `/journal` + `/journal/[slug]` |
-| `service` | Services | home §03 rows + `/services` + `/services/[slug]` |
+| `service` | Services | home §03 rows (their Learn More → `/services#<slug>`) |
 | `pressFeature` | Press | `/editorial` archive |
 | `message` | Correspondence | form submissions (never rendered publicly) |
 
@@ -93,8 +93,7 @@ numbering** (they're breaths, not chapters).
 | `HOME` | `home` | `getHomeData()` |
 | `WORK_ITEMS` | `work`, `home` | home hang |
 | `PRESS_FEATURES` | `press`, `home` | editorial archive |
-| `SERVICES` | `services`, `home` | service rows/pages |
-| `SERVICE` | `services` | `/services/[slug]` chapters |
+| `SERVICES` | `services`, `home` | home service rows |
 | `SETTINGS` | `settings` | layout footer, contact page |
 | `INDEX` | `work` | portfolio case-study register |
 | `CASE_STUDY` / `CASE_STUDY_SLUGS` | (on-demand) | `/portfolio/[slug]`, sitemap |

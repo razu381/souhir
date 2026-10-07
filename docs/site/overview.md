@@ -72,7 +72,7 @@ env first and returns null → seed fallback).
 
 - Every page is **static** with `revalidate = 600` (sitemap: 3600; `/contact`
   is fully static; `/studio` and `/api/revalidate` are dynamic).
-- Detail routes (`/portfolio/[slug]`, `/journal/[slug]`, `/services/[slug]`)
+- Detail routes (`/portfolio/[slug]`, `/journal/[slug]`)
   prerender via `generateStaticParams` from their slug queries; pages not
   prerendered fall back to on-demand rendering and cache.
 - Publishing in the studio fires the GROQ webhook → `POST /api/revalidate` →

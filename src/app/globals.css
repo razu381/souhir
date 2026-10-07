@@ -20,6 +20,9 @@
 @import "./sf/hero-lab.css";  /* /hero-lab review page only — see its file header */
 @import "./sf/hero-lab-v2.css";  /* /hero-lab-v2 review page only — see its file header */
 @import "./sf/home-lab.css";  /* /home-v1…v5 review pages only — see file header */
+@import "./sf/rooms.css";  /* the inner pages' light walls — see file header */
+@import "./sf/about.css";  /* /about — see file header */
+@import "./sf/services.css";  /* /services — see its file header */
 
 /* Breakpoints carried over from the prototype (originally pinned to
    Elementor's devices; kept identical so the port is 1:1 rather than a

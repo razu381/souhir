@@ -1,0 +1,246 @@
+/* ===========================================================================
+   SERVICES — "Shaping Perception Through Experience" (final copy, Oct 2026)
+   src/app/services/page.tsx. The homepage's frame: the hero black, then the
+   rooms (rooms.css) alternating, the footer black. In order:
+   Hero N · What we create C · Service 1 S · 2 C · 3 S · 4 C · Method S ·
+   (footer N). Scoped to .sf-svc / .sf-svc-*: this file is global.
+   ======================================================================== */
+
+/* Anchors land a hair under the fixed header (61–65px), so the room
+   starts flush beneath it, with no sliver of the wall above. */
+.sf-svc [id] { scroll-margin-top: 3.75rem; }
+
+/* --- The hero ------------------------------------------------------------------
+   The studio under its spotlight, full bleed — the delivery's banner, cropped
+   16:9, its portrait sibling on handsets. The words sit in the dark left
+   third on a scrim poured from the left and the floor. */
+.sf-svc-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  align-items: end;
+  min-height: clamp(36rem, 100svh, 62rem);
+  padding-block: clamp(8rem, 18vh, 11rem) clamp(3.5rem, 10vh, 6.5rem);
+  background: var(--noir);
+  color: var(--paper);
+}
+.sf-svc-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  margin: 0;
+}
+.sf-svc-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 50%;
+}
+.sf-svc-hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(to right,
+      rgb(10 10 10 / .80) 0%,
+      rgb(10 10 10 / .58) 38%,
+      rgb(10 10 10 / .14) 66%,
+      rgb(10 10 10 / 0) 100%),
+    linear-gradient(to top,
+      rgb(10 10 10 / .72) 0%,
+      rgb(10 10 10 / 0) 46%);
+}
+@media (max-width: 767px) {
+  .sf-svc-hero__media img { object-position: 50% 40%; }
+  .sf-svc-hero__scrim {
+    background: linear-gradient(to top,
+      rgb(10 10 10 / .94) 0%,
+      rgb(10 10 10 / .80) 42%,
+      rgb(10 10 10 / .25) 72%,
+      rgb(10 10 10 / .10) 100%);
+  }
+}
+
+.sf-svc-hero__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.75rem, 6vw, 6.25rem);
+  line-height: 1;
+  letter-spacing: -.025em;
+  color: var(--bone);
+}
+.sf-svc-hero__title em { display: block; font-style: italic; color: var(--champagne); }
+
+.sf-svc-hero__body { max-width: 34rem; margin-block-start: clamp(1.75rem, 4.5vh, 2.75rem); }
+.sf-svc-hero__text {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 1.2vw, 1.1875rem);
+  line-height: 1.7;
+  color: rgb(255 255 255 / .74);
+}
+.sf-svc-hero__text + .sf-svc-hero__text { margin-block-start: clamp(1rem, 2.5vh, 1.375rem); }
+
+/* The words rise on load, as on /about. */
+@keyframes sf-svc-rise {
+  from { opacity: 0; transform: translateY(1.25rem); }
+}
+.sf-js .sf-svc-hero__title { animation: sf-svc-rise var(--dur-hero) var(--ease) both; }
+.sf-js .sf-svc-hero__body  { animation: sf-svc-rise var(--dur-hero) var(--ease) 240ms both; }
+@media (prefers-reduced-motion: reduce) {
+  .sf-svc-hero__title,
+  .sf-svc-hero__body { animation: none !important; }
+}
+
+/* --- The mastheads (What we create, the Method) ---------------------------------
+   The headline at the left hand, the standfirst answering it at the right. */
+.sf-svc-create__masthead,
+.sf-svc-method__masthead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin-block-start: clamp(2.5rem, 6vh, 4.5rem);
+}
+.sf-svc-create__masthead .sf-room__head { max-width: 20ch; }
+@media (min-width: 1025px) {
+  .sf-svc-create__masthead,
+  .sf-svc-method__masthead {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: clamp(3.5rem, 8vw, 9rem);
+    align-items: end;
+  }
+  .sf-svc-create__masthead .sf-room__lead,
+  .sf-svc-method__masthead .sf-room__lead { margin-block-start: 0; }
+}
+
+/* --- The four services ------------------------------------------------------------
+   Each its own room: the plate at one hand, the brief at the other, the
+   sides alternating down the page; "Includes" as a two-column register. */
+.sf-svc-service__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: clamp(2.5rem, 6vh, 4rem);
+}
+@media (min-width: 1025px) {
+  .sf-svc-service__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    column-gap: clamp(3.5rem, 8vw, 9rem);
+    align-items: center;
+  }
+  .sf-svc-service--mirror .sf-svc-service__grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
+  .sf-svc-service--mirror .sf-svc-service__figure { order: 2; }
+}
+
+.sf-svc-service__figure { margin: 0; max-width: min(100%, 30rem); }
+.sf-svc-service__figure img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+@media (min-width: 1025px) {
+  .sf-svc-service__figure { max-width: none; }
+  .sf-svc-service__figure img { max-height: calc(100svh - 8rem); }
+}
+
+.sf-svc-service__label {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+.sf-svc-service__title {
+  margin: clamp(.875rem, 2vh, 1.25rem) 0 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 3.4vw, 3.5rem);
+  line-height: 1.06;
+  letter-spacing: -.02em;
+}
+.sf-svc-service__text { margin-block-start: clamp(1.25rem, 3vh, 1.75rem); }
+
+.sf-svc-service__includes { margin-block-start: clamp(2rem, 5vh, 3rem); }
+.sf-svc-service__includes-label {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--charcoal);
+}
+.sf-svc-service__list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: clamp(1.5rem, 3vw, 2.5rem);
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  max-width: 40rem;
+}
+@media (min-width: 560px) {
+  .sf-svc-service__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.sf-svc-service__list li {
+  border-top: 1px solid var(--hairline);
+  padding-block: .75rem;
+  font-family: var(--font-sans);
+  font-size: clamp(.9375rem, 1vw, 1rem);
+  line-height: 1.45;
+  color: var(--charcoal);
+}
+
+/* --- The SF Muse Method -------------------------------------------------------------
+   Six steps hung three by two, each with its plate, an italic Didone
+   numeral and the step in the reading voice. */
+.sf-svc-method__steps {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: clamp(2.75rem, 7vh, 4rem);
+  margin: clamp(3rem, 8vh, 5.5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 768px) {
+  .sf-svc-method__steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(2rem, 4vw, 3.5rem);
+  }
+}
+@media (min-width: 1025px) {
+  .sf-svc-method__steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.sf-svc-method__figure { margin: 0; }
+.sf-svc-method__figure img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+.sf-svc-method__num {
+  display: block;
+  margin-block-start: clamp(1.25rem, 3vh, 1.75rem);
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 11;   /* see .sf-about-way__num */
+  font-size: clamp(2rem, 2.6vw, 2.75rem);
+  line-height: 1;
+  color: var(--bronze);
+}
+.sf-svc-method__title {
+  margin: clamp(.75rem, 2vh, 1rem) 0 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.375rem, 1.7vw, 1.75rem);
+  line-height: 1.15;
+  letter-spacing: -.015em;
+}
+.sf-svc-method__text {
+  margin-block-start: .75rem;
+  max-width: 26rem;
+  font-family: var(--font-sans);
+  font-size: clamp(.9375rem, 1vw, 1rem);
+  line-height: 1.65;
+  color: var(--graphite);
+}

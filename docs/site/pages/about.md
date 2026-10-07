@@ -1,42 +1,38 @@
-# `/about` — The Language of Presence
+# `/about` — More Than A Studio
 
-The founder's story and the studio's register, re-using the home page's
-founder and clientele movements in a quieter arrangement.
+The client's final About copy (`SF_Muse_Website_Copy_Shorter_Updated.docx`,
+ABOUT PAGE), verbatim and in its order, on the homepage's frame: a black
+hero, then rooms alternating D7 Champagne and D8 Sable, the footer black.
 
 | | |
 | --- | --- |
 | File | `src/app/about/page.tsx` |
-| Rendering | Static, `revalidate = 600` |
-| Data | `getHomeData()` (founder + clientele) + seed (interlude, CTA) |
-| Metadata | title "About", fixed description |
+| Styles | `src/app/sf/about.css` (scoped to `.sf-about*`) + the shared walls in `rooms.css` |
+| Rendering | Static |
+| Data | `src/content/about.ts` — no Sanity document yet |
+| Plates | `images/SF images  new/About page /` → `npm run assets:about` → `public/assets/about/` |
+| Metadata | title "About", description = the hero's third line |
 
 ## Sections in order
 
-| # | Section | Component | Content source |
+| # | Section | Ground | Content |
 | --- | --- | --- | --- |
-| 01 | **Title band** | `PageTitle` | "(About Dar SF)" · "The Language *of Presence.*" · intro = founder `texts[1]` |
-| — | header sentinel | `HeaderSentinel` | |
-| 05 | About Dar SF (bone) | `Founder` | same component/fields as home §05 |
-| 04 | Who We Work With (noir) | `Clientele` | same as home §04 |
-| — | Interlude | `Interlude` | seed corridor band + quote (not yet studio-fed here) |
-| — | Closing card | `ClosingCard` | seed CTA |
+| — | **Hero** | noir | "More Than A Studio. *A Philosophy Of Experience.*" · three lines · `About_Hero.jpg` (4:5) |
+| 01 | **Founder Story** | champagne | "Where strategy becomes *desire*" · "The Language of Presence" · five paragraphs · `Founder_Story.jpg` (sticky, left) |
+| 02 | **The Philosophy** (`#philosophy`) | sable | two-line statement · two paragraphs · `Philosophy.jpg` (right) |
+| 03 | **The SF Muse way** | champagne | creed (word reveal) · six numbered principles, 3 × 2 |
+| 04 | **The SF Muse Difference** | sable | "Designing What *Cannot Be Seen*" · "How should people feel?" at display scale |
+| 05 | **The Vision** | champagne | one sentence, word reveal |
+| 06 | **Our Values** | sable | six values with the client's icon set (`ValueIcon.tsx`) |
+| — | **Closing** | champagne | `ClosingCard` (no rule) · two paragraphs · "Start a Conversation" → /contact |
 
-## Interactions
+## Notes
 
-Same vocabulary as home: word-reveal statement in the clientele register,
-reveal entrances, hero band → solid header via the sentinel.
-
-## Editing
-
-Fully covered by the **home page document** (Founder + Clientele groups) —
-there is no separate "about" document. Editing the founder section on home
-changes it here too; that is by design: one story, told twice.
-
-## Notes / quirks
-
-- The section numerals render `05` then `04` — they travel with the
-  components (home numbering). Accept as signature or thread numbers through
-  as props (overview.md → Known quirks).
-- The interlude and closing card here read from `seed.ts`, not the `home`
-  document — if the client wants them editable on inner pages, swap the seed
-  imports for `data.interlude` / `data.cta`.
+- The values icons follow the client's mock-up the copy's note points to
+  (`docs/assets/dar-sf/image21.png`): king → Strategic Elegance, heart →
+  Emotional Intelligence, diamond → Timeless Aesthetics, nib → Elevated
+  Experiences, star → Visionary Innovation, column → Authentic Presence.
+- The homepage's "Explore Our Philosophy" links to `/about#philosophy`.
+- Bodoni Moda draws dashes as sub-pixel hairlines at display sizes;
+  WordReveal marks a lone dash `.sf-w--dash` so the Vision sentence can give
+  it a 1px stroke.

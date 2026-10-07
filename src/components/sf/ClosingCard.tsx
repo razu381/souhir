@@ -20,17 +20,22 @@ import type { Head, Plate } from '@/content/seed';
  * stretched to a band's height, the words on a scrim poured from the left.
  * The opening rule is the image-less closer's own device and does not
  * travel with it. Inner pages keep the bare wall.
+ *
+ * `text` may be several paragraphs (the About copy gives two), and
+ * `rule={false}` drops the opening rule where the copy names no label.
  */
 export default function ClosingCard({
   head,
   text,
   cta,
   image,
+  rule = true,
 }: {
   head: Head;
-  text: string;
+  text: string | string[];
   cta: { label: string; href: string };
   image?: Plate;
+  rule?: boolean;
 }) {
   return (
     <section
@@ -46,7 +51,7 @@ export default function ClosingCard({
         </>
       )}
       <div className="sf-container">
-        {!image && (
+        {!image && rule && (
           <div className="sf-close__rule">
             <span>(Start a Project)</span>
             <span className="sf-close__note">Est. MMXXVI — Paris</span>
@@ -56,9 +61,17 @@ export default function ClosingCard({
           <Headed head={head} />
         </Reveal>
         <div className="sf-close__rail">
-          <Reveal as="p" className="sf-close__text" delay={100}>
-            {text}
-          </Reveal>
+          {Array.isArray(text) ? (
+            <Reveal className="sf-close__text" delay={100}>
+              {text.map((t) => (
+                <p key={t.slice(0, 24)}>{t}</p>
+              ))}
+            </Reveal>
+          ) : (
+            <Reveal as="p" className="sf-close__text" delay={100}>
+              {text}
+            </Reveal>
+          )}
           <Reveal delay={200}>
             <Link className="sf-btn" href={cta.href}>
               {cta.label} <span aria-hidden="true">&#8599;</span>
