@@ -10,7 +10,14 @@ import { getSettings } from '@/sanity/fetch';
 /** The prototype's progressive-enhancement gate: hidden initial states in the
  * CSS are scoped to .sf-js, so a page with JavaScript disabled renders
  * complete. Same inline one-liner as src/hero-nocturne.html. The class lands
- * before React hydrates, hence suppressHydrationWarning on <html>. */
+ * before React hydrates, hence suppressHydrationWarning on <html>.
+ *
+ * It runs as the first thing in <body>, not in <head>: React hydrates an
+ * inline <head> script by walking the head's nodes in order, and a stray
+ * text node there — Netlify injects a newline and a "hosted on Netlify"
+ * comment after <meta charset> on every page — fails that walk (React #418)
+ * and the whole page is thrown away and re-rendered on the client. At the
+ * top of <body> it still runs before any content is parsed or painted. */
 const SF_JS = `document.documentElement.classList.add('sf-js')`;
 
 export const metadata: Metadata = {
@@ -43,9 +50,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           crossOrigin="anonymous"
           href="/fonts/bodoni-moda-normal-latin.woff2"
         />
-        <script dangerouslySetInnerHTML={{ __html: SF_JS }} />
       </head>
       <body>
+        <script dangerouslySetInnerHTML={{ __html: SF_JS }} />
         <a className="sf-skip" href="#main">
           Skip to content
         </a>
