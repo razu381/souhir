@@ -98,7 +98,7 @@ export default function SiteHeader() {
               ))}
             </ul>
             <div className="sf-menu__foot">
-              <a href="mailto:hello@darsf.com">hello@darsf.com</a>
+              <a href="mailto:contact@souhirfhima.com">contact@souhirfhima.com</a>
             </div>
           </div>
         </nav>

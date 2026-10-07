@@ -9,7 +9,8 @@ import { getSettings } from '@/sanity/fetch';
 
 /** The prototype's progressive-enhancement gate: hidden initial states in the
  * CSS are scoped to .sf-js, so a page with JavaScript disabled renders
- * complete. Same inline one-liner as src/hero-nocturne.html. */
+ * complete. Same inline one-liner as src/hero-nocturne.html. The class lands
+ * before React hydrates, hence suppressHydrationWarning on <html>. */
 const SF_JS = `document.documentElement.classList.add('sf-js')`;
 
 export const metadata: Metadata = {
@@ -32,7 +33,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const settings = await getSettings();
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* DESIGN-DIRECTION §10 — preload the display cut only. */}
         <link

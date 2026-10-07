@@ -390,5 +390,5 @@ export const cta = {
 
 export const settings = {
   tagline: '',
-  contactEmail: 'hello@darsf.com',
+  contactEmail: 'contact@souhirfhima.com',
 };

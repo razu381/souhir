@@ -2235,8 +2235,9 @@ a.sf-journal__lead:focus-visible .sf-journal__lead-read span { transform: transl
 
 /* ===========================================================================
    FOOTER — the colophon
-   The night's last wall: umber, champagne hairlines, the link register in
-   three quiet columns. The Nocturne carried a monumental wordmark outro
+   The night's last wall: noir — the hero's own black, so the page closes on
+   the ground it opened on (client direction, Oct 2026) — champagne
+   hairlines, the link register in three quiet columns. The Nocturne carried a monumental wordmark outro
    bleeding off the floor; the brief's footer asks only for navigation and
    socials, so the colophon ends at its bar.
    ======================================================================== */
@@ -2244,7 +2245,7 @@ a.sf-journal__lead:focus-visible .sf-journal__lead-read span { transform: transl
   position: relative;
   overflow: hidden;
   padding-block: calc(var(--rhythm) / 2) 1.5rem;
-  background: var(--umber);
+  background: var(--noir);
   color: var(--paper);
 }
 .sf-footer__grid {
@@ -2278,6 +2279,15 @@ a.sf-journal__lead:focus-visible .sf-journal__lead-read span { transform: transl
   text-transform: uppercase;
   color: rgb(255 255 255 / .55);
 }
+.sf-footer__sectors {
+  max-width: 26rem;
+  margin-block-start: .875rem;
+  font-family: var(--font-sans);
+  font-size: .875rem;
+  line-height: 1.7;
+  color: rgb(255 255 255 / .55);
+}
+.sf-footer__sector { white-space: nowrap; }   /* "AI / Marketing" must not part */
 .sf-footer__heading {
   font-family: var(--font-sans);
   font-size: var(--t-label);
@@ -2318,7 +2328,7 @@ a.sf-journal__lead:focus-visible .sf-journal__lead-read span { transform: transl
   font-weight: 500;
   letter-spacing: var(--track-label);
   text-transform: uppercase;
-  color: rgb(255 255 255 / .45);
+  color: rgb(255 255 255 / .55);   /* .45 measures 4.50 : 1 on noir — on the line */
 }
 .sf-footer__top-link { color: rgb(255 255 255 / .68); white-space: nowrap; }
 .sf-footer__top-link:hover,

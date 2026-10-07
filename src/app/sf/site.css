@@ -18,15 +18,17 @@
 --------------------------------------------------------------------------- */
 
 /* --- 1. The menu overlay ---------------------------------------------------
-   Opens under the fixed header (z-40 < header z-50), umber ground to match
-   the Nocturne entry hall. Links are mixed-case Didone — never all-caps
-   serif — with tracked-caps numerals, the chapter device inverted. */
+   Opens under the fixed header (z-40 < header z-50), noir ground — the
+   hero's, the scrolled header's and the footer's own black, so the frame
+   reads as one black (client direction, Oct 2026). Links are mixed-case
+   Didone — never all-caps serif — with tracked-caps numerals, the chapter
+   device inverted. */
 .sf-menu {
   position: fixed;
   inset: 0;
   z-index: 40;
   overflow-y: auto;
-  background: var(--umber);
+  background: var(--noir);
   color: var(--paper);
   animation: sf-menu-in var(--dur-base) var(--ease);
 }
@@ -952,3 +954,71 @@ html.sf-cursor select {
   html.sf-cursor,
   html.sf-cursor * { cursor: auto; }
 }
+
+/* ===========================================================================
+   THE HOMEPAGE WALLS (client direction, Oct 2026)
+   "Keep the hero black and alternate the homepage sections below between
+   D7 Champagne (#EFE6D8) and D8 Sable (#E2D7C4). Use dark charcoal text on
+   both light backgrounds, with gold or bronze reserved for accents."
+
+   Scoped to the homepage's <main class="sf-home-walls">: the same section
+   components hang on the inner pages, which keep their grounds until their
+   own pass, and the /home-v* labs keep theirs. The quote band and the
+   closing film are photographs and the newsletter's banner is the copy's
+   "large dark banner" — they keep their own night. The rooms alternate in
+   order: Explore C · Services S · Clientele C · Founder S · Work C ·
+   Press S · Journal C · (quote) · Newsletter S · (closing film).
+   ======================================================================== */
+
+/* The token swap. Every room reads its text, accent and rule colours from
+   these, so re-pointing them retints the room in one place: charcoal for
+   the voice, a softer charcoal for the second voice, bronze (deepened to
+   clear 4.5 : 1 on sable) for the accents, bronze-tinted rules. */
+.sf-home-walls :is(.sf-explore, .sf-services, .sf-clientele, .sf-founder, .sf-work, .sf-press, .sf-journal, .sf-register) {
+  --ink: var(--charcoal);
+  --graphite: var(--charcoal-soft);
+  --bronze: var(--bronze-wall);
+  --hairline: var(--hairline-wall);
+  --sf-w-ink: var(--charcoal);
+  --sf-w-dim: rgb(42 42 42 / .38);
+  color: var(--charcoal);
+}
+
+/* The alternation. */
+.sf-home-walls :is(.sf-explore, .sf-clientele, .sf-work, .sf-journal) { background: var(--wall-champagne); }
+.sf-home-walls :is(.sf-services, .sf-founder, .sf-press, .sf-register) { background: var(--wall-sable); }
+
+/* Sheets and mats are cut from their room's own wall. */
+.sf-home-walls .sf-explore__inset img { border-color: var(--wall-champagne); }
+.sf-home-walls .sf-journal__index { --stack-sheet: var(--wall-champagne); }
+
+/* The two umber rooms come into the light. Their lamplight pool goes — it
+   is a light on a dark wall — and their night-only tints (white text,
+   champagne numerals and rules) return to the light-ground contract. */
+.sf-home-walls :is(.sf-clientele--nocturne, .sf-work--nocturne)::before { content: none; }
+.sf-home-walls :is(.sf-clientele--nocturne, .sf-work--nocturne) .sf-chapter { border-top-color: var(--hairline); }
+.sf-home-walls :is(.sf-clientele--nocturne, .sf-work--nocturne) .sf-chapter__num { color: var(--bronze); }
+
+.sf-home-walls .sf-clientele--nocturne .sf-clientele__head em { color: var(--bronze); }
+.sf-home-walls .sf-clientele--nocturne .sf-clientele__register { border-bottom-color: var(--hairline); }
+.sf-home-walls .sf-clientele--nocturne .sf-clientele__row { border-top-color: var(--hairline); }
+.sf-home-walls .sf-clientele--nocturne .sf-clientele__num,
+.sf-home-walls .sf-clientele--nocturne .sf-clientele__desc { color: var(--graphite); }
+.sf-home-walls .sf-clientele--nocturne .sf-clientele__row:hover .sf-clientele__num { color: var(--bronze); }
+
+.sf-home-walls .sf-work--nocturne :is(.sf-work__head, .sf-work__title) { color: var(--charcoal); }
+.sf-home-walls .sf-work--nocturne :is(.sf-work__statement, .sf-work__desc, .sf-work__num) { color: var(--graphite); }
+.sf-home-walls .sf-work--nocturne :is(.sf-work__meta, .sf-work__sep) { color: var(--bronze); }
+.sf-home-walls .sf-work--nocturne .sf-work__rail { border-block-end-color: var(--hairline); }
+.sf-home-walls .sf-work--nocturne .sf-work__filter { color: var(--graphite); }
+.sf-home-walls .sf-work--nocturne .sf-work__filter:hover { color: var(--charcoal); }
+.sf-home-walls .sf-work--nocturne .sf-work__filter[aria-pressed="true"] {
+  color: var(--bronze);
+  border-block-end-color: var(--bronze);
+}
+.sf-home-walls .sf-work--nocturne .sf-work__filter:disabled,
+.sf-home-walls .sf-work--nocturne .sf-work__filter:disabled:hover { color: rgb(42 42 42 / .32); }
+.sf-home-walls .sf-work--nocturne .sf-work__credits { border-top-color: var(--hairline); }
+.sf-home-walls .sf-work--nocturne .sf-work__credit dt { color: var(--graphite); }
+.sf-home-walls .sf-work--nocturne .sf-work__credit dd { color: var(--charcoal); }
+.sf-home-walls .sf-work--nocturne .sf-work__item:not(.sf-work__item--static):hover .sf-work__num { color: var(--bronze); }

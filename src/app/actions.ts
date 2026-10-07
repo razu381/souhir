@@ -28,7 +28,7 @@ export async function submitMessage(
   if (!client) {
     return {
       status: 'error',
-      message: 'The letterbox is not connected yet — write to hello@darsf.com.',
+      message: 'The letterbox is not connected yet — write to contact@souhirfhima.com.',
     };
   }
 
@@ -48,7 +48,7 @@ export async function submitMessage(
   } catch {
     return {
       status: 'error',
-      message: 'Could not send just now — write to hello@darsf.com.',
+      message: 'Could not send just now — write to contact@souhirfhima.com.',
     };
   }
 }

@@ -22,6 +22,19 @@
   --umber-rgb:   31 26 23;  /* same value, for gradient alpha stops           */
   --paper:       #FFFFFF;
 
+  /* --- The homepage walls (client direction, Oct 2026) -------------------
+     Below the black hero the homepage's rooms alternate two light grounds —
+     D7 Champagne and D8 Sable from the hero lab — set in charcoal, with
+     bronze kept for accents. Contrast measured on sable, the darker wall. */
+  --wall-champagne: #EFE6D8;   /* D7 */
+  --wall-sable:     #E2D7C4;   /* D8 */
+  --charcoal-soft:  #4A4642;   /* secondary text on the walls — 6.6 : 1 on sable */
+  --bronze-wall:    #6B5638;   /* the bronze accent deepened for the walls —
+                                  4.9 : 1 on sable, 5.6 : 1 on champagne;
+                                  #7F674A measured 3.7 / 4.3, under the text bar */
+  --hairline-wall:  rgb(107 86 56 / .28);   /* rules on the walls: #E2DDD6
+                                               all but vanishes on sable */
+
   /* --- Accent — the only colour in the system ---------------------------- */
   --champagne:      #CDB190;  /* sampled from the logo. Safe on noir (~9:1)   */
   --champagne-deep: #A98F6E;  /* MEASURED 2.77:1 on bone, 3.07:1 on white.

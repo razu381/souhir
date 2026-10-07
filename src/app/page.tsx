@@ -25,7 +25,9 @@ export default async function Home() {
   const data = await getHomeData();
 
   return (
-    <main id="main">
+    // sf-home-walls: below the black hero the rooms alternate champagne and
+    // sable (client direction, Oct 2026) — see the block in site.css.
+    <main id="main" className="sf-home-walls">
       {/* The statue-shadow backdrop (hero-lab-v2 A0b, promoted Sept 2026).
           The plate and its museum label are pinned from the seed — the
           photograph and its treatment are a DESIGN decision, not editorial

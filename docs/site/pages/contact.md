@@ -14,7 +14,7 @@ The letter-writing page: a mailto line and the project form.
 | # | Section | Component | Content source |
 | --- | --- | --- | --- |
 | 01 | **Title band** | `PageTitle` | "(Correspondence)" · "Start With *A Letter.*" · intro is fixed copy |
-| 02 | Write To Us (noir) | inline chapter + `ContactForm` | the mailto line uses `siteSettings.contactEmail` (seed fallback `hello@darsf.com`) |
+| 02 | Write To Us (noir) | inline chapter + `ContactForm` | the mailto line uses `siteSettings.contactEmail` (seed fallback `contact@souhirfhima.com`) |
 
 No closing card — the form is the close.
 

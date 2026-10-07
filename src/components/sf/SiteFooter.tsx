@@ -15,6 +15,8 @@ const NAV = [
   { href: '/contact', label: 'Contact' },
 ];
 
+const SECTORS = ['Hospitality', 'Wellness', 'Beauty', 'Editorial', 'Luxury Lifestyle', 'AI Marketing'];
+
 const SOCIALS = [
   { label: 'Instagram', href: 'https://instagram.com' },
   { label: 'LinkedIn', href: 'https://linkedin.com' },
@@ -26,13 +28,27 @@ export default function SiteFooter({ settings }: { settings: Settings | null }) 
   return (
     <footer className="sf-footer">
       <div className="sf-container">
-        {/* The final copy's footer: Navigation, Instagram, LinkedIn, Email —
-            the wordmark, the page register, and the three ways to reach the
-            studio in one column beside it. */}
+        {/* The final copy's footer, which the doc gives twice: the homepage's
+            Navigation, Instagram, LinkedIn, Email, and the closing spec's
+            wordmark, line and sectors — the wordmark column, the page
+            register, and the three ways to reach the studio beside it. */}
         <div className="sf-footer__grid">
-          <p className="sf-footer__brand">
-            SF <em>Muse</em>
-          </p>
+          <div>
+            <p className="sf-footer__brand">
+              SF <em>Muse</em>
+            </p>
+            <p className="sf-footer__tagline">
+              Luxury Visual Storytelling &amp; Brand Experiences
+            </p>
+            <p className="sf-footer__sectors">
+              {SECTORS.map((sector, i) => (
+                <span key={sector}>
+                  {i > 0 && ' • '}
+                  <span className="sf-footer__sector">{sector}</span>
+                </span>
+              ))}
+            </p>
+          </div>
           <nav aria-label="Footer">
             <h3 className="sf-footer__heading">Navigation</h3>
             <ul className="sf-footer__list">
@@ -63,7 +79,7 @@ export default function SiteFooter({ settings }: { settings: Settings | null }) 
               <li>
                 <a
                   className="sf-footer__link"
-                  href={`mailto:${settings?.contactEmail ?? 'hello@darsf.com'}`}
+                  href={`mailto:${settings?.contactEmail ?? 'contact@souhirfhima.com'}`}
                 >
                   Email
                 </a>
