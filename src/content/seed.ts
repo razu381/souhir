@@ -54,15 +54,10 @@ export const hero = {
   titleLines: ['Beyond', 'Visibility.'],
   labelTitle: 'Into Memory.',
   labelMeta: '',   // the museum label retired from the homepage hero (Sept 2026)
-  image: {
-    src: '/assets/hero/statue-shadow-1920.webp',
-    srcSet:
-      '/assets/hero/statue-shadow-800.webp 800w, /assets/hero/statue-shadow-1200.webp 1200w, /assets/hero/statue-shadow-1600.webp 1600w, /assets/hero/statue-shadow-1920.webp 1920w',
-    sizes: '100vw',
-    width: 1920,
-    height: 1080,
-    alt: 'A woman in a beaded gown at a tall arched window at night, the shadow of a classical statue cast large on the wall beside her; half the frame is black.',
-  } as Plate,
+  // The delivery's own hero file, midtones lifted in the bake (round 2) so
+  // her figure reads without a dimmer laid over it.
+  image: plate('hero', [800, 1200, 1600, 1920], [1920, 1080], '100vw',
+    'A woman in a beaded gown at a tall arched window at night, the shadow of a classical statue cast large on the wall beside her; half the frame is black.'),
   mark: '',
   sub: 'Crafting Experiences Designed To Be Remembered',
   intro: [
@@ -80,22 +75,26 @@ export const explore = {
     'Working at the intersection of strategy, aesthetics, and innovation, the studio creates distinctive brand worlds for hospitality, wellness, beauty, lifestyle, and contemporary luxury brands seeking more than visibility.',
     'From cinematic imagery and editorial narratives to digital experiences and intelligent brand growth, every project is guided by a simple belief: the most memorable brands are not defined by what they show, but by what they make people feel.',
   ],
-  image: plate('explore-wall', [800, 1200, 1800], [1800, 2700], '(min-width: 1025px) 30vw, 88vw',
+  // ONE photograph (round 2): the client's two Explore photos were
+  // alternatives. The studio wall, hung 4:5.
+  image: plate('explore-studio', [800, 1200, 1600], [1600, 2000], '(min-width: 1025px) 40vw, 92vw',
     'A studio wall hung with black-and-white portrait prints, director’s chairs standing beside it.'),
   inset: plate('explore-shoot', [480, 800, 1200], [1200, 1500], '(min-width: 1025px) 14vw, 44vw',
     'A photographer moving through a bright white studio, the lights and reflector blurred in motion.'),
 };
 
-/** "What we create" — the services chapter's own headline and standfirst. */
+/** "What we create" — the services chapter. Since the Services update
+ *  (Oct 2026) the doc gives it no headline or standfirst of its own: the
+ *  label names the section and the four cards follow. */
 export const servicesIntro = {
   label: 'What We Create',
-  head: 'The Art of Brand Presence',
-  text: 'SF Muse creates luxury brand experiences through the convergence of storytelling, strategy, design, and intelligent innovation. Every service is designed to elevate perception, create emotional connection, and leave a lasting impression.',
   more: 'Learn More',
 };
 
+/** The service cards, 3:4 (round 2): the photograph fills the card and the
+ *  words ride its foot. */
 const tile = (slug: string) =>
-  plate(slug, [480, 800, 1200], [1200, 1500], '(min-width: 1025px) 22vw, (min-width: 768px) 45vw, 88vw', '');
+  plate(`service-card-${slug}`, [480, 800, 1200], [1200, 1600], '(min-width: 1200px) 24vw, (min-width: 768px) 46vw, 92vw', '');
 
 export const services = [
   {
@@ -103,32 +102,32 @@ export const services = [
     title: 'The Art of Brand Presence',
     slug: 'luxury-visual-storytelling',
     summary:
-      'Cinematic narratives crafted to shape perception, evoke emotion, and transform brands into experiences worth remembering.',
-    tile: tile('service-brand-presence'),
+      'Creative direction, professional photography, films and reels shaped around the feeling of your brand, with photographer coordination, model sourcing and influencer partnerships where the brief calls for them.',
+    tile: tile('brand-presence'),
   },
   {
     num: '02',
     title: 'Creative Direction & Identity',
     slug: 'creative-direction',
     summary:
-      'Defining the visual and emotional language of brands through thoughtful strategy, refined aesthetics, and creative vision.',
-    tile: tile('service-creative-direction'),
+      'Brand positioning, storytelling and visual identity brought together in a clear creative direction and practical guidelines for consistent use.',
+    tile: tile('creative-direction'),
   },
   {
     num: '03',
     title: 'Digital Experiences',
     slug: 'digital-experiences',
     summary:
-      'Designing immersive digital environments that combine elegance, functionality, and meaningful user engagement.',
-    tile: tile('service-digital'),
+      'Websites, search visibility and app concepts designed around how people discover, understand and choose your business.',
+    tile: tile('digital'),
   },
   {
     num: '04',
     title: 'Intelligent Brand Growth',
     slug: 'intelligent-brand-growth',
     summary:
-      'Combining creativity, data, and intelligent systems to help brands strengthen visibility, build influence, and grow with purpose.',
-    tile: tile('service-growth'),
+      'Market research, sales and marketing strategy, tailored frameworks and business plans, supported by content, social media and campaign delivery.',
+    tile: tile('growth'),
   },
 ];
 
@@ -145,6 +144,8 @@ export const clientele = {
     ['Editorial & Fashion Campaigns', 'Editorial productions, fashion brands, creative collaborations, and campaigns where storytelling and visual impact matter.'],
     ['Elevated Travel Experiences', 'Luxury travel concepts, curated journeys, private experiences, and destination-led brands.'],
   ] as [label: string, description: string][],
+  /** One line icon per row, in row order (round 2 — see ClientIcon.tsx). */
+  icons: ['key', 'cloche', 'lotus', 'drop', 'diamond', 'camera', 'compass'] as const,
 };
 
 export const founder = {
@@ -156,7 +157,10 @@ export const founder = {
   ],
   name: 'Souhir Fhima',
   role: 'Founder & Creative Director',
-  signature: { src: '/assets/explore/signature-ink-600.webp', width: 600, height: 205, alt: '' } as Plate,
+  // Her supplied signature, used as is (a transparent PNG, champagne
+  // strokes; the bake only crops it) — round 2 replaced the prototype's
+  // redrawn ink.
+  signature: plate('signature', [640, 1010], [1010, 395], '(min-width: 1025px) 340px, 70vw', ''),
   cta: { label: 'Explore Our Philosophy', href: '/about#philosophy' },
 };
 
@@ -258,7 +262,7 @@ export const work = {
 };
 
 const cover = (slug: string, alt: string) =>
-  plate(slug, [600, 900], [900, 1165], '(min-width: 1025px) 18vw, 30vw', alt);
+  plate(slug, [600, 900], [900, 1165], '(min-width: 1025px) 28vw, (min-width: 768px) 30vw, 72vw', alt);
 
 export const press = {
   label: 'Editorial Recognition',
@@ -274,18 +278,21 @@ export const press = {
     {
       publication: 'Artego',
       caption: 'Cover Feature — Artego, Dec 2025',
+      issue: 'Portrait — December 2025',
       image: cover('press-artego-dec',
         'Artego magazine cover, Portrait December, issue 1170 — a portrait in black lace and sunglasses.'),
     },
     {
       publication: 'Artego',
       caption: 'Cover Feature — Artego, Feb 2026',
+      issue: 'Portrait — February 2026',
       image: cover('press-artego-feb',
         'Artego magazine cover, Portrait February, issue 1249 — a black-and-white portrait on a chair at the shoreline.'),
     },
     {
       publication: 'Quadro',
       caption: 'Cover Feature — Quadro, Dec 2025',
+      issue: 'Portrait — December 2025',
       image: cover('press-quadro-dec',
         'Quadro magazine cover, Portrait December, issue 1395 — a portrait in a black feather stole beside a tree.'),
     },
@@ -293,8 +300,10 @@ export const press = {
   sharedCaption: 'Cover Features — Artego · Artego · Quadro',
 };
 
+/** The journal's article images, 4:5, from the Journal delivery — the copy:
+ *  "use the same images … for the journal page" (round 2). */
 const thumb = (slug: string, alt: string) =>
-  plate(slug, [600], [600, 800], '(min-width: 1025px) 220px, 34vw', alt);
+  plate(`journal-card-${slug}`, [600, 900], [900, 1125], '(min-width: 1025px) 30vw, (min-width: 768px) 46vw, 92vw', alt);
 
 export const journal = {
   head: 'The SF Muse Journal',
@@ -311,7 +320,7 @@ export const journal = {
     desc: 'What truly makes an experience unforgettable? Exploring the intangible elements that transform products, spaces, and brands into lasting memories.',
     href: null as string | null,
     read: 'Read Article',
-    image: plate('journal-invisible-luxury', [600, 900, 1200], [1200, 1500], '(min-width: 1025px) 34vw, 88vw',
+    image: plate('journal-card-invisible-luxury', [600, 900, 1200, 1600], [1600, 2000], '(min-width: 1025px) 44vw, 92vw',
       'A woman in a long dark gown at open doors in a sunlit, pale-panelled interior.'),
   },
   moreLabel: 'Additional Articles',
@@ -320,19 +329,19 @@ export const journal = {
       title: 'Why Luxury Is No Longer About Price',
       desc: 'Experience. Emotion. Meaning. The new language of luxury.',
       href: null as string | null,
-      image: thumb('journal-luxury-price', 'A woman in a tweed jacket and beret taking tea at a garden table.'),
+      image: thumb('luxury-culture', 'A long gallery corridor of marble floors, sculpture and gilt-framed paintings.'),
     },
     {
       title: 'The Psychology of Visual Desire',
       desc: 'How imagery shapes perception, influences behaviour, and creates emotional resonance.',
       href: null as string | null,
-      image: thumb('journal-visual-desire', 'A blurred figure in black framed between studio clamps against a pale wall.'),
+      image: thumb('visual-desire', 'A blurred figure in black framed between studio clamps against a pale wall.'),
     },
     {
       title: 'When AI Meets Creativity',
       desc: 'Exploring the intersection of human imagination and intelligent technology.',
       href: null as string | null,
-      image: thumb('journal-ai-creativity', 'A woman in profile wearing fractured, glass-like digital glasses and a sequinned top.'),
+      image: thumb('creative-intelligence', 'A woman in profile wearing fractured, glass-like digital glasses and a sequinned top.'),
     },
   ],
   more: { label: 'Explore The Journal', href: '/journal' },

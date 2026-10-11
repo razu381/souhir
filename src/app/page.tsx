@@ -1,78 +1,55 @@
 import HeroNocturne from '@/components/sf/HeroNocturne';
-import WorkGrid from '@/components/sf/WorkGrid';
-import Reveal from '@/components/sf/Reveal';
+import ClosingCard from '@/components/sf/ClosingCard';
+import HomeNewsletter from '@/components/sf/HomeNewsletter';
 import {
-  Chapter,
-  Explore,
-  ServicesList,
-  Clientele,
-  Founder,
-  PressSalon,
-  JournalIndex,
-  Interlude,
-  NewsletterSection,
-  ClosingCard,
-} from '@/components/sf/HomeSections';
+  HomeExplore,
+  HomeServices,
+  HomeClients,
+  HomeFounder,
+  HomeWork,
+  HomePress,
+  HomeJournal,
+  HomeQuote,
+} from '@/components/sf/HomeRooms';
 import { getHomeData } from '@/sanity/fetch';
-import { CHAPTER } from '@/content/chapters';
 import { hero as seedHero } from '@/content/seed';
 
 export const revalidate = 600;
 
-/** The Nocturne (src/hero-nocturne.html @ 7a7bced), set to the client's
- *  final copy (SF_Muse_Website_Copy_Shorter_Updated.docx, Oct 2026). */
+/** The homepage on the client's final copy
+ *  (SF_Muse_Website_Copy_Shorter_Updated.docx), revised after her round-2
+ *  feedback (Oct 2026) — docs/plans/11-homepage-round-2.md. */
 export default async function Home() {
   const data = await getHomeData();
 
   return (
-    // sf-home-walls: below the black hero the rooms alternate champagne and
-    // sable (client direction, Oct 2026) — see the block in site.css.
-    <main id="main" className="sf-home-walls">
-      {/* The statue-shadow backdrop (hero-lab-v2 A0b, promoted Sept 2026).
-          The plate and its museum label are pinned from the seed — the
-          photograph and its treatment are a DESIGN decision, not editorial
-          copy — while the words stay studio-owned. */}
+    // sf-homepage scopes sf/home.css: the hero stays black, the rooms below
+    // alternate warm ivory and charcoal (deep brown once), and every text
+    // block follows the client's reference setting (DESIGN-DIRECTION §02).
+    <main id="main" className="sf-homepage">
+      {/* The statue-shadow photograph, full-bleed (the copy: "full-screen
+          imagery"). Round 2 keeps her figure clear of any overlay — see the
+          hero block in home.css. The plate is pinned from the seed: the
+          photograph and its treatment are a design decision, not copy. */}
       <HeroNocturne
         {...data.hero}
         image={seedHero.image}
         labelMeta={seedHero.labelMeta}
         variant="backdrop"
+        className="sf-nocturne--home"
       />
 
       <span data-sf-header-sentinel aria-hidden="true" />
 
-      <Explore data={data.explore} />
-      <ServicesList data={data.services} intro={data.servicesIntro} />
-      <Clientele data={data.clientele} />
-      <Founder data={data.founder} />
-
-      <section className="sf-section sf-work sf-work--nocturne" id="work">
-        <div className="sf-container">
-          <Chapter label={`(${data.work.label})`} num={CHAPTER.work} />
-          <Reveal as="h2" className="sf-work__head">
-            {data.work.head}
-          </Reveal>
-          <WorkGrid
-            statement={data.work.statement}
-            filters={data.work.filters}
-            items={data.work.items}
-          />
-        </div>
-      </section>
-
-      <PressSalon data={data.press} compact />
-      <JournalIndex data={data.journal} categories={false} />
-      <Interlude
-        image={data.interlude.image}
-        quote={data.interlude.quote}
-        cite={data.interlude.cite}
-        role={data.interlude.role}
-      />
-      <NewsletterSection
-        head={data.news.head}
-        text={data.news.text}
-        image={data.news.image}
-      />
+      <HomeExplore data={data.explore} />
+      <HomeServices data={data.services} intro={data.servicesIntro} />
+      <HomeClients data={data.clientele} />
+      <HomeFounder data={data.founder} />
+      <HomeWork data={data.work} />
+      <HomePress data={data.press} />
+      <HomeJournal data={data.journal} />
+      <HomeQuote data={data.interlude} />
+      <HomeNewsletter head={data.news.head} text={data.news.text} />
       <ClosingCard
         head={data.cta.head}
         text={data.cta.text}

@@ -25,15 +25,19 @@ const SOCIALS = [
 export default function SiteFooter({ settings }: { settings: Settings | null }) {
   const socials = settings?.socials?.length ? settings.socials : SOCIALS;
 
+  const email = settings?.contactEmail ?? 'contact@souhirfhima.com';
+
   return (
     <footer className="sf-footer">
       <div className="sf-container">
-        {/* The final copy's footer, which the doc gives twice: the homepage's
-            Navigation, Instagram, LinkedIn, Email, and the closing spec's
-            wordmark, line and sectors — the wordmark column, the page
-            register, and the three ways to reach the studio beside it. */}
+        {/* Round 2 (client feedback, Oct 2026): "a more polished design, with
+            a stronger SF Muse logo presence, clearly aligned navigation and
+            contact details, and readable text." Three columns on one top
+            line — the studio, the page register, the ways to reach it (the
+            address shown, not just named) — then the wordmark at monument
+            scale, the system's outro (DESIGN-DIRECTION §06), and the bar. */}
         <div className="sf-footer__grid">
-          <div>
+          <div className="sf-footer__studio">
             <p className="sf-footer__brand">
               SF <em>Muse</em>
             </p>
@@ -49,9 +53,9 @@ export default function SiteFooter({ settings }: { settings: Settings | null }) 
               ))}
             </p>
           </div>
-          <nav aria-label="Footer">
-            <h3 className="sf-footer__heading">Navigation</h3>
-            <ul className="sf-footer__list">
+          <nav aria-labelledby="sf-footer-nav">
+            <h3 className="sf-footer__heading" id="sf-footer-nav">Navigation</h3>
+            <ul className="sf-footer__list sf-footer__list--nav">
               {NAV.map((item) => (
                 <li key={item.href}>
                   <Link className="sf-footer__link" href={item.href}>
@@ -62,7 +66,10 @@ export default function SiteFooter({ settings }: { settings: Settings | null }) 
             </ul>
           </nav>
           <div className="sf-footer__connect">
-            <h3 className="sf-sr-only">Connect</h3>
+            <h3 className="sf-footer__heading">
+              <span className="sf-sr-only">Connect</span>
+              <span aria-hidden="true">&nbsp;</span>
+            </h3>
             <ul className="sf-footer__list">
               {socials.map((s) => (
                 <li key={s.label}>
@@ -72,21 +79,23 @@ export default function SiteFooter({ settings }: { settings: Settings | null }) 
                     target="_blank"
                     rel="noreferrer"
                   >
-                    {s.label}
+                    {s.label} <span aria-hidden="true">&#8599;</span>
                   </a>
                 </li>
               ))}
               <li>
-                <a
-                  className="sf-footer__link"
-                  href={`mailto:${settings?.contactEmail ?? 'contact@souhirfhima.com'}`}
-                >
-                  Email
+                <a className="sf-footer__link sf-footer__link--email" href={`mailto:${email}`}>
+                  <span className="sf-footer__email-label">Email</span>
+                  <span className="sf-footer__email">{email}</span>
                 </a>
               </li>
             </ul>
           </div>
         </div>
+
+        <p className="sf-footer__mark" aria-hidden="true">
+          SF <em>Muse</em>
+        </p>
 
         <div className="sf-footer__bar">
           <span>&copy; MMXXVI SF Muse</span>

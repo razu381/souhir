@@ -54,7 +54,11 @@ const components: PortableTextComponents = {
 
 export default async function ArticlePage({ params }: Props) {
   const { slug } = await params;
-  const article = await client.fetch<Record<string, any> | null>(ARTICLE, { slug });
+  // An unreachable or unconfigured Sanity is a missing article, not a crash:
+  // without the catch every slug answered 500 on the live site (round 2).
+  const article = await client
+    .fetch<Record<string, any> | null>(ARTICLE, { slug })
+    .catch(() => null);
   if (!article) notFound();
 
   const date = article.publishedAt

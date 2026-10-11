@@ -70,6 +70,36 @@ Neutral grotesk. Navigation, chapter labels, numbers, buttons, tags, captions, m
 --t-label:   0.6875rem;  /* 11px, 0.16em tracking, uppercase */
 ```
 
+### Addendum — the client's reference text setting (Oct 2026)
+
+The client picked one hero study, **`/hero-lab` wall A4 "Charcoal — Control"**, as the way she wants text presented: *"I particularly liked how you displayed the text in this earlier hero version … Please use this as a reference when refining the text layouts across the website."*
+
+**Adopted: the typography only.** Not A4's composition (the framed print hung beside the words), not its charcoal wall, not the picture light — those stay per-section decisions. The type setting below is the reference for every text block on the site, **our own homepage hero included** (decision 2026-10-10, `DECISION-LOG.md`).
+
+Measured on the live lab at 1440 × 900; the source is the `.sf-nocturne__*` rules in `src/app/sf/components.css`.
+
+| Step | Voice | Setting |
+|---|---|---|
+| 1 · Masthead | hairline + `(SF MUSE)` | Full-width rule; label 11px / 500 / `0.16em` / uppercase |
+| 2 · Headline | Didone roman | `clamp(3rem, 12vw, 13.5rem)` (173px at 1440) · line-height `.94` · tracking `-.035em` · bone `#F6F3EE` · one word or phrase per line, each line its own reveal mask |
+| 3 · Second voice | Didone *italic* | `clamp(1.625rem, 3.2vw, 3rem)` (46px — a quarter of the headline) · line-height `1.1` · tracking `-.01em` · champagne · set clear of the headline by `clamp(1.25rem, 3.5svh, 3.75rem)` |
+| 4 · Standfirst | sans caps | 11px / 500 / `0.16em` · champagne · `.875rem` under the italic |
+| 5 · Body | sans | `clamp(.9375rem, 1.05vw, 1.0625rem)` / `1.65` · white at 80% · measure `32rem` · paragraphs `.875rem` apart, the first `1–1.5rem` under the standfirst |
+| 6 · Action | outline pill | 11px tracked caps · `clamp(1.5rem, 4svh, 2.5rem)` above |
+
+**Why it works — the rules to carry into every section:**
+
+1. **Extreme scale contrast, no in-between sizes.** The headline is ~11× the body; the italic is a quarter of the headline; everything else is 11px caps or body copy.
+2. **A fixed reading order where each step changes voice, not just size:** label → roman headline → italic second voice → caps standfirst → body → button.
+3. **One left-aligned column, ragged right.** The headline may run wider than the text column; the body never does (`32rem`).
+4. **Spacing steps up with the hierarchy:** tight inside a group (`.875rem`), open between groups (`1.5–3.75rem`).
+5. **Colour has one job per role:** bone headline; champagne only for the italic and the standfirst; body at 80% white. On light grounds the roles map to ink / bronze / `--charcoal-soft`, because champagne fails contrast there (§03).
+6. **Italic is a voice, not decoration.** At most one italic line per text block, and only where the copy has a natural second beat: the hero's *Into Memory.*, the quote's second line and the closer's *Worth Remembering.* Every other heading is roman (client feedback, point 12, Oct 2026).
+
+**Below the hero,** sections keep the ratios rather than the absolute sizes. Section headlines run the same recipe at roughly half the hero's scale (target `clamp(2.25rem, 5vw, 5.5rem)`, to be tuned in the build). Labels, standfirsts, body and buttons are identical everywhere.
+
+> **Known defect — fix before reusing the masks.** `.sf-nocturne__line { overflow: hidden }` clips the end of a word whenever the headline's column is narrower than that word. The client's own screenshot of A4 reads "Visibilit", and at 1728px wide the full stop is cut. The masks must clip vertically only, or the headline must be sized so its longest word fits its column.
+
 ---
 
 ## 03 — Colour
@@ -116,6 +146,10 @@ carries the light that keeps the run honest:
 > `D · L L · D · L · D · L L · D · L · D D`
 > hero · explore services · clientele · founder · work · press journal ·
 > interlude · correspondence · closer footer
+
+**Addendum — the round-2 rooms (client feedback, Oct 2026).** The homepage's two beige walls (D7 Champagne / D8 Sable, 7 Oct) read as one colour. They are replaced by warm ivory (`--wall-ivory #F5F0E7`) and charcoal (`--wall-charcoal #232120`), with deep brown (`--wall-brown #35261D`) used once (the founder) and champagne kept for accents. Each room sets its colour roles (headline · body · accent · rule) and re-points the shared tokens to them, so the components it hosts follow; measured contrast is in `tokens.css`. The homepage order is black · ivory · charcoal · ivory · brown · ivory · charcoal · ivory · (quote photograph) · charcoal · (closing photograph) · black. The tail is three dark bands in a row (newsletter, closing photograph, footer), against the two-dark rule above. The client asked for a charcoal newsletter, so the exception is accepted. The closing photograph is brightened in the bake (`home-assets.mjs` `tone`) so it reads as a photograph rather than another dark band.
+
+**Addendum — About round 2 (client feedback, Oct 2026).** About runs on the same rooms, in the client's own order: charcoal hero · ivory founder story · charcoal philosophy · ivory principles · brown statement · ivory vision and values · brown closing · footer. Here brown is used twice, for the statement and the closing. That means two darks in a row at the tail (closing, footer), which is within the rule above. Q3 (the palette on Services) is still open.
 
 **Dark mode:** build it. The palette is already monochrome, so the noir inverse is close to free and suits the brand. Tokens swap under `:root[data-theme="dark"]` and `@media (prefers-color-scheme: dark)`.
 
@@ -170,6 +204,21 @@ The references animate fast and springy. Halving the speed and removing the over
 | **Status line** | `CURRENTLY ACCEPTING PROJECTS — 2026`, tracked caps, no dot |
 | **Outro wordmark** | `DAR SF` in Didone at extreme scale, bleeding off the footer's bottom edge |
 | **Navigation** | Logotype + hamburger on home; full tracked-caps nav on interior pages. **Sans, not serif** — nav is structural |
+
+**Addendum — round 2 (Oct 2026).**
+
+- **The outro wordmark is back.** "SF *Muse*" sits at monument scale above the footer bar; the client asked for "a stronger SF Muse logo presence".
+- **Service and journal cards.** Each is a photograph uncovered at the top, with the words on a raised panel (services) or beneath it (journal). The whole card is the link, and the Learn More / Read Article line is always visible.
+- **Client icons.** "Who We Work With" carries bespoke single-weight line icons (`ClientIcon.tsx`, drawn on `ValueIcon`'s grid).
+
+**Addendum — About round 2 (Oct 2026).**
+
+- **The bleed split.** The photograph runs to the screen's edge, from the top to the bottom of its section, beside a text column or panel on the room's ground. No overlay is needed, because the text never sits on the photograph. About uses it three times, and each one differs:
+  - **Hero:** the photo is on the right, below the header's line.
+  - **Philosophy:** the photo is on the left, at its uncropped 3:4.
+  - **Closing:** a shorter 4:5 panel, on the right.
+- **The left rail.** A room whose headings share a left column (4/12) with their content to the right (8/12): About's Vision and Values.
+- **Display type at a text-leaning optical size.** About sets its display lines at `"opsz" 30`. The automatic optical size thins Bodoni's hairlines to threads at 60px and over, so the right arms of W and V all but vanish. This answered the client's "slightly stronger serif strokes". The homepage still uses the automatic optical size; carry it over if she likes the About setting.
 
 **Cut from the references:** diagonal ticker ribbons, rounded corners, GRID/LIST toggle *(reinstate only if the portfolio exceeds ~12 items)*.
 
@@ -269,13 +318,33 @@ ratio must fall through to the seed plate rather than be forced —
      the direction of the words, never uniformly — a flat wash is a dimmer,
      and it would cost the photograph the dynamic range it was chosen for.
 
+  Round 2 (Oct 2026) amends two of these:
+
+  - **Exception 2 extends to the hung magazine covers** on the homepage
+    (`.sf-hp-cover__print`): a print's shadow and a champagne hairline. They
+    are hung prints, like the plate.
+  - **Exception 4 is cut back on the homepage.** Its three coats sat 93–98%
+    black over the middle of the frame, where the client stands, and she
+    asked for her figure to be visible. On the homepage hero
+    (`.sf-nocturne--home`) the scrim is now a feather on the black field's
+    edge plus thin header and floor bands; her figure carries no coat. The
+    lab hangs keep the original.
+
   Anything else with depth is a bug. If a fifth exception is ever wanted, it
   gets added here first.
 - Any accent colour other than champagne
 - All-caps serif, or serif in a button
 - Champagne body text on a light ground
-- Icon sets — the only glyphs are `↗ ↓ ← →`
-- Boxed section containers or carded layouts
+- Icon sets — the only glyphs are `↗ ↓ ← →`. *Exceptions (client-requested):
+  the About value icons (`ValueIcon`) and the homepage client icons
+  (`ClientIcon`) — bespoke, single-weight, currentColor.*
+- Boxed section containers or carded layouts. *Exception (client round 2,
+  Oct 2026): the homepage's service and journal cards — sharp-cornered,
+  image-led, no borders.*
+- The numbered chapter rule as every section's device. *About (client
+  round 2, Oct 2026) drops `Chapter` entirely. Its sections open on a kicker
+  or a plain heading, and only the Way principles keep numerals. On other
+  pages the chapter rule stays, used where it earns its place.*
 - Fast or springy easing, hover bounces, parallax on everything
 - Reference-demo imagery anywhere near the live build
 

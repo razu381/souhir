@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import './sf/site.css';
+import './sf/home.css';   // the homepage, round 2 — scoped to main.sf-homepage
 import SiteHeader from '@/components/sf/SiteHeader';
 import SiteFooter from '@/components/sf/SiteFooter';
 import SmoothScroll from '@/components/sf/animation/SmoothScroll';

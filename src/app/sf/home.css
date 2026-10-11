@@ -1,0 +1,878 @@
+/* ---------------------------------------------------------------------------
+   home.css — the homepage, round 2 (client feedback, Oct 2026).
+
+   Plan: docs/plans/11-homepage-round-2.md · decisions: DECISION-LOG.md.
+   Scoped to <main class="sf-homepage"> (src/app/page.tsx). Unlayered, so it
+   sits above the components layer — the round-1 rules the shared components
+   still carry for /journal, /editorial and the /home-v* labs are left alone.
+
+   1. Rooms — the grounds and the colour roles they hand down
+   2. Type — the client's reference setting (DESIGN-DIRECTION §02 addendum)
+   3. The hero
+   4. The sections, top to bottom
+--------------------------------------------------------------------------- */
+
+
+/* ===========================================================================
+   1. ROOMS
+   "The two beige backgrounds are too similar": below the black hero the
+   rooms alternate warm ivory and charcoal, deep brown once (the founder),
+   champagne kept for accents. Each room sets five roles, and re-points the
+   shared tokens to them, so the components it hosts (the chapter rule, the
+   outline button, the word reveal, the work hang) follow without a
+   per-component retint. Contrast is in tokens.css.
+   ======================================================================== */
+.sf-homepage .sf-room { padding-block: clamp(4.5rem, 9vw, 8.5rem); }
+.sf-homepage .sf-room {
+  background: var(--room-bg);
+  color: var(--room-ink);
+  --ink: var(--room-ink);
+  --graphite: var(--room-body);
+  --bronze: var(--room-accent);
+  --hairline: var(--room-rule);
+  --sf-w-ink: var(--room-ink);
+  --sf-w-dim: var(--room-dim);
+}
+.sf-homepage .sf-room--ivory {
+  --room-bg: var(--wall-ivory);
+  --room-ink: #1E1C1A;                 /* 16 : 1 on ivory */
+  --room-body: var(--charcoal-soft);   /* 8.2 : 1 */
+  --room-accent: var(--bronze-wall);   /* 6.1 : 1 — labels, numerals, links */
+  --room-rule: var(--hairline-wall);
+  --room-dim: rgb(30 28 26 / .30);
+}
+.sf-homepage :is(.sf-room--charcoal, .sf-room--brown) {
+  --room-ink: var(--bone);                    /* 14.5 / 13.3 : 1 */
+  --room-body: rgb(255 255 255 / .78);        /* 10.5 / 9.7 : 1 */
+  --room-accent: var(--champagne);            /* 7.9 / 7.2 : 1 */
+  --room-rule: var(--hairline-dark);
+  --room-dim: rgb(255 255 255 / .30);
+}
+.sf-homepage .sf-room--charcoal { --room-bg: var(--wall-charcoal); }
+.sf-homepage .sf-room--brown    { --room-bg: var(--wall-brown); }
+
+/* The outline pill on the dark rooms: the hover fill is champagne itself. */
+.sf-homepage :is(.sf-room--charcoal, .sf-room--brown) .sf-btn {
+  color: var(--paper);
+  border-color: rgb(205 177 144 / .45);
+}
+.sf-homepage :is(.sf-room--charcoal, .sf-room--brown) .sf-btn:hover,
+.sf-homepage :is(.sf-room--charcoal, .sf-room--brown) .sf-btn:focus-visible {
+  background: var(--champagne);
+  border-color: var(--champagne);
+  color: var(--noir);
+}
+.sf-homepage .sf-room--ivory .sf-btn { border-color: rgb(107 86 56 / .45); }
+
+
+/* ===========================================================================
+   2. TYPE — one setting for every text block (DESIGN-DIRECTION §02 addendum)
+   The client's reference: a large roman Didone headline; the second voice
+   (italic, champagne) only where the copy has a second beat; tracked caps
+   for labels; body in the reading voice at a 32rem measure; the outline
+   pill last. Section headlines run the hero's recipe at about half its
+   scale, at 500 so the hairlines hold below display size.
+   ======================================================================== */
+.sf-homepage .sf-hp-head {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--t-section);
+  line-height: 1.02;
+  letter-spacing: -.025em;
+  color: var(--room-ink);
+  text-wrap: balance;
+}
+.sf-homepage .sf-hp-line { display: block; }
+
+.sf-homepage .sf-hp-lead {
+  max-width: 36rem;
+  font-family: var(--font-sans);
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  letter-spacing: -.005em;
+  color: var(--room-ink);
+  text-wrap: pretty;
+}
+.sf-homepage .sf-hp-body {
+  max-width: 32rem;
+  font-family: var(--font-sans);
+  font-size: clamp(.9375rem, 1.05vw, 1.0625rem);
+  line-height: 1.65;
+  color: var(--room-body);
+  text-wrap: pretty;
+}
+.sf-homepage .sf-hp-kicker,
+.sf-homepage .sf-hp-more {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--room-accent);
+}
+.sf-homepage .sf-hp-more span {
+  display: inline-block;
+  transition: transform var(--dur-micro) var(--ease);
+}
+
+/* The masthead: headline left, standfirst right, sharing a baseline. */
+.sf-homepage .sf-hp-masthead {
+  display: grid;
+  row-gap: 1.25rem;
+  margin-block-start: var(--gap-block);
+}
+@media (min-width: 1025px) {
+  .sf-homepage .sf-hp-masthead {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: clamp(3rem, 6vw, 6rem);
+    align-items: end;
+  }
+}
+
+
+/* ===========================================================================
+   3. THE HERO — the full-bleed photograph, her figure clear of every coat
+   Round 1 poured a ramp that was still 93–98% black up to the middle of the
+   frame — exactly where she stands — so her figure read as a shadow. The
+   photograph's own black field (its left ~45%) already holds the words, so
+   the coats come down to a feather on the field's edge and two thin bands
+   for the header and the floor. The crop pushes her as far right as the
+   frame allows; the headline is sized so "Visibility." always ends before
+   her (it runs ~5.1× the font size). Type: the reference setting, as
+   specified (DESIGN-DIRECTION §02).
+   ======================================================================== */
+.sf-homepage .sf-nocturne--home .sf-nocturne__plate::after {
+  background:
+    linear-gradient(to bottom, rgb(10 8 6 / .50) 0%, rgb(10 8 6 / 0) 14%),
+    linear-gradient(to top, rgb(10 8 6 / .45) 0%, rgb(10 8 6 / 0) 14%),
+    linear-gradient(to right, rgb(10 8 6 / .55) 0%, rgb(10 8 6 / .30) 34%, rgb(10 8 6 / 0) 48%);
+}
+
+@media (min-width: 1025px) {
+  .sf-homepage .sf-nocturne--home .sf-nocturne__plate img { object-position: 0% 50%; }
+  .sf-homepage .sf-nocturne--home .sf-nocturne__title {
+    font-size: clamp(3rem, 8.4vw, 8.25rem);
+    font-weight: 400;
+  }
+  .sf-homepage .sf-nocturne--home .sf-nocturne__label {
+    max-width: 32rem;
+    margin-block-start: clamp(1.25rem, 3.5svh, 3rem);
+  }
+}
+/* Short laptops: the title gives first (it is set by width, and these
+   screens are wide but short). */
+@media (min-width: 1025px) and (max-height: 780px) {
+  .sf-homepage .sf-nocturne--home .sf-nocturne__title { font-size: min(8.4vw, 12.5svh); }
+  .sf-homepage .sf-nocturne--home .sf-nocturne__label { margin-block-start: clamp(.75rem, 2.5svh, 1.5rem); }
+}
+
+/* Handsets and tablets: the photograph above the words, never under them.
+   Her crop at the window fills the top of the screen; the words follow on
+   the black, left-aligned in the reference order. */
+@media (max-width: 1024px) {
+  .sf-homepage .sf-nocturne--home {
+    min-height: 0;
+  }
+  .sf-homepage .sf-nocturne--home .sf-nocturne__inner {
+    padding-block: 4rem clamp(3.5rem, 9svh, 5rem);   /* clear of the fixed header */
+  }
+  .sf-homepage .sf-nocturne--home .sf-nocturne__rule { display: none; }
+  .sf-homepage .sf-nocturne--home .sf-nocturne__grid {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+  .sf-homepage .sf-nocturne--home .sf-nocturne__plate {
+    position: relative;
+    inset: auto;
+    order: -1;
+    width: calc(100% + 2 * var(--gutter));
+    height: auto;
+    aspect-ratio: 4 / 5;
+    max-height: 68svh;
+    margin: 0 calc(-1 * var(--gutter)) clamp(1.75rem, 5svh, 2.5rem);
+  }
+  .sf-homepage .sf-nocturne--home .sf-nocturne__plate img { object-position: 58% 50%; }
+  .sf-homepage .sf-nocturne--home .sf-nocturne__plate::after {
+    background: linear-gradient(to top, rgb(10 10 10 / 1) 0%, rgb(10 10 10 / 0) 22%);
+  }
+  .sf-homepage .sf-nocturne--home .sf-nocturne__title {
+    font-size: clamp(3rem, 15vw, 6.5rem);
+    font-weight: 500;
+  }
+  .sf-homepage .sf-nocturne--home .sf-nocturne__label-title {
+    font-size: clamp(1.75rem, 7vw, 2.75rem);
+    font-weight: 400;
+  }
+  .sf-homepage .sf-nocturne--home .sf-nocturne__text { margin-inline: 0; }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .sf-homepage .sf-nocturne--home .sf-nocturne__plate { aspect-ratio: 16 / 11; }
+  .sf-homepage .sf-nocturne--home .sf-nocturne__plate img { object-position: 62% 50%; }
+}
+
+
+/* ===========================================================================
+   4. THE SECTIONS
+   ======================================================================== */
+
+/* --- 01 EXPLORE SF MUSE (ivory) ---------------------------------------------
+   One photograph, hung left at 4:5; the heading, the lead, the reading
+   voice beside it, centred on the print. */
+.sf-homepage .sf-hp-explore__grid {
+  display: grid;
+  row-gap: clamp(2.5rem, 6vh, 3.5rem);
+  margin-block-start: var(--gap-block);
+}
+@media (min-width: 1025px) {
+  .sf-homepage .sf-hp-explore__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    column-gap: clamp(3rem, 7vw, 7.5rem);
+    align-items: center;
+  }
+}
+.sf-homepage .sf-hp-explore__figure { margin: 0; }
+.sf-homepage .sf-hp-explore__figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  max-height: 84svh;
+  object-fit: cover;
+}
+.sf-homepage .sf-hp-explore__lead { margin-block-start: var(--gap-block); }
+.sf-homepage .sf-hp-explore__body .sf-hp-body { margin-block-start: var(--gap-group); }
+.sf-homepage .sf-hp-explore__lead + .sf-hp-body { margin-block-start: clamp(1.5rem, 3vh, 2rem); }
+
+
+/* --- 02 WHAT WE CREATE (charcoal) -------------------------------------------
+   Four visual cards. The photograph keeps the card's top, uncovered — the
+   client asked for her images without heavy overlays, and the service
+   photographs are bright, near-monochrome prints that no legible text could
+   sit on without a dimmer — so the words take a raised panel beneath it:
+   numeral, title, line, and Learn More pinned to the card's floor, always
+   visible. The whole card is the way in. */
+.sf-homepage .sf-hp-masthead__text { margin: 0; }
+.sf-homepage .sf-hp-cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1rem, 1.6vw, 1.5rem);
+  margin: clamp(2.5rem, 6vh, 4.5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 768px)  { .sf-homepage .sf-hp-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1200px) { .sf-homepage .sf-hp-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.sf-homepage .sf-hp-card { display: flex; }
+.sf-homepage .sf-hp-card__link {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: var(--bone);
+  text-decoration: none;
+  background: #2C2926;
+  transition: background-color var(--dur-base) var(--ease);
+}
+.sf-homepage .sf-hp-card__link:hover,
+.sf-homepage .sf-hp-card__link:focus-visible { background: #34302C; }
+.sf-homepage .sf-hp-card__media {
+  display: block;
+  overflow: hidden;
+}
+.sf-homepage .sf-hp-card__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease);
+}
+.sf-homepage .sf-hp-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .75rem;
+  padding: clamp(1.25rem, 1.8vw, 1.75rem) clamp(1.25rem, 1.8vw, 1.75rem) clamp(1.5rem, 2vw, 2rem);
+}
+.sf-homepage .sf-hp-card__num {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  color: var(--champagne);
+}
+.sf-homepage .sf-hp-card__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--t-card);
+  line-height: 1.12;
+  letter-spacing: -.015em;
+  color: var(--bone);
+  text-wrap: balance;
+}
+.sf-homepage .sf-hp-card__desc {
+  font-family: var(--font-sans);
+  font-size: .9375rem;
+  line-height: 1.6;
+  color: rgb(255 255 255 / .78);
+}
+.sf-homepage .sf-hp-card .sf-hp-more {
+  margin-block-start: auto;
+  padding-block-start: .75rem;
+  color: var(--champagne);
+}
+.sf-homepage .sf-hp-card__link:hover .sf-hp-card__media img,
+.sf-homepage .sf-hp-card__link:focus-visible .sf-hp-card__media img { transform: scale(1.04); }
+.sf-homepage :is(.sf-hp-card__link, .sf-hp-feature__link, .sf-hp-article__link):is(:hover, :focus-visible) .sf-hp-more span {
+  transform: translateX(.3em);
+}
+.sf-homepage :is(.sf-hp-card__link, .sf-hp-feature__link, .sf-hp-article__link):focus-visible {
+  outline: 1px solid var(--room-accent);
+  outline-offset: 4px;
+}
+
+
+/* --- 03 WHO WE WORK WITH (ivory) --------------------------------------------
+   Three columns; the heading and statement take the first row's two cells,
+   so the seven categories close the grid exactly (2 + 7 = 9). Hairlines
+   over each cell, never boxes; one icon, title and line per category. */
+.sf-homepage .sf-hp-clients__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: clamp(2rem, 4vw, 4.5rem);
+  margin-block-start: var(--gap-block);
+}
+.sf-homepage .sf-hp-clients__list {
+  display: contents;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sf-homepage .sf-hp-clients__intro { padding-block-end: clamp(2.25rem, 5vh, 3rem); }
+/* The heading takes its two hand-set lines inside the two cells it spans. */
+.sf-homepage .sf-hp-clients__intro .sf-hp-head { font-size: clamp(2.25rem, 3.9vw, 4.25rem); }
+.sf-homepage .sf-hp-clients__intro .sf-hp-lead { margin-block-start: var(--gap-block); max-width: 30rem; }
+.sf-homepage .sf-hp-client {
+  padding-block: 1.75rem clamp(2rem, 4.5vh, 2.75rem);
+  border-top: 1px solid var(--room-rule);
+}
+@media (min-width: 768px) {
+  .sf-homepage .sf-hp-clients__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sf-homepage .sf-hp-clients__intro { grid-column: 1 / -1; }
+  .sf-homepage .sf-hp-client:last-child { grid-column: 1 / -1; }
+}
+@media (min-width: 1025px) {
+  .sf-homepage .sf-hp-clients__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sf-homepage .sf-hp-clients__intro {
+    grid-column: span 2;
+    padding-block: 1.75rem clamp(2rem, 4.5vh, 2.75rem);
+    padding-inline-end: clamp(1rem, 4vw, 4rem);
+    border-top: 1px solid var(--room-rule);
+  }
+  .sf-homepage .sf-hp-clients__intro .sf-hp-lead { margin-block-start: 1.5rem; }
+  .sf-homepage .sf-hp-client:last-child { grid-column: auto; }
+}
+.sf-homepage .sf-hp-client__icon {
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--room-accent);
+}
+.sf-homepage .sf-hp-client__title {
+  margin-block-start: 1.25rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--t-card);
+  line-height: 1.15;
+  letter-spacing: -.015em;
+  color: var(--room-ink);
+}
+.sf-homepage .sf-hp-client__desc {
+  max-width: 24rem;
+  margin-block-start: .75rem;
+  font-family: var(--font-sans);
+  font-size: .9375rem;
+  line-height: 1.6;
+  color: var(--room-body);
+}
+
+
+/* --- 04 ABOUT SF MUSE (deep brown) ------------------------------------------
+   The portrait and the words as one composition: the text block sits on the
+   portrait's foot, her signature directly over her name and role. */
+.sf-homepage .sf-hp-founder__grid {
+  display: grid;
+  row-gap: clamp(2.5rem, 6vh, 3.5rem);
+  margin-block-start: var(--gap-block);
+}
+@media (min-width: 1025px) {
+  .sf-homepage .sf-hp-founder__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    column-gap: clamp(3rem, 7vw, 7.5rem);
+    align-items: end;
+  }
+}
+.sf-homepage .sf-hp-founder__figure { margin: 0; }
+.sf-homepage .sf-hp-founder__figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  max-height: 86svh;
+  object-fit: cover;
+}
+.sf-homepage .sf-hp-founder__body > .sf-hp-lead {
+  margin-block-start: var(--gap-block);
+  color: var(--room-body);
+}
+.sf-homepage .sf-hp-founder__sign {
+  margin-block-start: clamp(2rem, 5vh, 3rem);
+  padding-block-start: clamp(1.5rem, 3vh, 2rem);
+  border-top: 1px solid var(--room-rule);
+}
+.sf-homepage .sf-hp-founder__signature {
+  display: block;
+  width: clamp(15rem, 25vw, 23rem);
+  height: auto;
+  margin-inline-start: -.75rem;   /* optical: the first stroke's own lead-in */
+}
+.sf-homepage .sf-hp-founder__name {
+  margin-block-start: .75rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--t-card);
+  line-height: 1.15;
+  color: var(--room-ink);
+}
+.sf-homepage .sf-hp-founder__role {
+  margin-block-start: .375rem;
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--room-accent);
+}
+.sf-homepage .sf-hp-founder__body .sf-btn { margin-block-start: var(--gap-block); }
+
+
+/* --- 05 SELECTED WORKS (ivory) ----------------------------------------------
+   The shared hang on the light wall. The caption anatomy and the row
+   alignment live in components.css (they serve /portfolio too); here the
+   hang takes the room's roles and drops the round-1 grade — the client asked
+   for her photographs without overlays. */
+.sf-homepage .sf-hp-work__head { margin-block-start: var(--gap-block); }
+.sf-homepage .sf-hp-work .sf-work__statement {
+  max-width: 36rem;
+  margin-block-start: 1.25rem;
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  color: var(--room-body);
+}
+.sf-homepage .sf-hp-work .sf-work__rail { border-block-end-color: var(--room-rule); }
+.sf-homepage .sf-hp-work .sf-work__filter { color: var(--room-body); }
+.sf-homepage .sf-hp-work .sf-work__filter:hover { color: var(--room-ink); }
+.sf-homepage .sf-hp-work .sf-work__filter[aria-pressed="true"] {
+  color: var(--room-accent);
+  border-block-end-color: var(--room-accent);
+}
+.sf-homepage .sf-hp-work .sf-work__plate::after { content: none; }
+.sf-homepage .sf-hp-work .sf-work__num { color: var(--room-body); }
+.sf-homepage .sf-hp-work :is(.sf-work__meta, .sf-work__sep) { color: var(--room-accent); }
+.sf-homepage .sf-hp-work .sf-work__title {
+  font-weight: 500;
+  font-size: clamp(1.5rem, 1.9vw, 2rem);
+  color: var(--room-ink);
+}
+.sf-homepage .sf-hp-work .sf-work__desc { color: var(--room-body); }
+.sf-homepage .sf-hp-work .sf-work__credits { border-top-color: var(--room-rule); }
+.sf-homepage .sf-hp-work .sf-work__credit dt { color: var(--room-body); }
+.sf-homepage .sf-hp-work .sf-work__credit dd { color: var(--room-ink); }
+
+
+/* --- 06 EDITORIAL RECOGNITION (charcoal) ------------------------------------
+   The covers with presence: one row at equal height, a print's shadow and a
+   champagne hairline (§09's picture-light exception, extended to the hung
+   covers), each captioned by publication and issue. Handsets swipe them. */
+.sf-homepage .sf-hp-press__statement {
+  max-width: 40rem;
+  margin-block-start: var(--gap-block);
+}
+.sf-homepage .sf-hp-press__covers {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3.2vw, 3.25rem);
+  margin: clamp(2.5rem, 6vh, 4.5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.sf-homepage .sf-hp-cover__figure { margin: 0; }
+.sf-homepage .sf-hp-cover__print {
+  display: block;
+  box-shadow:
+    0 1.75rem 3.5rem -1.25rem rgb(0 0 0 / .65),
+    0 0 0 1px rgb(205 177 144 / .28);
+}
+.sf-homepage .sf-hp-cover__print img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 900 / 1165;
+  object-fit: cover;
+}
+.sf-homepage .sf-hp-cover__caption {
+  display: flex;
+  flex-direction: column;
+  gap: .375rem;
+  margin-block-start: 1.375rem;
+}
+.sf-homepage .sf-hp-cover__pub {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--champagne);
+}
+.sf-homepage .sf-hp-cover__issue {
+  font-family: var(--font-sans);
+  font-size: .9375rem;
+  color: var(--room-body);
+}
+@media (max-width: 767px) {
+  .sf-homepage .sf-hp-press__covers {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 72vw;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 0 var(--gutter) 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+  .sf-homepage .sf-hp-cover { scroll-snap-align: start; }
+}
+
+
+/* --- 07 THE SF MUSE JOURNAL (ivory) -----------------------------------------
+   An editorial preview: one featured article (image left, words right),
+   then three cards that share their tops and their title line. Every one
+   is a link. */
+.sf-homepage .sf-hp-journal__label {
+  margin-block-start: clamp(2.75rem, 7vh, 4.5rem);
+  padding-block-end: .875rem;
+  border-bottom: 1px solid var(--room-rule);
+}
+.sf-homepage .sf-hp-feature { margin-block-start: clamp(1.5rem, 3vw, 2.5rem); }
+.sf-homepage .sf-hp-feature__link {
+  display: grid;
+  row-gap: 1.75rem;
+  color: inherit;
+  text-decoration: none;
+}
+@media (min-width: 1025px) {
+  .sf-homepage .sf-hp-feature__link {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    column-gap: clamp(3rem, 6vw, 6rem);
+    align-items: center;
+  }
+}
+.sf-homepage :is(.sf-hp-feature__media, .sf-hp-article__media) {
+  display: block;
+  overflow: hidden;
+}
+.sf-homepage .sf-hp-feature__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  max-height: 80svh;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease);
+}
+.sf-homepage .sf-hp-feature__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.sf-homepage .sf-hp-feature__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2rem, 3.6vw, 3.75rem);
+  line-height: 1.04;
+  letter-spacing: -.025em;
+  color: var(--room-ink);
+  text-wrap: balance;
+}
+.sf-homepage .sf-hp-feature__desc {
+  max-width: 30rem;
+  margin-block-start: 1.5rem;
+  font-family: var(--font-sans);
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  color: var(--room-body);
+}
+.sf-homepage .sf-hp-feature .sf-hp-more { margin-block-start: 1.75rem; }
+
+.sf-homepage .sf-hp-articles {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(2.5rem, 5vh, 3rem) clamp(1.25rem, 2.4vw, 2.5rem);
+  margin: clamp(1.5rem, 3vw, 2.5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 768px) {
+  .sf-homepage .sf-hp-articles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* Side by side, two title lines are reserved so every card's line and
+     Read Article sit on one level. */
+  .sf-homepage .sf-hp-article__title { min-height: calc(2 * 1.15em); }
+}
+.sf-homepage .sf-hp-article__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+.sf-homepage .sf-hp-article__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease);
+}
+.sf-homepage .sf-hp-article__title {
+  margin-block-start: 1.25rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--t-card);
+  line-height: 1.15;
+  letter-spacing: -.015em;
+  color: var(--room-ink);
+  text-wrap: balance;
+}
+.sf-homepage .sf-hp-article__desc {
+  margin-block-start: .75rem;
+  font-family: var(--font-sans);
+  font-size: .9375rem;
+  line-height: 1.6;
+  color: var(--room-body);
+}
+.sf-homepage .sf-hp-article .sf-hp-more { margin-block-start: auto; padding-block-start: 1.25rem; }
+.sf-homepage :is(.sf-hp-feature__link, .sf-hp-article__link):is(:hover, :focus-visible) img { transform: scale(1.03); }
+.sf-homepage .sf-hp-journal__more { margin-block-start: clamp(2.75rem, 7vh, 4.5rem); }
+
+
+/* --- THE SIGNATURE QUOTE (photograph) ---------------------------------------
+   The colonnade stays a photograph. Round 1 laid umber at .92 → .86 → .30
+   over the left 54% and a vignette over all of it; the cover now sits only
+   where the quote is, at about half that, and the quote holds a measure
+   that ends before the bright columns. Both lines ivory. */
+.sf-homepage .sf-hp-quote {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  align-items: center;
+  min-height: clamp(30rem, 82svh, 50rem);
+  overflow: hidden;
+  background: #2B2520;
+  color: var(--bone);
+}
+.sf-homepage .sf-hp-quote__media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  margin: 0;
+}
+.sf-homepage .sf-hp-quote__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 50%;
+}
+.sf-homepage .sf-hp-quote__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(to right,
+    rgb(26 21 17 / .62) 0%,
+    rgb(26 21 17 / .44) 28%,
+    rgb(26 21 17 / 0) 48%);
+}
+.sf-homepage .sf-hp-quote__inner { padding-block: clamp(4rem, 10vh, 6rem); }
+.sf-homepage .sf-hp-quote__text {
+  /* Each sentence on its own line pair, inside the photograph's dark left
+     third: the first breaks once, the second ("They remember how they
+     felt.") holds one line. */
+  max-width: 13em;
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.875rem, 2.9vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  color: var(--bone);
+}
+.sf-homepage .sf-hp-quote__line { text-wrap: balance; }
+.sf-homepage .sf-hp-quote__line + .sf-hp-quote__line { margin-block-start: .35em; }
+.sf-homepage .sf-hp-quote__line em { font-style: italic; color: var(--bone); }
+.sf-homepage .sf-hp-quote__cite {
+  display: flex;
+  flex-direction: column;
+  gap: .375rem;
+  max-width: 16rem;
+  margin-block-start: clamp(1.75rem, 4vh, 2.5rem);
+  padding-block-start: 1.125rem;
+  border-top: 1px solid rgb(205 177 144 / .55);
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+.sf-homepage .sf-hp-quote__name { font-style: normal; color: var(--bone); }
+.sf-homepage .sf-hp-quote__role { color: rgb(255 255 255 / .80); }
+@media (max-width: 767px) {
+  .sf-homepage .sf-hp-quote { align-items: end; min-height: 92svh; }
+  .sf-homepage .sf-hp-quote__media img { object-position: 50% 50%; }
+  .sf-homepage .sf-hp-quote__scrim {
+    background: linear-gradient(to top,
+      rgb(26 21 17 / .88) 0%,
+      rgb(26 21 17 / .62) 34%,
+      rgb(26 21 17 / 0) 62%);
+  }
+  .sf-homepage .sf-hp-quote__text { max-width: none; }
+}
+
+
+/* --- 08 NEWSLETTER (charcoal, no photograph) --------------------------------
+   The client's brief, verbatim: "a clean charcoal newsletter section with
+   ivory text and a clearly visible email field". A filled field with a real
+   border and a visible label; a solid champagne button. */
+.sf-homepage .sf-hp-news__grid {
+  display: grid;
+  row-gap: clamp(2.5rem, 6vh, 3.5rem);
+  margin-block-start: var(--gap-block);
+}
+@media (min-width: 1025px) {
+  .sf-homepage .sf-hp-news__grid {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    column-gap: clamp(3rem, 7vw, 7.5rem);
+    align-items: end;
+  }
+}
+.sf-homepage .sf-hp-news__voice .sf-hp-body { margin-block-start: var(--gap-block); }
+.sf-homepage .sf-hp-news .sf-hp-head { font-size: clamp(2.25rem, 3.9vw, 4.25rem); }
+.sf-homepage .sf-hp-news__label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--champagne);
+}
+.sf-homepage .sf-hp-news__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-block-start: .75rem;
+}
+.sf-homepage .sf-hp-news__input {
+  flex: 1 1 15rem;
+  min-width: 0;
+  height: 3.5rem;
+  padding-inline: 1.25rem;
+  border: 1px solid rgb(245 240 231 / .45);
+  border-radius: 0;
+  background: rgb(255 255 255 / .07);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--bone);
+  transition: border-color var(--dur-micro) var(--ease), background-color var(--dur-micro) var(--ease);
+}
+.sf-homepage .sf-hp-news__input:hover { border-color: rgb(245 240 231 / .7); }
+.sf-homepage .sf-hp-news__input:focus {
+  outline: none;
+  border-color: var(--champagne);
+  background: rgb(255 255 255 / .1);
+}
+.sf-homepage .sf-hp-news__submit {
+  flex: none;
+  height: 3.5rem;
+  padding-inline: 2rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--champagne);
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--noir);
+  cursor: pointer;
+  transition: background-color var(--dur-micro) var(--ease);
+}
+.sf-homepage .sf-hp-news__submit:hover,
+.sf-homepage .sf-hp-news__submit:focus-visible { background: var(--bone); outline: none; }
+.sf-homepage .sf-hp-news__submit[disabled] { opacity: .6; cursor: default; }
+.sf-homepage .sf-hp-news__confirm,
+.sf-homepage .sf-hp-news__error {
+  margin-block-start: 1rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--bone);
+}
+.sf-homepage .sf-hp-news__error { color: var(--champagne); }
+
+
+/* --- THE CLOSING INVITATION (photograph) ------------------------------------
+   ClosingCard's image variant, given a photograph that reads as one: the
+   delivery is lifted in the bake (home-assets.mjs `tone`), and the cover
+   sits behind the words only. "Worth Remembering." keeps the italic — the
+   closer is one of the three second beats. */
+.sf-homepage .sf-close--image {
+  border-block-end: 0;
+  min-height: clamp(32rem, 84svh, 52rem);
+}
+.sf-homepage .sf-close__scrim {
+  background:
+    linear-gradient(to right,
+      rgb(20 16 13 / .70) 0%,
+      rgb(20 16 13 / .46) 34%,
+      rgb(20 16 13 / 0) 62%),
+    linear-gradient(to top,
+      rgb(20 16 13 / .78) 0%,
+      rgb(20 16 13 / .30) 30%,
+      rgb(20 16 13 / 0) 52%);
+}
+@media (max-width: 767px) {
+  .sf-homepage .sf-close__scrim {
+    background: linear-gradient(to top,
+      rgb(20 16 13 / .90) 0%,
+      rgb(20 16 13 / .62) 42%,
+      rgb(20 16 13 / 0) 72%);
+  }
+}
+.sf-homepage .sf-close__title {
+  font-weight: 500;
+  font-size: clamp(2.5rem, 5.6vw, 6rem);
+  max-width: 15ch;
+}
+.sf-homepage .sf-close__title em { font-weight: 400; }
+.sf-homepage .sf-close__text { color: rgb(255 255 255 / .82); max-width: 32rem; }
+.sf-homepage .sf-close__rail { border-block-start-color: rgb(205 177 144 / .35); }
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-homepage :is(.sf-hp-card__media img, .sf-hp-feature__media img, .sf-hp-article__media img, .sf-hp-more span) {
+    transform: none !important;
+    transition: none !important;
+  }
+}

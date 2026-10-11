@@ -89,9 +89,9 @@ export function Explore({ data }: { data: HomeContent['explore'] }) {
 /* --- 02 — WHAT WE CREATE (the service catalogue, as visual blocks) --------- */
 
 /**
- * `intro` is the homepage's headline and standfirst. Without it (the
- * /services page) the chapter label stays the section's only name and is
- * promoted to its <h2>, as before.
+ * `intro` carries the homepage's label and link text. The doc gives the
+ * section no headline of its own (Services update, Oct 2026), so the chapter
+ * label is always the section's name, promoted to its <h2>.
  */
 export function ServicesList({
   data,
@@ -103,17 +103,7 @@ export function ServicesList({
   return (
     <section className="sf-section sf-services sf-services--bone" id="services">
       <div className="sf-container">
-        <Chapter label={`(${intro?.label ?? 'Services'})`} num={CHAPTER.services} heading={!intro} />
-        {intro && (
-          <div className="sf-services__masthead">
-            <Reveal as="h2" className="sf-services__head">
-              {intro.head}
-            </Reveal>
-            <Reveal as="p" className="sf-services__intro" delay={90}>
-              {intro.text}
-            </Reveal>
-          </div>
-        )}
+        <Chapter label={`(${intro?.label ?? 'Services'})`} num={CHAPTER.services} heading />
         <ul className="sf-services__blocks">
           {data.map((s, i) => (
             <Reveal as="li" className="sf-service-block" key={s.slug} delay={i * 90}>

@@ -104,15 +104,17 @@ export default function WorkGrid({
 
       <div className="sf-work__rail" data-sf_work="">
         {/* The copy names its rooms; a room with nothing hung in it yet
-            (Wellness, today) stays on the index but cannot be entered —
-            an empty wall is not a filter result. */}
-        {filters.map((f) => (
+            (Wellness, today) is left off the index until a project is hung
+            there — the client asked for it hidden, not shown disabled
+            (round 2, Oct 2026). It returns on its own with its first item. */}
+        {filters
+          .filter((f) => items.some((item) => inRoom(item, f.slug)))
+          .map((f) => (
           <button
             key={f.slug}
             className="sf-work__filter"
             type="button"
             aria-pressed={active === f.slug}
-            disabled={!items.some((item) => inRoom(item, f.slug))}
             onClick={() => select(f.slug)}
           >
             {f.label}

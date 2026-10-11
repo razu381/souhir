@@ -863,7 +863,11 @@
   margin-block-start: clamp(.75rem, 2.5vh, 2.25rem);
   color: var(--bone);
 }
-.sf-nocturne__line { display: block; overflow: hidden; padding-block-end: .1em; margin-block-end: -.1em; }
+/* The mask clips VERTICALLY only (the line rises from below it). A plain
+   `overflow: hidden` also clipped sideways, cutting the end of any word wider
+   than the title's column — the client's own screenshot of /hero-lab A4 read
+   "Visibilit", and at 1728px the full stop went (DESIGN-DIRECTION §02). */
+.sf-nocturne__line { display: block; overflow-x: visible; overflow-y: clip; padding-block-end: .1em; margin-block-end: -.1em; }
 .sf-nocturne__line-in {
   display: block;
   transition: transform var(--dur-base) var(--ease);
@@ -1547,7 +1551,9 @@
 }
 .sf-work__credit {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  /* One label column for every plate's register, so the names line up from
+     credit list to credit list (round 2). */
+  grid-template-columns: minmax(0, 10.5rem) minmax(0, 1fr);
   column-gap: 1rem;
   align-items: baseline;
 }
@@ -1567,18 +1573,41 @@
   line-height: 1.5;
   color: rgb(255 255 255 / .82);
 }
-/* The wide plate's caption uses its width: the paragraph left, the credits
-   beside it. */
-@media (min-width: 1025px) {
-  .sf-work__item--wide .sf-work__caption {
+/* One caption anatomy for every plate, the wide one included: numeral,
+   heading, paragraph, credits, stacked. The wide plate's caption used to
+   split — paragraph left, credits floating in a column beside it — and the
+   client singled it out as the misaligned one (round 2, Oct 2026). Its text
+   keeps the portraits' measure (set inside the subgrid block below). */
+
+/* The rows align ACROSS the hang: from two columns up, each plate is a
+   subgrid of five rows (print, numeral, heading, paragraph, credits) on the
+   hang's own tracks, so every title, paragraph and credit list in a row
+   starts on one line however long its neighbours run. The caption steps
+   aside (display: contents) so its children sit on those rows. */
+@media (min-width: 768px) {
+  .sf-work__grid { row-gap: 0; }
+  .sf-work__item {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    column-gap: var(--work-gap);
-    align-items: start;
+    grid-row: span 5;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+    align-content: start;
+    padding-block-end: clamp(3rem, 7vh, 4.5rem);
   }
-  .sf-work__item--wide .sf-work__num,
-  .sf-work__item--wide .sf-work__heading { grid-column: 1 / -1; }
-  .sf-work__item--wide .sf-work__credits { margin-block-start: .875rem; }
+  .sf-work__item.is-filtered { display: none; }
+  .sf-work__caption { display: contents; }
+  .sf-work__num { margin-block-start: 1.125rem; }
+  .sf-work__item--wide :is(.sf-work__num, .sf-work__heading, .sf-work__desc, .sf-work__credits) {
+    max-width: calc((100% - var(--work-gap)) / 2);
+  }
+  .sf-work__credits { align-self: start; }
+  /* The wide plate no longer measures itself (container units need size
+     containment, and a size container cannot be a subgrid — its print
+     collapsed to nothing). It fills the print row instead, which the
+     portraits beside it set; hung alone, its 3:2 frame sets the row. */
+  .sf-work__item--wide { container-type: normal; }
+  .sf-work__item--wide .sf-work__plate { height: 100%; }
+  .sf-work__item--wide .sf-work__plate img { height: 100%; aspect-ratio: auto; }
 }
 
 /* --- The hung print ------------------------------------------------------------
@@ -2234,85 +2263,123 @@ a.sf-journal__lead:focus-visible .sf-journal__lead-read span { transform: transl
 
 
 /* ===========================================================================
-   FOOTER — the colophon
-   The night's last wall: noir — the hero's own black, so the page closes on
-   the ground it opened on (client direction, Oct 2026) — champagne
-   hairlines, the link register in three quiet columns. The Nocturne carried a monumental wordmark outro
-   bleeding off the floor; the brief's footer asks only for navigation and
-   socials, so the colophon ends at its bar.
+   FOOTER — the colophon (round 2, client feedback Oct 2026)
+   Noir — the hero's own black, so the page closes on the ground it opened
+   on. The client asked for "a stronger SF Muse logo presence, clearly
+   aligned navigation and contact details, and readable text": three columns
+   share one top line (the studio · the page register in two short columns ·
+   the ways to reach it, the address shown in full), the wordmark returns at
+   monument scale — the system's outro (DESIGN-DIRECTION §06), which the
+   first build had dropped — and every line of text clears 7 : 1.
    ======================================================================== */
 .sf-footer {
   position: relative;
   overflow: hidden;
-  padding-block: calc(var(--rhythm) / 2) 1.5rem;
+  padding-block: clamp(4.5rem, 9vw, 7.5rem) 1.5rem;
   background: var(--noir);
   color: var(--paper);
 }
 .sf-footer__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  row-gap: clamp(2.5rem, 6vh, 4rem);
+  row-gap: clamp(2.75rem, 6vh, 3.5rem);
+  align-items: start;
+}
+@media (min-width: 768px) {
+  .sf-footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(2rem, 5vw, 4rem); }
+  .sf-footer__studio { grid-column: 1 / -1; }
 }
 @media (min-width: 1025px) {
-  .sf-footer__grid {
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
-    column-gap: clamp(2.5rem, 5vw, 5rem);
-  }
-  /* The connect column has no visible heading: it opens on the nav list's
-     first line, not the heading's. */
-  .sf-footer__connect { padding-block-start: calc(var(--t-label) * 1.7 + .5rem); }
+  .sf-footer__grid { grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) minmax(0, 3fr); }
+  .sf-footer__studio { grid-column: auto; }
 }
 .sf-footer__brand {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(1.75rem, 2.4vw, 2.375rem);
-  letter-spacing: -.01em;
-  line-height: 1;
+  font-weight: 500;
+  font-size: clamp(2.5rem, 4vw, 3.75rem);
+  letter-spacing: -.02em;
+  line-height: .95;
+  color: var(--bone);
 }
-.sf-footer__brand em { font-style: italic; }
+.sf-footer__brand em { font-style: italic; font-weight: 400; color: var(--champagne); }
 .sf-footer__tagline {
-  margin-block-start: 1rem;
+  margin-block-start: 1.25rem;
   font-family: var(--font-sans);
   font-size: var(--t-label);
   font-weight: 500;
   letter-spacing: var(--track-label);
   text-transform: uppercase;
-  color: rgb(255 255 255 / .55);
+  color: rgb(255 255 255 / .80);
 }
 .sf-footer__sectors {
   max-width: 26rem;
   margin-block-start: .875rem;
   font-family: var(--font-sans);
-  font-size: .875rem;
+  font-size: .9375rem;
   line-height: 1.7;
-  color: rgb(255 255 255 / .55);
+  color: rgb(255 255 255 / .70);
 }
 .sf-footer__sector { white-space: nowrap; }   /* "AI / Marketing" must not part */
 .sf-footer__heading {
+  min-height: 1.5em;
+  margin-block-end: .75rem;
+  padding-block-end: .75rem;
+  border-bottom: 1px solid rgb(205 177 144 / .25);
   font-family: var(--font-sans);
   font-size: var(--t-label);
   font-weight: 500;
   letter-spacing: var(--track-label);
+  line-height: 1.5;
   text-transform: uppercase;
-  color: rgb(205 177 144 / .80);
-  margin-block-start: .5rem;   /* optical: sits on the brand's baseline at rest */
+  color: var(--champagne);
 }
 .sf-footer__list {
   margin: 0;
   padding: 0;
   list-style: none;
 }
+.sf-footer__list--nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, max-content));
+  grid-auto-flow: column;
+  grid-template-rows: repeat(4, auto);
+  column-gap: clamp(2.5rem, 5vw, 4.5rem);
+}
 .sf-footer__link {
   display: inline-block;
-  padding-block: .375rem;
+  padding-block: .4375rem;
   font-family: var(--font-sans);
-  font-size: .9375rem;
-  color: rgb(255 255 255 / .68);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgb(255 255 255 / .86);
   text-decoration: none;
   transition: color var(--dur-micro) var(--ease);
 }
+.sf-footer__link span[aria-hidden] { color: var(--champagne); }
 .sf-footer__link:hover,
 .sf-footer__link:focus-visible { color: var(--champagne); }
+.sf-footer__link--email { display: flex; flex-direction: column; gap: .25rem; }
+.sf-footer__email-label {
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: rgb(255 255 255 / .70);
+}
+.sf-footer__email { color: var(--bone); overflow-wrap: anywhere; }
+
+/* The outro wordmark — the logo at monument scale, across the container. */
+.sf-footer__mark {
+  margin-block-start: clamp(3.5rem, 9vh, 6rem);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(4.5rem, 23.5vw, 22rem);
+  line-height: .8;
+  letter-spacing: -.035em;
+  white-space: nowrap;
+  color: var(--bone);
+}
+.sf-footer__mark em { font-style: italic; font-weight: 400; color: var(--champagne); }
 
 .sf-footer__bar {
   display: flex;
@@ -2320,7 +2387,7 @@ a.sf-journal__lead:focus-visible .sf-journal__lead-read span { transform: transl
   align-items: baseline;
   justify-content: space-between;
   gap: .75rem 1.5rem;
-  margin-block-start: clamp(3rem, 8vh, 5rem);
+  margin-block-start: clamp(1.75rem, 4vh, 2.5rem);
   padding-block: 1.5rem;
   border-top: 1px solid rgb(205 177 144 / .25);
   font-family: var(--font-sans);
@@ -2328,9 +2395,9 @@ a.sf-journal__lead:focus-visible .sf-journal__lead-read span { transform: transl
   font-weight: 500;
   letter-spacing: var(--track-label);
   text-transform: uppercase;
-  color: rgb(255 255 255 / .55);   /* .45 measures 4.50 : 1 on noir — on the line */
+  color: rgb(255 255 255 / .70);
 }
-.sf-footer__top-link { color: rgb(255 255 255 / .68); white-space: nowrap; }
+.sf-footer__top-link { color: rgb(255 255 255 / .86); white-space: nowrap; }
 .sf-footer__top-link:hover,
 .sf-footer__top-link:focus-visible { color: var(--champagne); }
 }

@@ -28,6 +28,18 @@
  *   · `grayscale` exists for one plate: the final copy describes Lifestyle —
  *     The Art of Slowing Down as black-and-white photography, and the copy
  *     is the spec.
+ *   · `tone` lifts the midtones with a per-channel power curve (out = in^tone,
+ *     tone < 1 brightens). Black stays black and white stays white, so it
+ *     never clips the way a brightness multiply would. Round 2 (Oct 2026): the
+ *     client asked for her photographs without "heavy dark overlays" — the
+ *     overlays came off in CSS, and the two darkest deliveries (the hero, the
+ *     closing banner) are lifted here, never with a CSS filter.
+ *   · The signature is her own file, used as supplied: a transparent PNG of
+ *     champagne strokes (#CCB597, the site's champagne), only cropped and
+ *     resized. Its hidden colour channels hold a grey "wall" under alpha 0;
+ *     never drop the alpha and key that (it printed the signature blurred
+ *     until Oct 2026). `tint` refills the strokes in one colour and keeps her
+ *     alpha exactly, for a ground her champagne can't hold (About's ivory).
  */
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
@@ -51,7 +63,30 @@ const NATIVE_MARGIN = 1.15;
  * ratio [w, h] or null (keep the frame), width steps, focus [x, y].
  */
 const PLATES = [
+  // ROUND 2 (Oct 2026) — docs/plans/11-homepage-round-2.md §2.3.
+  // The hero, from the delivery's own file, midtones lifted so her figure
+  // reads without a dimmer over it.
+  { slug: 'hero',            src: 'Hero photo .jpg',     ratio: null,   steps: [800, 1200, 1600, 1920], tone: 0.86 },
+  // Explore — ONE photograph (the client: two photos for a slot were
+  // alternatives). The studio wall, hung 4:5.
+  { slug: 'explore-studio',  src: 'Explore SF Muse.jpg', ratio: [4, 5], steps: [800, 1200, 1600] },
+  // What We Create — the four as tall cards (3:4).
+  { slug: 'service-card-brand-presence',     src: 'services /Art_of_Brand.jpg',             ratio: [3, 4], steps: [480, 800, 1200] },
+  { slug: 'service-card-creative-direction', src: 'services /Creative_Direction.jpg',       ratio: [3, 4], steps: [480, 800, 1200], focus: [0.5, 0.45] },
+  { slug: 'service-card-digital',            src: 'services /Digital experience.jpg',       ratio: [3, 4], steps: [480, 800, 1200] },
+  { slug: 'service-card-growth',             src: 'services /Intelligent_Brand_Growth.jpg', ratio: [3, 4], steps: [480, 800, 1200] },
+  // About SF Muse — her supplied signature, as is (champagne on transparency).
+  { slug: 'signature', src: 'ChatGPT Image May 13, 2026 at 08_02_28 PM.png', alpha: true,
+    box: { left: 290, top: 320, width: 1010, height: 395 }, steps: [640, 1280] },
+  // Journal — the copy's note: "use the same images … for the journal page",
+  // so the homepage preview reads from the Journal delivery.
+  { slug: 'journal-card-invisible-luxury',      src: '../Journal /Invisible_Luxury.jpg',      ratio: [4, 5], steps: [600, 900, 1200, 1600], focus: [0.5, 0.42] },
+  { slug: 'journal-card-luxury-culture',        src: '../Journal /Luxury_Culture.jpg',        ratio: [4, 5], steps: [600, 900] },
+  { slug: 'journal-card-visual-desire',         src: '../Journal /Visual_Desire.jpg',         ratio: [4, 5], steps: [600, 900] },
+  { slug: 'journal-card-creative-intelligence', src: '../Journal /Creative_Intelligence.jpg', ratio: [4, 5], steps: [600, 900], focus: [0.5, 0.4] },
+
   // 01 Explore — the studio wall (main) and the shoot in motion (inset).
+  // Round 1; the /home-v* labs still hang them.
   { slug: 'explore-wall',    src: 'Explore SF Muse.jpg', ratio: [2, 3], steps: [800, 1200, 1800] },
   { slug: 'explore-shoot',   src: 'Explore SF_.jpg',     ratio: [4, 5], steps: [480, 800, 1200] },
 
@@ -92,15 +127,28 @@ const PLATES = [
   { slug: 'quote-mobile',          src: 'quote banner.jpg',              ratio: [3, 4],   steps: [800, 1200], focus: [0.72, 0.5] },
   { slug: 'newsletter',            src: 'Newsletters _ home page .jpg',  ratio: [12, 5],  steps: [1600, 2400], focus: [0.765, 0.5] },
   { slug: 'newsletter-mobile',     src: 'Newsletters _ home page .jpg',  ratio: [4, 3],   steps: [800, 1200], focus: [0.75, 0.5] },
-  { slug: 'cta',                   src: 'CTA Banner _home page .jpg',    ratio: [9, 4],   steps: [1600, 2400], focus: [0.575, 0.5] },
-  { slug: 'cta-mobile',            src: 'CTA Banner _home page .jpg',    ratio: [3, 4],   steps: [800, 1200], focus: [0.65, 0.5] },
+  // The closing banner is the delivery's darkest file (mean brightness ~17/255);
+  // round 2 lifts it so the page's close is a photograph, not another dark band.
+  { slug: 'cta',                   src: 'CTA Banner _home page .jpg',    ratio: [9, 4],   steps: [1600, 2400], focus: [0.575, 0.5], tone: 0.72 },
+  { slug: 'cta-mobile',            src: 'CTA Banner _home page .jpg',    ratio: [3, 4],   steps: [800, 1200], focus: [0.65, 0.5], tone: 0.72 },
 
-  // ABOUT — the hero's draped alcove (a square delivery, hung 4:5 beside the
-  // title), the founder in tweed and veil, and the colonnade in fur. The two
-  // portraits keep their 3:4 frames as shot.
-  { page: 'about', slug: 'hero',       src: 'About_Hero.jpg',    ratio: [4, 5], steps: [480, 800, 1200, 1600] },
-  { page: 'about', slug: 'founder',    src: 'Founder_Story.jpg', ratio: null,   steps: [480, 800, 1200, 1600] },
-  { page: 'about', slug: 'philosophy', src: 'Philosophy.jpg',    ratio: null,   steps: [480, 800, 1200, 1600] },
+  // ABOUT, round 2 (docs/plans/12-about-round-2.md §2.3). The hero's draped
+  // alcove is a square delivery: square for the desktop panel that bleeds off
+  // the right edge, 4:5 for handsets. The founder in tweed and veil and the
+  // colonnade in fur keep their 3:4 frames as shot — the client asked for the
+  // Philosophy figure whole, head to heels, so it is never cropped.
+  { page: 'about', slug: 'hero',        src: 'About_Hero.jpg',    ratio: [1, 1], steps: [1200, 1600, 2000, 2560] },
+  { page: 'about', slug: 'hero-mobile', src: 'About_Hero.jpg',    ratio: [4, 5], steps: [800, 1200] },
+  { page: 'about', slug: 'founder',     src: 'Founder_Story.jpg', ratio: null,   steps: [480, 800, 1200, 1600, 2000] },
+  { page: 'about', slug: 'philosophy',  src: 'Philosophy.jpg',    ratio: null,   steps: [480, 800, 1200, 1600, 2000, 2400] },
+  // Her signature again, keyed in bronze for the ivory ground, where the
+  // champagne key reads 1.8 : 1.
+  { page: 'about', slug: 'signature-ink', src: '../Home page /ChatGPT Image May 13, 2026 at 08_02_28 PM.png', alpha: true,
+    tint: [0x6b, 0x56, 0x38],   // --bronze-wall
+    box: { left: 290, top: 320, width: 1010, height: 395 }, steps: [640, 1280] },
+  // The closing panel — provisional (DECISION-LOG Q8): the notebook and pen
+  // on marble, from the Contact delivery, hung 4:5 around the notebook.
+  { page: 'about', slug: 'closing',     src: '../Contact /SF Muse on a Marble Notebook.jpg', ratio: [4, 5], steps: [800, 1200, 1600, 2000], focus: [0.76, 0.5] },
 
   // SERVICES — the studio under its spotlight: the delivery's 3:1 banner
   // cropped 16:9 for the desktop hero (the dark left third holds the words),
@@ -147,6 +195,36 @@ function stepsFor(width, steps) {
   return out;
 }
 
+/** The power-curve LUT for `tone` (see the header). */
+function toneLut(tone) {
+  const lut = new Uint8Array(256);
+  for (let v = 0; v < 256; v++) lut[v] = Math.round(255 * (v / 255) ** tone);
+  return lut;
+}
+
+/** Re-encode a sharp pipeline's pixels through a per-byte transform. */
+async function throughRaw(pipe, transform) {
+  const { data, info } = await pipe.raw().toBuffer({ resolveWithObject: true });
+  const out = transform(data, info);
+  return sharp(out.data, { raw: { width: info.width, height: info.height, channels: out.channels } });
+}
+
+const lift = (tone) => (data, info) => {
+  const lut = toneLut(tone);
+  for (let i = 0; i < data.length; i++) data[i] = lut[data[i]];
+  return { data, channels: info.channels };
+};
+
+/** `tint`: every pixel takes the one colour; the alpha is left untouched. */
+const tint = (rgb) => (data, info) => {
+  for (let p = 0; p < data.length; p += info.channels) {
+    data[p] = rgb[0];
+    data[p + 1] = rgb[1];
+    data[p + 2] = rgb[2];
+  }
+  return { data, channels: info.channels };
+};
+
 let total = 0;
 let count = 0;
 
@@ -163,15 +241,17 @@ for (const plate of PLATES) {
   // Bake EXIF orientation first so the crop is planned on the upright frame.
   const upright = await sharp(buf).rotate().toBuffer();
   const { width: w, height: h } = await sharp(upright).metadata();
-  const box = cropBox(w, h, plate.ratio, plate.focus);
+  const box = plate.box ?? cropBox(w, h, plate.ratio, plate.focus);
 
   const emitted = [];
   for (const step of stepsFor(box.width, plate.steps)) {
     let pipe = sharp(upright).extract(box);
     if (plate.grayscale) pipe = pipe.grayscale();
+    pipe = pipe.resize({ width: step });
+    if (plate.tone) pipe = await throughRaw(pipe.removeAlpha(), lift(plate.tone));
+    if (plate.tint) pipe = await throughRaw(pipe.ensureAlpha(), tint(plate.tint));
     const { data, info } = await pipe
-      .resize({ width: step })
-      .webp({ quality: QUALITY })
+      .webp(plate.alpha ? { quality: 90, alphaQuality: 100 } : { quality: QUALITY })
       .toBuffer({ resolveWithObject: true });
     if (info.width > box.width) throw new Error(`upscaled ${plate.slug} to ${info.width} from ${box.width}`);
     await writeFile(join(OUT, `${plate.slug}-${info.width}.webp`), data);

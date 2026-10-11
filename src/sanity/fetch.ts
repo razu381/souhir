@@ -142,7 +142,7 @@ export type JournalRow = {
 
 export type JournalFeature = Omit<JournalRow, 'num'> & { read: string };
 
-export type PressCover = { publication: string; caption: string; image: Plate };
+export type PressCover = { publication: string; caption: string; issue?: string; image: Plate };
 
 export type HomeContent = {
   hero: typeof seed.hero;
@@ -158,7 +158,7 @@ export type HomeContent = {
     filters: { slug: string; label: string }[];
     items: WorkItem[];
   };
-  press: typeof seed.press & { covers: PressCover[] };
+  press: Omit<typeof seed.press, 'covers'> & { covers: PressCover[] };
   journal: {
     head: string;
     statement: string;
