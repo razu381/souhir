@@ -8,14 +8,16 @@ import * as content from '@/content/services';
 export const metadata: Metadata = {
   title: 'Services',
   description:
-    'Through visual storytelling, creative direction, digital experiences, and intelligent growth systems, SF Muse helps brands transform ideas into experiences designed to endure.',
+    'SF Muse connects creative direction with commercial thinking for hospitality, wellness, beauty and lifestyle businesses.',
 };
 
 /**
  * Shaping Perception Through Experience — the client's final Services copy
- * (SF_Muse_Website_Copy_Shorter_Updated.docx, SERVICES PAGE), section for
+ * (SF_Muse_Website_Copy_Services_Updated.docx, SERVICES PAGE), section for
  * section, on the homepage's frame: a black hero, then rooms alternating
- * champagne and sable (services.css), the footer black.
+ * champagne and sable (services.css), the footer black. Each service opens
+ * on its title and promise, then sets its packages and starting rates as a
+ * rate card beside its photograph.
  */
 export default function ServicesPage() {
   const { hero, create, services, method } = content;
@@ -52,9 +54,14 @@ export default function ServicesPage() {
             <Reveal as="h2" className="sf-room__head">
               <Headed head={create.head} />
             </Reveal>
-            <Reveal as="p" className="sf-room__lead" delay={90}>
-              {create.text}
-            </Reveal>
+            <div className="sf-svc-create__intro">
+              <Reveal as="p" className="sf-room__lead" delay={90}>
+                {create.text}
+              </Reveal>
+              <Reveal as="p" className="sf-svc-create__terms" delay={150}>
+                {create.terms}
+              </Reveal>
+            </div>
           </div>
         </div>
       </section>
@@ -67,20 +74,34 @@ export default function ServicesPage() {
           aria-labelledby={`${s.id}-title`}
         >
           <div className="sf-container sf-svc-service__grid">
-            <Reveal as="figure" className="sf-svc-service__figure" curtain>
-              <Picture plate={s.image} />
-            </Reveal>
-            <div className="sf-svc-service__body">
+            <div className="sf-svc-service__head">
               <Reveal as="p" className="sf-svc-service__label">
                 {s.label}
               </Reveal>
               <Reveal as="h3" className="sf-svc-service__title" delay={60}>
                 <span id={`${s.id}-title`}>{s.title}</span>
               </Reveal>
-              <Reveal as="p" className="sf-room__text sf-svc-service__text" delay={120}>
-                {s.text}
+            </div>
+            <Reveal as="p" className="sf-room__lead sf-svc-service__text" delay={120}>
+              {s.text}
+            </Reveal>
+            <Reveal as="figure" className="sf-svc-service__figure" curtain>
+              <Picture plate={s.image} />
+            </Reveal>
+            <div className="sf-svc-service__body">
+              <ul className="sf-svc-service__packages">
+                {s.packages.map((pkg, j) => (
+                  <Reveal as="li" className="sf-svc-package" key={pkg.name} delay={j * 90}>
+                    <h4 className="sf-svc-package__name">{pkg.name}</h4>
+                    <p className="sf-svc-package__price">{pkg.price}</p>
+                    <p className="sf-svc-package__text">{pkg.text}</p>
+                  </Reveal>
+                ))}
+              </ul>
+              <Reveal as="p" className="sf-svc-service__note">
+                {s.note}
               </Reveal>
-              <Reveal className="sf-svc-service__includes" delay={180}>
+              <Reveal className="sf-svc-service__includes" delay={90}>
                 <p className="sf-svc-service__includes-label">{s.includesLabel}</p>
                 <ul className="sf-svc-service__list">
                   {s.includes.map((item) => (

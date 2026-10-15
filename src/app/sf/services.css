@@ -114,25 +114,55 @@
   .sf-svc-method__masthead .sf-room__lead { margin-block-start: 0; }
 }
 
+/* The intro's invitation, then the terms every rate below is read against,
+   in the quieter reading voice. */
+.sf-svc-create__terms {
+  margin-block-start: 1rem;
+  max-width: 34rem;
+  font-family: var(--font-sans);
+  font-size: clamp(.9375rem, 1vw, 1rem);
+  line-height: 1.65;
+  color: var(--graphite);
+}
+
 /* --- The four services ------------------------------------------------------------
-   Each its own room: the plate at one hand, the brief at the other, the
-   sides alternating down the page; "Includes" as a two-column register. */
+   Each its own room. The title and its promise open it across the top, on
+   the same two columns as the room below: the plate at one hand, the rate
+   card at the other (packages, the terms, "Includes" as a two-column
+   register), the sides alternating down the page. */
 .sf-svc-service__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  row-gap: clamp(2.5rem, 6vh, 4rem);
+  grid-template-areas: "head" "lead" "figure" "body";
 }
+.sf-svc-service__head   { grid-area: head; }
+.sf-svc-service__text   { grid-area: lead; }
+.sf-svc-service__figure { grid-area: figure; margin-block-start: clamp(2.5rem, 6vh, 3.5rem); }
+.sf-svc-service__body   { grid-area: body; margin-block-start: clamp(2.5rem, 6vh, 3.5rem); }
 @media (min-width: 1025px) {
   .sf-svc-service__grid {
     grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    grid-template-areas:
+      "head   lead"
+      "figure body";
     column-gap: clamp(3.5rem, 8vw, 9rem);
-    align-items: center;
+    row-gap: clamp(3rem, 7vh, 4.5rem);
+    align-items: start;
   }
-  .sf-svc-service--mirror .sf-svc-service__grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
-  .sf-svc-service--mirror .sf-svc-service__figure { order: 2; }
+  .sf-svc-service--mirror .sf-svc-service__grid {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    grid-template-areas:
+      "head lead"
+      "body figure";
+  }
+  .sf-svc-service__head,
+  .sf-svc-service__text { align-self: end; }
+  .sf-svc-service__text,
+  .sf-svc-service__figure,
+  .sf-svc-service__body { margin-block-start: 0; }
 }
 
-.sf-svc-service__figure { margin: 0; max-width: min(100%, 30rem); }
+.sf-svc-service__figure { margin-inline: 0; max-width: min(100%, 30rem); }
 .sf-svc-service__figure img {
   width: 100%;
   height: auto;
@@ -159,8 +189,65 @@
   font-size: clamp(2rem, 3.4vw, 3.5rem);
   line-height: 1.06;
   letter-spacing: -.02em;
+  text-wrap: balance;
 }
-.sf-svc-service__text { margin-block-start: clamp(1.25rem, 3vh, 1.75rem); }
+
+/* The rate card: each package on a hairline, its name in the display voice
+   with the starting rate answering it at the right, what it holds beneath. */
+.sf-svc-service__packages {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--hairline);
+}
+.sf-svc-package {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: .375rem;
+  padding-block: clamp(1.125rem, 2.4vh, 1.5rem);
+  border-top: 1px solid var(--hairline);
+}
+@media (min-width: 560px) {
+  .sf-svc-package {
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 1.5rem;
+    align-items: baseline;
+  }
+  .sf-svc-package__price { text-align: right; white-space: nowrap; }
+}
+.sf-svc-package__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--t-card);
+  line-height: 1.15;
+  letter-spacing: -.015em;
+}
+.sf-svc-package__price {
+  font-family: var(--font-sans);
+  font-size: clamp(.875rem, .95vw, .9375rem);
+  font-weight: 500;
+  letter-spacing: .02em;
+  font-variant-numeric: lining-nums;
+  color: var(--bronze);
+}
+.sf-svc-package__text {
+  grid-column: 1 / -1;
+  max-width: 36rem;
+  margin-block-start: .25rem;
+  font-family: var(--font-sans);
+  font-size: clamp(.9375rem, 1vw, 1rem);
+  line-height: 1.6;
+  color: var(--graphite);
+}
+.sf-svc-service__note {
+  max-width: 36rem;
+  margin-block-start: 1.125rem;
+  font-family: var(--font-sans);
+  font-size: .875rem;
+  line-height: 1.6;
+  color: var(--graphite);
+}
 
 .sf-svc-service__includes { margin-block-start: clamp(2rem, 5vh, 3rem); }
 .sf-svc-service__includes-label {
