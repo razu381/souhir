@@ -1,150 +1,419 @@
 /* ===========================================================================
-   ABOUT — "More Than A Studio" (final copy, Oct 2026)
-   src/app/about/page.tsx. The homepage's frame, carried over: the hero black
-   (as the header, the menu and the footer), then the rooms alternating D7
-   Champagne and D8 Sable in charcoal, bronze kept for accents (the rooms
-   and their shared voices live in rooms.css). In order:
-   Hero N · Founder Story C · Philosophy S · The SF Muse way C ·
-   Difference S · Vision C · Values S · Closing C · (footer N).
-   Everything here is scoped to .sf-about / .sf-about-*: this file is global.
+   ABOUT — "More Than A Studio", round 2 (client feedback, Oct 2026)
+   src/app/about/page.tsx · plan: docs/plans/12-about-round-2.md.
+
+   The client's colour flow, on the homepage's round-2 rooms (the grounds and
+   their colour roles — --room-ink / -body / -accent / -rule — are shared from
+   home.css §1 through :is(.sf-homepage, .sf-about)):
+
+     Hero (charcoal) · Founder Story (ivory) · Philosophy (charcoal) ·
+     The SF Muse Way (ivory) · Difference (brown) · Vision + Values (ivory) ·
+     Closing (brown, with a photo panel) · (footer)
+
+   Each section has its own composition, and none of them opens on the
+   numbered chapter rule (her point 9). The type voices are the homepage's
+   (DESIGN-DIRECTION §02 addendum), on the same tokens; italics appear three
+   times — the hero's second voice, the question, the closer.
+
+   Everything is scoped to .sf-about / .sf-about-*: this file is global.
    ======================================================================== */
 
-/* The anchors (#philosophy is the homepage's "Explore Our Philosophy")
-   land clear of the fixed header. */
-/* Anchors land a hair under the fixed header — see services.css. */
+.sf-about {
+  /* The fixed header's own box (components.css .sf-header) plus a breath:
+     the hero's photograph starts below it, so the light stone never sits
+     under the paper-white links. */
+  --about-header: calc(clamp(1.5rem, 3vh, 2.25rem) * 2 + .6875rem + .75rem);
+  --about-pad: clamp(4.5rem, 9vw, 8.5rem);
+}
+
+/* Anchors (#philosophy is the homepage's "Explore Our Philosophy") land a
+   hair under the fixed header — see services.css. */
 .sf-about [id] { scroll-margin-top: 3.75rem; }
 
-/* --- The hero ------------------------------------------------------------------
-   The title and its three lines at the left hand, the alcove hung right —
-   below the header's line, so the light plate never sits under the paper
-   menu. Handsets: title, plate, words. */
-.sf-about-hero {
-  background: var(--noir);
-  color: var(--paper);
-  padding-block: clamp(7.5rem, 17vh, 10.5rem) clamp(4rem, 10vh, 7rem);
-}
-.sf-about-hero__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-areas: "title" "figure" "body";
-  row-gap: clamp(2rem, 5vh, 3rem);
-}
-@media (min-width: 1025px) {
-  .sf-about-hero__grid {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    grid-template-rows: 1fr auto;
-    grid-template-areas: "title figure" "body figure";
-    column-gap: clamp(3.5rem, 7vw, 8rem);
-    row-gap: clamp(2.5rem, 6vh, 3.5rem);
-  }
+/* --- The voices -------------------------------------------------------------- */
+.sf-about-line { display: block; }
+
+.sf-about-kicker {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--room-accent);
 }
 
-.sf-about-hero__title {
-  grid-area: title;
-  align-self: end;
+.sf-about-head {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(2.625rem, 5vw, 5.25rem);
+  font-weight: 500;
+  font-size: var(--t-section);
   line-height: 1.02;
   letter-spacing: -.025em;
-  color: var(--bone);
+  color: var(--room-ink);
+  text-wrap: balance;
 }
-/* The felt half takes its own line, in the accent. */
-.sf-about-hero__title em { display: block; font-style: italic; color: var(--champagne); }
+.sf-about-kicker + .sf-about-head { margin-block-start: 1.25rem; }
 
-.sf-about-hero__figure { grid-area: figure; margin: 0; }
+.sf-about-subhead {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--t-h3);
+  line-height: 1.2;
+  letter-spacing: -.01em;
+  color: var(--room-ink);
+}
+
+.sf-about-body {
+  margin: 0;
+  max-width: 34rem;
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  line-height: 1.65;
+  color: var(--room-body);
+  text-wrap: pretty;
+}
+.sf-about-body + .sf-about-body { margin-block-start: 1em; }
+
+/* The cells of the two grids (the principles, the values). */
+.sf-about-cell-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--t-card);
+  line-height: 1.15;
+  letter-spacing: -.015em;
+  color: var(--room-ink);
+  text-wrap: balance;
+}
+.sf-about-cell-text {
+  margin: 0;
+  max-width: 24rem;
+  font-family: var(--font-sans);
+  font-size: clamp(.9375rem, 1vw, 1.0625rem);
+  line-height: 1.6;
+  color: var(--room-body);
+  text-wrap: pretty;
+}
+
+/* "Slightly stronger serif strokes" (her point 9). Bodoni Moda's optical
+   size follows the font size, so at display sizes its hairlines thin to
+   threads — the right arms of W and V all but vanish ("W ay", "V ision").
+   The display lines are set at a text-leaning optical size instead, which
+   gives the hairlines body without leaving the face. */
+.sf-about :is(.sf-about-head, .sf-about-hero__title, .sf-about-philo__statement,
+  .sf-about-close__title, .sf-about-diff__question) {
+  font-variation-settings: "opsz" 30;
+}
+
+/* Bodoni Moda draws its dashes as sub-pixel hairlines at display sizes: a
+   stroke in the text's own colour gives the Vision's dash a pen's width. */
+.sf-about-dash { -webkit-text-stroke: 1px currentColor; }
+
+
+/* --- The hero (charcoal) ----------------------------------------------------------
+   Her point 1: "a small photograph placed beside a large text block". The
+   alcove now bleeds off the right edge, from under the header's line to the
+   section's foot, over more than half the width; the words hold the left
+   hand, set low like a cover. The headline is two lines; its second half
+   speaks as the reference setting's second voice — italic, champagne, a
+   quarter of the size — instead of a second line of the same block.
+   Handsets: the photograph first, then the words. */
+.sf-about .sf-about-hero { padding-block: 0; }
+
+.sf-about-hero__figure {
+  margin: var(--about-header) 0 0;
+}
 .sf-about-hero__figure img {
+  display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 4 / 5;
+  max-height: 72svh;
   object-fit: cover;
+  object-position: 50% 45%;
+}
+@media (min-width: 768px) {
+  .sf-about-hero__figure img { aspect-ratio: 1; max-height: 68svh; }
+}
+.sf-about-hero .sf-container {
+  padding-block: clamp(2.5rem, 7vw, 4rem) clamp(4rem, 10vw, 6rem);
+}
+
+@media (min-width: 1025px) {
+  .sf-about .sf-about-hero {
+    /* Where the photograph begins, as a share of the container: the words'
+       column, wider while the screen is narrow. */
+    --split: .46;
+    display: flex;
+    align-items: flex-end;
+    min-height: clamp(40rem, 100svh, 68rem);
+  }
+  .sf-about-hero__figure {
+    position: absolute;
+    top: var(--about-header);
+    right: 0;
+    bottom: 0;
+    left: calc(max(0px, (100% - var(--content)) / 2) + var(--gutter)
+      + (min(100%, var(--content)) - 2 * var(--gutter)) * var(--split));
+    margin: 0;
+  }
+  .sf-about-hero__figure .sf-curtain-frame { height: 100%; }
+  .sf-about-hero__figure img {
+    height: 100%;
+    aspect-ratio: auto;
+    max-height: none;
+  }
+  .sf-about-hero .sf-container {
+    position: relative;
+    padding-block: calc(var(--about-header) + 2.5rem) clamp(3.5rem, 9vh, 6rem);
+  }
+  .sf-about-hero__words {
+    width: calc(100% * var(--split) - clamp(2.5rem, 4vw, 4.5rem));
+  }
+}
+@media (min-width: 1280px) {
+  .sf-about .sf-about-hero { --split: .42; }
+}
+
+.sf-about-hero__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--room-ink);
+}
+.sf-about-hero__words { container-type: inline-size; }
+/* Sized from the words' own column (cqi), not the viewport, so the two
+   hand-set lines always fit it: "More Than" runs ~4.8em at this optical
+   size. */
+.sf-about-hero__lines {
+  display: block;
+  font-size: clamp(2.75rem, 14cqi, 4.5rem);
+  line-height: .95;
+  letter-spacing: -.03em;
+  white-space: nowrap;
 }
 @media (min-width: 1025px) {
-  .sf-about-hero__figure { align-self: center; }
-  .sf-about-hero__figure img { max-height: calc(100svh - 12rem); }
+  .sf-about-hero__lines { font-size: clamp(3rem, 20cqi, 6.75rem); }
 }
-
-.sf-about-hero__body { grid-area: body; max-width: 34rem; }
-.sf-about-hero__lead {
-  font-family: var(--font-display);
-  font-size: clamp(1.375rem, 1.9vw, 1.875rem);
-  line-height: 1.3;
+.sf-about-hero__voice {
+  display: block;
+  margin-block-start: clamp(1rem, 2.5svh, 1.75rem);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.625rem, 2.9vw, 2.75rem);
+  line-height: 1.1;
   letter-spacing: -.01em;
-  color: var(--bone);
+  color: var(--room-accent);
 }
-.sf-about-hero__text {
-  font-family: var(--font-sans);
-  font-size: clamp(1rem, 1.15vw, 1.125rem);
-  line-height: 1.7;
-  color: rgb(255 255 255 / .68);
-  margin-block-start: clamp(1rem, 2.5vh, 1.375rem);
+.sf-about-hero__lead {
+  margin: clamp(1.75rem, 4svh, 2.75rem) 0 0;
+  max-width: 32rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--t-lead);
+  line-height: 1.35;
+  letter-spacing: -.005em;
+  color: var(--room-ink);
 }
-.sf-about-hero__lead + .sf-about-hero__text { margin-block-start: clamp(1.25rem, 3vh, 1.75rem); }
+.sf-about-hero .sf-about-body { max-width: 32rem; }
+.sf-about-hero__lead + .sf-about-body { margin-block-start: 1.125rem; }
 
-/* The page's first beat: the words rise on load (the plate opens on its
+/* The page's first beat: the words rise on load (the photograph opens on its
    curtain). Gated on .sf-js — no script, no hidden state. */
 @keyframes sf-about-rise {
   from { opacity: 0; transform: translateY(1.25rem); }
 }
-.sf-js .sf-about-hero__title { animation: sf-about-rise var(--dur-hero) var(--ease) both; }
-.sf-js .sf-about-hero__body  { animation: sf-about-rise var(--dur-hero) var(--ease) 240ms both; }
+.sf-js .sf-about-hero__words { animation: sf-about-rise var(--dur-hero) var(--ease) both; }
 @media (prefers-reduced-motion: reduce) {
-  .sf-about-hero__title,
-  .sf-about-hero__body { animation: none !important; }
+  .sf-about-hero__words { animation: none !important; }
 }
 
-/* --- Plate and story, side by side (Founder Story, Philosophy) -----------------
-   Founder: the portrait LEFT, held in place while the five paragraphs read.
-   Philosophy mirrors it: the words left, the colonnade right. */
-.sf-about-split {
+
+/* --- Founder Story (ivory) ---------------------------------------------------------
+   Her point 2: the story ran far below the portrait. The headline now spans
+   the top; beneath it the portrait and the story share one row and one
+   height — the portrait fills the row (cover, on her face), the signature
+   block sits on the row's foot — so the two end on the same line by
+   construction, not by a sticky photograph. */
+.sf-about .sf-about-founder { padding-block: var(--about-pad); }
+
+.sf-about-founder__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  row-gap: clamp(2.5rem, 6vh, 4.5rem);
-  margin-block-start: clamp(2.5rem, 6vh, 4.5rem);
+  row-gap: clamp(2.25rem, 5vh, 3rem);
+  margin-block-start: clamp(2.25rem, 5vw, 4rem);
 }
-.sf-about-split__figure { margin: 0; max-width: min(100%, 30rem); }
-.sf-about-split__figure img {
+.sf-about-founder__figure { margin: 0; }
+.sf-about-founder__figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: 55% 30%;
+}
+/* Tablets stack the row; the portrait keeps a reading size rather than
+   the screen's whole width. */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .sf-about-founder__figure { max-width: 30rem; }
+}
+@media (min-width: 1025px) {
+  .sf-about-founder__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    column-gap: clamp(3rem, 6vw, 6.5rem);
+  }
+  .sf-about-founder__figure .sf-curtain-frame { height: 100%; }
+  .sf-about-founder__figure img { height: 100%; }
+  .sf-about-founder__body {
+    display: flex;
+    flex-direction: column;
+  }
+}
+/* Wide screens set the story larger; the portrait widens with it so the
+   row stays near the photograph's own 3:4. */
+@media (min-width: 1600px) {
+  .sf-about-founder__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.sf-about-founder__story { margin-block-start: clamp(1.5rem, 3.5vh, 2.25rem); }
+.sf-about-founder__lead {
+  margin: 0;
+  max-width: 34rem;
+  font-family: var(--font-sans);
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  letter-spacing: -.005em;
+  color: var(--room-ink);
+  text-wrap: pretty;
+}
+.sf-about-founder__lead + .sf-about-body { margin-block-start: 1.25rem; }
+
+.sf-about-founder__sign {
+  margin-block-start: auto;
+  padding-block-start: clamp(2rem, 4.5vh, 2.75rem);
+}
+.sf-about-founder__signature {
+  display: block;
+  width: clamp(13rem, 20vw, 18rem);
+  height: auto;
+  margin-inline-start: -.5rem;   /* optical: the first stroke's own lead-in */
+}
+.sf-about-founder__name {
+  margin: .5rem 0 0;
+  line-height: 1.4;
+}
+.sf-about-founder__who {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.25rem, 1.5vw, 1.5rem);
+  letter-spacing: -.01em;
+  color: var(--room-ink);
+}
+.sf-about-founder__role {
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--room-accent);
+  white-space: nowrap;
+}
+
+
+/* --- The Philosophy (charcoal) ----------------------------------------------------
+   Her point 3: it repeated the hero's text-left, portrait-right. The
+   colonnade now bleeds off the LEFT edge at its own 3:4, never cropped —
+   head to heels, in its colour — and the statement reads on a charcoal
+   panel beside it. The frame is as tall as the viewport allows, so the
+   whole figure is seen at once. */
+.sf-about .sf-about-philo { padding-block: 0; display: grid; }
+
+.sf-about-philo__figure { margin: 0; }
+.sf-about-philo__figure img {
+  display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 3 / 4;
   object-fit: cover;
 }
+.sf-about-philo__panel {
+  padding: clamp(3rem, 9vw, 4.5rem) var(--gutter) clamp(4rem, 12vw, 6rem);
+}
+/* Stacked on tablets, the whole figure still fits one screen: the frame
+   narrows instead of cropping. */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .sf-about-philo__figure { width: min(100%, 80svh * .75); }
+}
 @media (min-width: 1025px) {
-  .sf-about-split {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-    column-gap: clamp(3.5rem, 8vw, 9rem);
-    align-items: start;
-  }
-  .sf-about-split__figure {
-    position: sticky;
-    top: clamp(6rem, 14vh, 8.5rem);
-    max-width: none;
-  }
-  .sf-about-split__figure img { max-height: calc(100svh - 10rem); }
-  .sf-about-split--mirror {
-    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  .sf-about .sf-about-philo {
+    grid-template-columns: auto minmax(0, 1fr);
     align-items: center;
   }
-  .sf-about-split--mirror .sf-about-split__figure { position: static; }
+  .sf-about-philo__figure {
+    height: min(61vw, 100svh, 68rem);
+    aspect-ratio: 3 / 4;
+  }
+  .sf-about-philo__figure .sf-curtain-frame { height: 100%; }
+  .sf-about-philo__figure img { height: 100%; }
+  .sf-about-philo__panel {
+    max-width: calc(40rem + clamp(3rem, 6vw, 7rem) + var(--gutter));
+    padding-block: clamp(4rem, 8vh, 6rem);
+    padding-inline: clamp(3rem, 6vw, 7rem) var(--gutter);
+  }
 }
 
-/* --- The SF Muse way -------------------------------------------------------------
-   The creed read word by word, then the six principles hung three by two,
-   each under its own hairline with an italic Didone numeral. */
-.sf-about-way__intro {
-  font-family: var(--font-sans);
-  font-weight: 400;
-  font-size: clamp(1.375rem, 2vw, 2rem);
-  line-height: 1.5;
-  letter-spacing: -.005em;
-  max-width: 46rem;
-  margin-block-start: clamp(2.5rem, 6vh, 4.5rem);
+.sf-about-philo__statement {
+  margin: 1.25rem 0 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.125rem, 3.6vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -.02em;
+  color: var(--room-ink);
+  text-wrap: balance;
 }
+/* The second beat in the room's accent — roman, not italic. */
+.sf-about-philo__second { color: var(--room-accent); }
+.sf-about-philo__statement + .sf-about-body { margin-block-start: var(--gap-block); }
+
+
+/* --- The SF Muse Way (ivory) --------------------------------------------------------
+   Her point 4: the heading is visible, the creed comes down to a lead on
+   the heading's baseline, and the grid follows close. The six principles
+   hang three by two; each cell spans three rows of the grid (subgrid), so
+   numerals, titles and texts start on one line across a row even where a
+   title wraps. */
+.sf-about .sf-about-way { padding-block: var(--about-pad); }
+
+.sf-about-masthead {
+  display: grid;
+  row-gap: 1.25rem;
+}
+@media (min-width: 1025px) {
+  .sf-about-masthead {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: clamp(3rem, 6vw, 6rem);
+    align-items: end;
+  }
+}
+.sf-about-way__intro {
+  margin: 0;
+  max-width: 34rem;
+  font-family: var(--font-sans);
+  font-size: clamp(1.125rem, 1.45vw, 1.375rem);
+  line-height: 1.55;
+  letter-spacing: -.005em;
+  color: var(--room-body);
+  text-wrap: pretty;
+}
+
 .sf-about-way__list {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  margin: clamp(3rem, 8vh, 5.5rem) 0 0;
+  row-gap: 0;
+  margin: clamp(3rem, 6vw, 5rem) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -161,144 +430,208 @@
   }
 }
 .sf-about-way__item {
-  border-top: 1px solid var(--hairline);
-  padding-block: clamp(1.5rem, 3.5vh, 2.25rem) clamp(2rem, 5vh, 3rem);
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  align-content: start;
+  border-top: 1px solid var(--room-rule);
+  padding-block: clamp(1.5rem, 3vh, 2rem) clamp(2.25rem, 5vh, 3.25rem);
 }
 /* Upright, at the face's text optical size: Bodoni's display 4 is a
-   hairline diagonal — "04" read as "01" at this size, italic or not. */
+   hairline diagonal — "04" read as "01" at display sizes. */
 .sf-about-way__num {
   display: block;
+  margin-block-end: clamp(1rem, 2.5vh, 1.5rem);
   font-family: var(--font-display);
+  font-weight: 500;
   font-variation-settings: "opsz" 11;
-  font-size: clamp(2.25rem, 3vw, 3rem);
+  font-size: clamp(1.25rem, 1.5vw, 1.5rem);
   line-height: 1;
-  color: var(--bronze);
+  color: var(--room-accent);
 }
-.sf-about-way__title {
-  margin: clamp(1.25rem, 3vh, 1.75rem) 0 0;
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(1.375rem, 1.7vw, 1.75rem);
-  line-height: 1.15;
-  letter-spacing: -.015em;
-}
-.sf-about-way__text {
-  font-family: var(--font-sans);
-  font-size: clamp(.9375rem, 1vw, 1rem);
-  line-height: 1.65;
-  color: var(--graphite);
-  max-width: 26rem;
-  margin-block-start: .75rem;
-}
+.sf-about-way__item .sf-about-cell-title { margin-block-end: .75rem; }
 
-/* --- The SF Muse Difference ------------------------------------------------------
-   The heading, the setup in the reading voice, then the question itself at
-   the scale of the page. */
-.sf-about-diff__head { margin-block-start: clamp(2.5rem, 6vh, 4.5rem); }
+
+/* --- The SF Muse Difference (deep brown) --------------------------------------------
+   Her point 5: "a strong focal point" whose size overwhelmed the section. A
+   compact, centred pause — the page's only centred block — with the
+   supporting heading set clearly secondary and the question at half its
+   old size, in ivory; champagne only for the label and one short rule. */
+.sf-about .sf-about-diff { padding-block: clamp(4rem, 8vw, 6.5rem); }
+
+.sf-about-diff__inner {
+  max-width: calc(46rem + 2 * var(--gutter));
+  text-align: center;
+}
+.sf-about-diff__head {
+  margin: 1.25rem auto 0;
+  max-width: 30rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--t-h3);
+  line-height: 1.2;
+  letter-spacing: -.01em;
+  color: var(--room-body);
+  text-wrap: balance;
+}
+.sf-about-diff__ask::before {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 1px;
+  margin: clamp(1.75rem, 4vh, 2.5rem) auto;
+  background: var(--room-accent);
+}
 .sf-about-diff__lead {
+  margin: 0;
   font-family: var(--font-sans);
-  font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
+  font-size: var(--t-body);
   line-height: 1.6;
-  color: var(--graphite);
-  margin-block-start: clamp(2.5rem, 7vh, 4.5rem);
+  color: var(--room-body);
 }
 .sf-about-diff__question {
-  margin-block-start: clamp(.5rem, 1.5vh, 1rem);
+  margin: .75rem 0 0;
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(2.75rem, 7.5vw, 8rem);
-  line-height: 1;
-  letter-spacing: -.03em;
-  color: var(--charcoal);
+  font-size: clamp(2.25rem, 4.2vw, 4.25rem);
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  color: var(--room-ink);
+  text-wrap: balance;
 }
 
-/* --- The Vision --------------------------------------------------------------- */
+
+/* --- The Vision · Our Values (ivory, one room) ---------------------------------------
+   Her points 6 and 7, after her own mock-up: one light room whose two
+   headings share a left column, the sentence and the six values to their
+   right. The Vision is plain text at a reading size — the old scroll-linked
+   word reveal left its unread words at 30% ink. The values hang two by
+   three, icon at the left hand (the mock-up's arrangement); each cell spans
+   two rows of the grid, so titles and texts line up across a row. */
+.sf-about .sf-about-vision { padding-block: var(--about-pad) clamp(3rem, 6vw, 5rem); }
+.sf-about .sf-about-values { padding-block: clamp(3rem, 6vw, 5rem) var(--about-pad); }
+
+.sf-about-rail {
+  display: grid;
+  row-gap: var(--gap-block);
+}
+@media (min-width: 1025px) {
+  .sf-about-rail {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    column-gap: clamp(3rem, 6vw, 6rem);
+    align-items: start;
+  }
+}
+
 .sf-about-vision__statement {
+  margin: 0;
+  max-width: 40rem;
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(1.75rem, 3.2vw, 3.25rem);
-  line-height: 1.22;
-  letter-spacing: -.015em;
-  max-width: 62rem;
-  margin-block-start: clamp(2.5rem, 6vh, 4.5rem);
+  font-weight: 500;
+  font-size: clamp(1.375rem, 2vw, 2rem);
+  line-height: 1.42;
+  letter-spacing: -.005em;
+  color: var(--room-ink);
+  text-wrap: pretty;
 }
-/* Bodoni Moda's em dash is a hairline 0.2–0.5px tall at this size — measured
-   invisible at 1x and 2x. A stroke in the word's own (revealing) colour gives
-   it a pen's width without leaving the face. */
-.sf-about-vision__statement .sf-w--dash { -webkit-text-stroke: 1px currentColor; }
+@media (min-width: 1025px) {
+  /* The sentence's first line sits on the heading's cap height. */
+  .sf-about-vision__statement { padding-block-start: .35em; }
+}
 
-/* --- Our Values ------------------------------------------------------------------
-   The client mock-up's arrangement: the line icon at the left hand, the
-   value in tracked caps, its sentence beneath. */
 .sf-about-values__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  row-gap: clamp(2.25rem, 5vh, 3rem);
-  margin: clamp(3rem, 8vh, 5.5rem) 0 0;
+  row-gap: 0;
+  column-gap: clamp(2rem, 4vw, 4rem);
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 @media (min-width: 768px) {
-  .sf-about-values__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: clamp(2rem, 5vw, 4.5rem);
-  }
-}
-@media (min-width: 1025px) {
-  .sf-about-values__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    row-gap: clamp(3rem, 8vh, 4.5rem);
-  }
+  .sf-about-values__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 .sf-about-values__item {
   display: grid;
-  grid-template-columns: 3.25rem minmax(0, 1fr);
+  grid-row: span 2;
+  grid-template-rows: subgrid;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
   column-gap: 1.25rem;
-  align-items: start;
+  padding-block: 0 clamp(2rem, 5vh, 3rem);
 }
 .sf-about-values__icon {
-  width: 3.25rem;
-  height: 3.25rem;
-  color: var(--bronze);
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: var(--room-accent);
 }
-.sf-about-values__title {
-  margin: .625rem 0 0;
-  font-family: var(--font-sans);
-  font-size: .75rem;
-  font-weight: 600;
-  letter-spacing: .14em;
-  line-height: 1.4;
-  text-transform: uppercase;
-  color: var(--charcoal);
+.sf-about-values__item .sf-about-cell-title {
+  grid-column: 2;
+  align-self: start;
+  margin-block-start: .375rem;   /* optical: onto the icon's shoulder */
 }
-.sf-about-values__text {
-  font-family: var(--font-sans);
-  font-size: clamp(.9375rem, 1vw, 1rem);
-  line-height: 1.65;
-  color: var(--graphite);
-  max-width: 22rem;
+.sf-about-values__item .sf-about-cell-text {
+  grid-column: 2;
   margin-block-start: .625rem;
 }
 
-/* --- The closer, on the last light wall ------------------------------------------
-   ClosingCard's bare wall is umber; here it takes the next wall in the
-   alternation so the page is framed by exactly two blacks, the hero and the
-   footer. */
-.sf-about .sf-close {
-  background: var(--wall-champagne);
-  color: var(--charcoal);
-  border-block-end: 0;
+
+/* --- The closing invitation (deep brown) -------------------------------------------
+   Her point 8: the heading came down to the section scale, the button sits
+   right under the words, the section is shorter than the hero — and the
+   notebook and pen hang beside it, bleeding off the right edge, for a
+   finish no other section has. Handsets: the words, then the photograph. */
+.sf-about .sf-about-close { padding-block: 0; }
+.sf-about-close .sf-container { padding-block: clamp(4.5rem, 12vw, 6.5rem); }
+
+.sf-about-close__figure { margin: 0; }
+.sf-about-close__figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
 }
-.sf-about .sf-close__title { margin-block-start: 0; color: var(--charcoal); }
-.sf-about .sf-close__title em { color: var(--bronze-wall); }
-.sf-about .sf-close__rail { border-block-start-color: var(--hairline-wall); }
-.sf-about .sf-close__text { color: var(--charcoal-soft); }
-.sf-about .sf-close__text p + p { margin-block-start: 1em; }
-.sf-about .sf-close .sf-btn { color: var(--charcoal); border-color: var(--hairline-wall); }
-.sf-about .sf-close .sf-btn:hover,
-.sf-about .sf-close .sf-btn:focus-visible {
-  background: var(--noir);
-  border-color: var(--noir);
-  color: var(--paper);
+@media (min-width: 768px) and (max-width: 1024px) {
+  .sf-about-close__figure img { aspect-ratio: 1; }
 }
+@media (min-width: 1025px) {
+  .sf-about .sf-about-close {
+    --close-h: clamp(32rem, 78svh, 46rem);
+    display: flex;
+    align-items: center;
+    min-height: var(--close-h);
+  }
+  .sf-about-close__figure {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    aspect-ratio: 4 / 5;
+  }
+  .sf-about-close__figure .sf-curtain-frame { height: 100%; }
+  .sf-about-close__figure img { height: 100%; }
+  .sf-about-close__words {
+    max-width: min(34rem, calc(100vw - var(--close-h) * .8 - var(--gutter) - clamp(3rem, 6vw, 6rem)));
+  }
+}
+
+.sf-about-close__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.125rem, 3.4vw, 3.75rem);
+  line-height: 1.06;
+  letter-spacing: -.02em;
+  color: var(--room-ink);
+  text-wrap: balance;
+}
+.sf-about-close__title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--room-accent);
+}
+.sf-about-close__text { margin-block-start: var(--gap-block); }
+.sf-about-close__action { margin-block-start: clamp(1.75rem, 3.5vw, 2.5rem); }

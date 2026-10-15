@@ -37,8 +37,13 @@ const PATHS: Record<Key, React.ReactNode> = {
       <path d="M18.5 6h11v4h-11z" />
     </g>
   ),
+  // The mock-up's faceted four-point star: straight flanks, each point split
+  // down its spine. Drawn inside 32 units, so it no longer outsizes the set.
   star: (
-    <path d="M24 5c.9 11.6 6.4 17.1 18 19-11.6.9-17.1 6.4-18 18-.9-11.6-6.4-17.1-18-18 11.6-1.9 17.1-7.4 18-19z" />
+    <>
+      <path d="M24 8l2.9 13.1L40 24l-13.1 2.9L24 40l-2.9-13.1L8 24l13.1-2.9z" />
+      <path d="M24 8v32M8 24h32" />
+    </>
   ),
   column: (
     <>

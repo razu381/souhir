@@ -21,9 +21,15 @@
    shared tokens to them, so the components it hosts (the chapter rule, the
    outline button, the word reveal, the work hang) follow without a
    per-component retint. Contrast is in tokens.css.
+
+   The About page (round 2, docs/plans/12-about-round-2.md §2.1) hangs its
+   sections in the same rooms, so the grounds and roles are shared through
+   :is(.sf-homepage, .sf-about) — same specificity and the same place in the
+   cascade as before, so the homepage renders exactly as it did. The section
+   padding stays the homepage's own; about.css sets About's.
    ======================================================================== */
 .sf-homepage .sf-room { padding-block: clamp(4.5rem, 9vw, 8.5rem); }
-.sf-homepage .sf-room {
+:is(.sf-homepage, .sf-about) .sf-room {
   background: var(--room-bg);
   color: var(--room-ink);
   --ink: var(--room-ink);
@@ -33,7 +39,7 @@
   --sf-w-ink: var(--room-ink);
   --sf-w-dim: var(--room-dim);
 }
-.sf-homepage .sf-room--ivory {
+:is(.sf-homepage, .sf-about) .sf-room--ivory {
   --room-bg: var(--wall-ivory);
   --room-ink: #1E1C1A;                 /* 16 : 1 on ivory */
   --room-body: var(--charcoal-soft);   /* 8.2 : 1 */
@@ -41,28 +47,28 @@
   --room-rule: var(--hairline-wall);
   --room-dim: rgb(30 28 26 / .30);
 }
-.sf-homepage :is(.sf-room--charcoal, .sf-room--brown) {
+:is(.sf-homepage, .sf-about) :is(.sf-room--charcoal, .sf-room--brown) {
   --room-ink: var(--bone);                    /* 14.5 / 13.3 : 1 */
   --room-body: rgb(255 255 255 / .78);        /* 10.5 / 9.7 : 1 */
   --room-accent: var(--champagne);            /* 7.9 / 7.2 : 1 */
   --room-rule: var(--hairline-dark);
   --room-dim: rgb(255 255 255 / .30);
 }
-.sf-homepage .sf-room--charcoal { --room-bg: var(--wall-charcoal); }
-.sf-homepage .sf-room--brown    { --room-bg: var(--wall-brown); }
+:is(.sf-homepage, .sf-about) .sf-room--charcoal { --room-bg: var(--wall-charcoal); }
+:is(.sf-homepage, .sf-about) .sf-room--brown    { --room-bg: var(--wall-brown); }
 
 /* The outline pill on the dark rooms: the hover fill is champagne itself. */
-.sf-homepage :is(.sf-room--charcoal, .sf-room--brown) .sf-btn {
+:is(.sf-homepage, .sf-about) :is(.sf-room--charcoal, .sf-room--brown) .sf-btn {
   color: var(--paper);
   border-color: rgb(205 177 144 / .45);
 }
-.sf-homepage :is(.sf-room--charcoal, .sf-room--brown) .sf-btn:hover,
-.sf-homepage :is(.sf-room--charcoal, .sf-room--brown) .sf-btn:focus-visible {
+:is(.sf-homepage, .sf-about) :is(.sf-room--charcoal, .sf-room--brown) .sf-btn:hover,
+:is(.sf-homepage, .sf-about) :is(.sf-room--charcoal, .sf-room--brown) .sf-btn:focus-visible {
   background: var(--champagne);
   border-color: var(--champagne);
   color: var(--noir);
 }
-.sf-homepage .sf-room--ivory .sf-btn { border-color: rgb(107 86 56 / .45); }
+:is(.sf-homepage, .sf-about) .sf-room--ivory .sf-btn { border-color: rgb(107 86 56 / .45); }
 
 
 /* ===========================================================================

@@ -4,12 +4,17 @@
  * The copy is the client's final website copy
  * (SF_Muse_Website_Copy_Shorter_Updated.docx, ABOUT PAGE), verbatim: every
  * heading, sentence and label the page shows comes from that document, in its
- * order. The plates are baked from the client's delivery (About page/) by
- * scripts/home-assets.mjs into public/assets/about.
+ * order. Two additions are the client's own request (About feedback,
+ * 2026-10-09, point 2): her signature, and the line "Souhir Fhima — Founder &
+ * Creative Director" under it. The plates are baked from the client's
+ * delivery (About page/) by scripts/home-assets.mjs into public/assets/about.
+ *
+ * Headings are set as hand-broken lines (round 2 — docs/plans/
+ * 12-about-round-2.md §2.2): each array entry is one line on desktop.
  *
  * There is no About document in Sanity yet, so the page renders this alone.
  */
-import type { Head, Plate } from './seed';
+import type { Plate } from './seed';
 
 /** An About rendition set — widths as baked by scripts/home-assets.mjs. */
 function plate(
@@ -30,22 +35,30 @@ function plate(
   };
 }
 
-const STEPS = [480, 800, 1200, 1600];
+const PORTRAIT = [480, 800, 1200, 1600, 2000];
+
+const HERO_ALT =
+  'Silk curtains spilling from a sunlit arched window across the stone floor of a weathered, vaulted room.';
 
 export const hero = {
-  title: ['More Than A Studio. ', 'A Philosophy Of Experience.'] as Head,
+  /** The headline, then its second voice (italic, champagne). */
+  lines: ['More Than', 'A Studio.'],
+  voice: ['A Philosophy', 'Of Experience.'],
   lead: 'Luxury is not defined by appearance alone.',
   texts: [
     'It is shaped by atmosphere, emotion, perception, and the moments people remember long after an experience ends.',
     'SF Muse exists at the intersection of creativity, strategy, and human connection, crafting brands and experiences designed to inspire, resonate, and endure.',
   ],
-  image: plate('hero', STEPS, [1600, 2000], '(min-width: 1025px) 40vw, 92vw',
-    'Silk curtains spilling from a sunlit arched window across the stone floor of a weathered, vaulted room.'),
+  // Square for the panel that bleeds off the right edge; 4:5 on handsets.
+  image: {
+    ...plate('hero', [1200, 1600, 2000, 2560], [2560, 2560], '(min-width: 1025px) 58vw, 100vw', HERO_ALT),
+    mobile: plate('hero-mobile', [800, 1200], [1200, 1500], '100vw', HERO_ALT),
+  } as Plate,
 };
 
 export const founder = {
   label: 'Founder Story',
-  head: ['Where strategy becomes ', 'desire'] as Head,
+  head: ['Where strategy', 'becomes desire'],
   subhead: 'The Language of Presence',
   texts: [
     'Founded by creative director Souhir Fhima, SF Muse exists at the intersection of storytelling, luxury, hospitality, beauty, wellness, and contemporary culture.',
@@ -54,23 +67,32 @@ export const founder = {
     'Through creative direction, visual storytelling, and intelligent innovation, ideas are transformed into experiences that feel intentional, immersive, and enduring.',
     'Today, SF Muse partners with boutique hotels, wellness destinations, beauty brands, editorial projects, and experience-led businesses seeking to create meaningful distinction through storytelling, design, and perception.',
   ],
-  image: plate('founder', STEPS, [1600, 2133], '(min-width: 1025px) 34vw, 92vw',
+  image: plate('founder', PORTRAIT, [2000, 2667], '(min-width: 1025px) 38vw, 92vw',
     'Souhir Fhima in a white tweed jacket, a veiled hat and round sunglasses, leaning against a column, in black and white.'),
+  // Her supplied signature, refilled in bronze for the ivory ground (her own
+  // strokes and edges; her champagne reads 1.8 : 1 on ivory). The name
+  // line beneath it carries the meaning, so the image is decorative.
+  signature: plate('signature-ink', [640, 1010], [1010, 395], '(min-width: 1025px) 288px, 60vw', ''),
+  name: 'Souhir Fhima',
+  role: 'Founder & Creative Director',
 };
 
 export const philosophy = {
   label: 'The Philosophy',
-  statement: ['Luxury is more than appearance. ', 'It is atmosphere, emotion, and experience.'] as Head,
+  statement: ['Luxury is more than appearance.', 'It is atmosphere, emotion, and experience.'],
   texts: [
     'SF Muse was created from the belief that modern luxury brands should feel immersive, timeless, and emotionally engaging across every visual and digital touchpoint.',
     'We believe in creating stories that move beyond content — blending cinematic visuals, refined branding, intelligent marketing, and elevated digital experiences to shape how people feel, connect, and remember a brand.',
   ],
-  image: plate('philosophy', STEPS, [1600, 2133], '(min-width: 1025px) 34vw, 92vw',
+  // Never cropped: the client asked for the full figure, head to heels.
+  image: plate('philosophy', [480, 800, 1200, 1600, 2000, 2400], [2400, 3200], '(min-width: 1025px) 46vw, 100vw',
     'A woman in a long fur coat leaning against a fluted stone column along a rain-wet colonnade.'),
 };
 
 export const way = {
-  label: 'The SF Muse way',
+  // The doc writes "The SF Muse way"; the client's feedback sets it in title
+  // case, as every other section title (DECISION-LOG, 2026-10-09).
+  title: 'The SF Muse Way',
   intro:
     'At SF Muse, creativity is guided by intention, curiosity, refinement, and genuine human connection. Remarkable work is created through trust, thoughtful collaboration, and an unwavering attention to detail.',
   principles: [
@@ -85,13 +107,13 @@ export const way = {
 
 export const difference = {
   label: 'The SF Muse Difference',
-  head: ['Designing What ', 'Cannot Be Seen'] as Head,
+  head: 'Designing What Cannot Be Seen',
   lead: 'Every project begins with a simple question:',
   question: 'How should people feel?',
 };
 
 export const vision = {
-  label: 'The Vision',
+  title: 'The Vision',
   statement:
     'Our vision is to shape immersive experiences that connect emotion, aesthetics, and modern luxury — from boutique hospitality and beauty brands to curated travel experiences, editorial campaigns, and future lifestyle concepts.',
 };
@@ -101,7 +123,7 @@ export const vision = {
 export type ValueIcon = 'king' | 'heart' | 'diamond' | 'nib' | 'star' | 'column';
 
 export const values = {
-  label: 'Our Values',
+  title: 'Our Values',
   items: [
     { icon: 'king', title: 'Strategic Elegance', text: ['Every detail is crafted with intention, precision, and refinement.'] },
     { icon: 'heart', title: 'Emotional Intelligence', text: ['We create experiences that inspire feeling, connection, and desire.'] },
@@ -114,10 +136,14 @@ export const values = {
 };
 
 export const closing = {
-  head: ['Let’s Create Something ', 'Worth Remembering'] as Head,
+  /** The second line keeps the closer's italic, as on the homepage. */
+  head: ['Let’s Create Something', 'Worth Remembering'],
   texts: [
     'Whether developing a hospitality destination, a wellness concept, an editorial campaign, or a refined digital experience, every memorable story begins with a clear vision.',
     'SF Muse transforms ideas into experiences designed to inspire emotion, shape perception, and leave a lasting impression.',
   ],
   cta: { label: 'Start a Conversation', href: '/contact' },
+  // Provisional (DECISION-LOG Q8): from the Contact delivery.
+  image: plate('closing', [800, 1200, 1600, 2000], [2000, 2500], '(min-width: 1025px) 40vw, 100vw',
+    'A black notebook embossed “SF Muse — Creative Intelligence” with a gold pen, on dark veined marble under a sprig of olive.'),
 };
