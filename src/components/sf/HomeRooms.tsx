@@ -32,7 +32,7 @@ export function HomeExplore({ data }: { data: HomeContent['explore'] }) {
   return (
     <section className="sf-section sf-room sf-room--ivory sf-hp-explore" id="explore">
       <div className="sf-container">
-        <Chapter label="" num={CHAPTER.explore} />
+        <Chapter label={data.label ? `(${data.label})` : ''} num={CHAPTER.explore} />
         <div className="sf-hp-explore__grid">
           <Reveal as="figure" className="sf-hp-explore__figure" curtain>
             <Picture plate={data.image} />
@@ -47,6 +47,13 @@ export function HomeExplore({ data }: { data: HomeContent['explore'] }) {
                 {text}
               </Reveal>
             ))}
+            {data.cta && (
+              <Reveal>
+                <Link className="sf-btn" href={data.cta.href}>
+                  {data.cta.label} <span aria-hidden="true">&#8599;</span>
+                </Link>
+              </Reveal>
+            )}
           </div>
         </div>
       </div>
@@ -86,9 +93,11 @@ export function HomeServices({
                   <span className="sf-hp-card__num">{s.num}</span>
                   <h3 className="sf-hp-card__title">{s.title}</h3>
                   <span className="sf-hp-card__desc">{s.summary}</span>
-                  <span className="sf-hp-more">
-                    {intro.more} <span aria-hidden="true">&#8594;</span>
-                  </span>
+                  {intro.more && (
+                    <span className="sf-hp-more">
+                      {intro.more} <span aria-hidden="true">&#8594;</span>
+                    </span>
+                  )}
                 </span>
               </Link>
             </Reveal>
@@ -100,9 +109,10 @@ export function HomeServices({
 }
 
 /* --- 03 — WHO WE WORK WITH (ivory) --------------------------------------------
-   All seven categories, compact: a three-column grid whose first row gives
-   two cells to the heading and statement, so 2 + 7 fills three rows exactly.
-   Each category carries a line icon, its title and its description. */
+   The six categories, compact: a three-column grid whose first row gives
+   two cells to the heading and statement and the third to v3's "Different
+   Worlds. Shared Ambitions.", so 2 + 1 + 6 fills three rows exactly. Each
+   category carries a line icon, its title and its description. */
 export function HomeClients({ data }: { data: HomeContent['clientele'] }) {
   const icons = (data.icons ?? seedClientele.icons) as readonly ClientIconName[];
   return (
@@ -118,6 +128,16 @@ export function HomeClients({ data }: { data: HomeContent['clientele'] }) {
               {data.statement}
             </Reveal>
           </div>
+          {data.worlds && (
+            <Reveal className="sf-hp-clients__worlds" delay={180}>
+              <h3 className="sf-hp-client__title">{data.worlds.title}</h3>
+              {data.worlds.text.map((t) => (
+                <p className="sf-hp-client__desc" key={t.slice(0, 24)}>
+                  {t}
+                </p>
+              ))}
+            </Reveal>
+          )}
           <ul className="sf-hp-clients__list">
             {data.rows.map(([label, description], i) => (
               <Reveal as="li" className="sf-hp-client" key={label} delay={(i % 3) * 70}>
@@ -237,9 +257,11 @@ export function HomeJournal({ data }: { data: HomeContent['journal'] }) {
   // each title the copy names (as the hero pins its plate); a new article the
   // copy doesn't name keeps its own.
   const pinned = (title: string) =>
-    [seedJournal.featured, ...seedJournal.rows].find((a) => a.title === title)?.image;
-  const lead = { ...data.featured, image: pinned(data.featured.title) ?? data.featured.image };
-  const rows = data.rows.map((r) => ({ ...r, image: pinned(r.title) ?? r.image }));
+    [seedJournal.featured, ...seedJournal.rows].find((a) => a.title === title);
+  const lead = { ...data.featured, image: pinned(data.featured.title)?.image ?? data.featured.image };
+  // The homepage blurb is the copy's (v3), not the article's own excerpt.
+  if (data.featured.title === seedJournal.featured.title) lead.desc = seedJournal.featured.desc;
+  const rows = data.rows.map((r) => ({ ...r, image: pinned(r.title)?.image ?? r.image }));
   return (
     <section className="sf-section sf-room sf-room--ivory sf-hp-journal" id="journal">
       <div className="sf-container">

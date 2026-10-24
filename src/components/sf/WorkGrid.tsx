@@ -102,6 +102,8 @@ export default function WorkGrid({
         {statement}
       </Reveal>
 
+      {/* No rail at all when the copy names no rooms (v3's studies). */}
+      {filters.length > 0 && (
       <div className="sf-work__rail" data-sf_work="">
         {/* The copy names its rooms; a room with nothing hung in it yet
             (Wellness, today) is left off the index until a project is hung
@@ -121,6 +123,7 @@ export default function WorkGrid({
           </button>
         ))}
       </div>
+      )}
 
       {/* No entrance on the hang itself. A Reveal fires at 15% visible, and
           with five captioned projects the one-column handset grid runs

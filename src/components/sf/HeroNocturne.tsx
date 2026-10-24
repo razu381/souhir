@@ -29,6 +29,7 @@ export default function HeroNocturne({
   sub,
   intro,
   cta,
+  cta2,
   variant,
   layout,
   className,
@@ -49,6 +50,8 @@ export default function HeroNocturne({
    *  sub, scroll cue) is retired — the button IS the cue. */
   intro?: string[];
   cta?: { label: string; href: string };
+  /** A second way in, beside the first (v3: Start a Project · Explore Our Work). */
+  cta2?: { label: string; href: string };
   /** Hero Lab: ground modifier — appended as `sf-nocturne--{variant}`. */
   variant?: string;
   /** Hero Lab: composition modifier — appended as `sf-nocturne--{layout}`. */
@@ -178,9 +181,21 @@ export default function HeroNocturne({
                   </p>
                 ))}
                 {cta ? (
-                  <a className="sf-btn sf-nocturne__cta" href={cta.href}>
-                    {cta.label} <span aria-hidden="true">&darr;</span>
-                  </a>
+                  <div className="sf-nocturne__ctas">
+                    {[cta, cta2].map((c, i) =>
+                      c ? (
+                        <a
+                          className={`sf-btn sf-nocturne__cta${i === 0 && cta2 ? ' sf-nocturne__cta--primary' : ''}`}
+                          href={c.href}
+                          key={c.href}
+                        >
+                          {c.label}{' '}
+                          {/* ↓ scrolls within the page; ↗ goes to another page. */}
+                          <span aria-hidden="true">{c.href.startsWith('#') ? '↓' : '↗'}</span>
+                        </a>
+                      ) : null,
+                    )}
+                  </div>
                 ) : null}
               </div>
             ) : null}

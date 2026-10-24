@@ -10,12 +10,10 @@ const NAV = [
   { href: '/about', label: 'About' },
   { href: '/services', label: 'Services' },
   { href: '/portfolio', label: 'Portfolio' },
-  { href: '/journal', label: 'Journal' },
   { href: '/editorial', label: 'Editorial' },
+  { href: '/journal', label: 'Journal' },
   { href: '/contact', label: 'Contact' },
 ];
-
-const SECTORS = ['Hospitality', 'Wellness', 'Beauty', 'Editorial', 'Luxury Lifestyle', 'AI Marketing'];
 
 const SOCIALS = [
   { label: 'Instagram', href: 'https://instagram.com' },
@@ -41,16 +39,13 @@ export default function SiteFooter({ settings }: { settings: Settings | null }) 
             <p className="sf-footer__brand">
               SF <em>Muse</em>
             </p>
-            <p className="sf-footer__tagline">
-              Luxury Visual Storytelling &amp; Brand Experiences
-            </p>
+            <p className="sf-footer__tagline">Luxury Creative &amp; Marketing Studio</p>
+            {/* v3 (Homepage Footer Update): the industry list is gone; the
+                brand line and the studio sentence take its place, in its type. */}
+            <p className="sf-footer__sectors">Beyond visibility. Into memory.</p>
             <p className="sf-footer__sectors">
-              {SECTORS.map((sector, i) => (
-                <span key={sector}>
-                  {i > 0 && ' • '}
-                  <span className="sf-footer__sector">{sector}</span>
-                </span>
-              ))}
+              SF Muse brings creative intelligence, visual storytelling and strategic thinking
+              together to shape brands and experiences that inspire, connect and last.
             </p>
           </div>
           <nav aria-labelledby="sf-footer-nav">
@@ -66,10 +61,7 @@ export default function SiteFooter({ settings }: { settings: Settings | null }) 
             </ul>
           </nav>
           <div className="sf-footer__connect">
-            <h3 className="sf-footer__heading">
-              <span className="sf-sr-only">Connect</span>
-              <span aria-hidden="true">&nbsp;</span>
-            </h3>
+            <h3 className="sf-footer__heading">Connect</h3>
             <ul className="sf-footer__list">
               {socials.map((s) => (
                 <li key={s.label}>
@@ -98,9 +90,9 @@ export default function SiteFooter({ settings }: { settings: Settings | null }) 
         </p>
 
         <div className="sf-footer__bar">
-          <span>&copy; MMXXVI SF Muse</span>
+          <span>&copy; 2026 SF Muse. All Rights Reserved.</span>
           <a className="sf-footer__top-link" href="#main">
-            Back to top <span aria-hidden="true">&uarr;</span>
+            Back to Top <span aria-hidden="true">&uarr;</span>
           </a>
         </div>
       </div>

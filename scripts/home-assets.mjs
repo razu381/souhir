@@ -48,7 +48,7 @@ import sharp from 'sharp';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 // The delivery's folder names carry a double space and trailing spaces.
-const DELIVERY = join(ROOT, 'images', 'SF images  new');
+const DELIVERY = join(ROOT, 'images', 'SF images  latest v3');
 const PAGES = {
   home:  { src: join(DELIVERY, 'Home page '),  out: join(ROOT, 'public', 'assets', 'home') },
   about: { src: join(DELIVERY, 'About page '), out: join(ROOT, 'public', 'assets', 'about') },
@@ -73,8 +73,8 @@ const PLATES = [
   // What We Create — the four as tall cards (3:4).
   { slug: 'service-card-brand-presence',     src: 'services /Art_of_Brand.jpg',             ratio: [3, 4], steps: [480, 800, 1200] },
   { slug: 'service-card-creative-direction', src: 'services /Creative_Direction.jpg',       ratio: [3, 4], steps: [480, 800, 1200], focus: [0.5, 0.45] },
-  { slug: 'service-card-digital',            src: 'services /Digital experience.jpg',       ratio: [3, 4], steps: [480, 800, 1200] },
-  { slug: 'service-card-growth',             src: 'services /Intelligent_Brand_Growth.jpg', ratio: [3, 4], steps: [480, 800, 1200] },
+  { slug: 'service-card-digital',            src: 'services /Digital Experience .jpeg',      ratio: [3, 4], steps: [480, 800, 1200] },
+  { slug: 'service-card-growth',             src: 'services /Intelligent Growth .jpeg',      ratio: [3, 4], steps: [480, 800, 1200] },
   // About SF Muse — her supplied signature, as is (champagne on transparency).
   { slug: 'signature', src: 'ChatGPT Image May 13, 2026 at 08_02_28 PM.png', alpha: true,
     box: { left: 290, top: 320, width: 1010, height: 395 }, steps: [640, 1280] },
@@ -93,20 +93,21 @@ const PLATES = [
   // 02 What We Create — the four visual blocks.
   { slug: 'service-brand-presence',    src: 'services /Art_of_Brand.jpg',             ratio: [4, 5], steps: [480, 800, 1200] },
   { slug: 'service-creative-direction', src: 'services /Creative_Direction.jpg',      ratio: [4, 5], steps: [480, 800, 1200] },
-  { slug: 'service-digital',           src: 'services /Digital experience.jpg',       ratio: [4, 5], steps: [480, 800, 1200] },
-  { slug: 'service-growth',            src: 'services /Intelligent_Brand_Growth.jpg', ratio: [4, 5], steps: [480, 800, 1200] },
+  { slug: 'service-digital',           src: 'services /Digital Experience .jpeg',      ratio: [4, 5], steps: [480, 800, 1200] },
+  { slug: 'service-growth',            src: 'services /Intelligent Growth .jpeg',      ratio: [4, 5], steps: [480, 800, 1200] },
 
   // 04 About — the founder on the grand staircase.
   { slug: 'founder-staircase', src: 'about jpg.jpg', ratio: [2, 3], steps: [480, 800, 1200, 1800] },
 
-  // 05 Featured Work — the portraits hang in one 2:3 frame (Hospitality and
-  // Editorial are shot at it; Fashion's 9:16 is the tightest — hair at 22%,
-  // heels at 87% — and only 2:3 holds both). Lifestyle hangs wide, as shot.
-  { slug: 'work-beauty',      src: 'Featured work/Beauty.png',      ratio: [2, 3], steps: [800, 1200] },
-  { slug: 'work-hospitality', src: 'Featured work/Hospitality.png', ratio: null,   steps: [800, 1200] },
-  { slug: 'work-editorial',   src: 'Featured work/Editorial.JPG',   ratio: null,   steps: [800, 1200] },
-  { slug: 'work-fashion',     src: 'Featured work/Fashion.png',     ratio: [2, 3], steps: [800, 1200], focus: [0.5, 0.5] },
-  { slug: 'work-lifestyle',   src: 'Featured work/Lifestyle.png',   ratio: null,   steps: [800, 1200], grayscale: true },
+  // 05 The Art of Brand Presence (v3, Oct 2026) — six studies, one per world,
+  // all hung in one 2:3 frame. The two Instagram exports (Auto, Beauty_) are
+  // small; stepsFor stops their steps at native width.
+  { slug: 'work-fashion',     src: 'Featured work/Fashion and luxury.jpeg',       ratio: [2, 3], steps: [800, 1200], focus: [0.4, 0.5] },
+  { slug: 'work-beauty',      src: 'Featured work/Beauty_.jpeg',                  ratio: [2, 3], steps: [800, 1200] },
+  { slug: 'work-hospitality', src: 'Featured work/hotel and Hospitality  .jpeg',  ratio: [2, 3], steps: [800, 1200] },
+  { slug: 'work-wellness',    src: 'Featured work/wellness&SPA .jpeg',            ratio: [2, 3], steps: [800, 1200] },
+  { slug: 'work-automotive',  src: 'Featured work/Auto&Luxury lifestyle.JPG',     ratio: [2, 3], steps: [800, 1200] },
+  { slug: 'work-travel',      src: 'Featured work/Luxury Travel.jpeg',            ratio: [2, 3], steps: [800, 1200] },
 
   // 06 Editorial Recognition — covers keep their printed frame.
   { slug: 'press-artego-feb', src: 'Editorial features /Artego 1.jpg', ratio: null, steps: [600, 900] },

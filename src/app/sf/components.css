@@ -1243,8 +1243,13 @@
   color: rgb(255 255 255 / .80);
 }
 .sf-nocturne__standfirst + .sf-nocturne__text { margin-block-start: clamp(1rem, 2.5svh, 1.5rem); }
-.sf-nocturne__cta {
+.sf-nocturne__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
   margin-block-start: clamp(1.5rem, 4svh, 2.5rem);
+}
+.sf-nocturne__cta {
   color: var(--paper);
   border-color: rgb(205 177 144 / .45);
 }
@@ -1252,6 +1257,20 @@
 .sf-nocturne__cta:focus-visible {
   background: var(--champagne);
   border-color: var(--champagne);
+  color: var(--noir);
+}
+/* With two ways in, the first is the primary: filled at rest (the outline
+   button's own hover), lifting to bone on hover — the newsletter submit's
+   pattern. */
+.sf-nocturne__cta--primary {
+  background: var(--champagne);
+  border-color: var(--champagne);
+  color: var(--noir);
+}
+.sf-nocturne__cta--primary:hover,
+.sf-nocturne__cta--primary:focus-visible {
+  background: var(--bone);
+  border-color: var(--bone);
   color: var(--noir);
 }
 /* Short laptops (1366×688 measured): the block ran ~20px past the fold. The
@@ -2319,7 +2338,6 @@ a.sf-journal__lead:focus-visible .sf-journal__lead-read span { transform: transl
   line-height: 1.7;
   color: rgb(255 255 255 / .70);
 }
-.sf-footer__sector { white-space: nowrap; }   /* "AI / Marketing" must not part */
 .sf-footer__heading {
   min-height: 1.5em;
   margin-block-end: .75rem;

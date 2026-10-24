@@ -5,7 +5,7 @@ reasons behind decisions live in [`DECISION-LOG.md`](DECISION-LOG.md); the
 design system lives in [`DESIGN-DIRECTION.md`](DESIGN-DIRECTION.md); the
 per-route docs live in [`docs/site/`](docs/site/README.md).
 
-_Last updated: 2026-10-12 (homepage round 2 deployed; About round 2 and the Services page update still local; Services redesign planned)_
+_Last updated: 2026-10-17 (the homepage is rebuilt on the v3 final content, locally and not committed; the other pages await their v3 rounds)_
 
 ---
 
@@ -27,8 +27,8 @@ _Last updated: 2026-10-12 (homepage round 2 deployed; About round 2 and the Serv
 
 | What | Where | Notes |
 |---|---|---|
-| Copy | `SF_Muse_Website_Copy_Services_Updated.docx` (repo root, **not committed**; it isn't git-ignored, so stage files by name) | The final copy. Since 2026-10-11 it replaces `SF_Muse_Website_Copy_Shorter_Updated.docx`, which older comments still name; only the Services copy differs. **The design follows the doc**, not the reverse. Text that isn't in the doc gets removed. The doc ends with developer notes. |
-| Photos | `images/SF images  new/<Page>/` (gitignored) | Folder names contain a **double space and trailing spaces**. Where she supplied two photos for one slot, **they are alternatives: use one**. |
+| Copy | **`SF_Muse_Final_Content_For - v3.docx`** (13 Oct 2026) is the current spec. The homepage is built on it (DECISION-LOG 2026-10-17); the other pages are still on the earlier docs. Earlier docs: `SF_Muse_Website_Copy_Services_Updated.docx` (repo root, **not committed**; it isn't git-ignored, so stage files by name) | The final copy. Since 2026-10-11 it replaces `SF_Muse_Website_Copy_Shorter_Updated.docx`, which older comments still name; only the Services copy differs. **The design follows the doc**, not the reverse. Text that isn't in the doc gets removed. The doc ends with developer notes. |
+| Photos | `images/SF images  latest v3/<Page>/` (gitignored; the bake script reads it). v2 is in `SF images  new v2`. | Folder names contain a **double space and trailing spaces**. Where she supplied two photos for one slot, **they are alternatives: use one**. |
 | Baked images | `public/assets/<page>/` | Made by `scripts/home-assets.mjs` (`npm run assets:home`, `assets:about`, `assets:services`). |
 | Design system | `DESIGN-DIRECTION.md` | Written in Aug 2026 as "Dar SF", with addenda since. §02 holds the client's reference text setting. |
 | Design references | `inspirations/` | Two template homepages (Horizon / Refresh studio). The client wants the **ideas** adapted into an original design, not copied. |
