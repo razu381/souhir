@@ -28,6 +28,126 @@ Statuses: **Decided** (agreed, not yet built) · **Built** (live or in code) ·
 
 ---
 
+## 2026-10-24 — Homepage V6: her champagne/sable/black scheme, as an experiment
+
+- **Brief:** a second version of the current homepage to try her ground
+  scheme, without touching the live page: hero black; Explore, Who We Work
+  With, Selected Work and Journal champagne (#EFE6D8, D7); What We Create
+  and the Newsletter sable (#E2D7C4, D8); About SF Muse and Editorial
+  Recognition black; the quote and "Let's Create Something Worth
+  Remembering." as dark photographic banners; footer black.
+- **What We Create:** her own treatment — "four black-and-white
+  photographs… charcoal text beneath them on the light Sable background,
+  without dark card panels." The raised dark panels are gone; the words sit
+  on the wall like the Journal cards, and the photographs run
+  `grayscale(1)` in CSS.
+- **Built as `/home-v6`** (the lab series' next number; `/home-v2` is taken
+  by Le Musée): the production page's own components and copy, untouched —
+  the whole experiment is `sf/home-v2.css`, scoped to
+  `main.sf-homepage.sf-homepage-v2`, listed on `/home-lab`, unindexed and
+  disallowed in robots. The production `/` renders exactly as before.
+- **Text on the new grounds** (per tokens.css measurements): on champagne
+  and sable, ink ≈ 15 / 14 : 1, charcoal-soft 6.6 : 1 on sable, bronze-wall
+  5.6 / 4.9 : 1; on the black rooms the dark roles stand (bone 17 : 1,
+  white .78 ≈ 12 : 1, champagne ≈ 9 : 1). The newsletter field becomes a
+  filled ivory one with a bronze border, keeping her "clearly visible email
+  field".
+- **Newsletter review (developer, 2026-10-24):** the newsletter is the
+  page's most template moment (label + boxed field + pill), so `/home-v6`
+  now renders it four ways, each on its own ground so she can tell them
+  apart and choose one: **A** The Correspondence Line (sable — the
+  `/contact` underline grammar, subscribe as a quiet caps link), **B** The
+  Lit Entry (black — the form centred as the room's hero, champagne
+  accents), **C** The Letterpress Card (ivory — the round-1 guest register
+  as a bordered stationery card), **D** The Editorial Split Row (champagne
+  — today's field re-proportioned into one joined row). Every variant is a
+  working form. The production `/` keeps today's newsletter untouched.
+- **Balance pass (same day, the developer's eye):** the What We Create
+  masthead reserved its standfirst cell that the copy gives no text for —
+  an empty right half that read as missing content — so on V6 the head is
+  now a full-measure statement over the symmetric card rail. Variants A
+  and D took the production newsletter's two-column balance (voice left,
+  entry right; stacked on handsets) for the same reason.
+- **QA pass on the stack (same day):** the wall hairline (.28 bronze) is
+  decorative and read as nothing where the variants used it as structure —
+  the entry underlines (A/B/C), C's card frame and B's pill border now sit
+  at the accent's own strength; the entries carry an "Email address"
+  placeholder; D's button is solid noir (champagne filled sat on the
+  champagne wall and vanished) and its row stacks below 768px so the field
+  keeps its width.
+- **If she adopts it:** real black-and-white plates get baked with new
+  slugs (the CSS grayscale is the reversible stand-in), the winning grounds
+  move into home.css/tokens.css, the chosen newsletter folds back into
+  `HomeNewsletter`, and the route and its sheet are deleted.
+- **Status:** Built (local, awaiting her review).
+
+## 2026-10-17 — Homepage on the v3 final content (text and images only)
+
+- **Source:** `SF_Muse_Final_Content_For - v3.docx` (13 Oct 2026, "Luxury
+  Creative & Marketing Studio") is now the copy spec. This round covers the
+  **homepage only**; the other pages follow in their own rounds.
+- **Rule:** change the homepage's words and the images the doc names, using
+  the existing components and classes. A first build added new heading styles,
+  recoloured the rooms and hung the six Featured work photos twice (on Who We
+  Work With and on the studies). It was reverted on the developer's
+  instruction, and the round was re-planned.
+- **Images:** the v3 photo set equals v2 except in two Home folders.
+  - `services /`: new B&W Digital and Growth cards replace the oyster shell
+    and the mushrooms.
+  - `Featured work/`: six study photos (`work-fashion`, `-beauty`,
+    `-hospitality`, `-wellness`, `-automotive`, `-travel`, all 2:3) replace the
+    five old plates. The two Instagram exports stop at native width (Beauty
+    1017px, Auto 1125px).
+  - The unreferenced old plates were deleted.
+  - `scripts/home-assets.mjs` now reads `images/SF images  latest v3`.
+- **Built:**
+  - **Hero:** eyebrow in the top rule; "Expressive in style…" in the standfirst
+    slot, so it sits above the descriptive sentence (the doc has it the other
+    way round); a second button.
+  - **Explore:** v3 heading and copy, the "(Explore SF Muse)" chapter label and
+    a Discover Our Approach button.
+  - **What We Create:** the four v3 cards; no "Learn More".
+  - **Who We Work With:** six categories in the existing icon list. "Different
+    Worlds. Shared Ambitions." is the grid's last cell, in the categories' own
+    type.
+  - **Founder:** "The Perspective Behind SF Muse", with a Discover Our Story
+    button.
+  - **The Art of Brand Presence:** six studies in the existing caption
+    anatomy, with no filter rail.
+  - **Remaining copy:** v3 text for the press line, journal heading and blurb,
+    quote (no role), newsletter and closing.
+  - **Footer:** text edits to the current three columns, per the doc's
+    "Homepage Footer Update".
+  - **Nav:** Editorial before Journal, in the header and footer.
+- **Kept on purpose (developer's call):** today's room colours, not v3's
+  DESIGN LOCK; no photos on the Who We Work With cards, though v3 asks for one
+  each; the Journal layout, despite the doc's "refine" note.
+- **Side effects:** the footer and nav change on every page. `/portfolio`
+  shows the six studies, since it shares the seed. The `/editorial` and
+  `/journal` intros pick up the new press and journal lines.
+- **Open:**
+  - Card photos for Who We Work With.
+  - v3's colour order.
+  - The Journal "refine" note.
+  - Legal pages and the expanded footer (§09).
+  - Instagram and LinkedIn URLs.
+  - Moevir cover permission.
+  - The Netlify badge.
+  - v3 §10 says to keep the package prices, though the Services copy omits
+    them.
+- **Developer's follow-ups (same day):**
+  - **Hero title is 1.5× round 2's size**, wherever it still ends before her
+    figure. A fit guard in `home.css` (`--hero-title-fit`) gives laptops up
+    to 1440 the full 1.5×, and wider screens about 1.3×. On handsets it is
+    capped to the column.
+  - **Hero "Start a Project" is filled champagne at rest** (the outline
+    button's hover). It lifts to bone on hover, the newsletter submit's
+    pattern. "Explore Our Work" stays outline.
+  - **"Different Worlds. Shared Ambitions." sits beside** the Who We Work
+    With heading and statement (the first row's third cell), not after the
+    list. The six categories fill the two rows below.
+- **Status:** Built locally, not committed.
+
 ## 2026-10-12 — Homepage round 2 deployed on its own
 
 - **Decision:** the developer asked to host the homepage, so it shipped

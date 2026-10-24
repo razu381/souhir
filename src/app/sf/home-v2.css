@@ -1,0 +1,377 @@
+/* ---------------------------------------------------------------------------
+   home-v2.css — /home-v6 review page only (client brief, Oct 2026).
+
+   The experiment: the production homepage unchanged in structure, copy and
+   photographs, re-hung on the client's champagne (#EFE6D8, D7) and sable
+   (#E2D7C4, D8) grounds with black rooms between them. What We Create drops
+   its raised dark panels — the four photographs run black-and-white, the
+   words in charcoal on the sable wall.
+
+   Nothing here is production styling. The page carries
+   <main class="sf-homepage sf-homepage-v2">: sf-homepage pulls in all of
+   sf/home.css, and every rule below is scoped .sf-homepage.sf-homepage-v2 so
+   it outranks the room rules there (same sheet order, one class heavier)
+   without touching them. If the client adopts the scheme, its winners move
+   into home.css and tokens.css, and this file is deleted with its route.
+
+   1. The grounds — the client's list, room by room
+   2. What We Create — no panels, black-and-white
+   3. The pill and the field on the two rooms that went light
+   4. The newsletter — four treatments for review (A–D)
+--------------------------------------------------------------------------- */
+
+
+/* ===========================================================================
+   1. THE GROUNDS
+   The client's list, Oct 2026: hero black; Explore, Who We Work With,
+   Selected Work and Journal champagne; What We Create and the Newsletter
+   sable; About SF Muse and Editorial Recognition black; the quote and the
+   closing stay photographic bands; the footer stays black.
+
+   The rooms keep the round-2 classes they were composed for (the section
+   JSX is the production one), so each room only hands down its ground —
+   and, where a dark room goes light, its five roles. The champagne rooms
+   keep the ivory roles' light reading (ink #1E1C1A ≈ 15 : 1 on champagne,
+   ≈ 14 : 1 on sable; charcoal-soft 6.6 : 1 on sable; bronze-wall 5.6 / 4.9 :
+   1). On noir the dark roles stand as measured (bone 17 : 1, white .78
+   ≈ 12 : 1, champagne ≈ 9 : 1).
+   ======================================================================== */
+.sf-homepage.sf-homepage-v2 :is(.sf-hp-explore, .sf-hp-clients, .sf-hp-work, .sf-hp-journal) {
+  --room-bg: var(--wall-champagne);   /* D7 */
+}
+/* These two wear sf-room--charcoal, whose dark roles belong to the charcoal
+   wall — sable takes the light reading instead. */
+.sf-homepage.sf-homepage-v2 :is(.sf-hp-services, .sf-hp-news) {
+  --room-bg: var(--wall-sable);       /* D8 */
+  --room-ink: #1E1C1A;
+  --room-body: var(--charcoal-soft);
+  --room-accent: var(--bronze-wall);
+  --room-rule: var(--hairline-wall);
+  --room-dim: rgb(30 28 26 / .30);
+}
+/* The founder and the press rooms already carry the dark roles; only the
+   ground moves, brown and charcoal to black. */
+.sf-homepage.sf-homepage-v2 :is(.sf-hp-founder, .sf-hp-press) {
+  --room-bg: var(--noir);
+}
+
+
+/* The head is a full-measure statement here. The two-cell masthead was
+   built for a standfirst the copy gives this section no room for (the doc:
+   "the label names the section and the four cards follow"), and its empty
+   right cell read as missing content — half a lockup on the light wall.
+   One editorial line at the container's width; the symmetric four-card
+   rail restores the balance. */
+.sf-homepage.sf-homepage-v2 .sf-hp-services .sf-hp-masthead {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+
+/* ===========================================================================
+   2. WHAT WE CREATE — NO PANELS, BLACK-AND-WHITE
+   The client: "For What We Create, I'll use four black-and-white
+   photographs. Please use charcoal text beneath them on the light Sable
+   background, without dark card panels."
+
+   The card keeps its shape — the photograph at 4:5, then numeral, title,
+   line — but the raised panel and its hover fill go, the photograph runs
+   grayscale(1) (reversible; if she adopts it, real black-and-white plates
+   get baked with new slugs), and the words take the room's light roles the
+   way the Journal cards on the wall already do. The whole card stays the
+   way in; hover keeps the photograph's slow scale.
+   ======================================================================== */
+.sf-homepage.sf-homepage-v2 .sf-hp-card__link {
+  background: none;
+  color: var(--room-ink);
+}
+.sf-homepage.sf-homepage-v2 .sf-hp-card__link:hover,
+.sf-homepage.sf-homepage-v2 .sf-hp-card__link:focus-visible { background: none; }
+.sf-homepage.sf-homepage-v2 .sf-hp-card__media img { filter: grayscale(1); }
+.sf-homepage.sf-homepage-v2 .sf-hp-card__title { color: var(--room-ink); }
+.sf-homepage.sf-homepage-v2 .sf-hp-card__desc { color: var(--room-body); }
+/* The numeral is champagne on the charcoal card; on sable it takes the
+   bronze of every other label on the walls. */
+.sf-homepage.sf-homepage-v2 .sf-hp-card__num { color: var(--room-accent); }
+
+
+/* ===========================================================================
+   3. THE PILL AND THE FIELD ON THE TWO ROOMS THAT WENT LIGHT
+   Services and the Newsletter keep their sf-room--charcoal class, whose
+   dark-room pill (paper text, champagne hover) and ivory field belong to
+   the charcoal wall. On sable the pill returns to the light rooms' reading
+   — charcoal text, bronze border, the noir hover fill the ivory rooms
+   already use — and the field becomes a filled ivory one with a bronze
+   border, so it stays as clearly visible as it was (her round-2 brief).
+   ======================================================================== */
+.sf-homepage.sf-homepage-v2 :is(.sf-hp-services, .sf-hp-news) .sf-btn {
+  color: var(--room-ink);
+  border-color: rgb(107 86 56 / .45);
+}
+.sf-homepage.sf-homepage-v2 :is(.sf-hp-services, .sf-hp-news) .sf-btn:hover,
+.sf-homepage.sf-homepage-v2 :is(.sf-hp-services, .sf-hp-news) .sf-btn:focus-visible {
+  background: var(--noir);
+  border-color: var(--noir);
+  color: var(--paper);
+}
+
+.sf-homepage.sf-homepage-v2 .sf-hp-news__label { color: var(--room-accent); }
+.sf-homepage.sf-homepage-v2 .sf-hp-news__input {
+  border-color: rgb(107 86 56 / .45);
+  background: rgb(255 255 255 / .55);
+  color: var(--room-ink);
+}
+.sf-homepage.sf-homepage-v2 .sf-hp-news__input:hover { border-color: rgb(107 86 56 / .7); }
+.sf-homepage.sf-homepage-v2 .sf-hp-news__input:focus {
+  border-color: var(--bronze-wall);
+  background: rgb(255 255 255 / .75);
+}
+/* The champagne button keeps its noir text on any ground; only the field's
+   messages follow the room. */
+.sf-homepage.sf-homepage-v2 .sf-hp-news__confirm { color: var(--room-body); }
+.sf-homepage.sf-homepage-v2 .sf-hp-news__error { color: var(--bronze-wall); }
+
+
+/* ===========================================================================
+   4. THE NEWSLETTER, FOUR TREATMENTS (client review, Oct 2026)
+   The developer's brief: the newsletter is the page's most template moment
+   — label, box, pill — so V6 replaces it with a review stack, one section
+   per treatment, each on its own ground so she can tell them apart:
+
+     A  The Correspondence Line — sable.   The /contact field grammar: a
+        tracked-caps label over one full-width hairline underline, the
+        subscribe a quiet caps link. No box, no pill.
+     B  The Lit Entry — noir.   The form alone as the room's hero, centred,
+        champagne accents (the /home-v2 lab cut's register).
+     C  The Letterpress Card — ivory.   The round-1 guest register
+        re-grounded: a bordered stationery card, centred lockup, one ruled
+        entry, a fine-print mark.
+     D  The Editorial Split Row — champagne.   Today's field re-proportioned:
+        one joined row, the champagne button at the field's right end.
+
+   The variants are plain sf-rooms (no round-2 modifier), so each sets its
+   ground and its five roles directly; the roles are the measured pairs of
+   §1. When she picks, the winner folds into HomeNewsletter and this whole
+   section of the sheet is deleted. DOM: newsletter-variants.tsx.
+   ======================================================================== */
+.sf-homepage.sf-homepage-v2 :is(.sf-nlv--a, .sf-nlv--c, .sf-nlv--d) {
+  --room-ink: #1E1C1A;
+  --room-body: var(--charcoal-soft);
+  --room-accent: var(--bronze-wall);
+  --room-rule: var(--hairline-wall);
+  --room-dim: rgb(30 28 26 / .30);
+}
+.sf-homepage.sf-homepage-v2 .sf-nlv--a { --room-bg: var(--wall-sable); }
+.sf-homepage.sf-homepage-v2 .sf-nlv--c { --room-bg: var(--wall-ivory); }
+.sf-homepage.sf-homepage-v2 .sf-nlv--d { --room-bg: var(--wall-champagne); }
+.sf-homepage.sf-homepage-v2 .sf-nlv--b {
+  --room-bg: var(--noir);
+  --room-ink: var(--bone);
+  --room-body: rgb(255 255 255 / .78);
+  --room-accent: var(--champagne);
+  --room-rule: var(--hairline-dark);
+  --room-dim: rgb(255 255 255 / .30);
+}
+
+/* The tag strip — the lab's device, on the variant's own ground. */
+.sf-homepage.sf-homepage-v2 .sf-nlv__tag {
+  margin: 0 0 var(--gap-block);
+  padding-block-end: .875rem;
+  border-block-end: 1px solid var(--room-rule);
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--room-accent);
+}
+.sf-homepage.sf-homepage-v2 .sf-nlv__voice .sf-hp-body { margin-block-start: var(--gap-group); }
+
+/* A and D take the production newsletter's balance: the voice left, the
+   entry right, baseline-aligned on the desk; on handsets they stack. */
+.sf-homepage.sf-homepage-v2 .sf-nlv__grid {
+  display: grid;
+  row-gap: clamp(2.5rem, 6vh, 3.5rem);
+}
+@media (min-width: 1025px) {
+  .sf-homepage.sf-homepage-v2 .sf-nlv__grid {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    column-gap: clamp(3rem, 7vw, 7.5rem);
+    align-items: end;
+  }
+}
+
+/* The shared entry — the underline is a field, not a hairline: the rule is
+   set near the accent's own strength (the round-1 note's .28 wall hairline
+   all but vanished on sable and noir alike — the client's "clearly visible
+   email field" holds here too), and the placeholder speaks on the line.
+   The label keeps her round-2 wish: a visible one. */
+.sf-homepage.sf-homepage-v2 .sf-nlv__label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--room-accent);
+}
+.sf-homepage.sf-homepage-v2 .sf-nlv__entry { display: contents; }
+.sf-homepage.sf-homepage-v2 .sf-nlv__input {
+  width: 100%;
+  border: 0;
+  border-block-end: 1px solid rgb(107 86 56 / .65);   /* ≈ 3.2 : 1 on sable */
+  border-radius: 0;
+  background: none;
+  padding-inline: 0;
+  padding-block: .625rem;
+  font-family: var(--font-sans);
+  font-size: var(--t-lead);
+  color: var(--room-ink);
+  transition: border-color var(--dur-micro) var(--ease);
+}
+.sf-homepage.sf-homepage-v2 .sf-nlv__input::placeholder {
+  color: rgb(30 28 26 / .45);
+}
+.sf-homepage.sf-homepage-v2 .sf-nlv__input:focus {
+  outline: none;
+  border-block-end-color: var(--room-accent);
+}
+.sf-homepage.sf-homepage-v2 :is(.sf-nlv__confirm, .sf-nlv__error) {
+  margin-block-start: 1rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+}
+.sf-homepage.sf-homepage-v2 .sf-nlv__confirm { color: var(--room-body); }
+.sf-homepage.sf-homepage-v2 .sf-nlv__error { color: var(--room-accent); }
+
+/* A — the quiet caps link beneath the line. The entry takes its column's
+   width (the grid above sets the pair); below the desk it stacks with the
+   grid's own gap. */
+.sf-homepage.sf-homepage-v2 .sf-nlv--a .sf-nlv__form { max-width: none; }
+.sf-homepage.sf-homepage-v2 .sf-nlv__link {
+  margin-block-start: 1.25rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--room-accent);
+  cursor: pointer;
+  transition: color var(--dur-micro) var(--ease);
+}
+.sf-homepage.sf-homepage-v2 .sf-nlv__link:hover,
+.sf-homepage.sf-homepage-v2 .sf-nlv__link:focus-visible { color: var(--room-ink); outline: none; }
+.sf-homepage.sf-homepage-v2 .sf-nlv__arrow {
+  display: inline-block;
+  margin-inline-start: .5em;
+  transition: transform var(--dur-micro) var(--ease);
+}
+.sf-homepage.sf-homepage-v2 .sf-nlv__link:hover .sf-nlv__arrow,
+.sf-homepage.sf-homepage-v2 .sf-nlv__link:focus-visible .sf-nlv__arrow { transform: translateX(.3em); }
+
+/* B — the centred lit entry. On noir the rule and the pill take the dark
+   rooms' champagne register (a .22 hairline vanished there); the pill's
+   hover is the dark rooms' champagne fill (the base .sf-btn hover, a noir
+   fill, would vanish on noir). */
+.sf-homepage.sf-homepage-v2 .sf-nlv--b { text-align: center; }
+.sf-homepage.sf-homepage-v2 .sf-nlv--b .sf-nlv__voice { max-width: 34rem; margin-inline: auto; }
+.sf-homepage.sf-homepage-v2 .sf-nlv--b .sf-nlv__form {
+  max-width: 24rem;
+  margin-block-start: var(--gap-block);
+  margin-inline: auto;
+}
+.sf-homepage.sf-homepage-v2 .sf-nlv--b .sf-nlv__input {
+  text-align: center;
+  border-block-end-color: rgb(205 177 144 / .55);
+}
+.sf-homepage.sf-homepage-v2 .sf-nlv--b .sf-nlv__input::placeholder { color: rgb(255 255 255 / .50); }
+.sf-homepage.sf-homepage-v2 .sf-nlv--b .sf-nlv__pill { margin-block-start: 1.75rem; }
+.sf-homepage.sf-homepage-v2 .sf-nlv--b .sf-btn { border-color: rgb(205 177 144 / .45); }
+.sf-homepage.sf-homepage-v2 .sf-nlv--b .sf-btn:hover,
+.sf-homepage.sf-homepage-v2 .sf-nlv--b .sf-btn:focus-visible {
+  background: var(--champagne);
+  border-color: var(--champagne);
+  color: var(--noir);
+}
+
+/* C — the stationery card. The frame is the card: the outer rule sits at
+   the accent's strength (the wall hairline's .28 read as nothing on
+   ivory), the inner one a whisper behind it. The entry is one ruled line
+   on the card's own measure. */
+.sf-homepage.sf-homepage-v2 .sf-nlv--c .sf-nlv__card {
+  position: relative;
+  max-width: 40rem;
+  margin-inline: auto;
+  padding: clamp(2.75rem, 5vw, 4.25rem) clamp(1.5rem, 4vw, 3.5rem);
+  border: 1px solid rgb(107 86 56 / .55);
+  text-align: center;
+}
+.sf-homepage.sf-homepage-v2 .sf-nlv--c .sf-nlv__card::before {
+  content: "";
+  position: absolute;
+  inset: .5rem;
+  border: 1px solid rgb(107 86 56 / .30);
+  pointer-events: none;
+}
+.sf-homepage.sf-homepage-v2 .sf-nlv--c .sf-hp-body { margin-inline: auto; }
+.sf-homepage.sf-homepage-v2 .sf-nlv--c .sf-nlv__form {
+  max-width: 22rem;
+  margin-block-start: var(--gap-block);
+  margin-inline: auto;
+}
+.sf-homepage.sf-homepage-v2 .sf-nlv--c .sf-nlv__pill { margin-block-start: 1.75rem; }
+.sf-homepage.sf-homepage-v2 .sf-nlv__mark {
+  margin-block-start: var(--gap-block);
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--room-body);
+}
+
+/* D — the joined row: the field a filled ivory box with a rule at the
+   accent's strength, the button solid noir at its end (champagne filled
+   would sit on the champagne wall and vanish — the QA pass of 2026-10-24),
+   sharp corners so the two read as one plate. On handsets the row stacks:
+   the field needs its width. */
+.sf-homepage.sf-homepage-v2 .sf-nlv--d .sf-nlv__form { max-width: none; }
+.sf-homepage.sf-homepage-v2 .sf-nlv--d .sf-nlv__label { margin-block-end: .75rem; }
+.sf-homepage.sf-homepage-v2 .sf-nlv--d .sf-nlv__entry { display: flex; }
+.sf-homepage.sf-homepage-v2 .sf-nlv--d .sf-nlv__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 3.5rem;
+  padding-inline: 1.25rem;
+  border: 1px solid rgb(107 86 56 / .60);
+  background: rgb(255 255 255 / .60);
+  font-size: 1rem;
+}
+.sf-homepage.sf-homepage-v2 .sf-nlv--d .sf-nlv__input::placeholder { color: rgb(30 28 26 / .45); }
+.sf-homepage.sf-homepage-v2 .sf-nlv--d .sf-nlv__input:focus {
+  border-color: var(--bronze-wall);
+  background: rgb(255 255 255 / .80);
+}
+.sf-homepage.sf-homepage-v2 .sf-nlv__solid {
+  flex: none;
+  height: 3.5rem;
+  padding-inline: 2rem;
+  border: 0;
+  background: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--paper);
+  cursor: pointer;
+  transition: background-color var(--dur-micro) var(--ease);
+}
+.sf-homepage.sf-homepage-v2 .sf-nlv__solid:hover,
+.sf-homepage.sf-homepage-v2 .sf-nlv__solid:focus-visible { background: var(--bronze-wall); outline: none; }
+.sf-homepage.sf-homepage-v2 .sf-nlv__solid[disabled] { opacity: .6; cursor: default; }
+@media (max-width: 767px) {
+  .sf-homepage.sf-homepage-v2 .sf-nlv--d .sf-nlv__entry { flex-direction: column; gap: .75rem; }
+  .sf-homepage.sf-homepage-v2 .sf-nlv__solid { width: 100%; }
+}

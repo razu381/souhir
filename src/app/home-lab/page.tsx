@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-/** Index of the five homepage recompositions. Unindexed; review only. */
+/** Index of the homepage recompositions. Unindexed; review only. */
 const VERSIONS = [
   {
     href: '/home-v1',
@@ -39,6 +39,12 @@ const VERSIONS = [
     name: 'Les Salons',
     desc: 'The brand rooms as page rhythm. Cognac entry, champagne and sable salons, fig clientele, the works on noir doré, the closer on the gold-black.',
   },
+  {
+    href: '/home-v6',
+    num: 'V6',
+    name: 'La Crème',
+    desc: 'The current homepage itself, re-hung on her champagne and sable grounds with black rooms between. What We Create drops its dark panels: four black-and-white photographs, charcoal text beneath.',
+  },
 ];
 
 export default function HomeLab() {
@@ -47,14 +53,15 @@ export default function HomeLab() {
       <header className="sf-lab-intro">
         <div className="sf-container">
           <p className="sf-lab-intro__label">(Home Lab)</p>
-          <h1 className="sf-lab-intro__title">Five cuts of the same house.</h1>
-          <p className="sf-lab-intro__lede">
-            Five recompositions of the full homepage — the production page is
-            untouched. Section order and chapter numbering stay canonical; what
-            changes is the lighting, the type, and above all the closing
-            movement: interlude, correspondence, closer, redesigned in each
-            cut. Review each as a whole page.
-          </p>
+        <h1 className="sf-lab-intro__title">Six cuts of the same house.</h1>
+        <p className="sf-lab-intro__lede">
+          Six recompositions of the full homepage — the production page is
+          untouched. Section order and chapter numbering stay canonical; what
+          changes is the lighting, the type, and above all the closing
+          movement: interlude, correspondence, closer, redesigned in each
+          cut. Review each as a whole page. V6 is the newest brief: the
+          current page re-grounded, champagne and sable with black rooms.
+        </p>
           <p className="sf-lab-intro__flag">Unindexed — internal review only</p>
         </div>
         <div className="sf-container">
