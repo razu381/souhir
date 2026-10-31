@@ -21,12 +21,148 @@ Statuses: **Decided** (agreed, not yet built) · **Built** (live or in code) ·
 | Q6 | The client offered a call on Fri 9 Oct, around 7 pm UK. | Developer | Outcome not recorded yet. Add notes here after it. |
 | Q7 | Why doesn't the live site reach Sanity? | Developer | Live, every page renders seed content and `/journal/<slug>` returned 500. Locally, with `.env.local`, Sanity answers and the article pages render. The Netlify environment variables (`NEXT_PUBLIC_SANITY_PROJECT_ID` / `_DATASET`) are likely missing or wrong. Check them in the Netlify UI. |
 | Q8 | Which photo goes in the About closing panel? | Client | She asked for "an atmospheric image panel" but named no photo. The plan uses `Contact /SF Muse on a Marble Notebook.jpg` provisionally. It comes from the Contact folder, so one photo per slot applies. |
-| Q9 | Should the footer be charcoal or black? | Client | Her About colour flow ends with a "charcoal footer". The site-wide footer has been black since 2026-10-07. It stays black until she confirms, because the change would apply to every page. |
+| Q9 | Should the footer be charcoal or black? | Client | **Answered 2026-10-31:** "Please retain the simple black footer." It stays black. |
 | Q10 | Her Services feedback numbers its points 1–4 and 6–8. Was a point 5 left out? | Client | Building the seven we have. |
 | Q11 | The Services closer has no copy in the doc. Can it reuse the doc's CTA headline, "Let's Create Something Worth Remembering.", with "Start a Project"? | Client to confirm | Built with that copy unless she objects. Home and About already use the same headline. |
 | Q12 | Is the Lumière Skin mockup (her Portfolio delivery, a Digital Experience case study in the doc) the "approved SF Muse website or interface" she means for Digital Experiences? | Client to confirm | Built with it. The oyster-shell photo stays on the homepage card. |
+| Q13 | v4: which file is the "new banner photo (black and white)" for the quote? | Client | **Answered 2026-11-01:** `Quote banner .jpeg` (sent again). Built. |
+| Q14 | v4: which is the "studio image" for the closing banner? | Client | **Answered 2026-11-01:** `CTA Banner .jpeg` (a new studio photograph, not our guess). Built. |
+| Q15 | v4: what are the URLs of the three magazine features? | Client | **Partly answered 2026-11-01:** she sent the magazines' homepages (artegomagazine.com, quadromagazine.com), not the features. The covers link to them; swap in feature URLs if she has them. |
+| Q16 | v4: where does the new Digital MALVIE cover go, and what issue is it? | Client | **Answered 2026-11-01:** `/editorial` only; issue 27/10/26, with a description, credits and a link. Built as the page's "Latest Feature". |
+| Q17 | v4: is the light ground champagne `#EFE6D8` or ivory `#F5F0E7`? Is What We Create charcoal or black? | Client | **Answered 2026-11-01:** champagne, "consistent throughout the website"; What We Create is black with lighter cards. Home and About are done. Services (sable) and the round-1 pages (bone) follow in their own rounds. |
+| Q18 | v4: where should newsletter sign-ups go? | Client | **Answered 2026-11-01:** stay in the studio for now. She asked for export and for consent and privacy information: consent is built; the Privacy Policy is Q20. |
+| Q20 | Her approved Privacy Policy text (the v3 doc: "publish working approved pages only"). | Client | The newsletter's consent line links to it once the page exists. The contact form needs it too. |
+| Q19 | v4: can the "Powered by Netlify" badge be removed? | Developer, then client | It's the free tier's HUD script (`data-account-tier="free"`). Check Netlify settings first, then ask about a plan or domain. |
 
 ---
+
+## 2026-11-01 — Client answers to v4, and the build that follows
+
+- **Quote banner:**
+  - Her black-and-white tweed portrait (`Quote banner .jpeg`; it's in
+    `latest v3/` now).
+  - Hung whole at 2.5 : 1, with the quote in its black right half.
+  - The italic beat is champagne.
+  - Handsets show her portrait at 4:5, with the words on black beneath it.
+- **Closing banner:**
+  - Her studio photograph (`CTA Banner .jpeg`), hung whole.
+  - The rail stays on the dark wall: the paragraph, then a filled champagne
+    "Start a Project" beneath it, for her "button visibility" note.
+  - The handset crop centres on the softbox, so the chandelier isn't behind
+    the headline.
+- **Covers:** they link to the magazines' sites she sent.
+- **MALVIE:** a "Latest Feature" section on `/editorial` (02; the archive
+  is now 03), with:
+  - the cover (her PNG, cropped to the cover)
+  - her title, description and credits
+  - "Read the Feature", which opens malvie.fr.
+- **Colour:**
+  - Champagne is now the shared light ground, so About's ivory rooms are
+    champagne too.
+  - The homepage's dark rooms are noir. About keeps its charcoal and brown.
+- **Newsletter consent:**
+  - A required opt-in checkbox, also enforced by the server.
+  - The exact wording is stored on each subscriber as `consent`, in a new
+    read-only schema field; the date is `createdAt`.
+  - The Studio has a "Newsletter subscribers" list.
+  - Export works through the Vision tool (a GROQ query, JSON out). CSV
+    would need a small extra, if she wants it.
+  - Unsubscribing is manual: delete the subscriber's document.
+- **Fixed:** the cover links' sr-only note had escaped the handset swipe
+  strip and widened the page by 232px; the link now has a positioning
+  context.
+- **Status:** Built locally. No horizontal overflow on `/`, `/editorial` or
+  `/about` at 390 or 768.
+
+## 2026-11-01 — Homepage v4 built (local, not committed)
+
+- **Backgrounds:** every homepage section now takes one of two grounds,
+  set once in `home.css` §1 (`--home-light`, `--home-dark`):
+  - Light: champagne `#EFE6D8` (her "ivory").
+  - Dark: noir `#0A0A0A`.
+  - About, Editorial and What We Create are black; What We Create keeps
+    its charcoal card panels.
+  - The About page's own walls are untouched; it still renders ivory,
+    charcoal and brown.
+  - Q17's answer is a one-line change to these values.
+- **Newsletter D:** built into `HomeNewsletter`:
+  - Light ground, a visible "Email" label, and a joined field and noir
+    button.
+  - The row stacks below 768px.
+  - Same server action as before.
+- **Removed:** `/home-v6`, `sf/home-v2.css` and their lab and robots
+  entries.
+- **Copy:** her Editorial intro, the three cover descriptions and the
+  Journal intro, all verbatim.
+  - The press and journal statements are shared, so `/editorial` and
+    `/journal` show the new intros too (checked).
+  - Covers take an optional `href` (seed, plus Sanity's `url` field) and
+    link out in a new tab when one is set. None is set yet (Q15).
+- **Images:**
+  - `journal-card-luxury-gallery` (her checkerboard gallery, a centred
+    4:5 crop) replaces `luxury-culture`, which is deleted.
+  - `service-card-digital` now comes from her retouched PNG.
+  - The bake drops the alpha channel on non-signature plates.
+- **Type:**
+  - The reading voice is 16–17px (it was 15px below 1619px).
+  - Labels are 12px on the homepage and in the footer (were 11px).
+  - Credit names are 15px (also on `/portfolio`).
+  - Selected Works titles use the card title size.
+  - Measured: nothing on `/` is below 15px except the 12px labels.
+- **Alignment:**
+  - What We Create titles reserve two lines, so the descriptions line up.
+  - Who We Work With: the statement is wider and balanced, and "Different
+    Worlds" has its own Didone heading with reading-size paragraphs.
+  - The About signature rule runs the paragraph's measure.
+  - The Journal masthead splits evenly, with the intro at 18px.
+  - The press intro sits on a wider measure.
+- **Footer:**
+  - The wordmark spans the container edge to edge, sized in `cqi` with the
+    S's side bearing pulled back.
+  - The email sits a step below the social links.
+- **Checked:**
+  - No horizontal overflow at 390, 768, 1024 or 1440px.
+  - Every internal link on `/` returns 200, and the journal cards open
+    `/journal/<slug>` locally.
+  - `next build` is clean.
+- **Not done (waiting):**
+  - The quote photo (Q13) and the closing photo (Q14).
+  - Cover URLs (Q15) and social URLs (Q5).
+  - Sanity on Netlify, so the live journal links and forms work (Q7).
+  - The badge (Q19).
+  - The newsletter was not test-submitted, because that writes to Sanity.
+- **Status:** Built locally; not committed or deployed.
+
+## 2026-10-31 — Client feedback "v4": final visual refinements (homepage)
+
+- **Her direction:** refine, don't restructure. The work is typography,
+  alignment, image proportions, spacing, and one black, ivory and gold
+  palette. Approved copy stays. The new copy is the Editorial Recognition
+  intro, three cover descriptions and a longer Journal intro.
+- **Our reading:** she combined `/home-v6` and the live page:
+  - From V6: About black, Editorial black, newsletter D.
+  - From the live page: What We Create dark.
+  - So v4 is the live components on V6's grounds, What We Create kept dark,
+    and sable retired. `/home-v6` is deleted once v4 ships.
+- **Images:**
+  - The checkerboard gallery replaces "Why Luxury Is No Longer About Price":
+    `Why luxury is not about price .png`, supplied 31 Oct.
+  - The quote gets a new black-and-white photo (not supplied, Q13).
+  - The closing banner gets her "studio image" (not identified, Q14).
+  - She sent three images with the email: the gallery, a retouched
+    "Digital Experience" photo (the same shot as the What We Create card,
+    at 5000×7500, so it replaces the card's file), and a Digital MALVIE
+    cover the email doesn't mention (Q16). None of them is the quote banner
+    or the studio image.
+- **Footer:** stays black, which answers Q9.
+- **Technical:**
+  - Responsive layouts, images, links and the newsletter.
+  - The badge is Netlify's free-tier HUD script (Q19).
+  - Journal links and the forms need Sanity on Netlify (Q7).
+- **Plan:** `docs/plans/14-homepage-v4.md` (local only). The questions are
+  Q13–Q19.
+- **Decided by:** client (requests) and developer (reading and defaults) ·
+  **Status:** Decided; nothing built yet. Waiting on Q13–Q19.
 
 ## 2026-10-24 — Homepage V6: her champagne/sable/black scheme, as an experiment
 

@@ -35,6 +35,27 @@ _Last updated: 2026-10-17 (the homepage is rebuilt on the v3 final content, loca
 | Review labs | `/hero-lab`, `/hero-lab-v2`, `/home-lab`, `/home-v1` … `/home-v5` | Internal pages, not indexed, which the client sometimes reviews. |
 | Signature | `images/SF images  new/Home page /ChatGPT Image May 13, 2026 at 08_02_28 PM.png` | Her supplied signature, byte-identical to `images/souhir-fhima-neon-signature.png`. It is a **transparent PNG** of champagne strokes; the grey "wall" some viewers show is hidden colour under alpha 0. Use it directly: the bake only crops and resizes it (`public/assets/home/signature-*`), and refills it in bronze for About's ivory (`public/assets/about/signature-ink-*`). Never drop its alpha and key it. |
 
+## Latest (2026-11-01)
+
+The client's homepage "v4" round (plan: `docs/plans/14-homepage-v4.md`, local
+only) is **built locally, not committed**. The latest build has her
+answers (DECISION-LOG 2026-11-01):
+- Her quote and closing photographs.
+- The cover links.
+- The MALVIE "Latest Feature" on `/editorial`.
+- Champagne as the shared light ground (Home and About).
+- Newsletter consent, plus the Studio's "Newsletter subscribers" list.
+
+Still open:
+- Instagram and LinkedIn URLs (Q5).
+- Her Privacy Policy (Q20).
+- Feature URLs, if they differ from the magazines' homepages (Q15).
+- Sanity on Netlify, needed for the live forms, journal links and studio
+  (Q7).
+- The badge (Q19).
+- The champagne light ground on Services and the round-1 pages (their own
+  rounds).
+
 ## Where things stand (2026-10-12)
 
 **Live now:**
