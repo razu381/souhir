@@ -1,14 +1,13 @@
 'use client';
 
 /**
- * HomeNewsletter — round 2 (Oct 2026). The client: the newsletter and the
- * closing banner wore near-identical lounge photographs; "a clean charcoal
- * newsletter section with ivory text and a clearly visible email field would
- * work well, leaving the cinematic image for the final project invitation."
- *
- * So: no photograph. The voice on the left, the entry on the right — a
- * visible label, a filled field with a real border, a solid champagne
- * button. Same server action as before (honeypot + kind=newsletter).
+ * HomeNewsletter — v4 (client, 31 Oct 2026): option D from the /home-v6
+ * review, "the ivory background and horizontal layout". The voice on the
+ * left, the entry on the right: a visible label over one joined row, a
+ * filled field and a solid noir button (champagne would vanish on the light
+ * wall). The row stacks on handsets so the field keeps its width. Beneath
+ * it, the explicit opt-in (her consent request, 1 Nov 2026).
+ * Same server action as before (honeypot + kind=newsletter).
  */
 import { useActionState } from 'react';
 import { submitMessage, type FormState } from '@/app/actions';
@@ -20,11 +19,11 @@ import type { Head } from '@/content/seed';
 
 const initial: FormState = { status: 'idle' };
 
-export default function HomeNewsletter({ head, text }: { head: Head; text: string }) {
+export default function HomeNewsletter({ head, text, consent }: { head: Head; text: string; consent: string }) {
   const [state, action, pending] = useActionState(submitMessage, initial);
 
   return (
-    <section className="sf-section sf-room sf-room--charcoal sf-hp-news" id="news">
+    <section className="sf-section sf-room sf-room--ivory sf-hp-news" id="news">
       <div className="sf-container">
         <Chapter label="(Newsletter)" num={CHAPTER.correspondence} />
         <div className="sf-hp-news__grid">
@@ -58,6 +57,7 @@ export default function HomeNewsletter({ head, text }: { head: Head; text: strin
                     id="sf-hp-news-email"
                     name="email"
                     type="email"
+                    placeholder="Email address"
                     autoComplete="email"
                     required
                   />
@@ -65,6 +65,10 @@ export default function HomeNewsletter({ head, text }: { head: Head; text: strin
                     {pending ? 'Sending' : 'Subscribe'}
                   </button>
                 </div>
+                <label className="sf-hp-news__consent">
+                  <input type="checkbox" name="consent" value="yes" required />
+                  <span>{consent}</span>
+                </label>
                 {state.status === 'error' && (
                   <p className="sf-hp-news__error" role="alert">
                     {state.message}

@@ -142,7 +142,7 @@ export type JournalRow = {
 
 export type JournalFeature = Omit<JournalRow, 'num'> & { read: string };
 
-export type PressCover = { publication: string; caption: string; issue?: string; image: Plate };
+export type PressCover = { publication: string; caption: string; issue?: string; desc?: string; href?: string | null; image: Plate };
 
 export type HomeContent = {
   hero: typeof seed.hero;
@@ -232,6 +232,7 @@ export async function getHomeData(): Promise<HomeContent> {
         .map((p, i) => ({
           publication: p.publication ?? '',
           caption: p.caption ?? `Cover Feature — ${p.publication}${p.date ? `, ${p.date}` : ''}`,
+          href: p.url ?? null,
           image:
             sanityPlate(p.cover, [600, 900], [3, 4], '(min-width: 1025px) 18vw, 30vw') ??
             seed.press.covers[i % seed.press.covers.length].image,

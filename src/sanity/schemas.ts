@@ -331,6 +331,14 @@ export const message = defineType({
       options: { list: ['contact', 'newsletter'], layout: 'radio' },
     }),
     defineField({ name: 'createdAt', type: 'datetime', readOnly: true }),
+    defineField({
+      name: 'consent',
+      title: 'Consent given',
+      type: 'text',
+      rows: 2,
+      readOnly: true,
+      description: 'Newsletter only: the wording the subscriber agreed to. The date is "Created at".',
+    }),
   ],
   preview: {
     select: { title: 'email', subtitle: 'kind', media: 'kind' },

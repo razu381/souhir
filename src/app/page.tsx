@@ -12,7 +12,7 @@ import {
   HomeQuote,
 } from '@/components/sf/HomeRooms';
 import { getHomeData } from '@/sanity/fetch';
-import { hero as seedHero } from '@/content/seed';
+import { hero as seedHero, news as seedNews } from '@/content/seed';
 
 export const revalidate = 600;
 
@@ -24,8 +24,9 @@ export default async function Home() {
 
   return (
     // sf-homepage scopes sf/home.css: the hero stays black, the rooms below
-    // alternate warm ivory and charcoal (deep brown once), and every text
-    // block follows the client's reference setting (DESIGN-DIRECTION §02).
+    // alternate one light ground (champagne, her "ivory") and black (v4,
+    // Nov 2026), and every text block follows the client's reference
+    // setting (DESIGN-DIRECTION §02).
     <main id="main" className="sf-homepage">
       {/* The statue-shadow photograph, full-bleed (the copy: "full-screen
           imagery"). Round 2 keeps her figure clear of any overlay — see the
@@ -49,7 +50,7 @@ export default async function Home() {
       <HomePress data={data.press} />
       <HomeJournal data={data.journal} />
       <HomeQuote data={data.interlude} />
-      <HomeNewsletter head={data.news.head} text={data.news.text} />
+      <HomeNewsletter head={data.news.head} text={data.news.text} consent={seedNews.consent} />
       <ClosingCard
         head={data.cta.head}
         text={data.cta.text}

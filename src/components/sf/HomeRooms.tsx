@@ -4,8 +4,8 @@
  * DECISION-LOG.md 2026-10-09 / 2026-10-10.
  *
  * Each room is composed for its own content rather than one structure
- * repeated: image sides alternate down the page, the grounds alternate warm
- * ivory and charcoal (deep brown once, for the founder), and every text block
+ * repeated: image sides alternate down the page, the grounds alternate one
+ * light ground and black (v4, Nov 2026 — home.css §1), and every text block
  * follows the client's reference setting (DESIGN-DIRECTION §02 addendum).
  * Styles live in sf/home.css, scoped to <main class="sf-homepage">.
  *
@@ -61,7 +61,7 @@ export function HomeExplore({ data }: { data: HomeContent['explore'] }) {
   );
 }
 
-/* --- 02 — WHAT WE CREATE (charcoal) ------------------------------------------
+/* --- 02 — WHAT WE CREATE (black, charcoal cards — v4) ------------------------
    The doc's label is the section's headline (since the Services update it
    gives no other). The four services as visual cards: the photograph
    uncovered at the top, the numeral, title, line and an always-visible
@@ -130,9 +130,9 @@ export function HomeClients({ data }: { data: HomeContent['clientele'] }) {
           </div>
           {data.worlds && (
             <Reveal className="sf-hp-clients__worlds" delay={180}>
-              <h3 className="sf-hp-client__title">{data.worlds.title}</h3>
+              <h3 className="sf-hp-clients__worlds-title">{data.worlds.title}</h3>
               {data.worlds.text.map((t) => (
-                <p className="sf-hp-client__desc" key={t.slice(0, 24)}>
+                <p className="sf-hp-clients__worlds-text" key={t.slice(0, 24)}>
                   {t}
                 </p>
               ))}
@@ -153,13 +153,13 @@ export function HomeClients({ data }: { data: HomeContent['clientele'] }) {
   );
 }
 
-/* --- 04 — ABOUT SF MUSE (deep brown) ------------------------------------------
+/* --- 04 — ABOUT SF MUSE (black, v4) -------------------------------------------
    One composition: the portrait (its treatment unchanged), and beside it the
    refrain, the sentence, her own signature over her name and role, and the
    way to the philosophy — the text block sits on the portrait's foot. */
 export function HomeFounder({ data }: { data: HomeContent['founder'] }) {
   return (
-    <section className="sf-section sf-room sf-room--brown sf-hp-founder" id="founder">
+    <section className="sf-section sf-room sf-room--charcoal sf-hp-founder" id="founder">
       <div className="sf-container">
         <Chapter label="(About SF Muse)" num={CHAPTER.founder} />
         <div className="sf-hp-founder__grid">
@@ -210,10 +210,11 @@ export function HomeWork({ data }: { data: HomeContent['work'] }) {
   );
 }
 
-/* --- 06 — EDITORIAL RECOGNITION (charcoal) -------------------------------------
+/* --- 06 — EDITORIAL RECOGNITION (black, v4) -------------------------------------
    The covers given presence: one row, equal height, deliberate spacing, each
-   captioned by publication and issue. The chapter label is the room's name
-   (the copy gives it no other headline). */
+   captioned by publication and issue, then her short description (v4). A
+   cover links out to its feature when it has a URL; without one it hangs
+   still. The chapter label is the room's name. */
 export function HomePress({ data }: { data: HomeContent['press'] }) {
   return (
     <section className="sf-section sf-room sf-room--charcoal sf-hp-press" id="press">
@@ -228,12 +229,20 @@ export function HomePress({ data }: { data: HomeContent['press'] }) {
             return (
               <Reveal as="li" className="sf-hp-cover" key={c.image.src} delay={i * 120}>
                 <figure className="sf-hp-cover__figure">
-                  <span className="sf-hp-cover__print">
-                    <Picture plate={c.image} />
-                  </span>
+                  {c.href ? (
+                    <a className="sf-hp-cover__print" href={c.href} target="_blank" rel="noopener noreferrer">
+                      <Picture plate={c.image} />
+                      <span className="sf-sr-only"> (opens the feature in a new tab)</span>
+                    </a>
+                  ) : (
+                    <span className="sf-hp-cover__print">
+                      <Picture plate={c.image} />
+                    </span>
+                  )}
                   <figcaption className="sf-hp-cover__caption">
                     <span className="sf-hp-cover__pub">{c.publication}</span>
                     <span className="sf-hp-cover__issue">{issue}</span>
+                    {c.desc && <span className="sf-hp-cover__desc">{c.desc}</span>}
                   </figcaption>
                 </figure>
               </Reveal>

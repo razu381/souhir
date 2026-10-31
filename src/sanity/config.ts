@@ -23,6 +23,15 @@ const structure: StructureResolver = (S) =>
       S.documentTypeListItem('pressFeature').title('Press'),
       S.divider(),
       S.documentTypeListItem('message').title('Correspondence'),
+      // v4: the newsletter sign-ups on their own, newest first.
+      S.listItem()
+        .title('Newsletter subscribers')
+        .child(
+          S.documentTypeList('message')
+            .title('Newsletter subscribers')
+            .filter('_type == "message" && kind == "newsletter"')
+            .defaultOrdering([{ field: 'createdAt', direction: 'desc' }]),
+        ),
     ]);
 
 export default defineConfig({

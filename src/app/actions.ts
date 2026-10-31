@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { createWriteClient } from '@/sanity/writeClient';
+import { news } from '@/content/seed';
 
 export type FormState = { status: 'idle' | 'sent' | 'error'; message?: string };
 
@@ -21,6 +22,11 @@ export async function submitMessage(
   if (!EMAIL.test(email)) {
     return { status: 'error', message: 'A valid email address, please.' };
   }
+  // A subscriber opts in explicitly (v4): the box is required in the form,
+  // and checked again here, where it can't be skipped.
+  if (kind === 'newsletter' && formData.get('consent') !== 'yes') {
+    return { status: 'error', message: 'Please tick the box to confirm you would like our emails.' };
+  }
   const name = String(formData.get('name') ?? '').trim().slice(0, 200);
   const message = String(formData.get('message') ?? '').trim().slice(0, 5000);
 
@@ -39,6 +45,8 @@ export async function submitMessage(
       name,
       email,
       message,
+      // The wording they agreed to, from the server's copy (never the form's).
+      ...(kind === 'newsletter' && { consent: news.consent }),
       createdAt: new Date().toISOString(),
     });
     // A new message never changes the public pages; refresh the correspondence

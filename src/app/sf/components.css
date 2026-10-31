@@ -1588,7 +1588,7 @@
 .sf-work__credit dd {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: .875rem;
+  font-size: .9375rem;
   line-height: 1.5;
   color: rgb(255 255 255 / .82);
 }
@@ -1757,6 +1757,99 @@
 @media (max-width: 1024px) {
   .sf-press__covers .sf-press__caption { display: none; }
   .sf-press__caption--shared { margin-block-start: 1rem; }
+}
+
+/* --- The latest feature (/editorial, v4 — MALVIE Digital, Nov 2026) ----------
+   One feature hung with its words: the cover at the left in the homepage
+   covers' print frame (shadow + champagne hairline), her title, line and
+   credits beside it, the way out to the publication last. Shares the press
+   salon's ground until the Editorial page has its own round. */
+.sf-press-feature { padding-block-start: 0; }
+.sf-press-feature__grid {
+  display: grid;
+  row-gap: clamp(2.25rem, 6vh, 3rem);
+  margin-block-start: clamp(2rem, 5vh, 3rem);
+}
+@media (min-width: 1025px) {
+  .sf-press-feature__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    column-gap: clamp(3rem, 7vw, 7.5rem);
+    align-items: center;
+  }
+}
+.sf-press-feature__cover a {
+  position: relative;   /* holds the sr-only note */
+  display: block;
+  box-shadow:
+    0 1.75rem 3.5rem -1.5rem rgb(20 16 13 / .45),
+    0 0 0 1px rgb(205 177 144 / .45);
+  transition: box-shadow var(--dur-base) var(--ease);
+}
+.sf-press-feature__cover a:is(:hover, :focus-visible) {
+  outline: none;
+  box-shadow:
+    0 1.75rem 3.5rem -1.5rem rgb(20 16 13 / .45),
+    0 0 0 1px var(--bronze);
+}
+.sf-press-feature__cover img { display: block; width: 100%; height: auto; }
+.sf-press-feature__pub {
+  font-family: var(--font-sans);
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+.sf-press-feature__title {
+  margin-block-start: 1rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.25rem, 4vw, 4rem);
+  line-height: 1.04;
+  letter-spacing: -.025em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.sf-press-feature__desc {
+  max-width: 34rem;
+  margin-block-start: 1.5rem;
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 1.15vw, 1.0625rem);
+  line-height: 1.65;
+  color: var(--graphite);
+  text-wrap: pretty;
+}
+.sf-press-feature__credits {
+  display: grid;
+  row-gap: .5rem;
+  max-width: 34rem;
+  margin: 1.75rem 0 0;
+  padding-block-start: 1rem;
+  border-top: 1px solid rgb(127 103 74 / .35);
+}
+.sf-press-feature__credit {
+  display: grid;
+  grid-template-columns: minmax(0, 8.5rem) minmax(0, 1fr);
+  column-gap: 1rem;
+  align-items: baseline;
+}
+.sf-press-feature__credit dt {
+  font-family: var(--font-sans);
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+.sf-press-feature__credit dd {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: .9375rem;
+  color: var(--ink);
+}
+.sf-press-feature .sf-btn {
+  margin-block-start: 2rem;
+  border-color: rgb(127 103 74 / .45);
 }
 
 /* --- The recognition register ------------------------------------------------ */
@@ -2376,7 +2469,7 @@ a.sf-journal__lead:focus-visible .sf-journal__lead-read span { transform: transl
 .sf-footer__link span[aria-hidden] { color: var(--champagne); }
 .sf-footer__link:hover,
 .sf-footer__link:focus-visible { color: var(--champagne); }
-.sf-footer__link--email { display: flex; flex-direction: column; gap: .25rem; }
+.sf-footer__link--email { display: flex; flex-direction: column; gap: .25rem; margin-block-start: .875rem; }
 .sf-footer__email-label {
   font-size: var(--t-label);
   font-weight: 500;
@@ -2386,12 +2479,19 @@ a.sf-journal__lead:focus-visible .sf-journal__lead-read span { transform: transl
 }
 .sf-footer__email { color: var(--bone); overflow-wrap: anywhere; }
 
-/* The outro wordmark — the logo at monument scale, across the container. */
+/* The outro wordmark — the logo at monument scale, "across the full width
+   of the footer" (v3 doc; v4 alignment). Sized from the container's own
+   width (cqi, so a desktop scrollbar can't push it past the edge): the
+   line's ink measures 3.364em (3.411em advance, less the S's .047em side
+   bearing, pulled back so the S sits on the container's left edge), so
+   100cqi / 3.37 lands its last stroke on the right edge. */
+.sf-footer > .sf-container { container-type: inline-size; }
 .sf-footer__mark {
   margin-block-start: clamp(3.5rem, 9vh, 6rem);
+  margin-inline-start: -.047em;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(4.5rem, 23.5vw, 22rem);
+  font-size: calc(100cqi / 3.37);
   line-height: .8;
   letter-spacing: -.035em;
   white-space: nowrap;

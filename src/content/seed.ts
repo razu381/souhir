@@ -292,8 +292,9 @@ const cover = (slug: string, alt: string) =>
 export const press = {
   label: 'Editorial Recognition',
   head: ['Where Vision ', 'Earns Recognition.'] as Head,
+  // v4 (client, 31 Oct 2026): the section's introduction.
   statement:
-    'Selected international editorial recognition.',
+    'An evolving collection of international editorial features celebrating creative expression, visual storytelling and the art of image-making. Each publication reflects a distinct creative collaboration, bringing together photography, styling and artistic direction.',
   stats: [
     ['15+', 'International Publications'],
     ['100+', 'Published Editorial Images'],
@@ -304,6 +305,8 @@ export const press = {
       publication: 'Artego',
       caption: 'Cover Feature — Artego, Dec 2025',
       issue: 'Portrait — December 2025',
+      desc: 'An exploration of contemporary elegance, where expressive styling, portrait photography and artistic direction come together to create a distinctive visual narrative.',
+      href: 'https://artegomagazine.com/' as string | null,
       image: cover('press-artego-dec',
         'Artego magazine cover, Portrait December, issue 1170 — a portrait in black lace and sunglasses.'),
     },
@@ -311,6 +314,8 @@ export const press = {
       publication: 'Artego',
       caption: 'Cover Feature — Artego, Feb 2026',
       issue: 'Portrait — February 2026',
+      desc: 'A study in movement, individuality and modern editorial expression, capturing the relationship between fashion, atmosphere and visual storytelling.',
+      href: 'https://artegomagazine.com/' as string | null,
       image: cover('press-artego-feb',
         'Artego magazine cover, Portrait February, issue 1249 — a black-and-white portrait on a chair at the shoreline.'),
     },
@@ -318,11 +323,31 @@ export const press = {
       publication: 'Quadro',
       caption: 'Cover Feature — Quadro, Dec 2025',
       issue: 'Portrait — December 2025',
+      desc: 'A portrait of timeless sophistication, celebrating personal style, refined aesthetics and the expressive power of fashion imagery.',
+      href: 'https://quadromagazine.com/' as string | null,
       image: cover('press-quadro-dec',
         'Quadro magazine cover, Portrait December, issue 1395 — a portrait in a black feather stole beside a tree.'),
     },
   ],
   sharedCaption: 'Cover Features — Artego · Artego · Quadro',
+};
+
+/** MALVIE Digital — the client's latest feature (1 Nov 2026), for /editorial
+ *  only: the homepage keeps its three covers. Her words, verbatim. */
+export const pressFeature = {
+  label: 'Latest Feature',
+  publication: 'MALVIE Digital',
+  title: 'Strength & Glamour',
+  desc: 'A bold editorial exploring the relationship between femininity, strength and contemporary glamour. Through dramatic styling, expressive beauty and striking photography, the feature celebrates confidence, individuality and the power of visual storytelling.',
+  credits: [
+    ['Photography', 'John Miller'],
+    ['Publication', 'MALVIE Digital'],
+    ['Issue', '27 October 2026'],
+  ] as [role: string, name: string][],
+  href: 'https://www.malvie.fr/post/bold-beauty-john-miller-souhir-fhima',
+  read: 'Read the Feature',
+  image: plate('press-malvie', [600, 900], [900, 1173], '(min-width: 1025px) 36vw, 86vw',
+    'Digital MALVIE cover — Souhir Fhima in boxing gloves and a black veil, “Strength and Glamour in the Ring”, photographed by John Miller.'),
 };
 
 /** The journal's article images, 4:5, from the Journal delivery — the copy:
@@ -332,8 +357,9 @@ const thumb = (slug: string, alt: string) =>
 
 export const journal = {
   head: 'Perspectives on Creativity, Culture & Luxury',
+  // v4 (client, 31 Oct 2026): the longer introduction, beside the heading.
   statement:
-    'Ideas and observations on how visual storytelling, human emotion and intelligent technology are changing the meaning of luxury.',
+    'Exploring the evolving relationship between creativity, culture and luxury. Through thoughtful perspectives on visual storytelling, human emotion, design and intelligent technology, the SF Muse Journal examines the ideas shaping contemporary brands and experiences. A space for inspiration, reflection and a deeper understanding of what makes creativity meaningful.',
   banner: {
     ...plate('journal-banner', [1600, 2400, 3200], [3200, 394], '(min-width: 1440px) 1440px, 100vw',
       'An editorial desk at sunset — contact sheets, an open notebook and a camera above the city skyline.'),
@@ -354,7 +380,7 @@ export const journal = {
       title: 'Why Luxury Is No Longer About Price',
       desc: 'Experience. Emotion. Meaning. The new language of luxury.',
       href: null as string | null,
-      image: thumb('luxury-culture', 'A long gallery corridor of marble floors, sculpture and gilt-framed paintings.'),
+      image: thumb('luxury-gallery', 'A classical sculpture gallery — coffered arches, columns and marble statues over a black-and-white checkerboard floor.'),
     },
     {
       title: 'The Psychology of Visual Desire',
@@ -374,10 +400,10 @@ export const journal = {
 
 export const interlude = {
   image: {
-    ...plate('quote', [1600, 2400, 3200], [3200, 1455], '100vw',
-      'A woman in a white gown standing alone at the end of a long marble colonnade.'),
-    mobile: plate('quote-mobile', [800, 1200], [1200, 1600], '100vw',
-      'A woman in a white gown standing alone at the end of a long marble colonnade.'),
+    ...plate('quote', [1600, 2400, 3200], [3200, 1280], '100vw',
+      'Souhir Fhima in a tweed jacket on a dark staircase, her hand at her ear, in black and white.'),
+    mobile: plate('quote-mobile', [800, 1200], [1200, 1500], '100vw',
+      'Souhir Fhima in a tweed jacket on a dark staircase, her hand at her ear, in black and white.'),
   } as Plate,
   quote: ['People rarely remember what they saw.', 'They remember how they felt.'] as Head,
   cite: 'Souhir Fhima',
@@ -386,6 +412,10 @@ export const interlude = {
 
 export const news = {
   head: ['Curated Perspectives. ', 'Delivered Occasionally.'] as Head,
+  /** The opt-in (v4, client 1 Nov 2026: "appropriate consent"). The server
+   *  stores this exact wording on each subscriber; add the Privacy Policy
+   *  link once her approved policy page exists. */
+  consent: 'I agree to receive occasional emails from SF Muse and understand I can unsubscribe at any time.',
   text: 'A few reflections on luxury, creativity and brand presence. Subscribe for Journal updates.',
   image: {
     ...plate('newsletter', [1600, 2400], [2400, 1000], '(min-width: 1440px) 1440px, 100vw',
@@ -400,10 +430,10 @@ export const cta = {
   text: 'Whether you are launching an identity, commissioning a campaign, developing a website or seeking a more coherent marketing presence, we would love to hear what you are building.',
   cta: { label: 'Start a Project', href: '/contact' },
   image: {
-    ...plate('cta', [1600, 2324], [2324, 1033], '100vw',
-      'A lounge at night above the city lights — an armchair, a low table with an open book, a brass lamp.'),
-    mobile: plate('cta-mobile', [775], [775, 1033], '100vw',
-      'A lounge at night above the city lights — an armchair, a low table with an open book, a brass lamp.'),
+    ...plate('cta', [1600, 2400, 3200], [3200, 1790], '100vw',
+      'A photography studio in late light — softboxes on stands, a crystal chandelier and tall factory windows.'),
+    mobile: plate('cta-mobile', [800, 1200], [1200, 1600], '100vw',
+      'A photography studio in late light — softboxes on stands, a crystal chandelier and tall factory windows.'),
   } as Plate,
 };
 

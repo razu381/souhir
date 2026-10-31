@@ -73,7 +73,8 @@ const PLATES = [
   // What We Create — the four as tall cards (3:4).
   { slug: 'service-card-brand-presence',     src: 'services /Art_of_Brand.jpg',             ratio: [3, 4], steps: [480, 800, 1200] },
   { slug: 'service-card-creative-direction', src: 'services /Creative_Direction.jpg',       ratio: [3, 4], steps: [480, 800, 1200], focus: [0.5, 0.45] },
-  { slug: 'service-card-digital',            src: 'services /Digital Experience .jpeg',      ratio: [3, 4], steps: [480, 800, 1200] },
+  // v4 (Nov 2026): her retouch of the same shot, 5000×7500 (a PNG at the delivery's root).
+  { slug: 'service-card-digital',            src: '../Digital Experience .png',              ratio: [3, 4], steps: [480, 800, 1200] },
   { slug: 'service-card-growth',             src: 'services /Intelligent Growth .jpeg',      ratio: [3, 4], steps: [480, 800, 1200] },
   // About SF Muse — her supplied signature, as is (champagne on transparency).
   { slug: 'signature', src: 'ChatGPT Image May 13, 2026 at 08_02_28 PM.png', alpha: true,
@@ -81,7 +82,8 @@ const PLATES = [
   // Journal — the copy's note: "use the same images … for the journal page",
   // so the homepage preview reads from the Journal delivery.
   { slug: 'journal-card-invisible-luxury',      src: '../Journal /Invisible_Luxury.jpg',      ratio: [4, 5], steps: [600, 900, 1200, 1600], focus: [0.5, 0.42] },
-  { slug: 'journal-card-luxury-culture',        src: '../Journal /Luxury_Culture.jpg',        ratio: [4, 5], steps: [600, 900] },
+  // v4 (Nov 2026): her checkerboard gallery replaces Luxury_Culture; centred, so the perspective stays symmetric.
+  { slug: 'journal-card-luxury-gallery',        src: '../Why luxury is not about price .png', ratio: [4, 5], steps: [600, 900] },
   { slug: 'journal-card-visual-desire',         src: '../Journal /Visual_Desire.jpg',         ratio: [4, 5], steps: [600, 900] },
   { slug: 'journal-card-creative-intelligence', src: '../Journal /Creative_Intelligence.jpg', ratio: [4, 5], steps: [600, 900], focus: [0.5, 0.4] },
 
@@ -113,6 +115,9 @@ const PLATES = [
   { slug: 'press-artego-feb', src: 'Editorial features /Artego 1.jpg', ratio: null, steps: [600, 900] },
   { slug: 'press-artego-dec', src: 'Editorial features /Artego.jpg',   ratio: null, steps: [600, 900] },
   { slug: 'press-quadro-dec', src: 'Editorial features /Quadro.jpg',   ratio: null, steps: [600, 900] },
+  // v4 (Nov 2026): MALVIE Digital, for /editorial only (the homepage keeps
+  // three). Her PNG sets the cover on a white margin; the box is the cover.
+  { slug: 'press-malvie', src: '../Souhir_Malvie_Photoshop-2.png', box: { left: 66, top: 79, width: 1733, height: 2259 }, steps: [600, 900] },
 
   // 07 Journal — the featured editorial and the three additional articles.
   { slug: 'journal-invisible-luxury', src: 'Articles /Invisible_Luxury.jpg',         ratio: [4, 5], steps: [600, 900, 1200], focus: [0.5, 0.6] },
@@ -123,15 +128,19 @@ const PLATES = [
   // Bands — art-directed desktop/mobile pairs.
   { slug: 'journal-banner',        src: 'Journal banner_home page .jpg', ratio: null,     steps: [1600, 2400, 3200] },
   { slug: 'journal-banner-mobile', src: 'Journal banner_home page .jpg', ratio: [3, 1],   steps: [800, 1200], focus: [0.55, 0.5] },
-  // The figure stands ~72% across; the crop keeps the dark left half for the quote.
-  { slug: 'quote',                 src: 'quote banner.jpg',              ratio: [11, 5],  steps: [1600, 2400, 3200], focus: [0.61, 0.5] },
-  { slug: 'quote-mobile',          src: 'quote banner.jpg',              ratio: [3, 4],   steps: [800, 1200], focus: [0.72, 0.5] },
+  // v4 (Nov 2026): her black-and-white banner — she stands at the left, the
+  // right half falls to black for the quote. Hung whole on desktop; handsets
+  // take her at 4:5 above the words.
+  { slug: 'quote',                 src: '../Quote banner .jpeg',         ratio: null,     steps: [1600, 2400, 3200] },
+  { slug: 'quote-mobile',          src: '../Quote banner .jpeg',         ratio: [4, 5],   steps: [800, 1200], focus: [0.17, 0.5] },
   { slug: 'newsletter',            src: 'Newsletters _ home page .jpg',  ratio: [12, 5],  steps: [1600, 2400], focus: [0.765, 0.5] },
   { slug: 'newsletter-mobile',     src: 'Newsletters _ home page .jpg',  ratio: [4, 3],   steps: [800, 1200], focus: [0.75, 0.5] },
-  // The closing banner is the delivery's darkest file (mean brightness ~17/255);
-  // round 2 lifts it so the page's close is a photograph, not another dark band.
-  { slug: 'cta',                   src: 'CTA Banner _home page .jpg',    ratio: [9, 4],   steps: [1600, 2400], focus: [0.575, 0.5], tone: 0.72 },
-  { slug: 'cta-mobile',            src: 'CTA Banner _home page .jpg',    ratio: [3, 4],   steps: [800, 1200], focus: [0.65, 0.5], tone: 0.72 },
+  // v4 (Nov 2026): her studio photograph — softboxes, the chandelier, late
+  // light through tall windows; the shadowed wall at the left holds the words.
+  // Hung whole on desktop; handsets crop to the great softbox and the lit
+  // wall — the chandelier's sparkle would sit behind the headline.
+  { slug: 'cta',                   src: '../CTA Banner .jpeg',           ratio: null,     steps: [1600, 2400, 3200] },
+  { slug: 'cta-mobile',            src: '../CTA Banner .jpeg',           ratio: [3, 4],   steps: [800, 1200], focus: [0.4, 0.5] },
 
   // ABOUT, round 2 (docs/plans/12-about-round-2.md §2.3). The hero's draped
   // alcove is a square delivery: square for the desktop panel that bleeds off
@@ -247,6 +256,8 @@ for (const plate of PLATES) {
   const emitted = [];
   for (const step of stepsFor(box.width, plate.steps)) {
     let pipe = sharp(upright).extract(box);
+    // A photo PNG (v4) carries a near-opaque alpha (≥ 222); only the signature keeps one.
+    if (!plate.alpha) pipe = pipe.removeAlpha();
     if (plate.grayscale) pipe = pipe.grayscale();
     pipe = pipe.resize({ width: step });
     if (plate.tone) pipe = await throughRaw(pipe.removeAlpha(), lift(plate.tone));
