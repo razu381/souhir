@@ -38,11 +38,13 @@ _Last updated: 2026-10-17 (the homepage is rebuilt on the v3 final content, loca
 ## Latest (2026-11-01)
 
 The client's homepage "v4" round (plan: `docs/plans/14-homepage-v4.md`, local
-only) is **built locally, not committed**. The latest build has her
-answers (DECISION-LOG 2026-11-01):
+only) is **committed on branch `homepage-v4` and pushed to GitHub, not
+merged to `main`, so not live**. The latest build has her answers
+(DECISION-LOG 2026-11-01):
 - Her quote and closing photographs.
 - The cover links.
-- The MALVIE "Latest Feature" on `/editorial`.
+- The MALVIE "Latest Feature" on `/editorial`, and MALVIE in place of
+  Artego Feb among the homepage covers.
 - Champagne as the shared light ground (Home and About).
 - Newsletter consent, plus the Studio's "Newsletter subscribers" list.
 

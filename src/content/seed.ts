@@ -289,6 +289,48 @@ export const work = {
 const cover = (slug: string, alt: string) =>
   plate(slug, [600, 900], [900, 1165], '(min-width: 1025px) 28vw, (min-width: 768px) 30vw, 72vw', alt);
 
+/* The covers, each defined once. The homepage hangs Artego Dec, MALVIE and
+   Quadro (v4, Nov 2026: MALVIE replaces Artego Feb there); /editorial's
+   wall keeps the three original covers and leads with MALVIE as its
+   Latest Feature, so no cover shows twice on a page. */
+const coverArtegoDec = {
+  publication: 'Artego',
+  caption: 'Cover Feature — Artego, Dec 2025',
+  issue: 'Portrait — December 2025',
+  desc: 'An exploration of contemporary elegance, where expressive styling, portrait photography and artistic direction come together to create a distinctive visual narrative.',
+  href: 'https://artegomagazine.com/' as string | null,
+  image: cover('press-artego-dec',
+    'Artego magazine cover, Portrait December, issue 1170 — a portrait in black lace and sunglasses.'),
+};
+const coverArtegoFeb = {
+  publication: 'Artego',
+  caption: 'Cover Feature — Artego, Feb 2026',
+  issue: 'Portrait — February 2026',
+  desc: 'A study in movement, individuality and modern editorial expression, capturing the relationship between fashion, atmosphere and visual storytelling.',
+  href: 'https://artegomagazine.com/' as string | null,
+  image: cover('press-artego-feb',
+    'Artego magazine cover, Portrait February, issue 1249 — a black-and-white portrait on a chair at the shoreline.'),
+};
+const coverQuadroDec = {
+  publication: 'Quadro',
+  caption: 'Cover Feature — Quadro, Dec 2025',
+  issue: 'Portrait — December 2025',
+  desc: 'A portrait of timeless sophistication, celebrating personal style, refined aesthetics and the expressive power of fashion imagery.',
+  href: 'https://quadromagazine.com/' as string | null,
+  image: cover('press-quadro-dec',
+    'Quadro magazine cover, Portrait December, issue 1395 — a portrait in a black feather stole beside a tree.'),
+};
+/** MALVIE Digital — her words, verbatim (client, 1 Nov 2026). */
+const coverMalvie = {
+  publication: 'MALVIE Digital',
+  caption: 'Cover Feature — MALVIE Digital, Oct 2026',
+  issue: 'Strength & Glamour — October 2026',
+  desc: 'A bold editorial exploring the relationship between femininity, strength and contemporary glamour. Through dramatic styling, expressive beauty and striking photography, the feature celebrates confidence, individuality and the power of visual storytelling.',
+  href: 'https://www.malvie.fr/post/bold-beauty-john-miller-souhir-fhima' as string | null,
+  image: cover('press-malvie',
+    'Digital MALVIE cover — Souhir Fhima in boxing gloves and a black veil, “Strength and Glamour in the Ring”, photographed by John Miller.'),
+};
+
 export const press = {
   label: 'Editorial Recognition',
   head: ['Where Vision ', 'Earns Recognition.'] as Head,
@@ -300,54 +342,29 @@ export const press = {
     ['100+', 'Published Editorial Images'],
     ['8+', 'Original Creative Collaborations'],
   ] as [figure: string, label: string][],
-  covers: [
-    {
-      publication: 'Artego',
-      caption: 'Cover Feature — Artego, Dec 2025',
-      issue: 'Portrait — December 2025',
-      desc: 'An exploration of contemporary elegance, where expressive styling, portrait photography and artistic direction come together to create a distinctive visual narrative.',
-      href: 'https://artegomagazine.com/' as string | null,
-      image: cover('press-artego-dec',
-        'Artego magazine cover, Portrait December, issue 1170 — a portrait in black lace and sunglasses.'),
-    },
-    {
-      publication: 'Artego',
-      caption: 'Cover Feature — Artego, Feb 2026',
-      issue: 'Portrait — February 2026',
-      desc: 'A study in movement, individuality and modern editorial expression, capturing the relationship between fashion, atmosphere and visual storytelling.',
-      href: 'https://artegomagazine.com/' as string | null,
-      image: cover('press-artego-feb',
-        'Artego magazine cover, Portrait February, issue 1249 — a black-and-white portrait on a chair at the shoreline.'),
-    },
-    {
-      publication: 'Quadro',
-      caption: 'Cover Feature — Quadro, Dec 2025',
-      issue: 'Portrait — December 2025',
-      desc: 'A portrait of timeless sophistication, celebrating personal style, refined aesthetics and the expressive power of fashion imagery.',
-      href: 'https://quadromagazine.com/' as string | null,
-      image: cover('press-quadro-dec',
-        'Quadro magazine cover, Portrait December, issue 1395 — a portrait in a black feather stole beside a tree.'),
-    },
-  ],
+  covers: [coverArtegoDec, coverMalvie, coverQuadroDec],
+  // Only /editorial's salon prints this line, under its own three covers.
   sharedCaption: 'Cover Features — Artego · Artego · Quadro',
 };
 
-/** MALVIE Digital — the client's latest feature (1 Nov 2026), for /editorial
- *  only: the homepage keeps its three covers. Her words, verbatim. */
+/** /editorial's cover wall: the three original covers (see above). */
+export const editorialCovers = [coverArtegoDec, coverArtegoFeb, coverQuadroDec];
+
+/** MALVIE Digital as /editorial's Latest Feature: the cover, her
+ *  description, the credits and the way to the feature. */
 export const pressFeature = {
   label: 'Latest Feature',
-  publication: 'MALVIE Digital',
+  publication: coverMalvie.publication,
   title: 'Strength & Glamour',
-  desc: 'A bold editorial exploring the relationship between femininity, strength and contemporary glamour. Through dramatic styling, expressive beauty and striking photography, the feature celebrates confidence, individuality and the power of visual storytelling.',
+  desc: coverMalvie.desc,
   credits: [
     ['Photography', 'John Miller'],
     ['Publication', 'MALVIE Digital'],
     ['Issue', '27 October 2026'],
   ] as [role: string, name: string][],
-  href: 'https://www.malvie.fr/post/bold-beauty-john-miller-souhir-fhima',
+  href: coverMalvie.href as string,
   read: 'Read the Feature',
-  image: plate('press-malvie', [600, 900], [900, 1173], '(min-width: 1025px) 36vw, 86vw',
-    'Digital MALVIE cover — Souhir Fhima in boxing gloves and a black veil, “Strength and Glamour in the Ring”, photographed by John Miller.'),
+  image: plate('press-malvie', [600, 900], [900, 1173], '(min-width: 1025px) 36vw, 86vw', coverMalvie.image.alt),
 };
 
 /** The journal's article images, 4:5, from the Journal delivery — the copy:

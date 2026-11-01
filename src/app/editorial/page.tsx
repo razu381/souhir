@@ -41,7 +41,9 @@ export default async function EditorialPage() {
       />
       <HeaderSentinel />
 
-      <PressSalon data={data.press} chapter={1} />
+      {/* The wall keeps the three original covers; MALVIE, on the homepage's
+          wall since v4, leads below as the Latest Feature instead. */}
+      <PressSalon data={{ ...data.press, covers: seed.editorialCovers }} chapter={1} />
 
       {/* MALVIE Digital (client, 1 Nov 2026): her latest feature, here only —
           the homepage keeps its three covers. The cover and the button open

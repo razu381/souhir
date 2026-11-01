@@ -36,6 +36,18 @@ Statuses: **Decided** (agreed, not yet built) · **Built** (live or in code) ·
 
 ---
 
+## 2026-11-01 — MALVIE replaces Artego Feb on the homepage
+
+- **Decision (developer, for the client):** the homepage's second cover is
+  now MALVIE Digital ("Strength & Glamour — October 2026"), with her
+  description and a link to the feature. Artego Dec and Quadro stay.
+- **/editorial:** its wall keeps Artego Dec, Artego Feb and Quadro, and
+  MALVIE stays its Latest Feature. Every cover appears on the site, and
+  none twice on one page.
+- **Note:** her MALVIE description runs five lines under its cover; the
+  other two run three. Shorten it only if she agrees.
+- **Status:** Built locally.
+
 ## 2026-11-01 — Client answers to v4, and the build that follows
 
 - **Quote banner:**
