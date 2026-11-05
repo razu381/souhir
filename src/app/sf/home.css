@@ -277,7 +277,10 @@
   max-height: 84svh;
   object-fit: cover;
 }
-.sf-homepage .sf-hp-explore__lead { margin-block-start: var(--gap-block); }
+.sf-homepage .sf-hp-explore__lead {
+  margin-block-start: var(--gap-block);
+  --sf-w-dim: var(--room-body);
+}
 .sf-homepage .sf-hp-explore__body .sf-hp-body { margin-block-start: var(--gap-group); }
 .sf-homepage .sf-hp-explore__lead + .sf-hp-body { margin-block-start: clamp(1.5rem, 3vh, 2rem); }
 
@@ -353,7 +356,7 @@
 }
 .sf-homepage .sf-hp-card__desc {
   font-family: var(--font-sans);
-  font-size: .9375rem;
+  font-size: clamp(1rem, 1.15vw, 1.0625rem);
   line-height: 1.6;
   color: rgb(255 255 255 / .78);
 }
@@ -406,7 +409,7 @@
 .sf-homepage .sf-hp-clients__worlds-title {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(1.75rem, 2.5vw, 2.5rem);
+  font-size: clamp(2rem, 2.8vw, 2.75rem);
   line-height: 1.08;
   letter-spacing: -.02em;
   color: var(--room-ink);
@@ -415,7 +418,7 @@
 .sf-homepage .sf-hp-clients__worlds-text {
   max-width: 26rem;
   font-family: var(--font-sans);
-  font-size: clamp(1rem, 1.15vw, 1.0625rem);
+  font-size: clamp(1.0625rem, 1.2vw, 1.125rem);
   line-height: 1.65;
   color: var(--room-body);
   text-wrap: pretty;
@@ -460,7 +463,7 @@
   max-width: 24rem;
   margin-block-start: .75rem;
   font-family: var(--font-sans);
-  font-size: .9375rem;
+  font-size: clamp(1rem, 1.15vw, 1.0625rem);
   line-height: 1.6;
   color: var(--room-body);
 }
