@@ -19,9 +19,7 @@
    ======================================================================== */
 
 .sf-about {
-  /* The fixed header's own box (components.css .sf-header) plus a breath:
-     the hero's photograph starts below it, so the light stone never sits
-     under the paper-white links. */
+  /* The fixed header's own box (components.css .sf-header) plus a breath. */
   --about-header: calc(clamp(1.5rem, 3vh, 2.25rem) * 2 + .6875rem + .75rem);
   --about-pad: clamp(4.5rem, 9vw, 8.5rem);
 }
@@ -113,62 +111,53 @@
 .sf-about-dash { -webkit-text-stroke: 1px currentColor; }
 
 
-/* --- The hero (charcoal) ----------------------------------------------------------
-   Her point 1: "a small photograph placed beside a large text block". The
-   alcove now bleeds off the right edge, from under the header's line to the
-   section's foot, over more than half the width; the words hold the left
-   hand, set low like a cover. The headline is two lines; its second half
-   speaks as the reference setting's second voice — italic, champagne, a
-   quarter of the size — instead of a second line of the same block.
-   Handsets: the photograph first, then the words. */
-.sf-about .sf-about-hero { padding-block: 0; }
+/* --- The hero -----------------------------------------------------------------
+   The studio fills the frame. Its shadowed left wall holds the words;
+   a stronger handset scrim keeps them legible over the portrait crop. */
+.sf-about .sf-about-hero {
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  min-height: clamp(40rem, 100svh, 68rem);
+  padding-block: 0;
+}
 
 .sf-about-hero__figure {
-  margin: var(--about-header) 0 0;
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  margin: 0;
 }
 .sf-about-hero__figure img {
   display: block;
   width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 5;
-  max-height: 72svh;
+  height: 100%;
   object-fit: cover;
-  object-position: 50% 45%;
+  object-position: 50% 50%;
 }
-@media (min-width: 768px) {
-  .sf-about-hero__figure img { aspect-ratio: 1; max-height: 68svh; }
+.sf-about-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(to right, rgb(10 10 10 / .55), rgb(10 10 10 / .15) 52%, transparent 75%);
 }
 .sf-about-hero .sf-container {
-  padding-block: clamp(2.5rem, 7vw, 4rem) clamp(4rem, 10vw, 6rem);
+  position: relative;
+  padding-block: calc(var(--about-header) + 2.5rem) clamp(3.5rem, 9vh, 6rem);
+}
+.sf-about-hero__words { max-width: 32rem; }
+@media (max-width: 1024px) {
+  .sf-about-hero::before {
+    background: linear-gradient(to right, rgb(10 10 10 / .8), rgb(10 10 10 / .45));
+  }
 }
 
 @media (min-width: 1025px) {
   .sf-about .sf-about-hero {
-    /* Where the photograph begins, as a share of the container: the words'
-       column, wider while the screen is narrow. */
     --split: .46;
-    display: flex;
-    align-items: flex-end;
-    min-height: clamp(40rem, 100svh, 68rem);
-  }
-  .sf-about-hero__figure {
-    position: absolute;
-    top: var(--about-header);
-    right: 0;
-    bottom: 0;
-    left: calc(max(0px, (100% - var(--content)) / 2) + var(--gutter)
-      + (min(100%, var(--content)) - 2 * var(--gutter)) * var(--split));
-    margin: 0;
-  }
-  .sf-about-hero__figure .sf-curtain-frame { height: 100%; }
-  .sf-about-hero__figure img {
-    height: 100%;
-    aspect-ratio: auto;
-    max-height: none;
-  }
-  .sf-about-hero .sf-container {
-    position: relative;
-    padding-block: calc(var(--about-header) + 2.5rem) clamp(3.5rem, 9vh, 6rem);
   }
   .sf-about-hero__words {
     width: calc(100% * var(--split) - clamp(2.5rem, 4vw, 4.5rem));
@@ -221,8 +210,7 @@
 .sf-about-hero .sf-about-body { max-width: 32rem; }
 .sf-about-hero__lead + .sf-about-body { margin-block-start: 1.125rem; }
 
-/* The page's first beat: the words rise on load (the photograph opens on its
-   curtain). Gated on .sf-js — no script, no hidden state. */
+/* The words rise on load. Gated on .sf-js — no script, no hidden state. */
 @keyframes sf-about-rise {
   from { opacity: 0; transform: translateY(1.25rem); }
 }

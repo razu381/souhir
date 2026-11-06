@@ -23,8 +23,9 @@ function plate(
   [width, height]: [number, number],
   sizes: string,
   alt: string,
+  format = 'webp',
 ): Plate {
-  const at = (w: number) => `/assets/about/${slug}-${w}.webp`;
+  const at = (w: number) => `/assets/about/${slug}-${w}.${format}`;
   return {
     src: at(widths[widths.length - 1]),
     srcSet: widths.map((w) => `${at(w)} ${w}w`).join(', '),
@@ -38,7 +39,7 @@ function plate(
 const PORTRAIT = [480, 800, 1200, 1600, 2000];
 
 const HERO_ALT =
-  'Silk curtains spilling from a sunlit arched window across the stone floor of a weathered, vaulted room.';
+  'A creative studio with classical columns, a camera on stacked books, a draped mannequin, and a spotlight.';
 
 export const hero = {
   /** The headline, then its second voice (italic, champagne). */
@@ -49,10 +50,10 @@ export const hero = {
     'It is shaped by atmosphere, emotion, perception, and the moments people remember long after an experience ends.',
     'SF Muse exists at the intersection of creativity, strategy, and human connection, crafting brands and experiences designed to inspire, resonate, and endure.',
   ],
-  // Square for the panel that bleeds off the right edge; 4:5 on handsets.
+  // Sizes account for cover scaling on tall screens; handsets use a portrait crop.
   image: {
-    ...plate('hero', [1200, 1600, 2000, 2560], [2560, 2560], '(min-width: 1025px) 58vw, 100vw', HERO_ALT),
-    mobile: plate('hero-mobile', [800, 1200], [1200, 1500], '100vw', HERO_ALT),
+    ...plate('hero', [1200, 1600, 2400, 3200], [3200, 1600], 'max(100vw, 200svh)', HERO_ALT, 'jpg'),
+    mobile: plate('hero-mobile', [800, 1200], [1200, 1600], 'max(100vw, 75svh)', HERO_ALT, 'jpg'),
   } as Plate,
 };
 

@@ -39,12 +39,11 @@ export default function AboutPage() {
 
   return (
     <main id="main" className="sf-about">
-      {/* HERO — the words at the left hand on charcoal; the alcove bleeds off
-          the right edge, from under the header's line to the section's foot. */}
+      {/* HERO — the studio fills the background, with words on its shadowed left. */}
       <section className="sf-section sf-room sf-room--charcoal sf-about-hero">
-        <Reveal as="figure" className="sf-about-hero__figure" curtain>
+        <figure className="sf-about-hero__figure">
           <Picture plate={hero.image} loading="eager" />
-        </Reveal>
+        </figure>
         <div className="sf-container">
           <div className="sf-about-hero__words">
             <h1 className="sf-about-hero__title">

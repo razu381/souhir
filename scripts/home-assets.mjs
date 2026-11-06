@@ -142,13 +142,10 @@ const PLATES = [
   { slug: 'cta',                   src: '../CTA Banner .jpeg',           ratio: null,     steps: [1600, 2400, 3200] },
   { slug: 'cta-mobile',            src: '../CTA Banner .jpeg',           ratio: [3, 4],   steps: [800, 1200], focus: [0.4, 0.5] },
 
-  // ABOUT, round 2 (docs/plans/12-about-round-2.md §2.3). The hero's draped
-  // alcove is a square delivery: square for the desktop panel that bleeds off
-  // the right edge, 4:5 for handsets. The founder in tweed and veil and the
-  // colonnade in fur keep their 3:4 frames as shot — the client asked for the
-  // Philosophy figure whole, head to heels, so it is never cropped.
-  { page: 'about', slug: 'hero',        src: 'About_Hero.jpg',    ratio: [1, 1], steps: [1200, 1600, 2000, 2560] },
-  { page: 'about', slug: 'hero-mobile', src: 'About_Hero.jpg',    ratio: [4, 5], steps: [800, 1200] },
+  // ABOUT — the new studio backdrop keeps its full frame on desktop;
+  // handsets crop around the camera and draped mannequin. Export as JPG.
+  { page: 'about', slug: 'hero',        src: '../about page hero.png', ratio: null, steps: [1200, 1600, 2400, 3200], format: 'jpg' },
+  { page: 'about', slug: 'hero-mobile', src: '../about page hero.png', ratio: [3, 4], steps: [800, 1200], focus: [0.6, 0.5], format: 'jpg' },
   { page: 'about', slug: 'founder',     src: 'Founder_Story.jpg', ratio: null,   steps: [480, 800, 1200, 1600, 2000] },
   { page: 'about', slug: 'philosophy',  src: 'Philosophy.jpg',    ratio: null,   steps: [480, 800, 1200, 1600, 2000, 2400] },
   // Her signature again, keyed in bronze for the ivory ground, where the
@@ -262,11 +259,12 @@ for (const plate of PLATES) {
     pipe = pipe.resize({ width: step });
     if (plate.tone) pipe = await throughRaw(pipe.removeAlpha(), lift(plate.tone));
     if (plate.tint) pipe = await throughRaw(pipe.ensureAlpha(), tint(plate.tint));
-    const { data, info } = await pipe
-      .webp(plate.alpha ? { quality: 90, alphaQuality: 100 } : { quality: QUALITY })
-      .toBuffer({ resolveWithObject: true });
+    pipe = plate.format === 'jpg'
+      ? pipe.jpeg({ quality: 82, mozjpeg: true })
+      : pipe.webp(plate.alpha ? { quality: 90, alphaQuality: 100 } : { quality: QUALITY });
+    const { data, info } = await pipe.toBuffer({ resolveWithObject: true });
     if (info.width > box.width) throw new Error(`upscaled ${plate.slug} to ${info.width} from ${box.width}`);
-    await writeFile(join(OUT, `${plate.slug}-${info.width}.webp`), data);
+    await writeFile(join(OUT, `${plate.slug}-${info.width}.${plate.format ?? 'webp'}`), data);
     emitted.push(`${info.width}×${info.height} ${Math.round(data.length / 1024)}k`);
     total += data.length;
     count += 1;
