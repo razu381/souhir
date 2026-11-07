@@ -142,20 +142,18 @@ const PLATES = [
   { slug: 'cta',                   src: '../CTA Banner .jpeg',           ratio: null,     steps: [1600, 2400, 3200] },
   { slug: 'cta-mobile',            src: '../CTA Banner .jpeg',           ratio: [3, 4],   steps: [800, 1200], focus: [0.4, 0.5] },
 
-  // ABOUT — the new studio backdrop keeps its full frame on desktop;
-  // handsets crop around the camera and draped mannequin. Export as JPG.
-  { page: 'about', slug: 'hero',        src: '../about page hero.png', ratio: null, steps: [1200, 1600, 2400, 3200], format: 'jpg' },
-  { page: 'about', slug: 'hero-mobile', src: '../about page hero.png', ratio: [3, 4], steps: [800, 1200], focus: [0.6, 0.5], format: 'jpg' },
+  // About, November 2026: the client's three new photographs.
+  { page: 'about', slug: 'presence-hero', src: '../hero image  ab v4.png', ratio: null, steps: [800, 1200, 1600, 2400, 3200] },
+  { page: 'about', slug: 'presence-quote', src: '../Quote banner ab v4.png', ratio: null, steps: [800, 1200, 1600, 2400, 3200] },
+  { page: 'about', slug: 'presence-quote-mobile', src: '../Quote banner ab v4.png', ratio: [1, 1], steps: [800, 1200], focus: [0.75, 0.5] },
+  { page: 'about', slug: 'presence-cta', src: '../CTA 1 ab v4.png', ratio: null, steps: [800, 1200, 1600, 2400, 3200] },
+  { page: 'about', slug: 'presence-cta-mobile', src: '../CTA 1 ab v4.png', ratio: [1, 1], steps: [800, 1200], focus: [0.75, 0.5] },
   { page: 'about', slug: 'founder',     src: 'Founder_Story.jpg', ratio: null,   steps: [480, 800, 1200, 1600, 2000] },
-  { page: 'about', slug: 'philosophy',  src: 'Philosophy.jpg',    ratio: null,   steps: [480, 800, 1200, 1600, 2000, 2400] },
   // Her signature again, keyed in bronze for the ivory ground, where the
   // champagne key reads 1.8 : 1.
   { page: 'about', slug: 'signature-ink', src: '../Home page /ChatGPT Image May 13, 2026 at 08_02_28 PM.png', alpha: true,
     tint: [0x6b, 0x56, 0x38],   // --bronze-wall
     box: { left: 290, top: 320, width: 1010, height: 395 }, steps: [640, 1280] },
-  // The closing panel — provisional (DECISION-LOG Q8): the notebook and pen
-  // on marble, from the Contact delivery, hung 4:5 around the notebook.
-  { page: 'about', slug: 'closing',     src: '../Contact /SF Muse on a Marble Notebook.jpg', ratio: [4, 5], steps: [800, 1200, 1600, 2000], focus: [0.76, 0.5] },
 
   // SERVICES — the studio under its spotlight: the delivery's 3:1 banner
   // cropped 16:9 for the desktop hero (the dark left third holds the words),

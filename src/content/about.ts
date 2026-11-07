@@ -1,19 +1,4 @@
-/**
- * The About page — copy and plates.
- *
- * The copy is the client's final website copy
- * (SF_Muse_Website_Copy_Shorter_Updated.docx, ABOUT PAGE), verbatim: every
- * heading, sentence and label the page shows comes from that document, in its
- * order. Two additions are the client's own request (About feedback,
- * 2026-10-09, point 2): her signature, and the line "Souhir Fhima — Founder &
- * Creative Director" under it. The plates are baked from the client's
- * delivery (About page/) by scripts/home-assets.mjs into public/assets/about.
- *
- * Headings are set as hand-broken lines (round 2 — docs/plans/
- * 12-about-round-2.md §2.2): each array entry is one line on desktop.
- *
- * There is no About document in Sanity yet, so the page renders this alone.
- */
+/** About copy: client’s final revision, 7 November 2026; supersedes v4 where different. */
 import type { Plate } from './seed';
 
 /** An About rendition set — widths as baked by scripts/home-assets.mjs. */
@@ -38,23 +23,17 @@ function plate(
 
 const PORTRAIT = [480, 800, 1200, 1600, 2000];
 
-const HERO_ALT =
-  'A creative studio with classical columns, a camera on stacked books, a draped mannequin, and a spotlight.';
-
 export const hero = {
-  /** The headline, then its second voice (italic, champagne). */
-  lines: ['More Than', 'A Studio.'],
-  voice: ['A Philosophy', 'Of Experience.'],
+  label: 'The Perspective Behind SF Muse',
+  lines: ['The Art of Presence.'],
+  voice: ['The Intelligence Behind It.'],
   lead: 'Luxury is not defined by appearance alone.',
   texts: [
     'It is shaped by atmosphere, emotion, perception, and the moments people remember long after an experience ends.',
-    'SF Muse exists at the intersection of creativity, strategy, and human connection, crafting brands and experiences designed to inspire, resonate, and endure.',
+    'SF Muse began with a belief: the most compelling brands are felt as well as seen. An image can win attention. A coherent identity, an intuitive digital experience and thoughtful marketing give that attention direction and meaning.',
   ],
-  // Sizes account for cover scaling on tall screens; handsets use a portrait crop.
-  image: {
-    ...plate('hero', [1200, 1600, 2400, 3200], [3200, 1600], 'max(100vw, 200svh)', HERO_ALT, 'jpg'),
-    mobile: plate('hero-mobile', [800, 1200], [1200, 1600], 'max(100vw, 75svh)', HERO_ALT, 'jpg'),
-  } as Plate,
+  image: plate('presence-hero', [800, 1200, 1600, 2400, 3000], [3000, 1621], '100vw',
+    'Behind the scenes of a fashion shoot, with a camera crew and model in a monochrome studio.'),
 };
 
 export const founder = {
@@ -62,89 +41,72 @@ export const founder = {
   head: ['Where strategy', 'becomes desire'],
   subhead: 'The Language of Presence',
   texts: [
-    'Founded by creative director Souhir Fhima, SF Muse exists at the intersection of storytelling, luxury, hospitality, beauty, wellness, and contemporary culture.',
-    'SF Muse began with a simple belief: the most memorable brands are not built through visibility alone—they are remembered through feeling.',
-    'Years of experience across marketing, business strategy, and creative direction revealed that the strongest brands rarely compete on products alone.',
-    'Through creative direction, visual storytelling, and intelligent innovation, ideas are transformed into experiences that feel intentional, immersive, and enduring.',
-    'Today, SF Muse partners with boutique hotels, wellness destinations, beauty brands, editorial projects, and experience-led businesses seeking to create meaningful distinction through storytelling, design, and perception.',
+    'Founded by Souhir Fhima, the studio draws on experience in marketing and business strategy as well as creative direction, styling and visual collaboration. The combination defines our approach: imagination guided by clarity, with every aesthetic choice tied to a brand’s wider ambitions.',
+    'Our work connects visual campaigns, brand identity, digital design and marketing strategy. Each engagement starts with the audience, the opportunity and the outcome, then shapes a creative response that is individual, useful and true to the brand.',
   ],
   image: plate('founder', PORTRAIT, [2000, 2667], '(min-width: 1025px) 38vw, 92vw',
     'Souhir Fhima in a white tweed jacket, a veiled hat and round sunglasses, leaning against a column, in black and white.'),
   // Her supplied signature, refilled in bronze for the ivory ground (her own
   // strokes and edges; her champagne reads 1.8 : 1 on ivory). The name
   // line beneath it carries the meaning, so the image is decorative.
-  signature: plate('signature-ink', [640, 1010], [1010, 395], '(min-width: 1025px) 288px, 60vw', ''),
+  signature: plate('signature-ink', [640, 1010], [1010, 395], '(min-width: 1472px) 368px, (min-width: 960px) 25vw, 240px', ''),
   name: 'Souhir Fhima',
   role: 'Founder & Creative Director',
 };
 
-export const philosophy = {
-  label: 'The Philosophy',
-  statement: ['Luxury is more than appearance.', 'It is atmosphere, emotion, and experience.'],
-  texts: [
-    'SF Muse was created from the belief that modern luxury brands should feel immersive, timeless, and emotionally engaging across every visual and digital touchpoint.',
-    'We believe in creating stories that move beyond content — blending cinematic visuals, refined branding, intelligent marketing, and elevated digital experiences to shape how people feel, connect, and remember a brand.',
-  ],
-  // Never cropped: the client asked for the full figure, head to heels.
-  image: plate('philosophy', [480, 800, 1200, 1600, 2000, 2400], [2400, 3200], '(min-width: 1025px) 46vw, 100vw',
-    'A woman in a long fur coat leaning against a fluted stone column along a rain-wet colonnade.'),
-};
-
 export const way = {
-  // The doc writes "The SF Muse way"; the client's feedback sets it in title
-  // case, as every other section title (DECISION-LOG, 2026-10-09).
-  title: 'The SF Muse Way',
-  intro:
-    'At SF Muse, creativity is guided by intention, curiosity, refinement, and genuine human connection. Remarkable work is created through trust, thoughtful collaboration, and an unwavering attention to detail.',
+  title: 'Our approach — six stages',
+  intro: 'Every project follows a considered process, bringing creative vision and strategic thinking together from discovery to delivery.',
   principles: [
-    ['01', 'We Begin With Understanding', 'Every collaboration starts by listening. We seek to understand the people, the vision, and the emotions behind every brand.'],
-    ['02', 'Details Create Distinction', 'Luxury is created through hundreds of thoughtful decisions working together. Nothing is accidental.'],
-    ['03', 'Creativity With Purpose', 'Every visual, every experience, and every interaction should strengthen perception and support a meaningful objective.'],
-    ['04', 'Collaboration Is Part Of The Craft', 'The strongest ideas emerge through conversation. We value openness, trust, curiosity, and long-term partnerships.'],
-    ['05', 'Technology Should Feel Invisible', 'Artificial intelligence, automation, and digital tools are used thoughtfully to create better experiences—not more complicated ones.'],
-    ['06', 'We Build For Longevity', 'We create experiences intended to remain relevant long after they are launched.'],
-  ] as [num: string, title: string, text: string][],
+    ['01', 'Discovery', 'Understand the brand, audience, objectives and opportunity.'],
+    ['02', 'Creative Direction', 'Define the idea, visual language, message and experience.'],
+    ['03', 'Production', 'Bring the direction to life through appropriate specialist production and design.'],
+    ['04', 'Refinement', 'Review quality, consistency, usability and alignment with the brief.'],
+    ['05', 'Delivery', 'Launch or hand over agreed assets, designs and digital experiences.'],
+    ['06', 'Elevate', 'Review performance and explore ongoing creative or marketing support where useful.'],
+  ],
 };
 
 export const difference = {
   label: 'The SF Muse Difference',
   head: 'Designing What Cannot Be Seen',
+  statements: ['Many studios focus on visuals.', 'We focus on perception.'],
   lead: 'Every project begins with a simple question:',
   question: 'How should people feel?',
+  text: 'Because what makes a brand memorable goes beyond what people see. It lies in the emotions, associations and experiences that stay with them.',
+  image: {
+    ...plate('presence-quote', [800, 1200, 1600, 2400, 3000], [3000, 1621], '100vw',
+      'A monochrome portrait of a woman draping a jacket over her shoulder beside a studio light.'),
+    mobile: plate('presence-quote-mobile', [800, 1200], [1200, 1200], '100vw',
+      'A woman draping a jacket over her shoulder beside a studio light.'),
+  },
 };
 
-export const vision = {
-  title: 'The Vision',
-  statement:
-    'Our vision is to shape immersive experiences that connect emotion, aesthetics, and modern luxury — from boutique hospitality and beauty brands to curated travel experiences, editorial campaigns, and future lifestyle concepts.',
-};
+export type ValueIcon = 'target' | 'layers' | 'diamond' | 'people' | 'laptop' | 'infinity';
 
-/** The icon keys are the client's own set (the values mock-up the copy's note
- *  points to): king, heart, diamond, nib, star, column. */
-export type ValueIcon = 'king' | 'heart' | 'diamond' | 'nib' | 'star' | 'column';
-
-export const values = {
-  title: 'Our Values',
+export const guides = {
+  title: 'What guides our work',
   items: [
-    { icon: 'king', title: 'Strategic Elegance', text: ['Every detail is crafted with intention, precision, and refinement.'] },
-    { icon: 'heart', title: 'Emotional Intelligence', text: ['We create experiences that inspire feeling, connection, and desire.'] },
-    { icon: 'diamond', title: 'Timeless Aesthetics', text: ['SF Muse values elegance that transcends trends — refined, immersive, and enduring.'] },
-    { icon: 'nib', title: 'Elevated Experiences', text: ['From visuals to digital presence, every interaction should feel atmospheric, immersive, and carefully considered.'] },
-    { icon: 'star', title: 'Visionary Innovation', text: ['We blend creativity, storytelling, and intelligent digital strategy to shape the future of modern luxury experiences.'] },
-    // The copy breaks this one across two lines.
-    { icon: 'column', title: 'Authentic Presence', text: ['True luxury does not seek attention.', 'It carries quiet confidence, clarity, and identity.'] },
-  ] as { icon: ValueIcon; title: string; text: string[] }[],
+    { icon: 'target', title: 'Clarity before complexity.', text: 'We begin with the real objective.' },
+    { icon: 'layers', title: 'Creative direction with purpose.', text: 'Every choice should strengthen the brand story and experience.' },
+    { icon: 'diamond', title: 'Details matter.', text: 'Strong work is built through careful execution.' },
+    { icon: 'people', title: 'Collaboration is part of the craft.', text: 'We bring together appropriate skills for each project.' },
+    { icon: 'laptop', title: 'Human-led creativity.', text: 'Technology supports, rather than replaces, judgement.' },
+    { icon: 'infinity', title: 'Designed for longevity.', text: 'We favour coherent identity over short-lived trends.' },
+  ] satisfies { icon: ValueIcon; title: string; text: string }[],
 };
 
 export const closing = {
-  /** The second line keeps the closer's italic, as on the homepage. */
   head: ['Let’s Create Something', 'Worth Remembering'],
   texts: [
-    'Whether developing a hospitality destination, a wellness concept, an editorial campaign, or a refined digital experience, every memorable story begins with a clear vision.',
-    'SF Muse transforms ideas into experiences designed to inspire emotion, shape perception, and leave a lasting impression.',
+    'Whether developing a hospitality destination, a wellness concept, an editorial campaign or a refined digital experience, every memorable story begins with a clear vision.',
+    "Tell us what you're building and where you want to take it. Together, we'll explore how thoughtful creativity and strategic direction can bring that vision to life.",
   ],
-  cta: { label: 'Start a Conversation', href: '/contact' },
-  // Provisional (DECISION-LOG Q8): from the Contact delivery.
-  image: plate('closing', [800, 1200, 1600, 2000], [2000, 2500], '(min-width: 1025px) 40vw, 100vw',
-    'A black notebook embossed “SF Muse — Creative Intelligence” with a gold pen, on dark veined marble under a sprig of olive.'),
+  cta: { label: 'Start a Project', href: '/contact' },
+  image: {
+    ...plate('presence-cta', [800, 1200, 1600, 2400, 3000], [3000, 1500], '100vw',
+      'A fashion silhouette in a sculptural black hat and flowing black gown.'),
+    mobile: plate('presence-cta-mobile', [800, 1200], [1200, 1200], '100vw',
+      'A fashion silhouette in a sculptural black hat and flowing black gown.'),
+  },
 };

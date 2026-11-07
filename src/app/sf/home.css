@@ -25,10 +25,13 @@
    The About page (round 2, docs/plans/12-about-round-2.md §2.1) hangs its
    sections in the same rooms, so the grounds and roles are shared through
    :is(.sf-homepage, .sf-about) — same specificity and the same place in the
-   cascade as before, so the homepage renders exactly as it did. The section
-   padding stays the homepage's own; about.css sets About's.
+   cascade as before, so the homepage renders exactly as it did. Standard
+   section padding is shared; About's image sections keep their own.
    ======================================================================== */
-.sf-homepage .sf-room { padding-block: clamp(4.5rem, 9vw, 8.5rem); }
+.sf-homepage .sf-room,
+.sf-about :is(.sf-about-founder, .sf-about-way, .sf-about-guides) {
+  padding-block: clamp(4.5rem, 9vw, 8.5rem);
+}
 :is(.sf-homepage, .sf-about) .sf-room {
   background: var(--room-bg);
   color: var(--room-ink);
@@ -98,7 +101,8 @@
    ======================================================================== */
 .sf-homepage,
 .sf-footer { --t-label: .75rem; }
-.sf-homepage .sf-hp-head {
+.sf-homepage .sf-hp-head,
+.sf-about .sf-about-head {
   font-family: var(--font-display);
   font-weight: 500;
   font-size: var(--t-section);
@@ -106,6 +110,7 @@
   letter-spacing: -.025em;
   color: var(--room-ink);
   text-wrap: balance;
+  font-variation-settings: "opsz" 30;
 }
 .sf-homepage .sf-hp-line { display: block; }
 
@@ -503,13 +508,15 @@
   padding-block-start: clamp(1.5rem, 3vh, 2rem);
   border-top: 1px solid var(--room-rule);
 }
-.sf-homepage .sf-hp-founder__signature {
+.sf-homepage .sf-hp-founder__signature,
+.sf-about .sf-about-founder__signature {
   display: block;
   width: clamp(15rem, 25vw, 23rem);
   height: auto;
   margin-inline-start: -.75rem;   /* optical: the first stroke's own lead-in */
 }
-.sf-homepage .sf-hp-founder__name {
+.sf-homepage .sf-hp-founder__name,
+.sf-about .sf-about-founder__name {
   margin-block-start: .75rem;
   font-family: var(--font-display);
   font-weight: 500;
@@ -517,7 +524,8 @@
   line-height: 1.15;
   color: var(--room-ink);
 }
-.sf-homepage .sf-hp-founder__role {
+.sf-homepage .sf-hp-founder__role,
+.sf-about .sf-about-founder__role {
   margin-block-start: .375rem;
   font-family: var(--font-sans);
   font-size: var(--t-label);
@@ -987,10 +995,13 @@
       rgb(20 16 13 / 0) 82%);
   }
 }
-.sf-homepage .sf-close__title {
+.sf-homepage .sf-close__title,
+.sf-about .sf-about-close__title {
   font-weight: 500;
   font-size: clamp(2.5rem, 5.6vw, 6rem);
+  line-height: 1.02;
   max-width: 15ch;
+  font-variation-settings: "opsz" 30;
 }
 .sf-homepage .sf-close__title em { font-weight: 400; }
 .sf-homepage .sf-close__text { color: rgb(255 255 255 / .82); max-width: 32rem; }
@@ -1004,12 +1015,14 @@
   max-width: 36rem;
   border-block-start-color: rgb(205 177 144 / .35);
 }
-.sf-homepage .sf-close--image .sf-btn {
+.sf-homepage .sf-close--image .sf-btn,
+.sf-about .sf-about-close .sf-btn {
   background: var(--champagne);
   border-color: var(--champagne);
   color: var(--noir);
 }
-.sf-homepage .sf-close--image .sf-btn:is(:hover, :focus-visible) {
+.sf-homepage .sf-close--image .sf-btn:is(:hover, :focus-visible),
+.sf-about .sf-about-close .sf-btn:is(:hover, :focus-visible) {
   background: var(--bone);
   border-color: var(--bone);
   color: var(--noir);

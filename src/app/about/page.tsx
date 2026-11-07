@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import { HeaderSentinel } from '@/components/sf/PageTitle';
 import Picture from '@/components/sf/Picture';
@@ -9,7 +10,7 @@ import * as about from '@/content/about';
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'SF Muse exists at the intersection of creativity, strategy, and human connection, crafting brands and experiences designed to inspire, resonate, and endure.',
+    'Discover the perspective behind SF Muse: creative direction, visual campaigns, brand identity, digital design and marketing strategy guided by clarity.',
 };
 
 /** Hand-broken heading lines: one block per line, with a space between them
@@ -27,15 +28,8 @@ function Lines({ lines }: { lines: string[] }) {
   );
 }
 
-/**
- * More Than A Studio — the client's final About copy
- * (SF_Muse_Website_Copy_Shorter_Updated.docx, ABOUT PAGE), section for
- * section, in round 2's presentation (docs/plans/12-about-round-2.md): her
- * colour flow — charcoal, ivory, charcoal, ivory, deep brown, ivory, brown —
- * and a composition of its own for each section (about.css).
- */
 export default function AboutPage() {
-  const { hero, founder, philosophy, way, difference, vision, values, closing } = about;
+  const { hero, founder, way, difference, guides, closing } = about;
 
   return (
     <main id="main" className="sf-about">
@@ -46,6 +40,7 @@ export default function AboutPage() {
         </figure>
         <div className="sf-container">
           <div className="sf-about-hero__words">
+            <p className="sf-about-kicker">{hero.label}</p>
             <h1 className="sf-about-hero__title">
               <span className="sf-about-hero__lines">
                 <Lines lines={hero.lines} />
@@ -93,42 +88,15 @@ export default function AboutPage() {
               </Reveal>
               <Reveal className="sf-about-founder__sign" delay={180}>
                 <Picture plate={founder.signature} className="sf-about-founder__signature" />
-                <p className="sf-about-founder__name">
-                  <span className="sf-about-founder__who">{founder.name}</span>{' '}
-                  <span className="sf-about-founder__role">— {founder.role}</span>
-                </p>
+                <p className="sf-about-founder__name">{founder.name}</p>
+                <p className="sf-about-founder__role">{founder.role}</p>
               </Reveal>
             </div>
           </div>
         </div>
       </section>
 
-      {/* THE PHILOSOPHY — the colonnade, whole, bleeding off the LEFT edge
-          beside a charcoal panel. The homepage's "Explore Our Philosophy"
-          lands here. */}
-      <section className="sf-section sf-room sf-room--charcoal sf-about-philo" id="philosophy">
-        <Reveal as="figure" className="sf-about-philo__figure" curtain>
-          <Picture plate={philosophy.image} />
-        </Reveal>
-        <div className="sf-about-philo__panel">
-          <Reveal as="p" className="sf-about-kicker">
-            {philosophy.label}
-          </Reveal>
-          <Reveal as="h2" className="sf-about-philo__statement" delay={90}>
-            <span className="sf-about-line">{philosophy.statement[0]}</span>{' '}
-            <span className="sf-about-line sf-about-philo__second">{philosophy.statement[1]}</span>
-          </Reveal>
-          {philosophy.texts.map((t, i) => (
-            <Reveal as="p" className="sf-about-body" key={t.slice(0, 24)} delay={180 + i * 90}>
-              {t}
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* THE SF MUSE WAY — the heading and the creed on one baseline, then
-          the six principles, three by two, aligned row by row. */}
-      <section className="sf-section sf-room sf-room--ivory sf-about-way" id="the-sf-muse-way">
+      <section className="sf-section sf-room sf-room--charcoal sf-about-way" id="the-sf-muse-way">
         <div className="sf-container">
           <div className="sf-about-masthead">
             <Reveal as="h2" className="sf-about-head">
@@ -152,66 +120,40 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* THE SF MUSE DIFFERENCE — one compact, centred pause on deep brown. */}
-      <section className="sf-section sf-room sf-room--brown sf-about-diff">
-        <div className="sf-container sf-about-diff__inner">
-          <Reveal as="p" className="sf-about-kicker">
-            {difference.label}
-          </Reveal>
-          <Reveal as="h2" className="sf-about-diff__head" delay={90}>
-            {difference.head}
-          </Reveal>
-          <Reveal className="sf-about-diff__ask" delay={180}>
-            <p className="sf-about-diff__lead">{difference.lead}</p>
-            <p className="sf-about-diff__question">{difference.question}</p>
-          </Reveal>
+      <section className="sf-section sf-room sf-room--charcoal sf-about-diff" id="philosophy">
+        <figure className="sf-about-diff__figure"><Picture plate={difference.image} /></figure>
+        <div className="sf-container">
+          <div className="sf-about-diff__words">
+            <Reveal as="p" className="sf-about-kicker">{difference.label}</Reveal>
+            <Reveal as="h2" className="sf-about-head">{difference.head}</Reveal>
+            <Reveal className="sf-about-diff__statements">
+              {difference.statements.map((text) => <p className="sf-about-body" key={text}>{text}</p>)}
+            </Reveal>
+            <Reveal as="p" className="sf-about-body">{difference.lead}</Reveal>
+            <Reveal as="p" className="sf-about-diff__question">{difference.question}</Reveal>
+            <Reveal as="p" className="sf-about-body">{difference.text}</Reveal>
+          </div>
         </div>
       </section>
 
-      {/* THE VISION · OUR VALUES — one ivory room: the headings down a left
-          column, the sentence and the six values to their right. */}
-      <section className="sf-section sf-room sf-room--ivory sf-about-vision" aria-labelledby="the-vision">
-        <div className="sf-container sf-about-rail">
-          <Reveal as="h2" className="sf-about-head sf-about-rail__head">
-            <span id="the-vision">{vision.title}</span>
-          </Reveal>
-          <Reveal as="p" className="sf-about-vision__statement" delay={90}>
-            {vision.statement.split('—').map((part, i) => (
-              <span key={part.slice(0, 12)}>
-                {i > 0 && <span className="sf-about-dash">—</span>}
-                {part}
-              </span>
-            ))}
-          </Reveal>
-        </div>
-      </section>
-      <section className="sf-section sf-room sf-room--ivory sf-about-values" aria-labelledby="our-values">
-        <div className="sf-container sf-about-rail">
-          <Reveal as="h2" className="sf-about-head sf-about-rail__head">
-            <span id="our-values">{values.title}</span>
-          </Reveal>
-          <ul className="sf-about-values__grid">
-            {values.items.map((v, i) => (
-              <Reveal as="li" className="sf-about-values__item" key={v.title} delay={(i % 2) * 60}>
-                <ValueIcon name={v.icon} className="sf-about-values__icon" />
-                <h3 className="sf-about-cell-title">{v.title}</h3>
-                <p className="sf-about-cell-text">
-                  {v.text.map((line, j) => (
-                    <span key={line}>
-                      {j > 0 && <br />}
-                      {line}
-                    </span>
-                  ))}
-                </p>
-              </Reveal>
+      <section className="sf-section sf-room sf-room--ivory sf-about-guides" aria-labelledby="work-guides">
+        <div className="sf-container sf-about-guides__layout">
+          <h2 className="sf-about-head" id="work-guides">{guides.title}</h2>
+          <ul className="sf-about-guides__list">
+            {guides.items.map((guide, i) => (
+              <li className="sf-about-guides__item" key={guide.icon} style={{ '--guide-index': i } as CSSProperties}>
+                <ValueIcon name={guide.icon} className="sf-about-guides__icon" />
+                <div className="sf-about-guides__copy">
+                  <h3 className="sf-about-cell-title">{guide.title}</h3>
+                  <p className="sf-about-cell-text">{guide.text}</p>
+                </div>
+              </li>
             ))}
           </ul>
         </div>
       </section>
 
-      {/* CLOSING — the invitation on deep brown, the notebook and pen hung
-          beside it, bleeding off the right edge. */}
-      <section className="sf-section sf-room sf-room--brown sf-about-close" aria-labelledby="about-close">
+      <section className="sf-section sf-room sf-room--charcoal sf-about-close" aria-labelledby="about-close">
         <div className="sf-container">
           <div className="sf-about-close__words">
             <Reveal as="h2" className="sf-about-close__title">

@@ -1,26 +1,14 @@
 import type { ValueIcon as Key } from '@/content/about';
 
-/**
- * ValueIcon — the client's values set, redrawn as single-weight line icons
- * (the copy's note: "use the same icons for values section", pointing at the
- * values mock-up): a chess king, a heart, a cut diamond, a pen nib, a
- * four-point star and a column. Drawn on a 48 grid in currentColor at one
- * hairline-heavy stroke, so the room's accent tints them. Decorative — the
- * value's title carries the meaning.
- */
+/** Decorative line icons; the adjacent title carries the meaning. */
 const PATHS: Record<Key, React.ReactNode> = {
-  king: (
+  target: (
     <>
-      <path d="M24 4.5v5M21.5 7h5" />
-      <circle cx="24" cy="14.5" r="4.25" />
-      <path d="M18.5 21h11" />
-      <path d="M20.5 21c0 6.5-.9 12.4-3 17.5h13c-2.1-5.1-3-11-3-17.5" />
-      <path d="M15.5 38.5h17v4h-17z" />
+      <circle cx="22" cy="26" r="17" /><circle cx="22" cy="26" r="11" /><circle cx="22" cy="26" r="4" />
+      <path d="m22 26 19-19m-7 0V3l-5 5v7h7l5-5h-4" />
     </>
   ),
-  heart: (
-    <path d="M24 40C13.5 32.6 8.5 26.4 8.5 19.6a7.6 7.6 0 0 1 15.5-2.9 7.6 7.6 0 0 1 15.5 2.9C39.5 26.4 34.5 32.6 24 40z" />
-  ),
+  layers: <path d="m24 5 20 11-20 11L4 16Zm-20 20 20 11 20-11M4 34l20 11 20-11" />,
   diamond: (
     <>
       <path d="M16 10h16l6.5 8.5L24 40 9.5 18.5z" />
@@ -29,30 +17,15 @@ const PATHS: Record<Key, React.ReactNode> = {
       <path d="M20 18.5 24 40l4-21.5" />
     </>
   ),
-  nib: (
-    <g transform="rotate(38 24 24)">
-      <path d="M24 42.5 15.5 27.5c0-6 3.5-10.5 3.5-17.5h10c0 7 3.5 11.5 3.5 17.5z" />
-      <path d="M24 42.5V27" />
-      <circle cx="24" cy="24.5" r="2.25" />
-      <path d="M18.5 6h11v4h-11z" />
-    </g>
-  ),
-  // The mock-up's faceted four-point star: straight flanks, each point split
-  // down its spine. Drawn inside 32 units, so it no longer outsizes the set.
-  star: (
+  people: (
     <>
-      <path d="M24 8l2.9 13.1L40 24l-13.1 2.9L24 40l-2.9-13.1L8 24l13.1-2.9z" />
-      <path d="M24 8v32M8 24h32" />
+      <circle cx="24" cy="12" r="6" /><circle cx="10" cy="17" r="4" /><circle cx="38" cy="17" r="4" />
+      <path d="M13 43V32a11 11 0 0 1 22 0v11M3 42v-9a7 7 0 0 1 10-6m22 0a7 7 0 0 1 10 6v9" />
     </>
   ),
-  column: (
-    <>
-      <path d="M10.5 8.5h27" />
-      <path d="M12.5 8.5c0 3.4 2.3 5.5 5.5 5.5h12c3.2 0 5.5-2.1 5.5-5.5" />
-      <path d="M17 14v24.5M31 14v24.5M21.7 14v24.5M26.3 14v24.5" />
-      <path d="M15 38.5h18M12 42.5h24M15 38.5l-3 4M33 38.5l3 4" />
-    </>
-  ),
+  laptop: <path d="M7 9h34v25H7Zm0 25-4 5v2h42v-2l-4-5M19 38h10" />,
+  infinity: <path d="M24 24C17 13 5 11 3 21c-3 15 11 19 21 3s25-12 21 0c-3 13-14 12-21 0Z" />,
+
 };
 
 export default function ValueIcon({ name, className }: { name: Key; className?: string }) {

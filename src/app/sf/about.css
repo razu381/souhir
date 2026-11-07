@@ -1,36 +1,11 @@
-/* ===========================================================================
-   ABOUT — "More Than A Studio", round 2 (client feedback, Oct 2026)
-   src/app/about/page.tsx · plan: docs/plans/12-about-round-2.md.
-
-   The client's colour flow, on the homepage's round-2 rooms (the grounds and
-   their colour roles — --room-ink / -body / -accent / -rule — are shared from
-   home.css §1 through :is(.sf-homepage, .sf-about)):
-
-     Hero (charcoal) · Founder Story (ivory) · Philosophy (charcoal) ·
-     The SF Muse Way (ivory) · Difference (brown) · Vision + Values (ivory) ·
-     Closing (brown, with a photo panel) · (footer)
-
-   Each section has its own composition, and none of them opens on the
-   numbered chapter rule (her point 9). The type voices are the homepage's
-   (DESIGN-DIRECTION §02 addendum), on the same tokens; italics appear three
-   times — the hero's second voice, the question, the closer.
-
-   Everything is scoped to .sf-about / .sf-about-*: this file is global.
-   ======================================================================== */
-
+/* About — client revision, November 2026. All rules stay scoped to About. */
 .sf-about {
-  /* The fixed header's own box (components.css .sf-header) plus a breath. */
-  --about-header: calc(clamp(1.5rem, 3vh, 2.25rem) * 2 + .6875rem + .75rem);
-  --about-pad: clamp(4.5rem, 9vw, 8.5rem);
+  --about-pad: clamp(3rem, 6vw, 5.5rem);
+  --t-label: .75rem;
 }
-
-/* Anchors (#philosophy is the homepage's "Explore Our Philosophy") land a
-   hair under the fixed header — see services.css. */
-.sf-about [id] { scroll-margin-top: 3.75rem; }
-
-/* --- The voices -------------------------------------------------------------- */
+.sf-about .sf-room { padding-block: var(--about-pad); }
+.sf-about [id] { scroll-margin-top: 5rem; }
 .sf-about-line { display: block; }
-
 .sf-about-kicker {
   margin: 0;
   font-family: var(--font-sans);
@@ -41,193 +16,84 @@
   text-transform: uppercase;
   color: var(--room-accent);
 }
-
-.sf-about-head {
+.sf-about-hero__title, .sf-about-close__title {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 500;
   font-size: var(--t-section);
-  line-height: 1.02;
+  line-height: 1.05;
   letter-spacing: -.025em;
   color: var(--room-ink);
   text-wrap: balance;
+  font-variation-settings: "opsz" 30;
 }
-.sf-about-kicker + .sf-about-head { margin-block-start: 1.25rem; }
-
-.sf-about-subhead {
+.sf-about-kicker + :is(.sf-about-head, .sf-about-hero__title) { margin-top: 1.5rem; }
+.sf-about-body, .sf-about-cell-text, .sf-about-way__intro {
   margin: 0;
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: var(--t-h3);
-  line-height: 1.2;
-  letter-spacing: -.01em;
-  color: var(--room-ink);
-}
-
-.sf-about-body {
-  margin: 0;
-  max-width: 34rem;
+  max-width: 32rem;
   font-family: var(--font-sans);
-  font-size: var(--t-body);
+  font-size: clamp(1rem, 1.15vw, 1.0625rem);
   line-height: 1.65;
   color: var(--room-body);
   text-wrap: pretty;
 }
-.sf-about-body + .sf-about-body { margin-block-start: 1em; }
-
-/* The cells of the two grids (the principles, the values). */
-.sf-about-cell-title {
+.sf-about-body + .sf-about-body { margin-top: 1em; }
+.sf-about-subhead, .sf-about-cell-title {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 500;
   font-size: var(--t-card);
-  line-height: 1.15;
-  letter-spacing: -.015em;
+  font-weight: 500;
+  line-height: 1.2;
   color: var(--room-ink);
   text-wrap: balance;
 }
-.sf-about-cell-text {
-  margin: 0;
-  max-width: 24rem;
-  font-family: var(--font-sans);
-  font-size: clamp(.9375rem, 1vw, 1.0625rem);
-  line-height: 1.6;
-  color: var(--room-body);
-  text-wrap: pretty;
-}
-
-/* "Slightly stronger serif strokes" (her point 9). Bodoni Moda's optical
-   size follows the font size, so at display sizes its hairlines thin to
-   threads — the right arms of W and V all but vanish ("W ay", "V ision").
-   The display lines are set at a text-leaning optical size instead, which
-   gives the hairlines body without leaving the face. */
-.sf-about :is(.sf-about-head, .sf-about-hero__title, .sf-about-philo__statement,
-  .sf-about-close__title, .sf-about-diff__question) {
-  font-variation-settings: "opsz" 30;
-}
-
-/* Bodoni Moda draws its dashes as sub-pixel hairlines at display sizes: a
-   stroke in the text's own colour gives the Vision's dash a pen's width. */
-.sf-about-dash { -webkit-text-stroke: 1px currentColor; }
-
-
-/* --- The hero -----------------------------------------------------------------
-   The studio fills the frame. Its shadowed left wall holds the words;
-   a stronger handset scrim keeps them legible over the portrait crop. */
-.sf-about .sf-about-hero {
+.sf-about-cell-title + .sf-about-cell-text { margin-top: .5rem; }
+.sf-about .sf-about-hero, .sf-about .sf-about-diff, .sf-about .sf-about-close {
   isolation: isolate;
+  position: relative;
   overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  min-height: clamp(40rem, 100svh, 68rem);
-  padding-block: 0;
+  background: var(--noir);
 }
-
-.sf-about-hero__figure {
+.sf-about-hero__figure, .sf-about-diff__figure, .sf-about-close__figure {
   position: absolute;
   inset: 0;
   z-index: -2;
   margin: 0;
 }
-.sf-about-hero__figure img {
+:is(.sf-about-hero__figure, .sf-about-diff__figure, .sf-about-close__figure) img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 50%;
 }
-.sf-about-hero::before {
+.sf-about-hero::before, .sf-about-diff::before, .sf-about-close::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: linear-gradient(to right, rgb(10 10 10 / .55), rgb(10 10 10 / .15) 52%, transparent 75%);
+  background: linear-gradient(90deg, rgb(10 10 10 / .92), rgb(10 10 10 / .72) 40%, transparent 75%);
 }
-.sf-about-hero .sf-container {
-  position: relative;
-  padding-block: calc(var(--about-header) + 2.5rem) clamp(3.5rem, 9vh, 6rem);
+.sf-about .sf-about-hero {
+  display: flex;
+  align-items: center;
+  min-height: min(64rem, 100svh);
+  padding-block: clamp(10rem, 20vh, 14rem) clamp(4rem, 8vh, 7rem);
 }
-.sf-about-hero__words { max-width: 32rem; }
-@media (max-width: 1024px) {
-  .sf-about-hero::before {
-    background: linear-gradient(to right, rgb(10 10 10 / .8), rgb(10 10 10 / .45));
-  }
-}
-
-@media (min-width: 1025px) {
-  .sf-about .sf-about-hero {
-    --split: .46;
-  }
-  .sf-about-hero__words {
-    width: calc(100% * var(--split) - clamp(2.5rem, 4vw, 4.5rem));
-  }
-}
-@media (min-width: 1280px) {
-  .sf-about .sf-about-hero { --split: .42; }
-}
-
-.sf-about-hero__title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 500;
-  color: var(--room-ink);
-}
-.sf-about-hero__words { container-type: inline-size; }
-/* Sized from the words' own column (cqi), not the viewport, so the two
-   hand-set lines always fit it: "More Than" runs ~4.8em at this optical
-   size. */
-.sf-about-hero__lines {
-  display: block;
-  font-size: clamp(2.75rem, 14cqi, 4.5rem);
-  line-height: .95;
-  letter-spacing: -.03em;
-  white-space: nowrap;
-}
-@media (min-width: 1025px) {
-  .sf-about-hero__lines { font-size: clamp(3rem, 20cqi, 6.75rem); }
-}
+.sf-about-hero__words { max-width: 36rem; width: 48%; }
+.sf-about-hero__title { font-size: clamp(2.75rem, 4.4vw, 5rem); }
 .sf-about-hero__voice {
   display: block;
-  margin-block-start: clamp(1rem, 2.5svh, 1.75rem);
-  font-style: italic;
+  margin-top: .5rem;
+  color: var(--champagne);
   font-weight: 400;
-  font-size: clamp(1.625rem, 2.9vw, 2.75rem);
-  line-height: 1.1;
-  letter-spacing: -.01em;
-  color: var(--room-accent);
 }
 .sf-about-hero__lead {
-  margin: clamp(1.75rem, 4svh, 2.75rem) 0 0;
-  max-width: 32rem;
-  font-family: var(--font-display);
-  font-weight: 500;
+  margin: 2rem 0 1rem;
+  font-family: var(--font-sans);
   font-size: var(--t-lead);
-  line-height: 1.35;
-  letter-spacing: -.005em;
-  color: var(--room-ink);
+  line-height: 1.5;
 }
-.sf-about-hero .sf-about-body { max-width: 32rem; }
-.sf-about-hero__lead + .sf-about-body { margin-block-start: 1.125rem; }
-
-/* The words rise on load. Gated on .sf-js — no script, no hidden state. */
-@keyframes sf-about-rise {
-  from { opacity: 0; transform: translateY(1.25rem); }
-}
-.sf-js .sf-about-hero__words { animation: sf-about-rise var(--dur-hero) var(--ease) both; }
-@media (prefers-reduced-motion: reduce) {
-  .sf-about-hero__words { animation: none !important; }
-}
-
-
-/* --- Founder Story (ivory) ---------------------------------------------------------
-   Her point 2: the story ran far below the portrait. The headline now spans
-   the top; beneath it the portrait and the story share one row and one
-   height — the portrait fills the row (cover, on her face), the signature
-   block sits on the row's foot — so the two end on the same line by
-   construction, not by a sticky photograph. */
-.sf-about .sf-about-founder { padding-block: var(--about-pad); }
-
 .sf-about-founder__grid {
   display: grid;
   row-gap: clamp(2.25rem, 5vh, 3rem);
@@ -282,344 +148,98 @@
   margin-block-start: auto;
   padding-block-start: clamp(2rem, 4.5vh, 2.75rem);
 }
-.sf-about-founder__signature {
-  display: block;
-  width: clamp(13rem, 20vw, 18rem);
-  height: auto;
-  margin-inline-start: -.5rem;   /* optical: the first stroke's own lead-in */
-}
-.sf-about-founder__name {
-  margin: .5rem 0 0;
-  line-height: 1.4;
-}
-.sf-about-founder__who {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(1.25rem, 1.5vw, 1.5rem);
-  letter-spacing: -.01em;
-  color: var(--room-ink);
-}
-.sf-about-founder__role {
-  font-family: var(--font-sans);
-  font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-  color: var(--room-accent);
-  white-space: nowrap;
-}
 
 
-/* --- The Philosophy (charcoal) ----------------------------------------------------
-   Her point 3: it repeated the hero's text-left, portrait-right. The
-   colonnade now bleeds off the LEFT edge at its own 3:4, never cropped —
-   head to heels, in its colour — and the statement reads on a charcoal
-   panel beside it. The frame is as tall as the viewport allows, so the
-   whole figure is seen at once. */
-.sf-about .sf-about-philo { padding-block: 0; display: grid; }
-
-.sf-about-philo__figure { margin: 0; }
-.sf-about-philo__figure img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-}
-.sf-about-philo__panel {
-  padding: clamp(3rem, 9vw, 4.5rem) var(--gutter) clamp(4rem, 12vw, 6rem);
-}
-/* Stacked on tablets, the whole figure still fits one screen: the frame
-   narrows instead of cropping. */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .sf-about-philo__figure { width: min(100%, 80svh * .75); }
-}
-@media (min-width: 1025px) {
-  .sf-about .sf-about-philo {
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: center;
-  }
-  .sf-about-philo__figure {
-    height: min(61vw, 100svh, 68rem);
-    aspect-ratio: 3 / 4;
-  }
-  .sf-about-philo__figure .sf-curtain-frame { height: 100%; }
-  .sf-about-philo__figure img { height: 100%; }
-  .sf-about-philo__panel {
-    max-width: calc(40rem + clamp(3rem, 6vw, 7rem) + var(--gutter));
-    padding-block: clamp(4rem, 8vh, 6rem);
-    padding-inline: clamp(3rem, 6vw, 7rem) var(--gutter);
-  }
-}
-
-.sf-about-philo__statement {
-  margin: 1.25rem 0 0;
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(2.125rem, 3.6vw, 4rem);
-  line-height: 1.08;
-  letter-spacing: -.02em;
-  color: var(--room-ink);
-  text-wrap: balance;
-}
-/* The second beat in the room's accent — roman, not italic. */
-.sf-about-philo__second { color: var(--room-accent); }
-.sf-about-philo__statement + .sf-about-body { margin-block-start: var(--gap-block); }
-
-
-/* --- The SF Muse Way (ivory) --------------------------------------------------------
-   Her point 4: the heading is visible, the creed comes down to a lead on
-   the heading's baseline, and the grid follows close. The six principles
-   hang three by two; each cell spans three rows of the grid (subgrid), so
-   numerals, titles and texts start on one line across a row even where a
-   title wraps. */
-.sf-about .sf-about-way { padding-block: var(--about-pad); }
-
+/* Six stages: a sequence, with open space and fine rules. */
 .sf-about-masthead {
   display: grid;
-  row-gap: 1.25rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: end;
 }
-@media (min-width: 1025px) {
-  .sf-about-masthead {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    column-gap: clamp(3rem, 6vw, 6rem);
-    align-items: end;
-  }
-}
-.sf-about-way__intro {
-  margin: 0;
-  max-width: 34rem;
-  font-family: var(--font-sans);
-  font-size: clamp(1.125rem, 1.45vw, 1.375rem);
-  line-height: 1.55;
-  letter-spacing: -.005em;
-  color: var(--room-body);
-  text-wrap: pretty;
-}
-
 .sf-about-way__list {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  row-gap: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3rem clamp(2rem, 4vw, 4rem);
   margin: clamp(3rem, 6vw, 5rem) 0 0;
   padding: 0;
   list-style: none;
 }
-@media (min-width: 768px) {
-  .sf-about-way__list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: clamp(2rem, 4vw, 4rem);
-  }
-}
-@media (min-width: 1025px) {
-  .sf-about-way__list {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    column-gap: clamp(2.5rem, 4.5vw, 5rem);
-  }
-}
-.sf-about-way__item {
-  display: grid;
-  grid-row: span 3;
-  grid-template-rows: subgrid;
-  align-content: start;
-  border-top: 1px solid var(--room-rule);
-  padding-block: clamp(1.5rem, 3vh, 2rem) clamp(2.25rem, 5vh, 3.25rem);
-}
-/* Upright, at the face's text optical size: Bodoni's display 4 is a
-   hairline diagonal — "04" read as "01" at display sizes. */
+.sf-about-way__item { border-top: 1px solid var(--room-rule); padding-top: 1.5rem; }
 .sf-about-way__num {
   display: block;
-  margin-block-end: clamp(1rem, 2.5vh, 1.5rem);
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-variation-settings: "opsz" 11;
-  font-size: clamp(1.25rem, 1.5vw, 1.5rem);
-  line-height: 1;
-  color: var(--room-accent);
-}
-.sf-about-way__item .sf-about-cell-title { margin-block-end: .75rem; }
-
-
-/* --- The SF Muse Difference (deep brown) --------------------------------------------
-   Her point 5: "a strong focal point" whose size overwhelmed the section. A
-   compact, centred pause — the page's only centred block — with the
-   supporting heading set clearly secondary and the question at half its
-   old size, in ivory; champagne only for the label and one short rule. */
-.sf-about .sf-about-diff { padding-block: clamp(4rem, 8vw, 6.5rem); }
-
-.sf-about-diff__inner {
-  max-width: calc(46rem + 2 * var(--gutter));
-  text-align: center;
-}
-.sf-about-diff__head {
-  margin: 1.25rem auto 0;
-  max-width: 30rem;
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: var(--t-h3);
-  line-height: 1.2;
-  letter-spacing: -.01em;
-  color: var(--room-body);
-  text-wrap: balance;
-}
-.sf-about-diff__ask::before {
-  content: "";
-  display: block;
-  width: 2.5rem;
-  height: 1px;
-  margin: clamp(1.75rem, 4vh, 2.5rem) auto;
-  background: var(--room-accent);
-}
-.sf-about-diff__lead {
-  margin: 0;
+  margin-bottom: 1.75rem;
   font-family: var(--font-sans);
-  font-size: var(--t-body);
-  line-height: 1.6;
-  color: var(--room-body);
+  font-size: var(--t-label);
+  letter-spacing: var(--track-label);
+  color: var(--room-accent);
 }
+.sf-about-diff__words { max-width: 32rem; width: 46%; }
+.sf-about-diff__statements { margin-block: 2rem; }
+.sf-about-diff__statements .sf-about-body + .sf-about-body { margin-top: 0; color: var(--room-ink); }
 .sf-about-diff__question {
-  margin: .75rem 0 0;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(2.25rem, 4.2vw, 4.25rem);
-  line-height: 1.05;
-  letter-spacing: -.02em;
-  color: var(--room-ink);
-  text-wrap: balance;
+  margin: 1rem 0 1.75rem;
+  color: var(--champagne);
+  font: italic 400 clamp(2rem, 3.5vw, 3.5rem)/1.15 var(--font-display);
+  font-variation-settings: "opsz" 30;
 }
-
-
-/* --- The Vision · Our Values (ivory, one room) ---------------------------------------
-   Her points 6 and 7, after her own mock-up: one light room whose two
-   headings share a left column, the sentence and the six values to their
-   right. The Vision is plain text at a reading size — the old scroll-linked
-   word reveal left its unread words at 30% ink. The values hang two by
-   three, icon at the left hand (the mock-up's arrangement); each cell spans
-   two rows of the grid, so titles and texts line up across a row. */
-.sf-about .sf-about-vision { padding-block: var(--about-pad) clamp(3rem, 6vw, 5rem); }
-.sf-about .sf-about-values { padding-block: clamp(3rem, 6vw, 5rem) var(--about-pad); }
-
-.sf-about-rail {
-  display: grid;
-  row-gap: var(--gap-block);
-}
-@media (min-width: 1025px) {
-  .sf-about-rail {
-    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-    column-gap: clamp(3rem, 6vw, 6rem);
-    align-items: start;
-  }
-}
-
-.sf-about-vision__statement {
-  margin: 0;
-  max-width: 40rem;
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(1.375rem, 2vw, 2rem);
-  line-height: 1.42;
-  letter-spacing: -.005em;
-  color: var(--room-ink);
-  text-wrap: pretty;
-}
-@media (min-width: 1025px) {
-  /* The sentence's first line sits on the heading's cap height. */
-  .sf-about-vision__statement { padding-block-start: .35em; }
-}
-
-.sf-about-values__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  row-gap: 0;
-  column-gap: clamp(2rem, 4vw, 4rem);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
+/* The client's reference: one continuous column of icon-led principles. */
+.sf-about-guides__layout { display: grid; grid-template-columns: 4fr 7fr; gap: clamp(3rem, 7vw, 7rem); }
+.sf-about-guides__list { list-style: none; margin: 0; padding: 0; }
+.sf-about-guides__item { display: flex; gap: 1.5rem; padding-block: 1.75rem; border-bottom: 1px solid var(--room-rule); }
+.sf-about-guides__item:first-child { padding-top: 0; }
+.sf-about-guides__item:last-child { padding-bottom: 0; border-bottom: 0; }
+.sf-about-guides__icon { flex: 0 0 3rem; color: var(--room-accent); }
+.sf-about-guides__copy { border-left: 1px solid var(--room-accent); padding-left: 1.5rem; }
+.sf-about-guides__copy .sf-about-cell-text { max-width: 36rem; }
+.sf-about-close__words { max-width: 35rem; width: 47%; }
+.sf-about-close__title em { color: var(--champagne); font-weight: 400; }
+.sf-about-close__text { margin-block: 2rem; }
+.sf-about-close__figure .sf-curtain-frame { height: 100%; }
 @media (min-width: 768px) {
-  .sf-about-values__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sf-about-close__figure img { object-fit: contain; object-position: right bottom; }
 }
-.sf-about-values__item {
-  display: grid;
-  grid-row: span 2;
-  grid-template-rows: subgrid;
-  grid-template-columns: 2.75rem minmax(0, 1fr);
-  column-gap: 1.25rem;
-  padding-block: 0 clamp(2rem, 5vh, 3rem);
+@media (max-width: 1024px) {
+  .sf-about-hero__words { width: 65%; }
+  .sf-about-hero::before { background: linear-gradient(90deg, rgb(10 10 10 / .92), rgb(10 10 10 / .65) 60%, rgb(10 10 10 / .15)); }
+  .sf-about-way__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sf-about-guides__layout { grid-template-columns: 1fr; }
+  .sf-about-diff__words, .sf-about-close__words { width: 55%; }
 }
-.sf-about-values__icon {
-  grid-column: 1;
-  grid-row: 1 / span 2;
-  width: 2.75rem;
-  height: 2.75rem;
-  color: var(--room-accent);
-}
-.sf-about-values__item .sf-about-cell-title {
-  grid-column: 2;
-  align-self: start;
-  margin-block-start: .375rem;   /* optical: onto the icon's shoulder */
-}
-.sf-about-values__item .sf-about-cell-text {
-  grid-column: 2;
-  margin-block-start: .625rem;
+@media (max-width: 767px) {
+  .sf-about .sf-about-hero { flex-direction: column; min-height: auto; padding-block: 9rem 0; }
+  .sf-about-hero__words, .sf-about-diff__words, .sf-about-close__words { width: 100%; max-width: none; }
+  .sf-about-hero__figure, .sf-about-diff__figure, .sf-about-close__figure { position: relative; inset: auto; z-index: auto; }
+  .sf-about-hero__figure { order: 1; width: 100%; margin-top: 3rem; }
+  .sf-about-hero__figure img { height: auto; }
+  .sf-about-hero::before, .sf-about-diff::before, .sf-about-close::before { display: none; }
+  .sf-about-masthead, .sf-about-way__list { grid-template-columns: 1fr; gap: 2rem; }
+  .sf-about-way__num { margin-bottom: 1rem; }
+  .sf-about .sf-about-diff, .sf-about .sf-about-close { display: flex; flex-direction: column; padding-bottom: 0; }
+  .sf-about-diff__figure { order: 1; margin-top: 3rem; }
+  .sf-about-close__figure { margin-top: 3rem; }
+  .sf-about-diff__figure img, .sf-about-close__figure img { height: auto; }
+  .sf-about-guides__item { gap: 1rem; }
+  .sf-about-guides__copy { padding-left: 1rem; }
 }
 
-
-/* --- The closing invitation (deep brown) -------------------------------------------
-   Her point 8: the heading came down to the section scale, the button sits
-   right under the words, the section is shorter than the hero — and the
-   notebook and pen hang beside it, bleeding off the right edge, for a
-   finish no other section has. Handsets: the words, then the photograph. */
-.sf-about .sf-about-close { padding-block: 0; }
-.sf-about-close .sf-container { padding-block: clamp(4.5rem, 12vw, 6.5rem); }
-
-.sf-about-close__figure { margin: 0; }
-.sf-about-close__figure img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-}
-@media (min-width: 768px) and (max-width: 1024px) {
-  .sf-about-close__figure img { aspect-ratio: 1; }
-}
-@media (min-width: 1025px) {
-  .sf-about .sf-about-close {
-    --close-h: clamp(32rem, 78svh, 46rem);
-    display: flex;
-    align-items: center;
-    min-height: var(--close-h);
+/* Native sticky sheets keep the scroll reversible without a pinned timeline. */
+@media (prefers-reduced-motion: no-preference) and (min-height: 600px) {
+  .sf-about-guides__list { padding-bottom: 12svh; }
+  .sf-about-guides__item {
+    position: sticky;
+    top: calc(6rem + var(--guide-index) * .75rem);
+    min-height: 10rem;
+    margin-bottom: clamp(1rem, 3svh, 2rem);
+    padding: 2rem 1rem;
+    border-top: 1px solid var(--room-rule);
+    border-bottom: 0;
+    background: var(--room-bg);
+    align-items: flex-start;
   }
-  .sf-about-close__figure {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    aspect-ratio: 4 / 5;
-  }
-  .sf-about-close__figure .sf-curtain-frame { height: 100%; }
-  .sf-about-close__figure img { height: 100%; }
-  .sf-about-close__words {
-    max-width: min(34rem, calc(100vw - var(--close-h) * .8 - var(--gutter) - clamp(3rem, 6vw, 6rem)));
-  }
+  .sf-about-guides__item:first-child { padding-top: 2rem; }
+  .sf-about-guides__item:last-child { margin-bottom: 0; padding-bottom: 2rem; }
 }
-
-.sf-about-close__title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(2.125rem, 3.4vw, 3.75rem);
-  line-height: 1.06;
-  letter-spacing: -.02em;
-  color: var(--room-ink);
-  text-wrap: balance;
+@media (prefers-reduced-motion: no-preference) and (min-height: 600px) and (min-width: 1025px) {
+  .sf-about-guides__layout > .sf-about-head { position: sticky; top: 6rem; align-self: start; }
 }
-.sf-about-close__title em {
-  font-style: italic;
-  font-weight: 400;
-  color: var(--room-accent);
-}
-.sf-about-close__text { margin-block-start: var(--gap-block); }
-.sf-about-close__action { margin-block-start: clamp(1.75rem, 3.5vw, 2.5rem); }
